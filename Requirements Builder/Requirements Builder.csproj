@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <RootNamespace>Requirements_Builder</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BlowerControl.cs" />
+    <Compile Remove="BlowerControl.Designer.cs" />
+    <Compile Remove="ControlExtensions.cs" />
+    <Compile Remove="CountInformation.cs" />
+    <Compile Remove="CountStatusListBox.cs" />
+    <Compile Remove="CountStatusListBox.Designer.cs" />
+    <Compile Remove="DamperDoorControl.cs" />
+    <Compile Remove="DamperDoorControl.Designer.cs" />
+    <Compile Remove="DynamicMethodAdapter.cs" />
+    <Compile Remove="EmptyTextComboBox.cs" />
+    <Compile Remove="ListViewFlickerFree.cs" />
+    <Compile Remove="MethodTester.cs" />
+    <Compile Remove="MethodTester.Designer.cs" />
+    <Compile Remove="ObjectMethodTester.cs" />
+    <Compile Remove="ObjectMethodTester.Designer.cs" />
+    <Compile Remove="ObjectTester.cs" />
+    <Compile Remove="ObjectTester.Designer.cs" />
+    <Compile Remove="QuickReflectForm.cs" />
+    <Compile Remove="QuickReflectForm.Designer.cs" />
+    <Compile Remove="ReflectionTreeBuilder.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="BlowerControl.resx" />
+    <EmbeddedResource Remove="CountStatusListBox.resx" />
+    <EmbeddedResource Remove="DamperDoorControl.resx" />
+    <EmbeddedResource Remove="MethodTester.resx" />
+    <EmbeddedResource Remove="ObjectMethodTester.resx" />
+    <EmbeddedResource Remove="ObjectTester.resx" />
+    <EmbeddedResource Remove="QuickReflectForm.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TestValidation\TestValidation.csproj" />
+  </ItemGroup>
+
+</Project>
