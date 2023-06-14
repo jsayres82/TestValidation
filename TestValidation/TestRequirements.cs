@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace TestValidation.Requirements
+namespace TestValidation.Limits
 {    public class TestRequirements
     {
         [XmlElement("TestRequirement")]

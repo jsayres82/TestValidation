@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Xml.Serialization;
-using static TestValidation.Requirements.Units.UnitConverter;
+using static TestValidation.Limits.Units.UnitConverter;
 
-namespace TestValidation.Requirements.Limits
+namespace TestValidation.Limits.Validators
 {
     [Serializable]
-    public abstract class GenericLimit<T>
+    public abstract class GenericValidator<T>
     {
         [XmlElement("Value")]
         public T Value { get; set; }
@@ -16,11 +16,11 @@ namespace TestValidation.Requirements.Limits
         [XmlElement("Prefix")]
         public Prefix Prefix { get; set; }
 
-        protected GenericLimit()
+        protected GenericValidator()
         {
         }
 
-        protected GenericLimit(T value, Unit unit, Prefix prefix)
+        protected GenericValidator(T value, Unit unit, Prefix prefix)
         {
             Value = value;
             Unit = unit;
@@ -36,13 +36,13 @@ namespace TestValidation.Requirements.Limits
     }
 
     [Serializable]
-    public class GreaterThanLimit<T> : GenericLimit<T> where T : IComparable<T>
+    public class GreaterThanValidator<T> : GenericValidator<T> where T : IComparable<T>
     {
-        public GreaterThanLimit()
+        public GreaterThanValidator()
         {
         }
 
-        public GreaterThanLimit(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public GreaterThanValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
         {
         }
 
@@ -53,13 +53,13 @@ namespace TestValidation.Requirements.Limits
     }
 
     [Serializable]
-    public class GreaterThanOrEqualLimit<T> : GenericLimit<T> where T : IComparable<T>
+    public class GreaterThanOrEqualValidator<T> : GenericValidator<T> where T : IComparable<T>
     {
-        public GreaterThanOrEqualLimit()
+        public GreaterThanOrEqualValidator()
         {
         }
 
-        public GreaterThanOrEqualLimit(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public GreaterThanOrEqualValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
         {
         }
 
@@ -70,13 +70,13 @@ namespace TestValidation.Requirements.Limits
     }
 
     [Serializable]
-    public class LessThanLimit<T> : GenericLimit<T> where T : IComparable<T>
+    public class LessThanValidator<T> : GenericValidator<T> where T : IComparable<T>
     {
-        public LessThanLimit()
+        public LessThanValidator()
         {
         }
 
-        public LessThanLimit(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public LessThanValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
         {
         }
 
@@ -87,13 +87,13 @@ namespace TestValidation.Requirements.Limits
     }
 
     [Serializable]
-    public class LessThanOrEqualLimit<T> : GenericLimit<T> where T : IComparable<T>
+    public class LessThanOrEqualValidator<T> : GenericValidator<T> where T : IComparable<T>
     {
-        public LessThanOrEqualLimit()
+        public LessThanOrEqualValidator()
         {
         }
 
-        public LessThanOrEqualLimit(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public LessThanOrEqualValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
         {
         }
 
@@ -104,13 +104,13 @@ namespace TestValidation.Requirements.Limits
     }
 
     [Serializable]
-    public class EqualLimit<T> : GenericLimit<T> where T : IComparable<T>
+    public class EqualValidator<T> : GenericValidator<T> where T : IComparable<T>
     {
-        public EqualLimit()
+        public EqualValidator()
         {
         }
 
-        public EqualLimit(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public EqualValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
         {
         }
 
@@ -121,13 +121,13 @@ namespace TestValidation.Requirements.Limits
     }
 
     [Serializable]
-    public class NotEqualLimit<T> : GenericLimit<T> where T : IComparable<T>
+    public class NotEqualValidator<T> : GenericValidator<T> where T : IComparable<T>
     {
-        public NotEqualLimit()
+        public NotEqualValidator()
         {
         }
 
-        public NotEqualLimit(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public NotEqualValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
         {
         }
 
@@ -138,13 +138,13 @@ namespace TestValidation.Requirements.Limits
     }
 
     [Serializable]
-    public class BoundedLimit<T> : GenericLimit<T> where T : IComparable<T>
+    public class BoundedValidator<T> : GenericValidator<T> where T : IComparable<T>
     {
-        public BoundedLimit()
+        public BoundedValidator()
         {
         }
 
-        public BoundedLimit(T lowerBound, T upperBound, Unit unit, Prefix prefix)
+        public BoundedValidator(T lowerBound, T upperBound, Unit unit, Prefix prefix)
             : base(default, unit, prefix)
         {
             LowerBound = lowerBound;
@@ -164,13 +164,13 @@ namespace TestValidation.Requirements.Limits
     }
 
     [Serializable]
-    public class ToleranceLimit<T> : GenericLimit<T> where T : IComparable<T>
+    public class ToleranceValidator<T> : GenericValidator<T> where T : IComparable<T>
     {
-        public ToleranceLimit()
+        public ToleranceValidator()
         {
         }
 
-        public ToleranceLimit(T value, T tolerance, Unit unit, Prefix prefix)
+        public ToleranceValidator(T value, T tolerance, Unit unit, Prefix prefix)
             : base(value, unit, prefix)
         {
             Tolerance = tolerance;
@@ -202,13 +202,13 @@ namespace TestValidation.Requirements.Limits
     }
 
     [Serializable]
-    public class PercentageLimit<T> : GenericLimit<T> where T : IComparable<T>, IConvertible
+    public class PercentageValidator<T> : GenericValidator<T> where T : IComparable<T>, IConvertible
     {
-        public PercentageLimit()
+        public PercentageValidator()
         {
         }
 
-        public PercentageLimit(T value, double percentage, Unit unit, Prefix prefix)
+        public PercentageValidator(T value, double percentage, Unit unit, Prefix prefix)
             : base(value, unit, prefix)
         {
             Percentage = percentage;
@@ -229,16 +229,16 @@ namespace TestValidation.Requirements.Limits
         }
     }
     [Serializable]
-    public class RampLimit<T> : GenericLimit<T> where T : IComparable<T>
+    public class RampValidator<T> : GenericValidator<T> where T : IComparable<T>
     {
         [XmlElement("RampRate")]
         public T RampRate { get; set; }
 
-        public RampLimit()
+        public RampValidator()
         {
         }
 
-        public RampLimit(T value, T rampRate, Unit unit, Prefix prefix)
+        public RampValidator(T value, T rampRate, Unit unit, Prefix prefix)
             : base(value, unit, prefix)
         {
             RampRate = rampRate;
@@ -272,18 +272,18 @@ namespace TestValidation.Requirements.Limits
             return da - db;
         }
     }
-    public class DomainLimit<T, U> : GenericLimit<T> where T : IComparable<T>
+    public class DomainValidator<T, U> : GenericValidator<T> where T : IComparable<T>
     {
         public U StartValue { get; set; }
         public U EndValue { get; set; }
         public Prefix Prefix { get; set; }
 
         // Parameterless constructor required for serialization
-        public DomainLimit()
+        public DomainValidator()
         {
         }
 
-        public DomainLimit(T value, U startValue, U endValue, Prefix prefix, Unit unit)
+        public DomainValidator(T value, U startValue, U endValue, Prefix prefix, Unit unit)
             : base(value, unit, prefix)
         {
             StartValue = startValue;

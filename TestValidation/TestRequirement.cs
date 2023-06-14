@@ -5,24 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
-using TestValidation.Requirements.Limits;
+using TestValidation.Limits.Validators;
 using TestValidation.CharacteristicParameters;
 
-namespace TestValidation.Requirements
+namespace TestValidation.Limits
 {
     public class TestRequirement
     {
         [XmlElement("Name")]
         public string Name { get; set; }
 
-        [XmlElement("DoubleRequirementProperty", typeof(DoubleRequirementProperty))]
-        [XmlElement("DomainRequirementProperty", typeof(DomainRequirementProperty))]
-        [XmlElement("RangeRequirementProperty", typeof(RangeRequirementProperty))]
-        public GenericRequirementProperty Limit { get; set; }
+        [XmlElement("DoubleLimt", typeof(DoubleLimt))]
+        [XmlElement("RangeLimit", typeof(RangeLimit))]
+        [XmlElement("DomainLimit", typeof(DomainLimit))]
+        public GenericLimit Limit { get; set; }
 
         [XmlElement("RippleParameter", typeof(RippleParameter))]
         [XmlElement("AttenuationParameter", typeof(AttenuationParameter))]
-        [XmlElement("InsertionLossParameter", typeof(InsertionLossParameter))]
+        [XmlElement("ScatteringParameter", typeof(ScatteringParameter))]
         public GenericCharacteristicParameter CharacteristicParameter { get; set; }
 
         public void SetCharacteristicParameter(GenericCharacteristicParameter characteristicParameter)

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Requirements\Units\Units.cs" />
+    <Compile Remove="Limits\Units\Units.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,12 +17,6 @@
     <Compile Update="Program.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Requirements\Requirements.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,15 @@
-﻿using System;
+﻿using RF_Networks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using TestValidation.CharacteristicParameters;
-using TestValidation.Requirements;
+using TestValidation.Limits;
 
 namespace TestValidation
 {
@@ -72,10 +74,11 @@ namespace TestValidation
                 GenericCharacteristicParameter characteristicParameter = requirement.CharacteristicParameter;
 
                 // Calculate the parameter value based on the base data set
-                Dictionary<string, double> parameterValue = characteristicParameter.CalculateParameterValue(baseDataSet);
+                characteristicParameter.CalculateParameterValue(requirement,
+                                        parseMeasurementsFromFile(TestInfo.TestArticles[0].MeasurementFiles[0]));
 
                 // Store the parameter value in the dictionary
-                characteristicParameters[requirement.Name] = 0;
+                //characteristicParameters[requirement.Name] = parameterValue.First().Value;
             }
         }
 
@@ -87,15 +90,42 @@ namespace TestValidation
                 GenericCharacteristicParameter characteristicParameter = requirement.CharacteristicParameter;
 
                 // Get the parameter value from the dictionary
-                double parameterValue = characteristicParameters[requirement.Name];
-
+                //double parameterValue = characteristicParameters[requirement.Name];
+                
                 // Validate the measurement against the requirement
-                bool isPassed = true;// characteristicParameter.ValidateMeasurement(requirement.PropertyValue, baseDataSet);
+                bool isPassed = characteristicParameter.ValidateMeasurement(requirement, new Dictionary<string, List<double[]>>());
 
                 // Print the result
                 Console.WriteLine($"{requirement.Name}: {(isPassed ? "Passed" : "Failed")}");
             }
         }
+
+        private Dictionary<string, List<double[]>> parseMeasurementsFromFile(string filePath)
+        {
+            Dictionary<string, List<double[]>> data = new Dictionary<string, List<double[]>>();
+            SParameterCombiner combiner = new SParameterCombiner();
+            Dictionary<string, List<string>> dataStr = combiner.ExtractSParameterData(filePath);
+            foreach(var dList in dataStr.Keys)
+            {
+                //Console.Write($"{dList}: ");
+                if (dList == "")
+                    continue;
+                data.Add(dList, new List<double[]>());
+                foreach (var d in dataStr[dList])
+                {
+
+                    //Console.Write($"{d} "); 
+                    var val = d.Split(" ");
+                    Complex v = Complex.FromPolarCoordinates(Convert.ToDouble(val.First()), Convert.ToDouble(val.Last()));
+                    //Complex v = new Complex(Convert.ToDouble(val.First()), Convert.ToDouble(val.Last()));
+                    
+                    data[dList].Add(new double[2] { v.Real, v.Imaginary });
+                }
+                //Console.WriteLine();
+            }
+            return data;
+        }
+
 
 
     }

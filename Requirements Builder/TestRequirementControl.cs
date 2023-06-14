@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TestValidation.Requirements;
+using TestValidation.Limits;
 using System.Reflection;
-using static TestValidation.Requirements.Units.UnitConverter;
+using static TestValidation.Limits.Units.UnitConverter;
 using TestValidation.CharacteristicParameters;
 
 namespace Requirements_Builder
@@ -62,12 +62,12 @@ namespace Requirements_Builder
             int textBoxLeft = 10;
             foreach (var property in testRequirement.GetType().GetProperties())
             {
-                FlowLayoutPanel f = new FlowLayoutPanel();
-                f.FlowDirection = FlowDirection.TopDown;
-                f.BorderStyle = BorderStyle.FixedSingle;
-                f.Name = reqNum.ToString() + property.Name + "FLP";
-                f.AutoSize = true;
-                flowLayoutPanel1.Controls.Add(f);
+                //FlowLayoutPanel f = new FlowLayoutPanel();
+                //f.FlowDirection = FlowDirection.TopDown;
+                //f.BorderStyle = BorderStyle.FixedSingle;
+                //f.Name = reqNum.ToString() + property.Name + "FLP";
+                //f.AutoSize = true;
+                //flowLayoutPanel1.Controls.Add(f);
 
                 if (property.MemberType != MemberTypes.Method)
                 {
@@ -77,26 +77,29 @@ namespace Requirements_Builder
                     switch (property.Name.ToString())
                     {
                         case "Name":
-                            // Create label
-                            label.Text = "Requirement Name";
-                            label.AutoSize = true;
-                            label.Location = new Point(textBoxLeft, labelTop);
-                            
-                            f.Controls.Add(label);
-                            controls.Add(reqNum.ToString() + property.Name + "label", label);
 
-                            // Create text box
-                            textBox.Location = new Point(textBoxLeft, textBoxTop);
-                            textBox.Top = textBoxTop;
-                            textBox.Left = textBoxLeft;
-                            textBox.Width = 150;
-                            textBox.TextChanged += TextBox_TextChanged;
-                            textBox.Text = testRequirement.Name;
-                            textBox.TextChanged += TextBox_TextChanged1;
+                            RequirementInfoCtrl rCtrl = new RequirementInfoCtrl();
+                            flowLayoutPanel1.Controls.Add(rCtrl);
+                            //// Create label
+                            //label.Text = "Requirement Name";
+                            //label.AutoSize = true;
+                            //label.Location = new Point(textBoxLeft, labelTop);
+
+                            //f.Controls.Add(label);
+                            //controls.Add(reqNum.ToString() + property.Name + "label", label);
+
+                            //// Create text box
+                            //textBox.Location = new Point(textBoxLeft, textBoxTop);
+                            //textBox.Top = textBoxTop;
+                            //textBox.Left = textBoxLeft;
+                            //textBox.Width = 150;
+                            //textBox.TextChanged += TextBox_TextChanged;
+                            //textBox.Text = testRequirement.Name;
+                            //textBox.TextChanged += TextBox_TextChanged1;
 
 
-                            f.Controls.Add(textBox);
-                            controls.Add("RequirementName_TextBox", textBox);
+                            //f.Controls.Add(textBox);
+                            //controls.Add("RequirementName_TextBox", textBox);
                             break;
                         case "Limit":
                             
@@ -106,25 +109,25 @@ namespace Requirements_Builder
                         case "CharacteristicParameter":
                             if (!property.Name.Equals("Property"))
                             {
-                                // Create label
-                                label.Text = "Parameter Type";
-                                label.AutoSize = true;
-                                label.Location = new Point(textBoxLeft, labelTop);
+                                //// Create label
+                                //label.Text = "Parameter Type";
+                                //label.AutoSize = true;
+                                //label.Location = new Point(textBoxLeft, labelTop);
 
-                                f.Controls.Add(label);
-                                controls.Add(reqNum.ToString() + property.Name + "label", label);
+                                //f.Controls.Add(label);
+                                //controls.Add(reqNum.ToString() + property.Name + "label", label);
 
-                                // Create text box
-                                textBox.Location = new Point(textBoxLeft, textBoxTop);
-                                textBox.Top = textBoxTop;
-                                textBox.Left = textBoxLeft;
-                                textBox.Width = 250;
-                                textBox.Name = "ParameterType_TextBox";
-                                textBox.Text = testRequirement.CharacteristicParameter.GetType().Name;
-                                textBox.TextChanged += TextBox_TextChanged1;
-                                f.Controls.Add(textBox);
-                                controls.Add("ParameterType_TextBox", textBox);
-                                this.CreateParameterControls(testRequirement.CharacteristicParameter, f);
+                                //// Create text box
+                                //textBox.Location = new Point(textBoxLeft, textBoxTop);
+                                //textBox.Top = textBoxTop;
+                                //textBox.Left = textBoxLeft;
+                                //textBox.Width = 250;
+                                //textBox.Name = "ParameterType_TextBox";
+                                //textBox.Text = testRequirement.CharacteristicParameter.GetType().Name;
+                                //textBox.TextChanged += TextBox_TextChanged1;
+                                //f.Controls.Add(textBox);
+                                //controls.Add("ParameterType_TextBox", textBox);
+                                this.CreateParameterControls(testRequirement.CharacteristicParameter, flowLayoutPanel1);
                             }
 
                             break;
@@ -150,7 +153,7 @@ namespace Requirements_Builder
                 if((sender as TextBox).Text.StartsWith("Atten"))
                     testRequirement.CharacteristicParameter = new AttenuationParameter();
                 else if((sender as TextBox).Text.StartsWith("Inser"))
-                    testRequirement.CharacteristicParameter = new InsertionLossParameter();
+                    testRequirement.CharacteristicParameter = new ScatteringParameter();
                 else if ((sender as TextBox).Text.StartsWith("Ripp"))
                     testRequirement.CharacteristicParameter = new RippleParameter();
                 else
@@ -168,161 +171,167 @@ namespace Requirements_Builder
 
         public void CreateControls(object obj, Control parentControl)
         {
-            FlowLayoutPanel f = new FlowLayoutPanel();
-            f.FlowDirection = FlowDirection.TopDown;
-            f.BorderStyle = BorderStyle.FixedSingle;
-            f.AutoSize = true;
-            parentControl.Controls.Add(f);
+            SpecificationCtrl sCtrl = new SpecificationCtrl();
+            parentControl.Controls.Add(sCtrl);
 
-            Type objectType = obj.GetType();
+            //FlowLayoutPanel f = new FlowLayoutPanel();
+            //f.FlowDirection = FlowDirection.TopDown;
+            //f.BorderStyle = BorderStyle.FixedSingle;
+            //f.AutoSize = true;
+            //parentControl.Controls.Add(f);
 
-            foreach (PropertyInfo propertyInfo in objectType.GetProperties())
-            {
-                // Create a label for the property
-                Label label = new Label();
-                label.Text = propertyInfo.Name;
-                if (propertyInfo.Name.Equals("Item"))
-                    break;
-                label.AutoSize = true;
-                if (propertyInfo.PropertyType == typeof(Unit))
-                {
-                    ComboBox comboBox = new ComboBox();
-                    comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                    comboBox.Items.AddRange(Enum.GetNames(typeof(Unit)));
-                    var val = propertyInfo.GetValue(obj).ToString() ;
-                    Unit value = Enum.Parse<Unit>(val);
-                    var index = comboBox.Items.IndexOf(val);
-                    comboBox.SelectedIndex = index;
-                    //comboBox.DataBindings.Add("SelectedItem", propertyInfo.GetValue(obj), propertyInfo.Name);
+            //Type objectType = obj.GetType();
 
-                    f.Controls.Add(new Label { Text = propertyInfo.Name });
-                    f.Controls.Add(comboBox);
-                }
-                else if (propertyInfo.PropertyType == typeof(Prefix))
-                {
-                    ComboBox comboBox = new ComboBox();
-                    comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                    comboBox.Items.AddRange(Enum.GetNames(typeof(Prefix)));
-                    var val = propertyInfo.GetValue(obj).ToString();
-                    Prefix value= Enum.Parse<Prefix>(val);
-                    var index = comboBox.Items.IndexOf(val);
-                    comboBox.SelectedIndex = index;
-                    //comboBox.DataBindings.Add("SelectedItem", propertyInfo.GetValue(obj), propertyInfo.Name);
-                    f.Controls.Add(new Label { Text = propertyInfo.Name });
-                    f.Controls.Add(comboBox);
-                }
-                else
-                {
-                    // Create a text box for the property
-                    TextBox textBox = new TextBox();
+            //foreach (PropertyInfo propertyInfo in objectType.GetProperties())
+            //{
+            //    // Create a label for the property
+            //    Label label = new Label();
+            //    label.Text = propertyInfo.Name;
+            //    if (propertyInfo.Name.Equals("Item"))
+            //        break;
+            //    label.AutoSize = true;
+            //    if (propertyInfo.PropertyType == typeof(Unit))
+            //    {
+            //        ComboBox comboBox = new ComboBox();
+            //        comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            //        comboBox.Items.AddRange(Enum.GetNames(typeof(Unit)));
+            //        var val = propertyInfo.GetValue(obj).ToString() ;
+            //        Unit value = Enum.Parse<Unit>(val);
+            //        var index = comboBox.Items.IndexOf(val);
+            //        comboBox.SelectedIndex = index;
+            //        //comboBox.DataBindings.Add("SelectedItem", propertyInfo.GetValue(obj), propertyInfo.Name);
 
-                    // Set the initial text box value from the object property
-                    object propertyValue = propertyInfo.GetValue(obj);
-                    textBox.Text = propertyValue?.ToString();
+            //        f.Controls.Add(new Label { Text = propertyInfo.Name });
+            //        f.Controls.Add(comboBox);
+            //    }
+            //    else if (propertyInfo.PropertyType == typeof(Prefix))
+            //    {
+            //        ComboBox comboBox = new ComboBox();
+            //        comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            //        comboBox.Items.AddRange(Enum.GetNames(typeof(Prefix)));
+            //        var val = propertyInfo.GetValue(obj).ToString();
+            //        Prefix value= Enum.Parse<Prefix>(val);
+            //        var index = comboBox.Items.IndexOf(val);
+            //        comboBox.SelectedIndex = index;
+            //        //comboBox.DataBindings.Add("SelectedItem", propertyInfo.GetValue(obj), propertyInfo.Name);
+            //        f.Controls.Add(new Label { Text = propertyInfo.Name });
+            //        f.Controls.Add(comboBox);
+            //    }
+            //    else
+            //    {
+            //        // Create a text box for the property
+            //        TextBox textBox = new TextBox();
 
-                    f.Controls.Add(label);
-                        if (propertyInfo.Name == "Limit")
-                        {
-                            ComboBox comboBox = new ComboBox();
-                            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                            var index = -1;
-                            // Loop through the CharacteristicParameter classes
-                            foreach (Type limitType in limits)
-                            {
-                                index++;
-                                comboBox.Items.Add(limitType.Name);
-                                if (propertyValue.GetType().Name.StartsWith(limitType.Name.Substring(0, limitType.Name.Length - 2)))
-                                    comboBox.SelectedIndex = index;
-                            }
-                            f.Controls.Add(comboBox);
+            //        // Set the initial text box value from the object property
+            //        object propertyValue = propertyInfo.GetValue(obj);
+            //        textBox.Text = propertyValue?.ToString();
 
-                            CreateControls(propertyValue, f);
-                        }
-                    else
-                    {
-                        f.Controls.Add(textBox);
+            //        f.Controls.Add(label);
+            //            if (propertyInfo.Name == "Limit")
+            //            {
+            //                ComboBox comboBox = new ComboBox();
+            //                comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            //                var index = -1;
+            //                // Loop through the CharacteristicParameter classes
+            //                foreach (Type limitType in limits)
+            //                {
+            //                    index++;
+            //                    comboBox.Items.Add(limitType.Name);
+            //                    if (propertyValue.GetType().Name.StartsWith(limitType.Name.Substring(0, limitType.Name.Length - 2)))
+            //                        comboBox.SelectedIndex = index;
+            //                }
+            //                f.Controls.Add(comboBox);
 
-                        // Add the label and text box to the parent control
-                        parentControl.Controls.Add(f);
-                    }
-                }
-               
-            }
+            //                CreateControls(propertyValue, f);
+            //            }
+            //        else
+            //        {
+            //            f.Controls.Add(textBox);
+
+            //            // Add the label and text box to the parent control
+            //            parentControl.Controls.Add(f);
+            //        }
+            //    }
+
+            //}
         }
         public void CreateParameterControls(object obj, Control parentControl)
         {
-            FlowLayoutPanel f = new FlowLayoutPanel();
-            f.FlowDirection = FlowDirection.TopDown;
-            f.BorderStyle = BorderStyle.FixedSingle;
-            f.AutoSize = true;
-            parentControl.Controls.Add(f);
+            ParameterCtrl pCtrl = new ParameterCtrl();
+            parentControl.Controls.Add(pCtrl);
 
-            Type objectType = obj.GetType();
+            //FlowLayoutPanel f = new FlowLayoutPanel();
+            //f.FlowDirection = FlowDirection.TopDown;
+            //f.BorderStyle = BorderStyle.FixedSingle;
+            //f.AutoSize = true;
+            //parentControl.Controls.Add(f);
 
-            foreach (PropertyInfo propertyInfo in objectType.GetProperties())
-            {
-                // Create a label for the property
-                Label label = new Label();
-                label.Text = propertyInfo.Name;
-                if (propertyInfo.Name.Equals("Item"))
-                    break;
-                label.AutoSize = true;
-                if (propertyInfo.PropertyType == typeof(Unit))
-                {
-                    ComboBox comboBox = new ComboBox();
-                    comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                    comboBox.Items.AddRange(Enum.GetNames(typeof(Unit)));
-                    var val = propertyInfo.GetValue(obj).ToString();
-                    Unit value = Enum.Parse<Unit>(val);
-                    var index = comboBox.Items.IndexOf(val);
-                    comboBox.SelectedIndex = index;
-                    //comboBox.DataBindings.Add("SelectedItem", propertyInfo.GetValue(obj), propertyInfo.Name);
+            //Type objectType = obj.GetType();
 
-                    f.Controls.Add(new Label { Text = propertyInfo.Name });
-                    f.Controls.Add(comboBox);
-                }
-                else if (propertyInfo.PropertyType == typeof(Prefix))
-                {
-                    ComboBox comboBox = new ComboBox();
-                    comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                    comboBox.Items.AddRange(Enum.GetNames(typeof(Prefix)));
-                    var val = propertyInfo.GetValue(obj).ToString();
-                    Prefix value = Enum.Parse<Prefix>(val);
-                    var index = comboBox.Items.IndexOf(val);
-                    comboBox.SelectedIndex = index;
-                    //comboBox.DataBindings.Add("SelectedItem", propertyInfo.GetValue(obj), propertyInfo.Name);
-                    f.Controls.Add(new Label { Text = propertyInfo.Name });
-                    f.Controls.Add(comboBox);
-                }
-                else if(propertyInfo.Name == "MeasurementVariables")
-                {
-                    label.Text = "MeasurementVariables";
-                    f.Controls.Add(label);
-                    var vars = propertyInfo.GetValue(obj) as List<string>;
-                    // Loop through the CharacteristicParameter classes
-                    foreach (string prop in vars)
-                    {
-                        TextBox textBox = new TextBox();
-                        string val = prop;
-                        textBox.Text = val;
-                        textBox.Width = Math.Max(25, (int)(2 * textBox.Text.Length * textBox.Font.Size / 3));
-                        f.Controls.Add(textBox);
-                    }
-                    //parentControl.Controls.Add(f);
-                }
-                else
-                {
-                    TextBox textBox = new TextBox();
-                    // Set the initial text box value from the object property
-                    object propertyValue = propertyInfo.GetValue(obj);
-                    textBox.Text = propertyValue?.ToString();
-                    textBox.Width = Math.Max(25, (int)(2 * textBox.Text.Length * textBox.Font.Size / 3));
-                    f.Controls.Add(label);
-                    f.Controls.Add(textBox);
-                    // Add the label and text box to the parent control
-                    parentControl.Controls.Add(f);
-                }
-            }
+            //foreach (PropertyInfo propertyInfo in objectType.GetProperties())
+            //{
+            //    // Create a label for the property
+            //    Label label = new Label();
+            //    label.Text = propertyInfo.Name;
+            //    if (propertyInfo.Name.Equals("Item"))
+            //        break;
+            //    label.AutoSize = true;
+            //    if (propertyInfo.PropertyType == typeof(Unit))
+            //    {
+            //        ComboBox comboBox = new ComboBox();
+            //        comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            //        comboBox.Items.AddRange(Enum.GetNames(typeof(Unit)));
+            //        var val = propertyInfo.GetValue(obj).ToString();
+            //        Unit value = Enum.Parse<Unit>(val);
+            //        var index = comboBox.Items.IndexOf(val);
+            //        comboBox.SelectedIndex = index;
+            //        //comboBox.DataBindings.Add("SelectedItem", propertyInfo.GetValue(obj), propertyInfo.Name);
+
+            //        f.Controls.Add(new Label { Text = propertyInfo.Name });
+            //        f.Controls.Add(comboBox);
+            //    }
+            //    else if (propertyInfo.PropertyType == typeof(Prefix))
+            //    {
+            //        ComboBox comboBox = new ComboBox();
+            //        comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            //        comboBox.Items.AddRange(Enum.GetNames(typeof(Prefix)));
+            //        var val = propertyInfo.GetValue(obj).ToString();
+            //        Prefix value = Enum.Parse<Prefix>(val);
+            //        var index = comboBox.Items.IndexOf(val);
+            //        comboBox.SelectedIndex = index;
+            //        //comboBox.DataBindings.Add("SelectedItem", propertyInfo.GetValue(obj), propertyInfo.Name);
+            //        f.Controls.Add(new Label { Text = propertyInfo.Name });
+            //        f.Controls.Add(comboBox);
+            //    }
+            //    else if(propertyInfo.Name == "MeasurementVariables")
+            //    {
+            //        label.Text = "MeasurementVariables";
+            //        f.Controls.Add(label);
+            //        var vars = propertyInfo.GetValue(obj) as List<string>;
+            //        // Loop through the CharacteristicParameter classes
+            //        foreach (string prop in vars)
+            //        {
+            //            TextBox textBox = new TextBox();
+            //            string val = prop;
+            //            textBox.Text = val;
+            //            textBox.Width = Math.Max(25, (int)(2 * textBox.Text.Length * textBox.Font.Size / 3));
+            //            f.Controls.Add(textBox);
+            //        }
+            //        //parentControl.Controls.Add(f);
+            //    }
+            //    else
+            //    {
+            //        TextBox textBox = new TextBox();
+            //        // Set the initial text box value from the object property
+            //        object propertyValue = propertyInfo.GetValue(obj);
+            //        textBox.Text = propertyValue?.ToString();
+            //        textBox.Width = Math.Max(25, (int)(2 * textBox.Text.Length * textBox.Font.Size / 3));
+            //        f.Controls.Add(label);
+            //        f.Controls.Add(textBox);
+            //        // Add the label and text box to the parent control
+            //        parentControl.Controls.Add(f);
+            //    }
+            //}
         }
         public Dictionary<string, string> GetPropertyValues()
         {

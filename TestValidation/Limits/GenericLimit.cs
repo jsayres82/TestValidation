@@ -5,10 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using TestValidation.CharacteristicParameters;
 
-namespace TestValidation.Requirements
+namespace TestValidation.Limits
 {
-    public abstract class GenericRequirementProperty
+    public abstract class GenericLimit
     {
+        public virtual bool ValidateMeasurement(double freq, double measurement)
+        {
+            return ValidateMeasurement(measurement);
+        }
+
         public virtual bool ValidateMeasurement(double measurement)
         {
             return true;

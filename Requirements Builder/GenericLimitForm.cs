@@ -3,8 +3,8 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using TestValidation.Requirements.Limits;
-using static TestValidation.Requirements.Units.UnitConverter;
+using TestValidation.Limits.Limits;
+using static TestValidation.Limits.Units.UnitConverter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,16 +14,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TestValidation.Requirements;
+using TestValidation.Limits;
 using System.Reflection;
 
 namespace Requirements_Builder
 {
     public partial class GenericLimitForm : UserControl
     {
-        private readonly GenericLimit<object> _limit;
+        private readonly GenericValidator<object> _limit;
 
-        public GenericLimitForm(GenericLimit<object> limit)
+        public GenericLimitForm(GenericValidator<object> limit)
         {
             InitializeComponent();
             _limit = limit;

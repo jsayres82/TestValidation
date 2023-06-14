@@ -8,9 +8,9 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using TestValidation;
 using TestValidation.CharacteristicParameters;
-using TestValidation.Requirements;
-using TestValidation.Requirements.Limits;
-using static TestValidation.Requirements.Units.UnitConverter;
+using TestValidation.Limits;
+using TestValidation.Limits.Limits;
+using static TestValidation.Limits.Units.UnitConverter;
 
 namespace Requirements_Builder
 {
@@ -37,7 +37,7 @@ namespace Requirements_Builder
 
             // Get all the Requirements classes
             requirementTypes = assembly.GetTypes()
-                .Where(t => t.IsSubclassOf(typeof(GenericRequirementProperty)))
+                .Where(t => t.IsSubclassOf(typeof(GenericLimit)))
                 .ToArray();
 
             // Get all the Limit classes
@@ -92,7 +92,7 @@ namespace Requirements_Builder
         }
         private bool IsIndexType(Type type)
         {
-            var indexDefinition = typeof(GenericLimit<>).GetGenericTypeDefinition();
+            var indexDefinition = typeof(GenericValidator<>).GetGenericTypeDefinition();
             return !type.IsAbstract
                    && type.IsClass
                    && type.BaseType is not null

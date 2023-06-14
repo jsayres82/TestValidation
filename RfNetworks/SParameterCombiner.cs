@@ -161,6 +161,7 @@ namespace RF_Networks
                             for (int i = 0; i < tempValues.Count; i += 2)
                             {
                                 data[freq].Add($"{tempValues[i]} {tempValues[i + 1]}");
+                                //Console.WriteLine($"{tempValues[i]} {tempValues[i + 1]}");
                             }
                         }
                         else
@@ -171,6 +172,7 @@ namespace RF_Networks
                                 for (int i = 1; i < tempValues.Count; i += 2)
                                 {
                                     temp.Add($"{tempValues[i]} {tempValues[i + 1]}");
+                                    //Console.WriteLine($"{tempValues[i]} {tempValues[i + 1]}");
                                 }
                                 freq = tempValues[0];
                                 data.Add(freq, temp);
@@ -178,9 +180,14 @@ namespace RF_Networks
                             }
                             else
                             {
-                                data.Add("", values);
                                 values = new List<string>();
-                                values.AddRange(tempValues);
+                                freq = tempValues[0];
+                                data.Add(tempValues[0], values);
+                                for (int i = 1; i < tempValues.Count-1; i += 2)
+                                {
+                                    data[freq].Add($"{tempValues[i]} {tempValues[i + 1]}");
+                                    //Console.WriteLine($"{tempValues[i]} {tempValues[i + 1]}");
+                                }
                             }
                         }
                     }
@@ -251,7 +258,7 @@ namespace RF_Networks
             return values;
         }
 
-        private IEnumerable<string> GetPortNumbers(string filePortName)
+        public IEnumerable<string> GetPortNumbers(string filePortName)
         {
             List<string> numPortstr = filePortName.Split('P').ToList();
             numPortstr.Remove(numPortstr.First());

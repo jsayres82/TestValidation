@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestValidation.Requirements.Units
+namespace TestValidation.Limits.Units
 {
     public static class UnitConverter
     {
@@ -32,7 +32,8 @@ namespace TestValidation.Requirements.Units
             Percent,
             MilliWatt,
             MicroVolt
-        }
+        };
+        
 
         public enum Prefix
         {
@@ -84,6 +85,31 @@ namespace TestValidation.Requirements.Units
             { Prefix.Yocto, 1e-24 }
         };
 
+        private static readonly Dictionary<Prefix, string> PrefixString = new Dictionary<Prefix, string>
+    {
+        { Prefix.Yotta, "Y" },
+        { Prefix.Zetta, "Z" },
+        { Prefix.Exa, "E" },
+        { Prefix.Peta, "P" },
+        { Prefix.Tera, "T" },
+        { Prefix.Giga, "G" },
+        { Prefix.Mega, "M" },
+        { Prefix.Kilo, "k" },
+        { Prefix.Hecto, "" },
+        { Prefix.Deca, "" },
+        { Prefix.None, "" },
+        { Prefix.Deci, "" },
+        { Prefix.Centi, "" },
+        { Prefix.Milli, "m" },
+        { Prefix.Micro, "u" },
+        { Prefix.Nano, "n" },
+        { Prefix.Pico, "p" },
+        { Prefix.Femto, "f" },
+        { Prefix.Atto, "a" },
+        { Prefix.Zepto, "z" },
+        { Prefix.Yocto, "y" }
+    };
+
         public static double Convert(double value, Unit sourceUnit, Unit targetUnit, Prefix sourcePrefix = Prefix.None, Prefix targetPrefix = Prefix.None)
         {
             double convertedValue = value;
@@ -96,5 +122,6 @@ namespace TestValidation.Requirements.Units
 
             return convertedValue;
         }
+
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using TestValidation.Requirements;
+using TestValidation.Limits;
 
 namespace TestValidation.CharacteristicParameters
 {
@@ -11,14 +12,17 @@ namespace TestValidation.CharacteristicParameters
     {
         public string Description { get { return "Returns the max variation of the specified measurement variable"; }  }
         public List<string> MeasurementVariables { get; set; }
-        public override bool ValidateMeasurement(Dictionary<string, double> measurement)
+
+        private Dictionary<string, List<double>> parameterValue = new Dictionary<string, List<double>>();
+        public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement)
         {
             return true;// propertyValue.ValidateMeasurement(measurement);
         }
 
-        public override Dictionary<string, double> CalculateParameterValue(Dictionary<string, double> baseDataSet)
+        public override Dictionary<string, double> CalculateParameterValue(TestRequirement req, Dictionary<string, List<double[]>> baseDataSet)
         {
-            return baseDataSet;// baseDataSet["PassbandRipple"];
+            Dictionary<string, double> par = new Dictionary<string, double>();
+            return par;//["StopbandAttenuationParameter"];
         }
     }
 
