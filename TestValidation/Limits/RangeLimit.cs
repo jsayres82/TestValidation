@@ -26,17 +26,17 @@ namespace TestValidation.Limits
         [XmlElement("PercentageValidator", typeof(PercentageValidator<double>))]
         [XmlElement("RampValidator", typeof(RampValidator<double>))]
         [XmlElement("BoundedValidator", typeof(BoundedValidator<double>))]
-        public virtual GenericValidator<double> Limit { get; set; }
+        public override GenericValidator<double> Validator { get; set; }
 
-        public override bool ValidateMeasurement(double freq, double measurement)
+        public override bool ValidateMeasurement(double domainValue, double rangeValue)
         {
-            if (freq < MaxValue || freq > MinValue )
-                return ValidateMeasurement(measurement); // Skip validation if outside the specified frequency domain
+            if (rangeValue < MaxValue || rangeValue > MinValue )
+                return ValidateMeasurement(domainValue); // Skip validation if outside the specified frequency domain
             return true;
         }
-        public override bool ValidateMeasurement(double measurement)
+        public override bool ValidateMeasurement(double domainValue)
         {
-            return Limit.Validate(measurement);// measurement["Amplitude"] >= MinValue && measurement["Amplitude"] <= MaxValue;
+            return Validator.Validate(domainValue);// measurement["Amplitude"] >= MinValue && measurement["Amplitude"] <= MaxValue;
         }
     }
 }

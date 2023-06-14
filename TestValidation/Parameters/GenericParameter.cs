@@ -18,7 +18,7 @@ namespace TestValidation.Parameters
 
         //public abstract bool ValidateMeasurement(Dictionary<string, double> measurement);
         public string Description { get; set; }
-        public List<string> MeasurementVariables { get; set; }
+        public abstract List<string> MeasurementVariables { get; set; }
         public abstract bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement);
         public abstract Dictionary<string, double> CalculateParameterValue(TestRequirement req, Dictionary<string, List<double[]>> baseDataSet);
     }

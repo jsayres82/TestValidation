@@ -80,6 +80,7 @@ namespace Requirements_Builder
 
                             RequirementInfoCtrl rCtrl = new RequirementInfoCtrl();
                             flowLayoutPanel1.Controls.Add(rCtrl);
+                            rCtrl.UpdateInfo(testRequirement, reqNum);
                             //// Create label
                             //label.Text = "Requirement Name";
                             //label.AutoSize = true;
@@ -171,9 +172,9 @@ namespace Requirements_Builder
 
         public void CreateControls(object obj, Control parentControl)
         {
-            SpecificationCtrl sCtrl = new SpecificationCtrl();
+            LimitCtrl sCtrl = new LimitCtrl();
             parentControl.Controls.Add(sCtrl);
-
+            sCtrl.UpdateLimit(obj as GenericLimit);
             //FlowLayoutPanel f = new FlowLayoutPanel();
             //f.FlowDirection = FlowDirection.TopDown;
             //f.BorderStyle = BorderStyle.FixedSingle;
@@ -259,7 +260,7 @@ namespace Requirements_Builder
         {
             ParameterCtrl pCtrl = new ParameterCtrl();
             parentControl.Controls.Add(pCtrl);
-
+            pCtrl.UpdateLimit(obj as GenericParameter);
             //FlowLayoutPanel f = new FlowLayoutPanel();
             //f.FlowDirection = FlowDirection.TopDown;
             //f.BorderStyle = BorderStyle.FixedSingle;

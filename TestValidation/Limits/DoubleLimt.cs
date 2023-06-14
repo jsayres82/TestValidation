@@ -25,7 +25,7 @@ namespace TestValidation.Limits
         [XmlElement("PercentageValidator", typeof(PercentageValidator<double>))]
         [XmlElement("RampValidator", typeof(RampValidator<double>))]
         [XmlElement("BoundedValidator", typeof(BoundedValidator<double>))]
-        public virtual GenericValidator<double> Limit { get; set; }
+        public override GenericValidator<double> Validator { get; set; }
 
         //public DoublePropertyValue(double value)
         //{
@@ -34,7 +34,7 @@ namespace TestValidation.Limits
 
         public override bool ValidateMeasurement(double measurement)
         {
-            return Limit.Validate(measurement);
+            return Validator.Validate(measurement);
             //Limit.Validate(measurement["Amplitude"]);
                 //switch (Comparison)
                 //{

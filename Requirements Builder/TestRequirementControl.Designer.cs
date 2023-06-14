@@ -39,23 +39,22 @@ namespace Requirements_Builder
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.flowLayoutPanel1.MinimumSize = new System.Drawing.Size(100, 100);
+            this.flowLayoutPanel1.MinimumSize = new System.Drawing.Size(114, 133);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(100, 100);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(114, 133);
             this.flowLayoutPanel1.TabIndex = 0;
+            this.flowLayoutPanel1.WrapContents = false;
             // 
             // TestRequirementControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MinimumSize = new System.Drawing.Size(100, 100);
+            this.MinimumSize = new System.Drawing.Size(114, 133);
             this.Name = "TestRequirementControl";
-            this.Size = new System.Drawing.Size(100, 100);
+            this.Size = new System.Drawing.Size(114, 133);
             this.ResumeLayout(false);
             this.PerformLayout();
 

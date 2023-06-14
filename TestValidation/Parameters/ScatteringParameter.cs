@@ -11,8 +11,8 @@ namespace TestValidation.Parameters
 {
     public class ScatteringParameter : GenericParameter
     {
-        public string Description { get { return "Returns the scattering parameter specified in measurement variable"; } }
-        public List<string> MeasurementVariables { get; set; }
+        public string Description { get { return "Evaluates a scattering parameter for S-Parameter Matrix"; } }
+        public override List<string> MeasurementVariables { get; set; }
         private List<string> parameterDomain = new List<string>();
         private Dictionary<string, List<double[]>> parameterValue = new Dictionary<string, List<double[]>>();
         private Dictionary<string, List<Complex>> complexParameterValue = new Dictionary<string, List<Complex>>();

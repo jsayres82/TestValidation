@@ -1,7 +1,7 @@
 ﻿
 namespace Requirements_Builder
 {
-    partial class MeasurementInfoCtrl
+    partial class TestInfoCtrl
     {
         /// <summary> 
         /// Required designer variable.

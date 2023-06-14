@@ -35,10 +35,10 @@ namespace Requirements_Builder
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxReqName = new System.Windows.Forms.RichTextBox();
             this.labelReqId = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxReqNum = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -69,9 +69,9 @@ namespace Requirements_Builder
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.82759F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.17242F));
-            this.tableLayoutPanel1.Controls.Add(this.richTextBox2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.richTextBoxReqNum, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.richTextBox1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.richTextBoxReqName, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelReqId, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -98,12 +98,12 @@ namespace Requirements_Builder
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(95, 43);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(366, 55);
-            this.richTextBox1.TabIndex = 19;
-            this.richTextBox1.Text = "";
+            this.richTextBoxReqName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxReqName.Location = new System.Drawing.Point(95, 43);
+            this.richTextBoxReqName.Name = "richTextBox1";
+            this.richTextBoxReqName.Size = new System.Drawing.Size(366, 55);
+            this.richTextBoxReqName.TabIndex = 19;
+            this.richTextBoxReqName.Text = "";
             // 
             // labelReqId
             // 
@@ -127,12 +127,12 @@ namespace Requirements_Builder
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox2.Location = new System.Drawing.Point(3, 43);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(86, 55);
-            this.richTextBox2.TabIndex = 20;
-            this.richTextBox2.Text = "";
+            this.richTextBoxReqNum.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxReqNum.Location = new System.Drawing.Point(3, 43);
+            this.richTextBoxReqNum.Name = "richTextBox2";
+            this.richTextBoxReqNum.Size = new System.Drawing.Size(86, 55);
+            this.richTextBoxReqNum.TabIndex = 20;
+            this.richTextBoxReqNum.Text = "";
             // 
             // RequirementInfoCtrl
             // 
@@ -158,9 +158,9 @@ namespace Requirements_Builder
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBoxReqName;
         private System.Windows.Forms.Label labelReqId;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox richTextBoxReqNum;
     }
 }

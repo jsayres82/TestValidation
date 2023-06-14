@@ -26,24 +26,18 @@ namespace TestValidation.Limits
         [XmlElement("PercentageValidator", typeof(PercentageValidator<double>))]
         [XmlElement("RampValidator", typeof(RampValidator<double>))]
         [XmlElement("BoundedValidator", typeof(BoundedValidator<double>))]
-        public GenericValidator<double> Limit { get; set; }
+        public override GenericValidator<double> Validator { get; set; }
 
-        //public DomainPropertyRequirement(double startFrequency, double endFrequency, GenericRequirementProperty property)
-        //{
-        //    StartFrequency = startFrequency;
-        //    EndFrequency = endFrequency;
-        //    Property = property;
-        //}
-
-        public override bool ValidateMeasurement(double freq, double measurement)
+        public override bool ValidateMeasurement(double domainValue, double rangeValue)
         {
-            if (freq < Start || freq > End)
-                return ValidateMeasurement(measurement); // Skip validation if outside the specified frequency domain
+            if (domainValue <= Start || domainValue >= End)
+                return ValidateMeasurement(rangeValue); // Skip validation if outside the specified frequency domain
             return true;
         }
-        public override bool ValidateMeasurement(double measurement)
+
+        public override bool ValidateMeasurement(double rangeValue)
         {
-            bool pass = Limit.Validate(measurement);
+            bool pass = Validator.Validate(rangeValue);
             //if (!pass)
             //    Console.Write($"Limit: {Limit.Value} {Limit.Unit} ");
             return pass; 

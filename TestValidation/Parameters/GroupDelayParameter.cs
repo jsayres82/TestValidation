@@ -11,7 +11,7 @@ namespace TestValidation.Parameters
     public class GroupDelayParameter : GenericParameter
     {
         public string Description { get { return "Returns the scattering parameter specified in measurement variable"; } }
-        public List<string> MeasurementVariables { get; set; }
+        public override List<string> MeasurementVariables { get; set; }
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement)
         {
             return true;// propertyValue.ValidateMeasurement(measurement);

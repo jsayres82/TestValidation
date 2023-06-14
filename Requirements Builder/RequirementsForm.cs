@@ -9,12 +9,12 @@ using System.Xml.Serialization;
 using TestValidation;
 using TestValidation.Parameters;
 using TestValidation.Limits;
-using TestValidation.Limits.Limits;
 using static TestValidation.Limits.Units.UnitConverter;
+using TestValidation.Limits.Validators;
 
 namespace Requirements_Builder
 {
-    public partial class Form1 : Form
+    public partial class RequirementsForm : Form
     {
         string specFile = "C:\\Users\\214782\\source\\repos\\TestValidation\\TestValidation\\bin\\Debug\\net5.0\\test_spec_file.xml";
         public MeasurementProcessor measurementProcessor = new MeasurementProcessor();
@@ -23,7 +23,7 @@ namespace Requirements_Builder
         public Type[] parameterTypes;
         public Type[] limitTypes;
 
-        public Form1()
+        public RequirementsForm()
         {
             InitializeComponent();
 
@@ -295,6 +295,16 @@ namespace Requirements_Builder
         {
             foreach (Control c in flp2.Controls)
                 c.Width = this.Width;
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void flp2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 

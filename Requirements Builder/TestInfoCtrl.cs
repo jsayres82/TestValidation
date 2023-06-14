@@ -12,20 +12,20 @@ using TestValidation;
 
 namespace Requirements_Builder
 {
-    public partial class MeasurementInfoCtrl : UserControl
+    public partial class TestInfoCtrl : UserControl
     {
         public BindingSource source;
         public TestInfo testInfo { get; set; }
         public string fileName { get; set; }
         public string folderName { get; set; }
-        public MeasurementInfoCtrl()
+        public TestInfoCtrl()
         {
             //bindingDataSource1 = new BindingSource();
 
             testInfo = new TestInfo() { TestName = "Test", Program = "1180", WaferName = "Pentaplexer", TestArticles = new List<TestArticle>() };
             InitializeComponent();
         }
-        public MeasurementInfoCtrl(TestInfo info)
+        public TestInfoCtrl(TestInfo info)
         {
             testInfo = new TestInfo() { TestName = "Test", Program = "1180", WaferName = "Pentaplexer", TestArticles = new List<TestArticle>() };
 

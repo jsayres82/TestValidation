@@ -11,7 +11,7 @@ namespace TestValidation.Parameters
     public class RippleParameter : GenericParameter
     {
         public string Description { get { return "Returns the max variation of the specified measurement variable"; }  }
-        public List<string> MeasurementVariables { get; set; }
+        public override List<string> MeasurementVariables { get; set; }
 
         private Dictionary<string, List<double>> parameterValue = new Dictionary<string, List<double>>();
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement)
