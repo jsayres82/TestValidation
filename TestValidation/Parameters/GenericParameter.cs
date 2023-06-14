@@ -7,12 +7,12 @@ using System.Xml.Serialization;
 using TestValidation.Limits;
 using TestValidation.Limits.Validators;
 
-namespace TestValidation.CharacteristicParameters
+namespace TestValidation.Parameters
 {
     [XmlInclude(typeof(AttenuationParameter))]
     [XmlInclude( typeof(ScatteringParameter))]
     [XmlInclude(typeof(RippleParameter))]
-    public abstract class GenericCharacteristicParameter
+    public abstract class GenericParameter
     {
         public string Name { get; set; }
 

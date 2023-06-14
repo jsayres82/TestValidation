@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using TestValidation.Limits;
 using TestValidation.Limits.Validators;
 
-namespace TestValidation.CharacteristicParameters
+namespace TestValidation.Parameters
 {
-    public class ScatteringParameter : GenericCharacteristicParameter
+    public class ScatteringParameter : GenericParameter
     {
         public string Description { get { return "Returns the scattering parameter specified in measurement variable"; } }
         public List<string> MeasurementVariables { get; set; }

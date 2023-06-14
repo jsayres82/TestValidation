@@ -9,7 +9,7 @@ using TestValidation.Limits;
 using TestValidation.Limits.Validators;
 using static TestValidation.Limits.Units.UnitConverter;
 using TestValidation.Limits.Units;
-using TestValidation.CharacteristicParameters;
+using TestValidation.Parameters;
 using TestValidation;
 using RF_Networks;
 

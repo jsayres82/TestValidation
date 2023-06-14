@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using TestValidation;
-using TestValidation.CharacteristicParameters;
+using TestValidation.Parameters;
 using TestValidation.Limits;
 using TestValidation.Limits.Limits;
 using static TestValidation.Limits.Units.UnitConverter;
@@ -32,7 +32,7 @@ namespace Requirements_Builder
 
             // Get all the CharacteristicParameter classes
             parameterTypes = assembly.GetTypes()
-                .Where(t => t.IsSubclassOf(typeof(GenericCharacteristicParameter)))
+                .Where(t => t.IsSubclassOf(typeof(GenericParameter)))
                 .ToArray();
 
             // Get all the Requirements classes

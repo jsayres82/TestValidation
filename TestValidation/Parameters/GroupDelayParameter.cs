@@ -6,14 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TestValidation.Limits;
 
-namespace TestValidation.CharacteristicParameters
+namespace TestValidation.Parameters
 {
-    public class RippleParameter : GenericCharacteristicParameter
+    public class GroupDelayParameter : GenericParameter
     {
-        public string Description { get { return "Returns the max variation of the specified measurement variable"; }  }
+        public string Description { get { return "Returns the scattering parameter specified in measurement variable"; } }
         public List<string> MeasurementVariables { get; set; }
-
-        private Dictionary<string, List<double>> parameterValue = new Dictionary<string, List<double>>();
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement)
         {
             return true;// propertyValue.ValidateMeasurement(measurement);
@@ -25,5 +23,4 @@ namespace TestValidation.CharacteristicParameters
             return par;//["StopbandAttenuationParameter"];
         }
     }
-
 }

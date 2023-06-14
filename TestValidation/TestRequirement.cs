@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
 using TestValidation.Limits.Validators;
-using TestValidation.CharacteristicParameters;
+using TestValidation.Parameters;
 
 namespace TestValidation.Limits
 {
@@ -23,9 +23,9 @@ namespace TestValidation.Limits
         [XmlElement("RippleParameter", typeof(RippleParameter))]
         [XmlElement("AttenuationParameter", typeof(AttenuationParameter))]
         [XmlElement("ScatteringParameter", typeof(ScatteringParameter))]
-        public GenericCharacteristicParameter CharacteristicParameter { get; set; }
+        public GenericParameter CharacteristicParameter { get; set; }
 
-        public void SetCharacteristicParameter(GenericCharacteristicParameter characteristicParameter)
+        public void SetCharacteristicParameter(GenericParameter characteristicParameter)
         {
             CharacteristicParameter = characteristicParameter;
         }

@@ -8,7 +8,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using TestValidation.CharacteristicParameters;
+using TestValidation.Parameters;
 using TestValidation.Limits;
 
 namespace TestValidation
@@ -71,7 +71,7 @@ namespace TestValidation
             foreach (var requirement in TestRequirements.Requirements)
             {
                 // Retrieve the characteristic parameter for the requirement
-                GenericCharacteristicParameter characteristicParameter = requirement.CharacteristicParameter;
+                GenericParameter characteristicParameter = requirement.CharacteristicParameter;
 
                 // Calculate the parameter value based on the base data set
                 characteristicParameter.CalculateParameterValue(requirement,
@@ -87,7 +87,7 @@ namespace TestValidation
             foreach (var requirement in TestRequirements.Requirements)
             {
                 // Retrieve the characteristic parameter for the requirement
-                GenericCharacteristicParameter characteristicParameter = requirement.CharacteristicParameter;
+                GenericParameter characteristicParameter = requirement.CharacteristicParameter;
 
                 // Get the parameter value from the dictionary
                 //double parameterValue = characteristicParameters[requirement.Name];

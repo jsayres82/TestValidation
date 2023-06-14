@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using TestValidation.Limits;
 using System.Reflection;
 using static TestValidation.Limits.Units.UnitConverter;
-using TestValidation.CharacteristicParameters;
+using TestValidation.Parameters;
 
 namespace Requirements_Builder
 {

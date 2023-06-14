@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Collections.Generic;
 using TestValidation.Limits;
 
-namespace TestValidation.CharacteristicParameters
+namespace TestValidation.Parameters
 {
-    public class AttenuationParameter : GenericCharacteristicParameter
+    public class AttenuationParameter : GenericParameter
     {
         public string Description { get { return "Returns the scattering parameter specified in measurement variable"; } }
         public List<string> MeasurementVariables { get; set; }
