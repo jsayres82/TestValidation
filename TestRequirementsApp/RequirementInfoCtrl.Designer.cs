@@ -94,7 +94,6 @@ namespace Requirements_Builder
             this.label1.TabIndex = 16;
             this.label1.Text = "Requirement Title";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // richTextBox1
             // 
@@ -118,7 +117,6 @@ namespace Requirements_Builder
             this.labelReqId.TabIndex = 16;
             this.labelReqId.Text = "Req. ID";
             this.labelReqId.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelReqId.Click += new System.EventHandler(this.label1_Click);
             // 
             // contextMenuStrip1
             // 

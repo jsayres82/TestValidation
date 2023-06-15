@@ -9,7 +9,7 @@ namespace RF_Networks
 {
     public class SParameterCombiner
     {
-        private Dictionary<string, string> filePortNames;
+        public Dictionary<string, string> filePortNames;
         private Dictionary<string, List<string>> fileNamesPortsDic;
 
         public SParameterCombiner()

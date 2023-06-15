@@ -19,9 +19,11 @@ namespace Requirements_Builder
         string specFile = "C:\\Users\\214782\\source\\repos\\TestValidation\\TestValidation\\bin\\Debug\\net5.0\\test_spec_file.xml";
         public MeasurementProcessor measurementProcessor = new MeasurementProcessor();
         public DataGridView dgv;
+        public string MeasurementFolder;
         public Type[] requirementTypes;
         public Type[] parameterTypes;
         public Type[] limitTypes;
+        TestRequirements requirements;
 
         public RequirementsForm()
         {
@@ -81,15 +83,18 @@ namespace Requirements_Builder
             flp2.Controls.Clear();
             if(measurementProcessor.TestRequirements!=null)
                 measurementProcessor.TestRequirements.Requirements.Clear();
-            TestRequirements requirements = measurementProcessor.ParseTestSpecsFromXml(specFile);
-            measurementInfoCtrl1.UpdateTestInfo(measurementProcessor.TestInfo, specFile);
+            requirements = measurementProcessor.ParseTestSpecsFromXml(specFile);
+            testInfoCtrl1.UpdateTestInfo(measurementProcessor.TestInfo, specFile);
+            testInfoCtrl1.TestInfoUpdated += TestInfoCtrl1_TestInfoUpdated;
             //dgv.Show();
             DisplayTestRequirements(requirements.Requirements);
-            foreach (var req in requirements.Requirements)
-            {
-            }
-
         }
+
+        private void TestInfoCtrl1_TestInfoUpdated(object sender, EventArgs e)
+        {
+            measurementProcessor.TestInfo = testInfoCtrl1.testInfo;
+        }
+
         private bool IsIndexType(Type type)
         {
             var indexDefinition = typeof(GenericValidator<>).GetGenericTypeDefinition();
@@ -221,12 +226,8 @@ namespace Requirements_Builder
 
         private void Control_RequirementUpdated(object sender, EventArgs e)
         {
-            //measurementInfoCtrl1.UpdateTestInfo(measurementProcessor.TestInfo, specFile);
             var ctrl= (sender as TestRequirementControl);
-            measurementProcessor.TestRequirements.Requirements[(sender as TestRequirementControl).reqNum - 1].Name = ctrl.testRequirement.Name;
-            measurementProcessor.TestRequirements.Requirements[(sender as TestRequirementControl).reqNum - 1].Limit = ctrl.testRequirement.Limit;
-            measurementProcessor.TestRequirements.Requirements[(sender as TestRequirementControl).reqNum - 1].CharacteristicParameter = ctrl.testRequirement.CharacteristicParameter;
-
+            measurementProcessor.TestRequirements.Requirements[(sender as TestRequirementControl).reqNum - 1] = ctrl.testRequirement;
         }
 
         private void comboBoxLimitTypes_SelectedIndexChanged(object sender, EventArgs e)
@@ -264,15 +265,9 @@ namespace Requirements_Builder
 
         private void buttonSaveSpecFile_Click(object sender, EventArgs e)
         {
-            measurementProcessor.TestInfo.Program = measurementInfoCtrl1.testInfo.Program;
-            measurementProcessor.TestInfo.TestName = measurementInfoCtrl1.testInfo.TestName;
-            measurementProcessor.TestInfo.WaferName = measurementInfoCtrl1.testInfo.WaferName;
-            measurementProcessor.TestInfo.TestArticles = measurementInfoCtrl1.testInfo.TestArticles;
-
-
             // Serialize the TestRequirement instance to XML
             var serializer = new XmlSerializer(typeof(MeasurementProcessor));
-            using (var writer = new StreamWriter($"{measurementInfoCtrl1.folderName}\\{measurementInfoCtrl1.fileName}.xml"))
+            using (var writer = new StreamWriter($"{testInfoCtrl1.folderName}\\{testInfoCtrl1.fileName}.xml"))
             {
                 serializer.Serialize(writer, measurementProcessor);
             }
@@ -305,6 +300,31 @@ namespace Requirements_Builder
         private void flp2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void buttonProcessResults_Click(object sender, EventArgs e)
+        {
+            List<string> results;
+            string output = "";
+            MeasurementFolder = textBoxDataFolder.Text;
+            measurementProcessor.CalculateCharacteristicParameters(MeasurementFolder);
+            results = measurementProcessor.ValidateMeasurement();
+            foreach(var s in results)
+            {
+                output += s + "\n\r";
+            }
+
+            MessageBox.Show(output);
+        }
+
+        private void buttonSelectFolder_Click(object sender, EventArgs e)
+        {
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result.Equals(DialogResult.OK))
+            {
+                MeasurementFolder = folderBrowserDialog1.SelectedPath;
+                textBoxDataFolder.Text = MeasurementFolder;
+            }
         }
     }
 

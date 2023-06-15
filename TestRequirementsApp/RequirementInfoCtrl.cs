@@ -24,6 +24,12 @@ namespace Requirements_Builder
             InitializeComponent();
         }
 
+        public TestRequirement GetTestRequirement()
+        {
+            testRequirement.Name = richTextBoxReqName.Text;
+            return testRequirement;
+        }
+
         private void RequirementInfo_Load(object sender, EventArgs e)
         {
 
@@ -35,14 +41,5 @@ namespace Requirements_Builder
             richTextBoxReqName.Text = testRequirement.Name;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxRequirementTitle_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

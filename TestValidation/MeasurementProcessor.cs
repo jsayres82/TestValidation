@@ -82,8 +82,27 @@ namespace TestValidation
             }
         }
 
-        public void ValidateMeasurement()
+        public void CalculateCharacteristicParameters(string measurementFolder)
         {
+            foreach (var requirement in TestRequirements.Requirements)
+            {
+                // Retrieve the characteristic parameter for the requirement
+                GenericParameter characteristicParameter = requirement.CharacteristicParameter;
+
+                string filePath = Path.Combine(measurementFolder, TestInfo.TestArticles[0].MeasurementFiles[0]);
+
+                // Calculate the parameter value based on the base data set
+                characteristicParameter.CalculateParameterValue(requirement,
+                                        parseMeasurementsFromFile(filePath));
+
+                // Store the parameter value in the dictionary
+                //characteristicParameters[requirement.Name] = parameterValue.First().Value;
+            }
+        }
+
+        public List<string> ValidateMeasurement()
+        {
+            List<string> results = new List<string>();
             foreach (var requirement in TestRequirements.Requirements)
             {
                 // Retrieve the characteristic parameter for the requirement
@@ -97,7 +116,9 @@ namespace TestValidation
 
                 // Print the result
                 Console.WriteLine($"{requirement.Name}: {(isPassed ? "Passed" : "Failed")}");
+                results.Add($"{results.Count + 1} - {requirement.Name}: {(isPassed ? "Passed" : "Failed")}");
             }
+            return results;
         }
 
         private Dictionary<string, List<double[]>> parseMeasurementsFromFile(string filePath)

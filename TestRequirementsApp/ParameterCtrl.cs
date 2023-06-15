@@ -59,6 +59,11 @@ namespace Requirements_Builder
             comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
         }
 
+        public GenericParameter GetParameter()
+        {
+            Parameter.MeasurementVariables[0] = textBoxAdditionalProperty1.Text;
+            return Parameter;
+        }
 
         public void UpdateLimit(GenericParameter param)
         {
@@ -85,14 +90,13 @@ namespace Requirements_Builder
 
                 comboBoxSpecTypes.Text = ParameterType.Name;
                 foreach (var variable in Parameter.MeasurementVariables.ToList())
+                {
                     listView1.Items.Add(variable);
-                //richTextBox1.Text = Parameter.Description;
+                    textBoxAdditionalProperty1.Text = variable;
+                }
+                //textBoxAdditionalProperty1.Text = Parameter.Description;
                 richTextBox1.DataBindings.Add("Text", bindingSource1, "Description");
-                //listView1.DataBindings.Add("Items", bindingSource1, "MeasurementVariables");
-                //comboBoxUnitsPrefix.DataBindings.Add("Text", bindingSource1, "Validator.Prefix");
-                //comboBoxLimitUnits.DataBindings.Add("Text", bindingSource1, "Validator.Unit");
-                //textBoxAdditionalProperty1.DataBindings.Add("Text", bindingSource1, "Validator.Prefix");
-                //textBoxAdditionalProperty2.DataBindings.Add("Text", bindingSource1, "Validator.Unit");
+                //textBoxAdditionalProperty1.DataBindings.Add("Text", bindingSource1, "MeasurementVariables[0]");
 
                 //// If there are multiple TestArticles in the list, you can bind to the first one
                 //if (testInfo.TestArticles != null && testInfo.TestArticles.Count > 0)
@@ -111,6 +115,17 @@ namespace Requirements_Builder
         private void panelHeader1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBoxSpecTypes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var o = Activator.CreateInstance(parameterTypes[comboBoxSpecTypes.SelectedIndex]);
+            PropertyInfo[] properties = o.GetType().GetProperties();
+            (o as GenericParameter).MeasurementVariables = new List<string>()
+            {
+                textBoxAdditionalProperty1.Text
+            };
+            Parameter = o as GenericParameter;
         }
     }
 }

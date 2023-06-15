@@ -17,10 +17,14 @@ namespace Requirements_Builder
     public partial class TestRequirementControl : UserControl
     {
         public event EventHandler RequirementUpdated;
+        public RequirementInfoCtrl reqCtrl;
+        public LimitCtrl limCtrl;
+        public ParameterCtrl paramCtrl;
         public TestRequirement testRequirement;
         public Dictionary<string, Control> controls;
-        public int requirementX, requirementY,reqNum;
+        public int reqNum;
         public Type[] limits,parameters,requirements;
+
         public TestRequirementControl(TestRequirement requirement, int count, Type[] l, Type[] r, Type[] p)
         {
             limits = l;
@@ -28,153 +32,66 @@ namespace Requirements_Builder
             requirements = r;
             reqNum = count;
             testRequirement = requirement;
-            Dock = DockStyle.Fill;
-            AutoSize = true;
-            AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            PropertyInfo[] props = testRequirement.GetType().GetProperties();
             controls = new Dictionary<string, Control>();
 
             InitializeComponent();
-            Label reqNumLbl = new Label();
-            reqNumLbl.Text = reqNum.ToString();
-            reqNumLbl.AutoSize = true;
-            Button editButton = new Button();
-            editButton.Text = "Edit";
-            editButton.Click += new System.EventHandler(OnEditButtonClicked);
-            flowLayoutPanel1.Controls.Add(reqNumLbl);
-            flowLayoutPanel1.Controls.Add(editButton);
-            controls.Add("Requirement Number", reqNumLbl);
-            InitializeComponents();
-
-        }
-
-        private void OnEditButtonClicked(object sender, EventArgs e)
-        {
-            var test = (sender as Control).Parent.Controls[0].Text;
-            RequirementUpdated.Invoke(this, null);
+            InitializeComponents();            
         }
 
         private void InitializeComponents()
         {
-            int labelTop = 10;
-            int textBoxTop = 30;
-            int labelLeft = 10;
-            int textBoxLeft = 10;
             foreach (var property in testRequirement.GetType().GetProperties())
             {
-                //FlowLayoutPanel f = new FlowLayoutPanel();
-                //f.FlowDirection = FlowDirection.TopDown;
-                //f.BorderStyle = BorderStyle.FixedSingle;
-                //f.Name = reqNum.ToString() + property.Name + "FLP";
-                //f.AutoSize = true;
-                //flowLayoutPanel1.Controls.Add(f);
 
                 if (property.MemberType != MemberTypes.Method)
                 {
-                    //reqNum++;
-                    Label label = new Label();
-                    TextBox textBox = new TextBox();
                     switch (property.Name.ToString())
                     {
                         case "Name":
-
-                            RequirementInfoCtrl rCtrl = new RequirementInfoCtrl();
-                            flowLayoutPanel1.Controls.Add(rCtrl);
-                            rCtrl.UpdateInfo(testRequirement, reqNum);
-                            //// Create label
-                            //label.Text = "Requirement Name";
-                            //label.AutoSize = true;
-                            //label.Location = new Point(textBoxLeft, labelTop);
-
-                            //f.Controls.Add(label);
-                            //controls.Add(reqNum.ToString() + property.Name + "label", label);
-
-                            //// Create text box
-                            //textBox.Location = new Point(textBoxLeft, textBoxTop);
-                            //textBox.Top = textBoxTop;
-                            //textBox.Left = textBoxLeft;
-                            //textBox.Width = 150;
-                            //textBox.TextChanged += TextBox_TextChanged;
-                            //textBox.Text = testRequirement.Name;
-                            //textBox.TextChanged += TextBox_TextChanged1;
-
-
-                            //f.Controls.Add(textBox);
-                            //controls.Add("RequirementName_TextBox", textBox);
+                            reqCtrl = new RequirementInfoCtrl();
+                            flowLayoutPanel1.Controls.Add(reqCtrl);
+                            reqCtrl.UpdateInfo(testRequirement, reqNum);
                             break;
                         case "Limit":
-                            
-                                this.CreateControls(testRequirement.Limit, flowLayoutPanel1);
-                            
+                            limCtrl = new LimitCtrl();
+                            flowLayoutPanel1.Controls.Add(limCtrl);
+                            limCtrl.UpdateLimit(testRequirement.Limit as GenericLimit);
                             break;
                         case "CharacteristicParameter":
                             if (!property.Name.Equals("Property"))
                             {
-                                //// Create label
-                                //label.Text = "Parameter Type";
-                                //label.AutoSize = true;
-                                //label.Location = new Point(textBoxLeft, labelTop);
-
-                                //f.Controls.Add(label);
-                                //controls.Add(reqNum.ToString() + property.Name + "label", label);
-
-                                //// Create text box
-                                //textBox.Location = new Point(textBoxLeft, textBoxTop);
-                                //textBox.Top = textBoxTop;
-                                //textBox.Left = textBoxLeft;
-                                //textBox.Width = 250;
-                                //textBox.Name = "ParameterType_TextBox";
-                                //textBox.Text = testRequirement.CharacteristicParameter.GetType().Name;
-                                //textBox.TextChanged += TextBox_TextChanged1;
-                                //f.Controls.Add(textBox);
-                                //controls.Add("ParameterType_TextBox", textBox);
-                                this.CreateParameterControls(testRequirement.CharacteristicParameter, flowLayoutPanel1);
+                                paramCtrl = new ParameterCtrl();
+                                flowLayoutPanel1.Controls.Add(paramCtrl);
+                                paramCtrl.UpdateLimit(testRequirement.CharacteristicParameter as GenericParameter);
                             }
-
                             break;
                         default:
                             break;
                     }
-
-                    // Update positions for next label and text box
-                    //labelTop += 40;
-                    //textBoxTop += 40;
                 }
             }
         }
 
-        private void TextBox_TextChanged1(object sender, EventArgs e)
+        private void buttonEdit_Click(object sender, EventArgs e)
         {
-            if((sender as TextBox).Name.StartsWith("RequirementName"))
+            if(flowLayoutPanel1.Enabled)
             {
-                testRequirement.Name = (sender as TextBox).Text;
+                buttonEdit.Text = "EDIT";
+                testRequirement.Name = reqCtrl.GetTestRequirement().Name;
+                testRequirement.Limit = limCtrl.GetLimit();
+                testRequirement.CharacteristicParameter = paramCtrl.GetParameter();
+                flowLayoutPanel1.Enabled = false;
+                RequirementUpdated.Invoke(this, null);
             }
-            else if((sender as TextBox).Name.StartsWith("ParameterType"))
+            else
             {
-                if((sender as TextBox).Text.StartsWith("Atten"))
-                    testRequirement.CharacteristicParameter = new AttenuationParameter();
-                else if((sender as TextBox).Text.StartsWith("Inser"))
-                    testRequirement.CharacteristicParameter = new ScatteringParameter();
-                else if ((sender as TextBox).Text.StartsWith("Ripp"))
-                    testRequirement.CharacteristicParameter = new RippleParameter();
-                else
-                {
-
-                }
+                buttonEdit.Text = "SAVE";
+                flowLayoutPanel1.Enabled = true;
             }
-        }
-
-        private void TextBox_TextChanged(object sender, EventArgs e)
-        {
-            testRequirement.Name = (sender as TextBox).Text;
-            //RequirementUpdated.Invoke(this.testRequirement, null);
         }
 
         public void CreateControls(object obj, Control parentControl)
         {
-            LimitCtrl sCtrl = new LimitCtrl();
-            parentControl.Controls.Add(sCtrl);
-            sCtrl.UpdateLimit(obj as GenericLimit);
             //FlowLayoutPanel f = new FlowLayoutPanel();
             //f.FlowDirection = FlowDirection.TopDown;
             //f.BorderStyle = BorderStyle.FixedSingle;
@@ -258,9 +175,6 @@ namespace Requirements_Builder
         }
         public void CreateParameterControls(object obj, Control parentControl)
         {
-            ParameterCtrl pCtrl = new ParameterCtrl();
-            parentControl.Controls.Add(pCtrl);
-            pCtrl.UpdateLimit(obj as GenericParameter);
             //FlowLayoutPanel f = new FlowLayoutPanel();
             //f.FlowDirection = FlowDirection.TopDown;
             //f.BorderStyle = BorderStyle.FixedSingle;
@@ -334,6 +248,7 @@ namespace Requirements_Builder
             //    }
             //}
         }
+
         public Dictionary<string, string> GetPropertyValues()
         {
             Dictionary<string, string> propertyValues = new Dictionary<string, string>();

@@ -17,29 +17,33 @@ class Program
 {
     static void Main()
     {
-        //SParameterCombiner combiner = new SParameterCombiner();
+        SParameterCombiner combiner = new SParameterCombiner();
 
-        // Add the paths of the S-parameter files
-        //combiner.AddSParameterFile("sparam_P1P2P3.s3p", new string[] { "1", "2", "3" });
-        //combiner.AddSParameterFile("sparam_P1P3P4.s3p", new string[] { "1", "3", "4" });
-        //combiner.AddSParameterFile("sparam_P1P4P5.s3p", new string[] { "1", "4", "5" });
-        //combiner.AddSParameterFile("sparam_P1P5P6.s3p", new string[] { "1", "5", "6" });
+        //Add the paths of the S-parameter files
+        combiner.AddSParameterFile("sparam_P1P2P3.s3p", new string[] { "1", "2", "3" });
+        combiner.AddSParameterFile("sparam_P1P3P4.s3p", new string[] { "1", "3", "4" });
+        combiner.AddSParameterFile("sparam_P1P4P5.s3p", new string[] { "1", "4", "5" });
+        combiner.AddSParameterFile("sparam_P1P5P6.s3p", new string[] { "1", "5", "6" });
 
-        // Add the paths of the S-parameter files
+        //Add the paths of the S-parameter files
+
+        Console.WriteLine($"Combining files: ");
         //combiner.AddSParameterFile("sparam_P1P2P3.s3p");
         //combiner.AddSParameterFile("sparam_P1P3P4.s3p");
         //combiner.AddSParameterFile("sparam_P1P4P5.s3p");
         //combiner.AddSParameterFile("sparam_P1P5P6.s3p");
+        foreach(var f in combiner.filePortNames)
+            Console.WriteLine($"       {f.Key}");
+        Console.WriteLine();
+        // Set the output file path
+        string outputFilePath = "combined_sparams.s6p";
 
-        //// Set the output file path
-        //string outputFilePath = "combined_sparams.s6p";
-
-        //// Combine the S-parameter files
-        //combiner.CombineSParameterFiles(outputFilePath);
+        // Combine the S-parameter files
+        combiner.CombineSParameterFiles(outputFilePath);
 
         //Create a MeasurementProcessor instance
-        MeasurementProcessor processor = new MeasurementProcessor();
-        //Console.WriteLine("S-parameter files combined successfully.");
+        //MeasurementProcessor processor = new MeasurementProcessor();
+        Console.WriteLine($"\"{outputFilePath}\" Created from input files.");
         //TestInfo info = new TestInfo() { Program = "MUX", TestName = "Module RF Measurement", WaferName = "N/A" };
         //info.TestArticles = new List<TestArticle>();
         //info.TestArticles.Add(new TestArticle()
@@ -95,16 +99,16 @@ class Program
         //}
 
 
-        processor.SetBaseDataSet(new Dictionary<string, double>());
+        //processor.SetBaseDataSet(new Dictionary<string, double>());
 
-        // Parse the test requirements from XML
-        processor.ParseTestSpecsFromXml("test_spec_file.xml");
+        //// Parse the test requirements from XML
+        //processor.ParseTestSpecsFromXml("test_spec_file.xml");
 
-        // Calculate the characteristic parameters
-        processor.CalculateCharacteristicParameters();
+        //// Calculate the characteristic parameters
+        //processor.CalculateCharacteristicParameters();
 
-        // Validate the measurement
-        processor.ValidateMeasurement();
+        //// Validate the measurement
+        //processor.ValidateMeasurement();
     }
 
 }

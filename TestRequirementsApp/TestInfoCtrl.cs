@@ -14,6 +14,7 @@ namespace Requirements_Builder
 {
     public partial class TestInfoCtrl : UserControl
     {
+        public event EventHandler TestInfoUpdated;
         public BindingSource source;
         public TestInfo testInfo { get; set; }
         public string fileName { get; set; }
@@ -129,6 +130,24 @@ namespace Requirements_Builder
         private void textBoxSpecFileLoc_TextChanged(object sender, EventArgs e)
         {
             folderName = textBoxSpecFileLoc.Text;
+        }
+
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            if (flowLayoutPanel2.Enabled)
+            {
+                buttonEdit.Text = "EDIT";
+                testInfo.Program = textBoxProgram.Text;
+                testInfo.TestName = textBoxTestName.Text;
+                testInfo.WaferName = textBoxWaferName.Text;
+                flowLayoutPanel2.Enabled = false;
+                TestInfoUpdated.Invoke(this, null);
+            }
+            else
+            {
+                buttonEdit.Text = "SAVE";
+                flowLayoutPanel2.Enabled = true;
+            }
         }
     }
 }
