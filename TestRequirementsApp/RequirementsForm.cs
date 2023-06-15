@@ -16,7 +16,7 @@ namespace Requirements_Builder
 {
     public partial class RequirementsForm : Form
     {
-        string specFile = "C:\\Users\\214782\\source\\repos\\TestValidation\\TestValidation\\bin\\Debug\\net5.0\\test_spec_file.xml";
+        string specFile = ".\\TestData\\test_spec_file.xml";
         public MeasurementProcessor measurementProcessor = new MeasurementProcessor();
         public DataGridView dgv;
         public string MeasurementFolder;
