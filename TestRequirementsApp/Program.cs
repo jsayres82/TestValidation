@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     static class Program
     {

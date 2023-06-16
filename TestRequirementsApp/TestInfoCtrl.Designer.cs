@@ -1,5 +1,5 @@
 ﻿
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     partial class TestInfoCtrl
     {
@@ -31,13 +31,13 @@ namespace Requirements_Builder
         {
             this.components = new System.ComponentModel.Container();
             this.bindingDataSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.textBoxProgram = new Requirements_Builder.EmptyTextTextBox();
+            this.textBoxProgram = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxSpecFileName = new Requirements_Builder.EmptyTextTextBox();
+            this.textBoxSpecFileName = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxWaferName = new Requirements_Builder.EmptyTextTextBox();
+            this.textBoxWaferName = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBoxSpecFileLoc = new Requirements_Builder.EmptyTextTextBox();
+            this.textBoxSpecFileLoc = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxTestName = new System.Windows.Forms.TextBox();
@@ -47,8 +47,8 @@ namespace Requirements_Builder
             this.buttonEdit = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.testArticle1 = new Requirements_Builder.TestArticleCtrl();
-            this.panelHeader1 = new Requirements_Builder.PanelHeader();
+            this.testArticle1 = new Nuvo.Requirements_Builder.TestArticleCtrl();
+            this.panelHeader1 = new Nuvo.Requirements_Builder.PanelHeader();
             this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.bindingDataSource1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();

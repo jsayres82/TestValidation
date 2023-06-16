@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using TestValidation.Limits;
+using Nuvo.TestValidation.Limits;
 
-namespace TestValidation.Parameters
+namespace Nuvo.TestValidation.Parameters
 {
     public class AttenuationParameter : GenericParameter
     {
+        public override double[] MinMargin { get; set; }
         public string Description { get { return "Returns the scattering parameter specified in measurement variable"; } }
         public override List<string> MeasurementVariables { get; set; }
         [XmlIgnore]

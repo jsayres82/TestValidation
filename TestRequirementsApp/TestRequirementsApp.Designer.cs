@@ -1,5 +1,5 @@
 ﻿
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     partial class TestRequirementsApp
     {
@@ -36,7 +36,7 @@ namespace Requirements_Builder
             this.listBoxSerialNumbers = new System.Windows.Forms.ListBox();
             this.buttonProcessResults = new System.Windows.Forms.Button();
             this.buttonSelectFolder = new System.Windows.Forms.Button();
-            this.textBoxDataFolder = new Requirements_Builder.EmptyTextTextBox();
+            this.textBoxDataFolder = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.labelSerialNumbers = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -48,7 +48,7 @@ namespace Requirements_Builder
             this.buttonSaveSpecFile = new System.Windows.Forms.Button();
             this.flp2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flp = new System.Windows.Forms.FlowLayoutPanel();
-            this.testInfoCtrl1 = new Requirements_Builder.TestInfoCtrl();
+            this.testInfoCtrl1 = new Nuvo.Requirements_Builder.TestInfoCtrl();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();

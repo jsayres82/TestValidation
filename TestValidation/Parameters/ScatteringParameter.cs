@@ -5,11 +5,11 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using TestValidation.Limits;
-using TestValidation.Limits.Validators;
-using TestValidation.TestResults;
+using Nuvo.TestValidation.Limits;
+using Nuvo.TestValidation.Limits.Validators;
+using Nuvo.TestValidation.TestResults;
 
-namespace TestValidation.Parameters
+namespace Nuvo.TestValidation.Parameters
 {
     public class ScatteringParameter : GenericParameter
     {
@@ -17,6 +17,8 @@ namespace TestValidation.Parameters
         public override List<string> MeasurementVariables { get; set; }
         [XmlIgnore]
         public override Dictionary<string, List<double[]>> ParameterValues { get => parameterValues; }
+        public override double[] MinMargin { get; set; }
+
         private Dictionary<string, List<double[]>> parameterValues = new Dictionary<string, List<double[]>>();
 
         private List<string> parameterDomain = new List<string>();

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TestValidation.Limits;
+using Nuvo.TestValidation.Limits;
 
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     public partial class RequirementInfoCtrl : UserControl
     {

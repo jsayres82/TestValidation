@@ -1,5 +1,5 @@
 ﻿
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     partial class TestRequirementControl
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     partial class TestArticleCtrl
     {
@@ -30,9 +30,9 @@ namespace Requirements_Builder
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.textBoxTestName = new Requirements_Builder.EmptyTextTextBox();
+            this.textBoxTestName = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.emptyTextTextBox1 = new Requirements_Builder.EmptyTextTextBox();
+            this.emptyTextTextBox1 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxMeasurementFiles = new System.Windows.Forms.ListBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);

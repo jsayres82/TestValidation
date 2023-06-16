@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Xml.Serialization;
-using static TestValidation.Limits.Units.UnitConverter;
+using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 
-namespace TestValidation.Limits.Validators
+namespace Nuvo.TestValidation.Limits.Validators
 {
     [Serializable]
     public abstract class GenericValidator<T>

@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using static TestValidation.Limits.Units.UnitConverter;
+using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +13,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TestValidation.Limits;
+using Nuvo.TestValidation.Limits;
 using System.Reflection;
-using TestValidation.Limits.Validators;
+using Nuvo.TestValidation.Limits.Validators;
 
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     public partial class GenericLimitForm : UserControl
     {

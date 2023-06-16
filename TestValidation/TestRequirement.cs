@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
-using TestValidation.Limits.Validators;
-using TestValidation.Parameters;
+using Nuvo.TestValidation.Limits.Validators;
+using Nuvo.TestValidation.Parameters;
 
-namespace TestValidation.Limits
+namespace Nuvo.TestValidation.Limits
 {
     public class TestRequirement
     {

@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using CustomControls;
-using TestValidation.Requirements;
-using TestValidation.CharacteristicParameters;
+using Nuvo.TestValidation.Requirements;
+using Nuvo.TestValidation.CharacteristicParameters;
 
 namespace Requirements_Builder
 {

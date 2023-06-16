@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestValidation\TestValidation.csproj" />
+    <ProjectReference Include="..\RfNetworks\Nuvo.RF_Networks.csproj" />
+    <ProjectReference Include="..\TestValidation\Nuvo.TestValidation.csproj" />
   </ItemGroup>
 
 </Project>

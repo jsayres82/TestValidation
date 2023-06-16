@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using TestValidation.Limits.Validators;
+using Nuvo.TestValidation.Limits.Validators;
 
-namespace TestValidation.Limits
+namespace Nuvo.TestValidation.Limits
 {
     public class DomainLimit : GenericLimit
     {
@@ -30,16 +30,14 @@ namespace TestValidation.Limits
 
         public override bool ValidateMeasurement(double domainValue, double rangeValue)
         {
-            if (domainValue <= Start || domainValue >= End)
-                return ValidateMeasurement(rangeValue); // Skip validation if outside the specified frequency domain
-            return true;
+            if ( Start <= domainValue && domainValue <= End)
+                return ValidateMeasurement(rangeValue);
+            return true; // Skip validation if outside the specified frequency domain
         }
 
         public override bool ValidateMeasurement(double rangeValue)
         {
             bool pass = Validator.Validate(rangeValue);
-            //if (!pass)
-            //    Console.Write($"Limit: {Limit.Value} {Limit.Unit} ");
             return pass; 
         }
     }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace RF_Networks
+namespace Nuvo.RF_Networks
 {
     public class SParameterCombiner
     {

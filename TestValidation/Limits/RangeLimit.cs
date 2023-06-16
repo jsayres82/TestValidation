@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using TestValidation.Limits.Validators;
+using Nuvo.TestValidation.Limits.Validators;
 
-namespace TestValidation.Limits
+namespace Nuvo.TestValidation.Limits
 {
     public class RangeLimit : GenericLimit
     {
@@ -30,7 +30,7 @@ namespace TestValidation.Limits
 
         public override bool ValidateMeasurement(double domainValue, double rangeValue)
         {
-            if (rangeValue < MaxValue || rangeValue > MinValue )
+            if (MinValue <= rangeValue && rangeValue <= MaxValue)
                 return ValidateMeasurement(domainValue); // Skip validation if outside the specified frequency domain
             return true;
         }

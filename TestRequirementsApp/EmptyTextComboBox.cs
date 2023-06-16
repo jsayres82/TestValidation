@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.ComponentModel;
 
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     public class EmptyTextComboBox : ComboBox
     {

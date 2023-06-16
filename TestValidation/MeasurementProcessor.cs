@@ -1,4 +1,4 @@
-﻿using RF_Networks;
+﻿using Nuvo.RF_Networks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,11 +8,11 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using TestValidation.Parameters;
-using TestValidation.Limits;
-using TestValidation.TestResults;
+using Nuvo.TestValidation.Parameters;
+using Nuvo.TestValidation.Limits;
+using Nuvo.TestValidation.TestResults;
 
-namespace TestValidation
+namespace Nuvo.TestValidation
 {
     [Serializable]
     public class MeasurementProcessor
@@ -73,7 +73,7 @@ namespace TestValidation
         public TestRequirements ParseTestRequirementsFromXml(string xmlFilePath)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(TestRequirements));
-            using (StreamReader reader = new StreamReader("C:\\Users\\214782\\source\\repos\\TestValidation\\TestValidation\\bin\\Debug\\net5.0\\test_requirements.xml"))
+            using (StreamReader reader = new StreamReader("C:\\Users\\214782\\source\\repos\\Nuvo.TestValidation\\Nuvo.TestValidation\\bin\\Debug\\net5.0\\test_requirements.xml"))
             {
                 TestRequirements requirements = (TestRequirements)serializer.Deserialize(reader);
 

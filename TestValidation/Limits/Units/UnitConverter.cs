@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestValidation.Limits.Units
+namespace Nuvo.TestValidation.Limits.Units
 {
     public static class UnitConverter
     {

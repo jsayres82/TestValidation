@@ -6,14 +6,14 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using TestValidation;
-using TestValidation.Parameters;
-using TestValidation.Limits;
-using static TestValidation.Limits.Units.UnitConverter;
-using TestValidation.Limits.Validators;
-using TestValidation.TestResults;
+using Nuvo.TestValidation;
+using Nuvo.TestValidation.Parameters;
+using Nuvo.TestValidation.Limits;
+using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using Nuvo.TestValidation.Limits.Validators;
+using Nuvo.TestValidation.TestResults;
 
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     public partial class TestRequirementsApp : Form
     {
@@ -33,7 +33,7 @@ namespace Requirements_Builder
             InitializeComponent();
 
             // Load the assembly containing the CharacteristicParameter classes
-            Assembly assembly = Assembly.LoadFrom("TestValidation.dll");
+            Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
 
             // Get all the CharacteristicParameter classes
             parameterTypes = assembly.GetTypes()

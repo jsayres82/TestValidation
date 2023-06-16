@@ -8,12 +8,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TestValidation.Limits;
-using TestValidation.Limits.Validators;
-using TestValidation.Parameters;
-using static TestValidation.Limits.Units.UnitConverter;
+using Nuvo.TestValidation.Limits;
+using Nuvo.TestValidation.Limits.Validators;
+using Nuvo.TestValidation.Parameters;
+using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     public partial class LimitCtrl : UserControl
     {
@@ -29,7 +29,7 @@ namespace Requirements_Builder
             comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
             comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
             // Load the assembly containing the CharacteristicParameter classes
-            Assembly assembly = Assembly.LoadFrom("TestValidation.dll");
+            Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
 
             // Get all the Requirements classes
             limitTypes = assembly.GetTypes()

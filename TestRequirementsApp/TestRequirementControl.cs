@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TestValidation.Limits;
+using Nuvo.TestValidation.Limits;
 using System.Reflection;
-using static TestValidation.Limits.Units.UnitConverter;
-using TestValidation.Parameters;
+using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using Nuvo.TestValidation.Parameters;
 
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     public partial class TestRequirementControl : UserControl
     {

@@ -8,10 +8,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TestValidation.Parameters;
-using static TestValidation.Limits.Units.UnitConverter;
+using Nuvo.TestValidation.Parameters;
+using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     public partial class ParameterCtrl : UserControl
     {
@@ -32,7 +32,7 @@ namespace Requirements_Builder
             InitializeComponent();
 
             // Load the assembly containing the CharacteristicParameter classes
-            Assembly assembly = Assembly.LoadFrom("TestValidation.dll");
+            Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
 
             // Get all the CharacteristicParameter classes
             parameterTypes = assembly.GetTypes()

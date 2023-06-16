@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestValidation", "TestValidation\TestValidation.csproj", "{BED13910-1516-4527-A538-AF5CEFFD86CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuvo.TestValidation", "TestValidation\Nuvo.TestValidation.csproj", "{BED13910-1516-4527-A538-AF5CEFFD86CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RF_Networks", "RfNetworks\RF_Networks.csproj", "{3D28D030-5C11-4308-B58B-084781CDC2C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuvo.RF_Networks", "RfNetworks\Nuvo.RF_Networks.csproj", "{3D28D030-5C11-4308-B58B-084781CDC2C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestRequirementsApp", "TestRequirementsApp\TestRequirementsApp.csproj", "{2FCEC191-0A7C-41A8-9ACB-49C71B47D92E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuvo.TestRequirementsApp", "TestRequirementsApp\Nuvo.TestRequirementsApp.csproj", "{2FCEC191-0A7C-41A8-9ACB-49C71B47D92E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{DB67C4E0-EA98-40BE-B388-BED53773BBCE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuvo.UnitTest", "UnitTest\Nuvo.UnitTest.csproj", "{DB67C4E0-EA98-40BE-B388-BED53773BBCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

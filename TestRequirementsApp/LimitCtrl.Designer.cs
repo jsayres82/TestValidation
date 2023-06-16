@@ -1,5 +1,5 @@
 ﻿
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     partial class LimitCtrl
     {
@@ -33,26 +33,26 @@ namespace Requirements_Builder
             this.flpMain = new System.Windows.Forms.FlowLayoutPanel();
             this.flpSpec = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxLimitTypes = new Requirements_Builder.EmptyTextComboBox();
+            this.comboBoxLimitTypes = new Nuvo.Requirements_Builder.EmptyTextComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBoxAdditionalProperty1 = new Requirements_Builder.EmptyTextTextBox();
+            this.textBoxAdditionalProperty1 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxAdditionalProperty2 = new Requirements_Builder.EmptyTextTextBox();
+            this.textBoxAdditionalProperty2 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.panelHeader1 = new Requirements_Builder.PanelHeader();
+            this.panelHeader1 = new Nuvo.Requirements_Builder.PanelHeader();
             this.panelLimit = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBoxUnitsPrefix = new Requirements_Builder.EmptyTextComboBox();
-            this.comboBoxLimitUnits = new Requirements_Builder.EmptyTextComboBox();
-            this.comboBoxValidators = new Requirements_Builder.EmptyTextComboBox();
+            this.comboBoxUnitsPrefix = new Nuvo.Requirements_Builder.EmptyTextComboBox();
+            this.comboBoxLimitUnits = new Nuvo.Requirements_Builder.EmptyTextComboBox();
+            this.comboBoxValidators = new Nuvo.Requirements_Builder.EmptyTextComboBox();
             this.labelAdditionalProperty2 = new System.Windows.Forms.Label();
             this.labelAdditionalProperty1 = new System.Windows.Forms.Label();
-            this.emptyTextTextBox3 = new Requirements_Builder.EmptyTextTextBox();
-            this.emptyTextTextBox1 = new Requirements_Builder.EmptyTextTextBox();
+            this.emptyTextTextBox3 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
+            this.emptyTextTextBox1 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxValue = new Requirements_Builder.EmptyTextTextBox();
+            this.textBoxValue = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource3 = new System.Windows.Forms.BindingSource(this.components);
             this.flpMain.SuspendLayout();

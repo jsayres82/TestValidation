@@ -1,5 +1,5 @@
 ﻿
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     partial class RequirementInfoCtrl
     {
@@ -31,7 +31,7 @@ namespace Requirements_Builder
         {
             this.components = new System.ComponentModel.Container();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.panelHeader1 = new Requirements_Builder.PanelHeader();
+            this.panelHeader1 = new Nuvo.Requirements_Builder.PanelHeader();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();

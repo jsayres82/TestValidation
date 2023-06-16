@@ -5,6 +5,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
+    <RootNamespace>Nuvo.TestValidation</RootNamespace>
+    <AssemblyName>Nuvo.TestValidation</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RfNetworks\RF_Networks.csproj" />
+    <ProjectReference Include="..\RfNetworks\Nuvo.RF_Networks.csproj" />
   </ItemGroup>
 
   <ItemGroup>

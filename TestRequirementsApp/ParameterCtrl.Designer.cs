@@ -1,5 +1,5 @@
 ﻿
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     partial class ParameterCtrl
     {
@@ -33,25 +33,25 @@ namespace Requirements_Builder
             this.flpMain = new System.Windows.Forms.FlowLayoutPanel();
             this.flpParam = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxSpecTypes = new Requirements_Builder.EmptyTextComboBox();
+            this.comboBoxSpecTypes = new Nuvo.Requirements_Builder.EmptyTextComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBoxAdditionalProperty1 = new Requirements_Builder.EmptyTextTextBox();
+            this.textBoxAdditionalProperty1 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxAdditionalProperty2 = new Requirements_Builder.EmptyTextTextBox();
-            this.panelHeader1 = new Requirements_Builder.PanelHeader();
+            this.textBoxAdditionalProperty2 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
+            this.panelHeader1 = new Nuvo.Requirements_Builder.PanelHeader();
             this.panelDetails = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBoxUnitsPrefix = new Requirements_Builder.EmptyTextComboBox();
-            this.comboBoxLimitUnits = new Requirements_Builder.EmptyTextComboBox();
+            this.comboBoxUnitsPrefix = new Nuvo.Requirements_Builder.EmptyTextComboBox();
+            this.comboBoxLimitUnits = new Nuvo.Requirements_Builder.EmptyTextComboBox();
             this.labelAdditionalProperty2 = new System.Windows.Forms.Label();
             this.labelAdditionalProperty1 = new System.Windows.Forms.Label();
-            this.emptyTextTextBox3 = new Requirements_Builder.EmptyTextTextBox();
-            this.emptyTextTextBox1 = new Requirements_Builder.EmptyTextTextBox();
+            this.emptyTextTextBox3 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
+            this.emptyTextTextBox1 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.flpMain.SuspendLayout();
             this.flpParam.SuspendLayout();

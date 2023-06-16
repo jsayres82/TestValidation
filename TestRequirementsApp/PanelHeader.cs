@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     public partial class PanelHeader : UserControl
     {

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using TestValidation.Limits;
-using TestValidation.Limits.Validators;
+using Nuvo.TestValidation.Limits;
+using Nuvo.TestValidation.Limits.Validators;
 using System.Collections;
 
-namespace TestValidation.Parameters
+namespace Nuvo.TestValidation.Parameters
 {
     [XmlInclude(typeof(AttenuationParameter))]
     [XmlInclude( typeof(ScatteringParameter))]
@@ -22,6 +22,7 @@ namespace TestValidation.Parameters
         public string Description { get; set; }
 
         public abstract List<string> MeasurementVariables { get; set; }
+        public abstract double[] MinMargin { get; set; }
         [XmlIgnore]
         public abstract Dictionary<string,List<double[]>> ParameterValues { get; }
         public abstract bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement);

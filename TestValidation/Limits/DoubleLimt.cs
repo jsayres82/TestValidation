@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using TestValidation.Limits.Validators;
+using Nuvo.TestValidation.Limits.Validators;
 
-namespace TestValidation.Limits
+namespace Nuvo.TestValidation.Limits
 {
     public class DoubleLimt : GenericLimit
     {

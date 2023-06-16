@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TestValidation;
+using Nuvo.TestValidation;
 
-namespace Requirements_Builder
+namespace Nuvo.Requirements_Builder
 {
     public partial class TestInfoCtrl : UserControl
     {
