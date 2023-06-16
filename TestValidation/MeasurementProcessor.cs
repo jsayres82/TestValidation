@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using TestValidation.Parameters;
 using TestValidation.Limits;
+using TestValidation.TestResults;
 
 namespace TestValidation
 {
@@ -18,9 +19,13 @@ namespace TestValidation
     {
         [XmlElement]
         public TestInfo TestInfo;
+        public string UnitSerialNumber { get; set; }
+        public string PartNumber { get; set; }
+
         private List<TestRequirement> testRequirements;
         private Dictionary<string, double> baseDataSet;
         private Dictionary<string, double> characteristicParameters;
+        private string serialNumber; // New field for serial number
         [XmlElement]
         public TestRequirements TestRequirements;
         public MeasurementProcessor()
@@ -28,6 +33,30 @@ namespace TestValidation
             testRequirements = new List<TestRequirement>();
             baseDataSet = new Dictionary<string, double>();
             characteristicParameters = new Dictionary<string, double>();
+        }
+        public string[] GetFilesInFolder(string folderPath)
+        {
+            try
+            {
+                if (Directory.Exists(folderPath))
+                {
+                    List<string> partNumbers = TestInfo.TestArticles.Select(article => article.PartNumber).ToList();
+                    PartNumber = partNumbers.First();
+                    return Directory.GetFiles(folderPath)
+                        .Where(file => partNumbers.Any(partNumber => file.Contains(partNumber)))
+                        .ToArray();
+                }
+                else
+                {
+                    Console.WriteLine("Folder not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error occurred while retrieving files: " + ex.Message);
+            }
+
+            return new string[0]; // Return an empty array if an error occurs or the folder doesn't exist
         }
 
         public void ReadMeasurementData(string[] filePaths)
@@ -81,6 +110,24 @@ namespace TestValidation
                 //characteristicParameters[requirement.Name] = parameterValue.First().Value;
             }
         }
+        public void CalculateCharacteristicParameters(string measurementFile, string serialNumber)
+        {
+            UnitSerialNumber = serialNumber;
+            foreach (var requirement in TestRequirements.Requirements)
+            {
+                // Retrieve the characteristic parameter for the requirement
+                GenericParameter characteristicParameter = requirement.CharacteristicParameter;
+
+                UnitSerialNumber = serialNumber;
+
+
+                // Calculate the parameter value based on the base data set and serial number
+                characteristicParameter.CalculateParameterValue(requirement, parseMeasurementsFromFile(measurementFile));
+
+                // Store the parameter value in the dictionary
+                //characteristicParameters[requirement.Name] = parameterValue.First().Value;
+            }
+        }
 
         public void CalculateCharacteristicParameters(string measurementFolder)
         {
@@ -100,7 +147,7 @@ namespace TestValidation
             }
         }
 
-        public List<string> ValidateMeasurement()
+        public List<string> ValidateMeasurementOld()
         {
             List<string> results = new List<string>();
             foreach (var requirement in TestRequirements.Requirements)
@@ -110,15 +157,53 @@ namespace TestValidation
 
                 // Get the parameter value from the dictionary
                 //double parameterValue = characteristicParameters[requirement.Name];
-                
+
                 // Validate the measurement against the requirement
-                bool isPassed = characteristicParameter.ValidateMeasurement(requirement, new Dictionary<string, List<double[]>>());
+                var isPassed = characteristicParameter.ValidateMeasurement(requirement, new Dictionary<string, List<double[]>>());
 
                 // Print the result
                 Console.WriteLine($"{requirement.Name}: {(isPassed ? "Passed" : "Failed")}");
                 results.Add($"{results.Count + 1} - {requirement.Name}: {(isPassed ? "Passed" : "Failed")}");
             }
             return results;
+        }
+
+        public bool ValidateMeasurement(string serialNumber)
+        {
+            this.serialNumber = serialNumber; // Store the serial number
+            //TestReport results = new TestReport(UnitSerialNumber, TestInfo.TestArticles[0].PartNumber);
+            foreach (var requirement in TestRequirements.Requirements)
+            {
+                // Retrieve the characteristic parameter for the requirement
+                GenericParameter characteristicParameter = requirement.CharacteristicParameter;
+
+                // Validate the measurement against the requirement
+                object isPassed = characteristicParameter.ValidateMeasurement(requirement, new Dictionary<string, List<double[]>>());
+
+
+            }
+            return true;
+        }
+
+        public TestReport ValidateMeasurement()
+        {
+            // Create a new instance of the TestReport class
+
+            //TestReport report = new TestReport();
+            TestReport testReport = new TestReport(UnitSerialNumber, TestInfo.TestArticles[0].PartNumber);
+            foreach (var requirement in TestRequirements.Requirements)
+            {
+                // Retrieve the characteristic parameter for the requirement
+                GenericParameter characteristicParameter = requirement.CharacteristicParameter;
+
+                // Validate the measurement against the requirement
+                var isPassed = characteristicParameter.ValidateMeasurement(requirement, new Dictionary<string, List<double[]>>());
+
+                // Create a TestResult instance with parameter values of type Dictionary<string, List<double[]>>
+                var result = new TestResult<Dictionary<string, List<double[]>>> (requirement.Name, isPassed, characteristicParameter.ParameterValues);
+                testReport.Results.Add(result);
+            }
+            return testReport;// testReport;
         }
 
         private Dictionary<string, List<double[]>> parseMeasurementsFromFile(string filePath)

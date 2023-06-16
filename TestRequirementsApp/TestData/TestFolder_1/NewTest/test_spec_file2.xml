@@ -18,11 +18,11 @@
     <TestRequirement>
       <Name>Return Loss Band 3</Name>
       <DomainLimit>
-        <LessThanOrEqualValidator>
-          <Value>-5</Value>
+        <GreaterThanValidator>
+          <Value>-15</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </LessThanOrEqualValidator>
+        </GreaterThanValidator>
         <StartFrequency>1000000000</StartFrequency>
         <EndFrequency>5000000000</EndFrequency>
       </DomainLimit>
@@ -36,12 +36,12 @@
     <TestRequirement>
       <Name>Insertion Loss Band 2</Name>
       <DomainLimit>
-        <GreaterThanValidator>
-          <Value>5</Value>
+        <LessThanValidator>
+          <Value>100</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </GreaterThanValidator>
-        <StartFrequency>5000000000</StartFrequency>
+        </LessThanValidator>
+        <StartFrequency>8000000000</StartFrequency>
         <EndFrequency>11000000000</EndFrequency>
       </DomainLimit>
       <ScatteringParameter>
@@ -54,20 +54,22 @@
     <TestRequirement>
       <Name>Insertion Loss Band 1</Name>
       <DomainLimit>
-        <LessThanValidator>
+        <GreaterThanValidator>
           <Value>-8</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </LessThanValidator>
+        </GreaterThanValidator>
         <StartFrequency>11000000000</StartFrequency>
         <EndFrequency>21000000000</EndFrequency>
       </DomainLimit>
       <ScatteringParameter>
         <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
         <MeasurementVariables>
-          <string>S23</string>
+          <string>S11</string>
         </MeasurementVariables>
       </ScatteringParameter>
     </TestRequirement>
   </TestRequirements>
+  <UnitSerialNumber>005</UnitSerialNumber>
+  <PartNumber>1025668</PartNumber>
 </MeasurementProcessor>

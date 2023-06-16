@@ -1,7 +1,7 @@
 ﻿
 namespace Requirements_Builder
 {
-    partial class RequirementsForm
+    partial class TestRequirementsApp
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,10 +29,16 @@ namespace Requirements_Builder
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RequirementsForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestRequirementsApp));
             this.butonNewSpecFile = new System.Windows.Forms.Button();
             this.buttonOpenSpecFile = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.listBoxSerialNumbers = new System.Windows.Forms.ListBox();
+            this.buttonProcessResults = new System.Windows.Forms.Button();
+            this.buttonSelectFolder = new System.Windows.Forms.Button();
+            this.textBoxDataFolder = new Requirements_Builder.EmptyTextTextBox();
+            this.labelSerialNumbers = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxRequirements = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,10 +50,6 @@ namespace Requirements_Builder
             this.flp = new System.Windows.Forms.FlowLayoutPanel();
             this.testInfoCtrl1 = new Requirements_Builder.TestInfoCtrl();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.buttonSelectFolder = new System.Windows.Forms.Button();
-            this.textBoxDataFolder = new Requirements_Builder.EmptyTextTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.buttonProcessResults = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -87,9 +89,11 @@ namespace Requirements_Builder
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.listBoxSerialNumbers);
             this.splitContainer1.Panel1.Controls.Add(this.buttonProcessResults);
             this.splitContainer1.Panel1.Controls.Add(this.buttonSelectFolder);
             this.splitContainer1.Panel1.Controls.Add(this.textBoxDataFolder);
+            this.splitContainer1.Panel1.Controls.Add(this.labelSerialNumbers);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.comboBoxRequirements);
@@ -111,6 +115,65 @@ namespace Requirements_Builder
             this.splitContainer1.Size = new System.Drawing.Size(1559, 796);
             this.splitContainer1.SplitterDistance = 100;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // listBoxSerialNumbers
+            // 
+            this.listBoxSerialNumbers.FormattingEnabled = true;
+            this.listBoxSerialNumbers.ItemHeight = 15;
+            this.listBoxSerialNumbers.Location = new System.Drawing.Point(1120, 27);
+            this.listBoxSerialNumbers.Name = "listBoxSerialNumbers";
+            this.listBoxSerialNumbers.Size = new System.Drawing.Size(120, 64);
+            this.listBoxSerialNumbers.TabIndex = 19;
+            this.listBoxSerialNumbers.SelectedIndexChanged += new System.EventHandler(this.listBoxSerialNumbers_SelectedIndexChanged);
+            // 
+            // buttonProcessResults
+            // 
+            this.buttonProcessResults.Location = new System.Drawing.Point(971, 64);
+            this.buttonProcessResults.Name = "buttonProcessResults";
+            this.buttonProcessResults.Size = new System.Drawing.Size(105, 23);
+            this.buttonProcessResults.TabIndex = 18;
+            this.buttonProcessResults.Text = "Process Results";
+            this.buttonProcessResults.UseVisualStyleBackColor = true;
+            this.buttonProcessResults.Click += new System.EventHandler(this.buttonProcessResults_Click);
+            // 
+            // buttonSelectFolder
+            // 
+            this.buttonSelectFolder.Location = new System.Drawing.Point(930, 64);
+            this.buttonSelectFolder.Name = "buttonSelectFolder";
+            this.buttonSelectFolder.Size = new System.Drawing.Size(34, 23);
+            this.buttonSelectFolder.TabIndex = 17;
+            this.buttonSelectFolder.Text = "...";
+            this.buttonSelectFolder.UseVisualStyleBackColor = true;
+            this.buttonSelectFolder.Click += new System.EventHandler(this.buttonSelectFolder_Click);
+            // 
+            // textBoxDataFolder
+            // 
+            this.textBoxDataFolder.EmptyForeColor = System.Drawing.SystemColors.GrayText;
+            this.textBoxDataFolder.EmptyText = null;
+            this.textBoxDataFolder.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBoxDataFolder.Location = new System.Drawing.Point(405, 65);
+            this.textBoxDataFolder.Name = "textBoxDataFolder";
+            this.textBoxDataFolder.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBoxDataFolder.Size = new System.Drawing.Size(521, 23);
+            this.textBoxDataFolder.TabIndex = 16;
+            // 
+            // labelSerialNumbers
+            // 
+            this.labelSerialNumbers.AutoSize = true;
+            this.labelSerialNumbers.Location = new System.Drawing.Point(1131, 6);
+            this.labelSerialNumbers.Name = "labelSerialNumbers";
+            this.labelSerialNumbers.Size = new System.Drawing.Size(84, 15);
+            this.labelSerialNumbers.TabIndex = 9;
+            this.labelSerialNumbers.Text = "SerialNumbers";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(405, 47);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(143, 15);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Measurement Data Folder";
             // 
             // label2
             // 
@@ -215,47 +278,7 @@ namespace Requirements_Builder
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // buttonSelectFolder
-            // 
-            this.buttonSelectFolder.Location = new System.Drawing.Point(930, 64);
-            this.buttonSelectFolder.Name = "buttonSelectFolder";
-            this.buttonSelectFolder.Size = new System.Drawing.Size(34, 23);
-            this.buttonSelectFolder.TabIndex = 17;
-            this.buttonSelectFolder.Text = "...";
-            this.buttonSelectFolder.UseVisualStyleBackColor = true;
-            this.buttonSelectFolder.Click += new System.EventHandler(this.buttonSelectFolder_Click);
-            // 
-            // textBoxDataFileLoc
-            // 
-            this.textBoxDataFolder.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            this.textBoxDataFolder.EmptyText = null;
-            this.textBoxDataFolder.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxDataFolder.Location = new System.Drawing.Point(405, 65);
-            this.textBoxDataFolder.Name = "textBoxDataFileLoc";
-            this.textBoxDataFolder.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxDataFolder.Size = new System.Drawing.Size(521, 23);
-            this.textBoxDataFolder.TabIndex = 16;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(405, 47);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(143, 15);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Measurement Data Folder";
-            // 
-            // buttonProcessResults
-            // 
-            this.buttonProcessResults.Location = new System.Drawing.Point(971, 64);
-            this.buttonProcessResults.Name = "buttonProcessResults";
-            this.buttonProcessResults.Size = new System.Drawing.Size(105, 23);
-            this.buttonProcessResults.TabIndex = 18;
-            this.buttonProcessResults.Text = "Process Results";
-            this.buttonProcessResults.UseVisualStyleBackColor = true;
-            this.buttonProcessResults.Click += new System.EventHandler(this.buttonProcessResults_Click);
-            // 
-            // RequirementsForm
+            // TestRequirementsApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -265,7 +288,7 @@ namespace Requirements_Builder
             this.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1555, 760);
-            this.Name = "RequirementsForm";
+            this.Name = "TestRequirementsApp";
             this.Text = "Test Requirements App";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
@@ -301,6 +324,8 @@ namespace Requirements_Builder
         private EmptyTextTextBox textBoxDataFolder;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.ListBox listBoxSerialNumbers;
+        private System.Windows.Forms.Label labelSerialNumbers;
     }
 }
 

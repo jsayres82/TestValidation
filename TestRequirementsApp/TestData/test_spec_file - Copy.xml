@@ -19,7 +19,7 @@
       <Name>Return Loss Band 3</Name>
       <DomainLimit>
         <LessThanOrEqualValidator>
-          <Value>-5</Value>
+          <Value>-15</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
         </LessThanOrEqualValidator>
@@ -29,7 +29,7 @@
       <ScatteringParameter>
         <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
         <MeasurementVariables>
-          <string>S11</string>
+          <string />
         </MeasurementVariables>
       </ScatteringParameter>
     </TestRequirement>
@@ -37,7 +37,7 @@
       <Name>Insertion Loss Band 2</Name>
       <DomainLimit>
         <GreaterThanValidator>
-          <Value>5</Value>
+          <Value>2</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
         </GreaterThanValidator>
@@ -47,7 +47,7 @@
       <ScatteringParameter>
         <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
         <MeasurementVariables>
-          <string>S12</string>
+          <string />
         </MeasurementVariables>
       </ScatteringParameter>
     </TestRequirement>
@@ -70,4 +70,6 @@
       </ScatteringParameter>
     </TestRequirement>
   </TestRequirements>
+  <UnitSerialNumber>005</UnitSerialNumber>
+  <PartNumber>1025668</PartNumber>
 </MeasurementProcessor>

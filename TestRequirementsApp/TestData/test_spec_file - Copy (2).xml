@@ -18,11 +18,11 @@
     <TestRequirement>
       <Name>Return Loss Band 3</Name>
       <DomainLimit>
-        <LessThanOrEqualValidator>
-          <Value>-5</Value>
+        <GreaterThanValidator>
+          <Value>-15</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </LessThanOrEqualValidator>
+        </GreaterThanValidator>
         <StartFrequency>1000000000</StartFrequency>
         <EndFrequency>5000000000</EndFrequency>
       </DomainLimit>
@@ -36,11 +36,11 @@
     <TestRequirement>
       <Name>Insertion Loss Band 2</Name>
       <DomainLimit>
-        <GreaterThanValidator>
+        <LessThanValidator>
           <Value>5</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </GreaterThanValidator>
+        </LessThanValidator>
         <StartFrequency>5000000000</StartFrequency>
         <EndFrequency>11000000000</EndFrequency>
       </DomainLimit>
@@ -70,4 +70,6 @@
       </ScatteringParameter>
     </TestRequirement>
   </TestRequirements>
+  <UnitSerialNumber>005</UnitSerialNumber>
+  <PartNumber>1025668</PartNumber>
 </MeasurementProcessor>

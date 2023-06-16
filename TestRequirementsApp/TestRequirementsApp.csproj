@@ -72,6 +72,99 @@
     <None Update="TestData\sparam_P1P5P6.s3p">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\TestFolder_1\1025668_SN001_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN001_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN001_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN001_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN002_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN002_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN002_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN002_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN003_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN003_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN003_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN003_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN004_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN004_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN004_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN004_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN005_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN005_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN005_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN005_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025669_SN001_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\1025668_SN001_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\1025668_SN002_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\1025668_SN003_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\1025668_SN004_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\1025668_SN005_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\test_spec_file.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\test_spec_file2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\test_spec_file - Copy %282%29 - Copy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\test_spec_file - Copy %282%29.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\test_spec_file - Copy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\test_spec_file.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

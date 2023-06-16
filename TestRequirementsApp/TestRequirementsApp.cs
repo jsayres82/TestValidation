@@ -11,10 +11,11 @@ using TestValidation.Parameters;
 using TestValidation.Limits;
 using static TestValidation.Limits.Units.UnitConverter;
 using TestValidation.Limits.Validators;
+using TestValidation.TestResults;
 
 namespace Requirements_Builder
 {
-    public partial class RequirementsForm : Form
+    public partial class TestRequirementsApp : Form
     {
         string specFile = ".\\TestData\\test_spec_file.xml";
         public MeasurementProcessor measurementProcessor = new MeasurementProcessor();
@@ -24,8 +25,10 @@ namespace Requirements_Builder
         public Type[] parameterTypes;
         public Type[] limitTypes;
         TestRequirements requirements;
+        public List<string> SerialNumbers = new List<string>();
+        public Dictionary<string, TestReport> TestReportsDic = new Dictionary<string, TestReport>();
 
-        public RequirementsForm()
+        public TestRequirementsApp()
         {
             InitializeComponent();
 
@@ -257,12 +260,7 @@ namespace Requirements_Builder
         {
 
         }
-
-        private void measurementInfoCtrl1_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void buttonSaveSpecFile_Click(object sender, EventArgs e)
         {
             // Serialize the TestRequirement instance to XML
@@ -307,14 +305,21 @@ namespace Requirements_Builder
             List<string> results;
             string output = "";
             MeasurementFolder = textBoxDataFolder.Text;
-            measurementProcessor.CalculateCharacteristicParameters(MeasurementFolder);
-            results = measurementProcessor.ValidateMeasurement();
-            foreach(var s in results)
+            List<string> files = measurementProcessor.GetFilesInFolder(MeasurementFolder).ToList();
+            listBoxSerialNumbers.Items.Clear();
+            TestReportsDic = new Dictionary<string, TestReport>();
+
+            foreach (var serial in files)
             {
-                output += s + "\n\r";
+                var serialNumber = Path.GetFileName(serial).Split("_")[1].Replace("SN", "");
+                SerialNumbers.Add(serialNumber);
+                listBoxSerialNumbers.Items.Add(serialNumber);
+                measurementProcessor.CalculateCharacteristicParameters(serial, serialNumber);
+                var result = measurementProcessor.ValidateMeasurement();
+                TestReportsDic.Add(serialNumber, result);
             }
 
-            MessageBox.Show(output);
+            MessageBox.Show($"Processing Complete.  {files.Count} Analyzed");
         }
 
         private void buttonSelectFolder_Click(object sender, EventArgs e)
@@ -325,6 +330,19 @@ namespace Requirements_Builder
                 MeasurementFolder = folderBrowserDialog1.SelectedPath;
                 textBoxDataFolder.Text = MeasurementFolder;
             }
+        }
+
+        private void listBoxSerialNumbers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var results = TestReportsDic[listBoxSerialNumbers.SelectedItem.ToString()];
+            var resultString = $"SN {results.SerialNumber}\r\n";
+            int reqCount = 0;
+            foreach(var r in results.Results)
+            {
+                reqCount++;
+                resultString += $"{reqCount} - {(r as ITestResult).RequirementName}: {((r as ITestResult).Passed ? "Passed" : "Failed")}\r\n";
+            }
+            MessageBox.Show(resultString);
         }
     }
 

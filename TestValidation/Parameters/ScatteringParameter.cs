@@ -4,8 +4,10 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using TestValidation.Limits;
 using TestValidation.Limits.Validators;
+using TestValidation.TestResults;
 
 namespace TestValidation.Parameters
 {
@@ -13,8 +15,11 @@ namespace TestValidation.Parameters
     {
         public string Description { get { return "Evaluates a scattering parameter for S-Parameter Matrix"; } }
         public override List<string> MeasurementVariables { get; set; }
+        [XmlIgnore]
+        public override Dictionary<string, List<double[]>> ParameterValues { get => parameterValues; }
+        private Dictionary<string, List<double[]>> parameterValues = new Dictionary<string, List<double[]>>();
+
         private List<string> parameterDomain = new List<string>();
-        private Dictionary<string, List<double[]>> parameterValue = new Dictionary<string, List<double[]>>();
         private Dictionary<string, List<Complex>> complexParameterValue = new Dictionary<string, List<Complex>>();
 
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement)
@@ -22,10 +27,9 @@ namespace TestValidation.Parameters
             int index = 0;
             bool passed = true;
             foreach (var sParam in MeasurementVariables)
-                foreach (var val in complexParameterValue[sParam])
+                foreach (var val in parameterValues[sParam])
                 {
-                    //if (!req.Limit.ValidateMeasurement(Convert.ToDouble(parameterDomain.ElementAt(index)), 1 * (new Complex(val[0], val[1])).Magnitude))
-                    if (!req.Limit.ValidateMeasurement(Convert.ToDouble(parameterDomain.ElementAt(index)), 1 * val.Magnitude))
+                    if (!req.Limit.ValidateMeasurement(Convert.ToDouble(parameterDomain.ElementAt(index)), val[0]))
                     {
                         passed = false;
                         //Console.WriteLine($"Freq: {parameterDomain.ElementAt(index)} - {sParam} = {val.Magnitude}");
@@ -45,7 +49,7 @@ namespace TestValidation.Parameters
             {
                 vals.Add(s, baseDataSet[s].First().First());
             }
-            parameterValue = baseDataSet;
+            parameterValues = baseDataSet;
             return vals;
         }
 
@@ -66,8 +70,23 @@ namespace TestValidation.Parameters
                     //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
                 }
             }
+            parameterValues = new Dictionary<string, List<double[]>>();
             complexParameterValue = parsedData;
-            return new Dictionary<string, List<double[]>>();
+            foreach(var variable in MeasurementVariables)
+            {
+                parameterValues.Add(variable, new List<double[]>());
+                foreach (var value in complexParameterValue[variable])
+                {
+                    var val = new double[2]
+                    {
+                        value.Magnitude,
+                        value.Phase * (180 / Math.PI)
+                    };
+                    parameterValues[variable].Add(val);
+                }
+            }    
+
+            return parameterValues;
 
         }
         string[] s =new string[9] { "S11", "S12", "S13", "S21", "S22", "S23", "S31", "S32", "S33" };

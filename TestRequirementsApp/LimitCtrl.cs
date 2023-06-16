@@ -23,18 +23,8 @@ namespace Requirements_Builder
         public Type LimitType, ValidatorType;
         public LimitCtrl()
         {
-            Limit = new DomainLimit()
-            {
-                Start = 10000,
-                End = 50000,
-                Validator = new LessThanValidator<double>() {
-                    Value = -1, 
-                    Prefix = Prefix.None, 
-                    Unit = Unit.DecibelMilliwatt 
-                }
-            };
-            LimitType = Limit.GetType();
-            ValidatorType = Limit.Validator.GetType();
+            //LimitType = Limit.GetType();
+            //ValidatorType = Limit.Validator.GetType();
             InitializeComponent();
             comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
             comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
@@ -50,7 +40,8 @@ namespace Requirements_Builder
             validatorTypes = assembly.GetTypes()
                 .Where(IsIndexType)
                 .ToArray();
-
+            LimitType = limitTypes[0];
+            ValidatorType = validatorTypes[0];
             // Loop through the CharacteristicParameter classes
             foreach (Type validator in validatorTypes)
             {
@@ -63,10 +54,11 @@ namespace Requirements_Builder
             }
             comboBoxUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
             comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
-            UpdateLimit(Limit);
 
             comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
             comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
+            UpdateLimit(Limit);
+
         }
 
         private bool IsIndexType(Type type)
@@ -123,60 +115,71 @@ namespace Requirements_Builder
 
         public void UpdateLimit(GenericLimit limit)
         {
-            Limit = limit;
-            //fileName = Path.GetFileNameWithoutExtension(specFile);
-            //folderName = Path.GetDirectoryName(specFile);
-            //textBoxSpecFileLoc.Text = folderName;
-            //textBoxSpecFileName.Text = fileName;
-            //testInfo.TestName = newInfo.TestName;
-            //testInfo.Program = newInfo.Program;
-            //testInfo.WaferName = newInfo.WaferName;
-            //testInfo.TestArticles = newInfo.TestArticles;
-            //bindingSource1.ResetBindings(true);
-            foreach (var p in Limit.GetType().GetProperties())
+            if(limit != null)
             {
-                comboBoxLimitTypes.Text = Limit.GetType().Name;
-                if (p.Name.Equals("Start"))
+
+                comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
+                comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
+                Limit = limit;
+                //fileName = Path.GetFileNameWithoutExtension(specFile);
+                //folderName = Path.GetDirectoryName(specFile);
+                //textBoxSpecFileLoc.Text = folderName;
+                //textBoxSpecFileName.Text = fileName;
+                //testInfo.TestName = newInfo.TestName;
+                //testInfo.Program = newInfo.Program;
+                //testInfo.WaferName = newInfo.WaferName;
+                //testInfo.TestArticles = newInfo.TestArticles;
+                //bindingSource1.ResetBindings(true);
+                foreach (var p in Limit.GetType().GetProperties())
                 {
-                    textBoxAdditionalProperty1.Text =  p.GetValue(Limit).ToString();
-                }
-                else if (p.Name.Equals("End"))
-                {
-                    textBoxAdditionalProperty2.Text = p.GetValue(Limit).ToString();
-                }
-                else if (p.Name.Equals("MinValue"))
-                {
-                    textBoxAdditionalProperty1.Text = p.GetValue(Limit).ToString();
-                }
-                else if (p.Name.Equals("MaxValue"))
-                {
-                    textBoxAdditionalProperty2.Text = p.GetValue(Limit).ToString();
-                }
-                else if (p.Name.Equals("Validator"))
-                {
-                    comboBoxValidators.Text = Limit.Validator.GetType().Name;
-                    foreach (var p2 in Limit.Validator.GetType().GetProperties())
+                    comboBoxLimitTypes.Text = Limit.GetType().Name;
+                    if (p.Name.Equals("Start"))
                     {
-                        if (p2.Name.Equals("Value"))
+                        textBoxAdditionalProperty1.Text =  p.GetValue(Limit).ToString();
+                    }
+                    else if (p.Name.Equals("End"))
+                    {
+                        textBoxAdditionalProperty2.Text = p.GetValue(Limit).ToString();
+                    }
+                    else if (p.Name.Equals("MinValue"))
+                    {
+                        textBoxAdditionalProperty1.Text = p.GetValue(Limit).ToString();
+                    }
+                    else if (p.Name.Equals("MaxValue"))
+                    {
+                        textBoxAdditionalProperty2.Text = p.GetValue(Limit).ToString();
+                    }
+                    else if (p.Name.Equals("Validator"))
+                    {
+                        comboBoxValidators.Text = Limit.Validator.GetType().Name;
+                        foreach (var p2 in Limit.Validator.GetType().GetProperties())
                         {
-                            textBoxValue.Text = p2.GetValue(Limit.Validator).ToString();
-                        }
-                        else if (p2.Name.Equals("Prefix"))
-                        {
-                            comboBoxUnitsPrefix.Text = p2.GetValue(Limit.Validator).ToString();
-                        }
-                        else if (p2.Name.Equals("Unit"))
-                        {
-                            comboBoxLimitUnits.Text = p2.GetValue(Limit.Validator).ToString();
+                            if (p2.Name.Equals("Value"))
+                            {
+                                textBoxValue.Text = p2.GetValue(Limit.Validator).ToString();
+                            }
+                            else if (p2.Name.Equals("Prefix"))
+                            {
+                                comboBoxUnitsPrefix.Text = p2.GetValue(Limit.Validator).ToString();
+                            }
+                            else if (p2.Name.Equals("Unit"))
+                            {
+                                comboBoxLimitUnits.Text = p2.GetValue(Limit.Validator).ToString();
+                            }
                         }
                     }
                 }
+                BindData();
+
+                comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
+                comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
             }
-            BindData();
         }
 
         private void comboBoxLimitTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
             bindingSource1.ResetBindings(false);
             var o = Activator.CreateInstance(limitTypes[comboBoxLimitTypes.SelectedIndex]);
             PropertyInfo[] properties = o.GetType().GetProperties();
@@ -189,6 +192,7 @@ namespace Requirements_Builder
             Limit = o as GenericLimit;
 
             BindData();
+            comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
         }
 
         private void comboBoxValidators_SelectedIndexChanged(object sender, EventArgs e)

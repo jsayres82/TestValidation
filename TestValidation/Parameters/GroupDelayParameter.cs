@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using TestValidation.Limits;
 
 namespace TestValidation.Parameters
@@ -12,6 +13,9 @@ namespace TestValidation.Parameters
     {
         public string Description { get { return "Returns the scattering parameter specified in measurement variable"; } }
         public override List<string> MeasurementVariables { get; set; }
+        [XmlIgnore]
+        public override Dictionary<string, List<double[]>> ParameterValues { get => parameterValues; }
+        private Dictionary<string, List<double[]>> parameterValues = new Dictionary<string, List<double[]>>();
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement)
         {
             return true;// propertyValue.ValidateMeasurement(measurement);

@@ -57,6 +57,7 @@ namespace Requirements_Builder
             }
             comboBoxUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
             comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
+            comboBoxSpecTypes.SelectedIndexChanged -= this.comboBoxSpecTypes_SelectedIndexChanged;
         }
 
         public GenericParameter GetParameter()
@@ -78,24 +79,26 @@ namespace Requirements_Builder
             //testInfo.TestArticles = newInfo.TestArticles;
             //bindingSource1.ResetBindings(true);
             BindData();
+            comboBoxSpecTypes.SelectedIndexChanged += this.comboBoxSpecTypes_SelectedIndexChanged;
         }
 
         private void BindData()
         {
             if (Parameter != null)
             {
-                bindingSource1.DataSource = Parameter;
+                //bindingSource1.DataSource = Parameter;
                 //bindingSource2.DataSource = LimitType;
                 //bindingSource3.DataSource = ValidatorType;
 
                 comboBoxSpecTypes.Text = ParameterType.Name;
+                richTextBox1.Text = Parameter.Description;
                 foreach (var variable in Parameter.MeasurementVariables.ToList())
                 {
                     listView1.Items.Add(variable);
                     textBoxAdditionalProperty1.Text = variable;
                 }
                 //textBoxAdditionalProperty1.Text = Parameter.Description;
-                richTextBox1.DataBindings.Add("Text", bindingSource1, "Description");
+                //richTextBox1.DataBindings.Add("Text", bindingSource1, "Description");
                 //textBoxAdditionalProperty1.DataBindings.Add("Text", bindingSource1, "MeasurementVariables[0]");
 
                 //// If there are multiple TestArticles in the list, you can bind to the first one
