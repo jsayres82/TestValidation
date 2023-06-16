@@ -6,8 +6,141 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Nuvo.Math\Nuvo.Math.csproj" />
     <ProjectReference Include="..\RfNetworks\Nuvo.RF_Networks.csproj" />
     <ProjectReference Include="..\TestValidation\Nuvo.TestValidation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestData\1020939_005_V1J1_V2J6_FinalRF_22.p6_1.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\combined_sparams.s4p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\combined_sparams.s5p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\combined_sparams.s6p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\combined_sparamsSparams.s6p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN001_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN001_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN001_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN001_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN002_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN002_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN002_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN002_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN003_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN003_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN003_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN003_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN004_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN004_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN004_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN004_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN005_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN005_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN005_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025668_SN005_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\1025669_SN001_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\1025668_SN001_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\1025668_SN002_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\1025668_SN003_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\1025668_SN004_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\1025668_SN005_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\test_spec_file.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\TestFolder_1\NewTest\test_spec_file2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\test_spec_file - Copy %282%29 - Copy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\test_spec_file - Copy %282%29.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\test_spec_file - Copy %283%29.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\test_spec_file - Copy.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\test_spec_file.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\test_spec_file2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,6 @@ namespace Nuvo.Math.Misc
 	/// <summary>
 	/// Simple Deserialization Binder
 	/// </summary>
-	// Token: 0x02000011 RID: 17
 	public class SimpleDeserializationBinder : SerializationBinder
 	{
 		/// <summary>
@@ -15,7 +14,6 @@ namespace Nuvo.Math.Misc
 		/// <param name="assemblyName">Assembly name</param>
 		/// <param name="typeName">Type name</param>
 		/// <returns></returns>
-		// Token: 0x0600012E RID: 302 RVA: 0x00007714 File Offset: 0x00005914
 		public override Type BindToType(string assemblyName, string typeName)
 		{
 			if (typeName.Contains("[["))

@@ -7,7 +7,6 @@ namespace Nuvo.Math
 	/// <summary>
 	/// Generic Numeric Library
 	/// </summary>
-	// Token: 0x02000007 RID: 7
 	public static class NumLib
 	{
 		/// <summary>
@@ -17,7 +16,6 @@ namespace Nuvo.Math
 		/// <param name="stop">Stop value</param>
 		/// <param name="points">Number of points</param>
 		/// <returns>Linearly spaced vector</returns>
-		// Token: 0x0600009C RID: 156 RVA: 0x00004C90 File Offset: 0x00002E90
 		public static double[] Linspace(double start, double stop, int points)
 		{
 			double[] data = new double[points];
@@ -36,7 +34,6 @@ namespace Nuvo.Math
 		/// <param name="stop">Stop Value</param>
 		/// <param name="points">Number of points</param>
 		/// <returns>Logarithmically spaced vector</returns>
-		// Token: 0x0600009D RID: 157 RVA: 0x00004CC4 File Offset: 0x00002EC4
 		public static double[] Logspace(double start, double stop, int points)
 		{
 			double[] data = new double[points];
@@ -56,7 +53,6 @@ namespace Nuvo.Math
 		/// <param name="y">Y Values</param>
 		/// <param name="n">Polynom Order: 0 to Number of Points - 1</param>
 		/// <returns>Polynomial coefficients in descending powers</returns>
-		// Token: 0x0600009E RID: 158 RVA: 0x00004D08 File Offset: 0x00002F08
 		public static T[] PolyFit<T>(T[] x, T[] y, int n) where T : INumber<T>, new()
 		{
 			if (x.Length != y.Length)
@@ -103,7 +99,6 @@ namespace Nuvo.Math
 		/// <param name="p">Polynomial coefficients in descending powers</param>
 		/// <param name="x">X-Value</param>
 		/// <returns>Y-Value</returns>
-		// Token: 0x0600009F RID: 159 RVA: 0x00004DD4 File Offset: 0x00002FD4
 		public static T PolyVal<T>(T[] p, T x) where T : INumber<T>, new()
 		{
 			int num = p.Length;
@@ -129,7 +124,6 @@ namespace Nuvo.Math
 		/// <param name="p">Polynomial coefficients in descending powers</param>
 		/// <param name="x">X-Values</param>
 		/// <returns>Y-Values</returns>
-		// Token: 0x060000A0 RID: 160 RVA: 0x00004E60 File Offset: 0x00003060
 		public static T[] PolyVal<T>(T[] p, T[] x) where T : INumber<T>, new()
 		{
 			int i = x.Length;
@@ -141,7 +135,6 @@ namespace Nuvo.Math
 			return y;
 		}
 
-		// Token: 0x060000A1 RID: 161 RVA: 0x00004E9C File Offset: 0x0000309C
 		private static double[] InterpolationSensitivities<T>(double[] x, double xx, int n)
 		{
 			int n2 = x.Length;
@@ -192,7 +185,6 @@ namespace Nuvo.Math
 		/// <param name="xx">XX Value</param>
 		/// <param name="m">Interpolation Error Factor</param>
 		/// <returns>YY Value</returns>
-		// Token: 0x060000A2 RID: 162 RVA: 0x00004FA7 File Offset: 0x000031A7
 		private static T Interpolation<T>(double[] x, T[] y, int n, double xx, double m) where T : IRealNumber<T>, new()
 		{
 			throw new Exception("This interpolation function is obsolete, use interpolation2 instead");
@@ -208,7 +200,6 @@ namespace Nuvo.Math
 		/// <param name="xx">XX Value</param>
 		/// <param name="m">Interpolation Error Factor</param>
 		/// <returns>YY Value</returns>
-		// Token: 0x060000A3 RID: 163 RVA: 0x00004FB4 File Offset: 0x000031B4
 		private static Complex<T> Interpolation<T>(double[] x, Complex<T>[] y, int n, double xx, double m) where T : IRealNumber<T>, new()
 		{
 			int n2 = y.Length;
@@ -234,7 +225,6 @@ namespace Nuvo.Math
 		/// <param name="xx">XX Values</param>
 		/// <param name="m">Interpolation Error Factor</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000A4 RID: 164 RVA: 0x00005030 File Offset: 0x00003230
 		private static T[] Interpolation<T>(double[] x, T[] y, int n, double[] xx, double m) where T : IRealNumber<T>, new()
 		{
 			int n2 = xx.Length;
@@ -256,7 +246,6 @@ namespace Nuvo.Math
 		/// <param name="xx">XX Values</param>
 		/// <param name="m">Interpolation Error Factor</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000A5 RID: 165 RVA: 0x0000506C File Offset: 0x0000326C
 		private static Complex<T>[] Interpolation<T>(double[] x, Complex<T>[] y, int n, double[] xx, double m) where T : IRealNumber<T>, new()
 		{
 			int n2 = xx.Length;
@@ -277,7 +266,6 @@ namespace Nuvo.Math
 		/// <param name="n">Interpolation Order: 1 to Number of Points - 1</param>
 		/// <param name="xx">XX Value</param>
 		/// <returns>YY Value</returns>
-		// Token: 0x060000A6 RID: 166 RVA: 0x000050A8 File Offset: 0x000032A8
 		public static T Interpolation<T>(double[] x, T[] y, int n, double xx) where T : INumber<T>, new()
 		{
 			if (x.Length != y.Length)
@@ -304,7 +292,6 @@ namespace Nuvo.Math
 			return NumLib.PolyFitData<T>(x, y, n, i, xx)[n];
 		}
 
-		// Token: 0x060000A7 RID: 167 RVA: 0x0000514C File Offset: 0x0000334C
 		private static T[] PolyFitData<T>(double[] x, T[] y, int n, int i, double x_offset = 0.0) where T : INumber<T>, new()
 		{
 			int n2 = x.Length;
@@ -344,7 +331,6 @@ namespace Nuvo.Math
 		/// <param name="n">Interpolation Order: 1 to Number of Points - 1</param>
 		/// <param name="xx">XX Values</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000A8 RID: 168 RVA: 0x000051F4 File Offset: 0x000033F4
 		public static T[] Interpolation<T>(double[] x, T[] y, int n, double[] xx) where T : INumber<T>, new()
 		{
 			if (DoubleHelper.IsApproximatelyEqual(x, xx, 1E-15))
@@ -369,14 +355,12 @@ namespace Nuvo.Math
 		/// <param name="n">Interpolation Order: 1 to Number of Points - 1</param>
 		/// <param name="xx">XX Value</param>
 		/// <returns>YY Value</returns>
-		// Token: 0x060000A9 RID: 169 RVA: 0x00005240 File Offset: 0x00003440
 		public static T Interpolation2<T>(double[] x, T[] y, int n, double xx) where T : IRealNumber<T>, new()
 		{
 			int istart = 0;
 			return NumLib.Interpolation2Sub<T>(x, y, n, xx, ref istart);
 		}
 
-		// Token: 0x060000AA RID: 170 RVA: 0x0000525C File Offset: 0x0000345C
 		private static T Interpolation2Sub<T>(double[] x, T[] y, int n, double xx, ref int istart) where T : IRealNumber<T>, new()
 		{
 			T nan = Activator.CreateInstance<T>();
@@ -430,7 +414,6 @@ namespace Nuvo.Math
 		/// <param name="n">Interpolation Order: 1 to Number of Points - 1</param>
 		/// <param name="xx">XX Value</param>
 		/// <returns>YY Value</returns>
-		// Token: 0x060000AB RID: 171 RVA: 0x000053E4 File Offset: 0x000035E4
 		public static Complex<T> Interpolation2<T>(double[] x, Complex<T>[] y, int n, double xx) where T : IRealNumber<T>, new()
 		{
 			int n2 = y.Length;
@@ -455,7 +438,6 @@ namespace Nuvo.Math
 		/// <param name="n">Interpolation Order: 1 to Number of Points - 1</param>
 		/// <param name="xx">XX Values</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000AC RID: 172 RVA: 0x0000545C File Offset: 0x0000365C
 		public static T[] Interpolation2<T>(double[] x, T[] y, int n, double[] xx) where T : IRealNumber<T>, new()
 		{
 			if (DoubleHelper.IsApproximatelyEqual(x, xx, 1E-15))
@@ -481,7 +463,6 @@ namespace Nuvo.Math
 		/// <param name="n">Interpolation Order: 1 to Number of Points - 1</param>
 		/// <param name="xx">XX Values</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000AD RID: 173 RVA: 0x000054AC File Offset: 0x000036AC
 		public static Complex<T>[] Interpolation2<T>(double[] x, Complex<T>[] y, int n, double[] xx) where T : IRealNumber<T>, new()
 		{
 			if (DoubleHelper.IsApproximatelyEqual(x, xx, 1E-15))
@@ -516,7 +497,6 @@ namespace Nuvo.Math
 		/// <param name="n">Interpolation Order: 1 to Number of Points - 1</param>
 		/// <param name="xx">XX Values</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000AE RID: 174 RVA: 0x00005570 File Offset: 0x00003770
 		public static Complex<T>[] InterpolationMagPhase2<T>(double[] x, Complex<T>[] y, int n, double[] xx) where T : IRealNumber<T>, new()
 		{
 			if (DoubleHelper.IsApproximatelyEqual(x, xx, 1E-15))
@@ -558,7 +538,6 @@ namespace Nuvo.Math
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>Spline Coefficients</returns>
-		// Token: 0x060000AF RID: 175 RVA: 0x0000565C File Offset: 0x0000385C
 		public static T[][] SplineCoefs<T>(double[] x, T[] y, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, T startDerivativeValue = default(T), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, T endDerivativeValue = default(T)) where T : INumber<T>, new()
 		{
 			if (x.Length != y.Length)
@@ -747,7 +726,6 @@ namespace Nuvo.Math
 			return coefs;
 		}
 
-		// Token: 0x060000B0 RID: 176 RVA: 0x00005F68 File Offset: 0x00004168
 		private static T TNum<T>(double x) where T : INumber<T>, new()
 		{
 			T y = Activator.CreateInstance<T>();
@@ -763,7 +741,6 @@ namespace Nuvo.Math
 		/// <param name="c">Piecewise Polynomial Coefficients</param>
 		/// <param name="xx">XX Values</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000B1 RID: 177 RVA: 0x00005F8C File Offset: 0x0000418C
 		public static T[] PiecewisePolyVal<T>(double[] x, T[][] c, double[] xx) where T : INumber<T>, new()
 		{
 			int n = (x != null) ? x.Length : 0;
@@ -821,7 +798,6 @@ namespace Nuvo.Math
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000B2 RID: 178 RVA: 0x000060D4 File Offset: 0x000042D4
 		public static T[] SplineInterpolation<T>(double[] x, T[] y, double[] xx, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, T startDerivativeValue = default(T), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, T endDerivativeValue = default(T)) where T : INumber<T>, new()
 		{
 			if (DoubleHelper.IsApproximatelyEqual(x, xx, 1E-15))
@@ -844,7 +820,6 @@ namespace Nuvo.Math
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000B3 RID: 179 RVA: 0x0000610C File Offset: 0x0000430C
 		public static T[] SplineInterpolation2<T>(double[] x, T[] y, double[] xx, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, T startDerivativeValue = default(T), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, T endDerivativeValue = default(T)) where T : IRealNumber<T>, new()
 		{
 			if (DoubleHelper.IsApproximatelyEqual(x, xx, 1E-15))
@@ -905,7 +880,6 @@ namespace Nuvo.Math
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000B4 RID: 180 RVA: 0x000062A4 File Offset: 0x000044A4
 		public static Complex<T>[] SplineInterpolation2<T>(double[] x, Complex<T>[] y, double[] xx, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, Complex<T> startDerivativeValue = default(Complex<T>), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, Complex<T> endDerivativeValue = default(Complex<T>)) where T : IRealNumber<T>, new()
 		{
 			if (DoubleHelper.IsApproximatelyEqual(x, xx, 1E-15))
@@ -943,7 +917,6 @@ namespace Nuvo.Math
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x060000B5 RID: 181 RVA: 0x00006388 File Offset: 0x00004588
 		public static Complex<T>[] SplineInterpolationMagPhase2<T>(double[] x, Complex<T>[] y, double[] xx, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, Complex<T> startDerivativeValue = default(Complex<T>), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, Complex<T> endDerivativeValue = default(Complex<T>)) where T : IRealNumber<T>, new()
 		{
 			if (DoubleHelper.IsApproximatelyEqual(x, xx, 1E-15))
@@ -983,7 +956,6 @@ namespace Nuvo.Math
 		/// <param name="y">Y Values</param>
 		/// <param name="n">Order</param>
 		/// <returns>Integral</returns>
-		// Token: 0x060000B6 RID: 182 RVA: 0x0000649C File Offset: 0x0000469C
 		public static T[] Integrate<T>(double[] x, T[] y, int n = 1) where T : INumber<T>, new()
 		{
 			if (x.Length != y.Length)
@@ -1022,7 +994,6 @@ namespace Nuvo.Math
 		/// <param name="y">Y Values</param>
 		/// <param name="n">Order</param>
 		/// <returns>Integral</returns>
-		// Token: 0x060000B7 RID: 183 RVA: 0x000065A0 File Offset: 0x000047A0
 		public static T Integrate2<T>(double[] x, T[] y, int n = 1) where T : INumber<T>, new()
 		{
 			T[] array = NumLib.Integrate<T>(x, y, n);
@@ -1041,7 +1012,6 @@ namespace Nuvo.Math
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>Integral</returns>
-		// Token: 0x060000B8 RID: 184 RVA: 0x000065C4 File Offset: 0x000047C4
 		public static T[] SplineIntegrate<T>(double[] x, T[] y, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, T startDerivativeValue = default(T), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, T endDerivativeValue = default(T)) where T : INumber<T>, new()
 		{
 			if (x.Length != y.Length)
@@ -1078,7 +1048,6 @@ namespace Nuvo.Math
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>Integral</returns>
-		// Token: 0x060000B9 RID: 185 RVA: 0x0000669C File Offset: 0x0000489C
 		public static T SplineIntegrate2<T>(double[] x, T[] y, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, T startDerivativeValue = default(T), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, T endDerivativeValue = default(T)) where T : INumber<T>, new()
 		{
 			T[] array = NumLib.SplineIntegrate<T>(x, y, startBoundary, startDerivativeValue, endBoundary, endDerivativeValue);
@@ -1092,7 +1061,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Number Type</typeparam>
 		/// <param name="p">Polynomial coefficients in descending powers</param>
 		/// <returns>Integrated polynomial coefficients in descending powers</returns>
-		// Token: 0x060000BA RID: 186 RVA: 0x000066C4 File Offset: 0x000048C4
 		public static T[] PolyInt<T>(T[] p) where T : INumber<T>, new()
 		{
 			T t = Activator.CreateInstance<T>();
@@ -1107,7 +1075,6 @@ namespace Nuvo.Math
 		/// <param name="p">Polynomial coefficients in descending powers</param>
 		/// <param name="k">Constant of integration</param>
 		/// <returns>Integrated polynomial coefficients in descending powers</returns>
-		// Token: 0x060000BB RID: 187 RVA: 0x000066EC File Offset: 0x000048EC
 		public static T[] PolyInt<T>(T[] p, T k) where T : INumber<T>, new()
 		{
 			int i = (p != null) ? p.Length : 0;
@@ -1128,7 +1095,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Real Number Type</typeparam>
 		/// <param name="p">Phase</param>
 		/// <returns></returns>
-		// Token: 0x060000BC RID: 188 RVA: 0x00006754 File Offset: 0x00004954
 		public static T[] UnwrapPhase<T>(T[] p) where T : IRealNumber<T>, new()
 		{
 			int i = p.Length;
@@ -1153,7 +1119,6 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="p">Phase</param>
 		/// <returns></returns>
-		// Token: 0x060000BD RID: 189 RVA: 0x000067F0 File Offset: 0x000049F0
 		public static double[] UnwrapPhase(double[] p)
 		{
 			double pi = 3.141592653589793;
@@ -1184,7 +1149,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Real Number Type</typeparam>
 		/// <param name="p">Phase</param>
 		/// <returns></returns>
-		// Token: 0x060000BE RID: 190 RVA: 0x00006884 File Offset: 0x00004A84
 		public static T[] WrapPhase<T>(T[] p) where T : IRealNumber<T>, new()
 		{
 			int i = p.Length;
@@ -1201,7 +1165,6 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="p">Phase</param>
 		/// <returns></returns>
-		// Token: 0x060000BF RID: 191 RVA: 0x000068BC File Offset: 0x00004ABC
 		public static double[] WrapPhase(double[] p)
 		{
 			int i = p.Length;
@@ -1219,7 +1182,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Real Number Type</typeparam>
 		/// <param name="p">Phase</param>
 		/// <returns></returns>
-		// Token: 0x060000C0 RID: 192 RVA: 0x000068EC File Offset: 0x00004AEC
 		public static T WrapPhase<T>(T p) where T : IRealNumber<T>, new()
 		{
 			double pv = p.Value;
@@ -1234,14 +1196,12 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="p">Phase</param>
 		/// <returns></returns>
-		// Token: 0x060000C1 RID: 193 RVA: 0x00006934 File Offset: 0x00004B34
 		public static double WrapPhase(double p)
 		{
 			double pi = 3.141592653589793;
 			return NumLib.Mod(p + pi, 2.0 * pi) - pi;
 		}
 
-		// Token: 0x060000C2 RID: 194 RVA: 0x00006960 File Offset: 0x00004B60
 		private static double Mod(double x, double y)
 		{
 			return x - System.Math.Floor(x / y) * y;
@@ -1254,7 +1214,6 @@ namespace Nuvo.Math
 		/// <param name="a">Vector time domain</param>
 		/// <param name="withoutUnc">Without uncertainties</param>
 		/// <returns>Vector frequency domain</returns>
-		// Token: 0x060000C3 RID: 195 RVA: 0x00006970 File Offset: 0x00004B70
 		public static Complex<T>[] Fft<T>(Complex<T>[] a, bool withoutUnc = false) where T : IRealNumber<T>, new()
 		{
 			//int i = a.Length;
@@ -1290,7 +1249,6 @@ namespace Nuvo.Math
 		/// <param name="a">Vector frequency domain</param>
 		/// <param name="withoutUnc">Without uncertainties</param>
 		/// <returns>Vector time domain</returns>
-		// Token: 0x060000C4 RID: 196 RVA: 0x00006A4C File Offset: 0x00004C4C
 		public static Complex<T>[] Ifft<T>(Complex<T>[] a, bool withoutUnc = false) where T : IRealNumber<T>, new()
 		{
 			//int i = a.Length;
@@ -1334,7 +1292,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Real Type</typeparam>
 		/// <param name="a">Vector time domain</param>
 		/// <returns>Vector frequency domain</returns>
-		// Token: 0x060000C5 RID: 197 RVA: 0x00006B94 File Offset: 0x00004D94
 		private static Complex<T>[] Fft2<T>(Complex<T>[] a) where T : IRealNumber<T>, new()
 		{
 			int i = a.Length;
@@ -1374,7 +1331,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Real Type</typeparam>
 		/// <param name="a">Vector time domain</param>
 		/// <returns>Vector frequency domain</returns>
-		// Token: 0x060000C6 RID: 198 RVA: 0x00006C9C File Offset: 0x00004E9C
 		private static Complex<T>[] Chirp<T>(Complex<T>[] a) where T : IRealNumber<T>, new()
 		{
 			int i = a.Length;
@@ -1432,7 +1388,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Real Type</typeparam>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		// Token: 0x060000C7 RID: 199 RVA: 0x00006EBC File Offset: 0x000050BC
 		private static Complex<T>[] Dft<T>(Complex<T>[] a) where T : IRealNumber<T>, new()
 		{
 			int i = a.Length;
@@ -1460,7 +1415,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="a">Array</param>
 		/// <returns></returns>
-		// Token: 0x060000C8 RID: 200 RVA: 0x00006F4C File Offset: 0x0000514C
 		public static T[] FftShift<T>(T[] a) where T : new()
 		{
 			int num = (a != null) ? a.Length : 0;
@@ -1479,7 +1433,6 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="a">Array</param>
 		/// <returns></returns>
-		// Token: 0x060000C9 RID: 201 RVA: 0x00006F85 File Offset: 0x00005185
 		public static double[] FftShift(double[] a)
 		{
 			return NumLib.FftShift<double>(a);
@@ -1493,7 +1446,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="a">Array</param>
 		/// <returns></returns>
-		// Token: 0x060000CA RID: 202 RVA: 0x00006F90 File Offset: 0x00005190
 		public static T[] IfftShift<T>(T[] a) where T : new()
 		{
 			int num = (a != null) ? a.Length : 0;
@@ -1512,7 +1464,6 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="a">Array</param>
 		/// <returns></returns>
-		// Token: 0x060000CB RID: 203 RVA: 0x00006FC9 File Offset: 0x000051C9
 		public static double[] IfftShift(double[] a)
 		{
 			return NumLib.IfftShift<double>(a);

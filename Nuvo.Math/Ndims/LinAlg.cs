@@ -10,7 +10,6 @@ namespace Nuvo.Math.Ndims
 	/// <typeparam name="L">LU Result Type</typeparam>
 	/// <typeparam name="T">Array Type</typeparam>
 	/// <typeparam name="D">Element Type</typeparam>
-	// Token: 0x0200003E RID: 62
 	public class LinAlg<L, T, D> where L : LuResult<T, D>, new() where T : INArray<T, D>, new() where D : INumber<D>, new()
 	{
 		/// <summary>
@@ -19,7 +18,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="a"></param>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		// Token: 0x06000307 RID: 775 RVA: 0x0000D8A0 File Offset: 0x0000BAA0
 		public static T Dot(T a, T b)
 		{
 			if (a.ndims == 1)
@@ -79,7 +77,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="l"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		// Token: 0x06000308 RID: 776 RVA: 0x0000DA58 File Offset: 0x0000BC58
 		public static T Fsub(T l, T y)
 		{
 			if (!l.IsMatrix)
@@ -120,7 +117,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="u"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		// Token: 0x06000309 RID: 777 RVA: 0x0000DB54 File Offset: 0x0000BD54
 		public static T Bsub(T u, T y)
 		{
 			if (!u.IsMatrix)
@@ -152,7 +148,6 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		// Token: 0x0600030A RID: 778 RVA: 0x0000DC54 File Offset: 0x0000BE54
 		public static L Lu(T a)
 		{
 			if (!a.IsMatrix)
@@ -236,7 +231,6 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		// Token: 0x0600030B RID: 779 RVA: 0x0000DF34 File Offset: 0x0000C134
 		public static D Det(T a)
 		{
 			L lup = LinAlg<L, T, D>.Lu(a);
@@ -261,7 +255,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="a">Input Matrix</param>
 		/// <param name="y">Known Vector</param>
 		/// <returns>Solution Vector</returns>
-		// Token: 0x0600030C RID: 780 RVA: 0x0000DFC8 File Offset: 0x0000C1C8
 		public static T Solve(T a, T y)
 		{
 			L lup = LinAlg<L, T, D>.Lu(a);
@@ -273,7 +266,6 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		// Token: 0x0600030D RID: 781 RVA: 0x0000E010 File Offset: 0x0000C210
 		public static T Inv(T a)
 		{
 			L lup = LinAlg<L, T, D>.Lu(a);
@@ -305,7 +297,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="a"></param>
 		/// <param name="dim"></param>
 		/// <returns></returns>
-		// Token: 0x0600030E RID: 782 RVA: 0x0000E104 File Offset: 0x0000C304
 		public static T Sum(T a, int dim)
 		{
 			int i = a.numel;
@@ -334,7 +325,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="a"></param>
 		/// <param name="dim"></param>
 		/// <returns></returns>
-		// Token: 0x0600030F RID: 783 RVA: 0x0000E1DC File Offset: 0x0000C3DC
 		public static T Prod(T a, int dim)
 		{
 			int i = a.numel;
@@ -357,7 +347,6 @@ namespace Nuvo.Math.Ndims
 			return b;
 		}
 
-		// Token: 0x06000310 RID: 784 RVA: 0x0000E2B4 File Offset: 0x0000C4B4
 		private static int[] NdimIndex(int[] s, int flat_index)
 		{
 			int i = s.Length;

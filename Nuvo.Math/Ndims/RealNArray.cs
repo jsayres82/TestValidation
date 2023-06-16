@@ -11,7 +11,6 @@ namespace Nuvo.Math.Ndims
 	/// Generic Real Array
 	/// </summary>
 	/// <typeparam name="D">Real Element Type</typeparam>
-	// Token: 0x02000039 RID: 57
 	[XmlType("RealNArray")]
 	[Serializable]
 	public class RealNArray<D> : NArray<RealNArray<D>, D>, IRealNArray<RealNArray<D>, D>, INArray<RealNArray<D>, D>, IConsole, IStorage<RealNArray<D>>, IArrayArithmetic<RealNArray<D>, D>, IArithmetic<RealNArray<D>>, IArrayMath<RealNArray<D>, D>, IMath<RealNArray<D>>, IArrayRealMath<RealNArray<D>, D>, IRealMath<RealNArray<D>> where D : IRealNumber<D>, new()
@@ -20,7 +19,6 @@ namespace Nuvo.Math.Ndims
 		/// Returns the value.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002E5 RID: 741 RVA: 0x0000D074 File Offset: 0x0000B274
 		public double[] DblValue()
 		{
 			int i = base.numel;
@@ -36,7 +34,6 @@ namespace Nuvo.Math.Ndims
 		/// Override ToString() to display an Object.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002E6 RID: 742 RVA: 0x0000D0B8 File Offset: 0x0000B2B8
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -99,7 +96,6 @@ namespace Nuvo.Math.Ndims
 		/// Returns the absolute value.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002E7 RID: 743 RVA: 0x0000D254 File Offset: 0x0000B454
 		public RealNArray<D> Abs()
 		{
 			return base.ElementUnOp(new UnaryOperation<D>(Math.Abs<D>));
@@ -109,7 +105,6 @@ namespace Nuvo.Math.Ndims
 		/// Returns a value indicating the sign of a number.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002E8 RID: 744 RVA: 0x0000D268 File Offset: 0x0000B468
 		public RealNArray<D> Sign()
 		{
 			return base.ElementUnOp(new UnaryOperation<D>(Math.Sign<D>));
@@ -120,7 +115,6 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		// Token: 0x060002E9 RID: 745 RVA: 0x0000D27C File Offset: 0x0000B47C
 		public RealNArray<D> Atan2(RealNArray<D> b)
 		{
 			return base.ElementBinOp(new BinaryOperation<D>(Math.Atan2<D>), b);
@@ -134,7 +128,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="_d">Denominator imag part</param>
 		/// <param name="_f">Result imag part</param>
 		/// <returns>Result real part</returns>
-		// Token: 0x060002EA RID: 746 RVA: 0x0000D294 File Offset: 0x0000B494
 		public RealNArray<D> ComplexDivision(RealNArray<D> _b, RealNArray<D> _c, RealNArray<D> _d, out RealNArray<D> _f)
 		{
 			int d = base.ndims;
@@ -171,7 +164,6 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <param name="_b">Imag part</param>
 		/// <returns></returns>
-		// Token: 0x060002EB RID: 747 RVA: 0x0000D3A0 File Offset: 0x0000B5A0
 		public RealNArray<D> ComplexAbs(RealNArray<D> _b)
 		{
 			return base.ElementBinOp(new BinaryOperation<D>(Math.ComplexAbs<D>), _b);
@@ -182,7 +174,6 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns>the angle</returns>
-		// Token: 0x060002EC RID: 748 RVA: 0x0000D3B5 File Offset: 0x0000B5B5
 		public RealNArray<D> LAtan2(D b)
 		{
 			return base.LElementBinOp(new BinaryOperation<D>(Math.Atan2<D>), b);
@@ -193,7 +184,6 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <param name="a">The first operand</param>
 		/// <returns>the angle</returns>
-		// Token: 0x060002ED RID: 749 RVA: 0x0000D3CA File Offset: 0x0000B5CA
 		public RealNArray<D> RAtan2(D a)
 		{
 			return base.RElementBinOp(new BinaryOperation<D>(Math.Atan2<D>), a);

@@ -9,7 +9,6 @@ namespace Nuvo.Math.Ndims
 	/// </summary>
 	/// <typeparam name="T">Array Type</typeparam>
 	/// <typeparam name="D">Element Type</typeparam>
-	// Token: 0x02000041 RID: 65
 	public class NumLib<T, D> where T : INArray<T, D>, new() where D : INumber<D>, new()
 	{
 		/// <summary>
@@ -19,7 +18,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="y">Y Values</param>
 		/// <param name="n">Polynom Order: 0 to Number of Points - 1</param>
 		/// <returns>Polynomial coefficients in descending powers</returns>
-		// Token: 0x06000319 RID: 793 RVA: 0x0000E690 File Offset: 0x0000C890
 		public static T PolyFit(T x, T y, int n)
 		{
 			if (!(x.IsColVector | x.IsRowVector))
@@ -41,7 +39,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="p">Polynomial coefficients in descending powers</param>
 		/// <param name="x">X-Value</param>
 		/// <returns>Y-Value</returns>
-		// Token: 0x0600031A RID: 794 RVA: 0x0000E721 File Offset: 0x0000C921
 		public static D PolyVal(T p, D x)
 		{
 			if (!(p.IsColVector | p.IsRowVector))
@@ -57,7 +54,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="p">Polynomial coefficients in descending powers</param>
 		/// <param name="x">X-Values</param>
 		/// <returns>Y-Values</returns>
-		// Token: 0x0600031B RID: 795 RVA: 0x0000E760 File Offset: 0x0000C960
 		public static T PolyVal(T p, T x)
 		{
 			if (!(p.IsColVector | p.IsRowVector))
@@ -81,7 +77,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="n">Interpolation Order: 1 to Number of Points - 1</param>
 		/// <param name="xx">XX Value</param>
 		/// <returns>YY Value</returns>
-		// Token: 0x0600031C RID: 796 RVA: 0x0000E7F0 File Offset: 0x0000C9F0
 		public static D Interpolation(double[] x, T y, int n, double xx)
 		{
 			if (!(y.IsColVector | y.IsRowVector))
@@ -99,7 +94,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="n">Interpolation Order: 1 to Number of Points - 1</param>
 		/// <param name="xx">XX Values</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x0600031D RID: 797 RVA: 0x0000E830 File Offset: 0x0000CA30
 		public static T Interpolation(double[] x, T y, int n, double[] xx)
 		{
 			if (!(y.IsColVector | y.IsRowVector))
@@ -122,7 +116,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>YY Values</returns>
-		// Token: 0x0600031E RID: 798 RVA: 0x0000E890 File Offset: 0x0000CA90
 		public static T SplineInterpolation(double[] x, T y, double[] xx, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, D startDerivativeValue = default(D), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, D endDerivativeValue = default(D))
 		{
 			if (!(y.IsColVector | y.IsRowVector))
@@ -144,7 +137,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>Spline Coefs</returns>
-		// Token: 0x0600031F RID: 799 RVA: 0x0000E8F4 File Offset: 0x0000CAF4
 		public static T SplineCoefs(double[] x, T y, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, D startDerivativeValue = default(D), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, D endDerivativeValue = default(D))
 		{
 			if (!(y.IsColVector | y.IsRowVector))
@@ -163,7 +155,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="y">Y Values</param>
 		/// <param name="n">Order</param>
 		/// <returns>Integral</returns>
-		// Token: 0x06000320 RID: 800 RVA: 0x0000E958 File Offset: 0x0000CB58
 		public static T Integrate(double[] x, T y, int n)
 		{
 			if (!(y.IsColVector | y.IsRowVector))
@@ -182,7 +173,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="y">Y Values</param>
 		/// <param name="n">Order</param>
 		/// <returns>Integral</returns>
-		// Token: 0x06000321 RID: 801 RVA: 0x0000E9B5 File Offset: 0x0000CBB5
 		public static D Integrate2(double[] x, T y, int n)
 		{
 			if (!(y.IsColVector | y.IsRowVector))
@@ -202,7 +192,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>Integral</returns>
-		// Token: 0x06000322 RID: 802 RVA: 0x0000E9F4 File Offset: 0x0000CBF4
 		public static T SplineIntegrate(double[] x, T y, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, D startDerivativeValue = default(D), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, D endDerivativeValue = default(D))
 		{
 			if (!(y.IsColVector | y.IsRowVector))
@@ -224,7 +213,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="endBoundary">End Boundary</param>
 		/// <param name="endDerivativeValue">End Derivative Value</param>
 		/// <returns>Integral</returns>
-		// Token: 0x06000323 RID: 803 RVA: 0x0000EA58 File Offset: 0x0000CC58
 		public static D SplineIntegrate2(double[] x, T y, SplineBoundary startBoundary = SplineBoundary.Natural_Spline, D startDerivativeValue = default(D), SplineBoundary endBoundary = SplineBoundary.Natural_Spline, D endDerivativeValue = default(D))
 		{
 			if (!(y.IsColVector | y.IsRowVector))

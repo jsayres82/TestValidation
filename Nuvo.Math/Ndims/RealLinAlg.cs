@@ -7,7 +7,6 @@ namespace Nuvo.Math.Ndims
 	/// Generic Real Linear Algebra
 	/// </summary>
 	/// <typeparam name="D">Real Element Type</typeparam>
-	// Token: 0x0200003F RID: 63
 	public class RealLinAlg<D> : LinAlg<RealLuResult<D>, RealNArray<D>, D> where D : IRealNumber<D>, new()
 	{
 		/// <summary>
@@ -16,7 +15,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="a">Input Matrix</param>
 		/// <param name="y">Known Vector</param>
 		/// <returns>Solution Vector</returns>
-		// Token: 0x06000312 RID: 786 RVA: 0x0000E2EC File Offset: 0x0000C4EC
 		public static RealNArray<D> LstSqrSolve(RealNArray<D> a, RealNArray<D> y)
 		{
 			RealNArray<D> at = a.Transpose();
@@ -31,7 +29,6 @@ namespace Nuvo.Math.Ndims
 		/// <param name="y">Known Vector</param>
 		/// <param name="w">Weight Matrix</param>
 		/// <returns>Solution Vector</returns>
-		// Token: 0x06000313 RID: 787 RVA: 0x0000E314 File Offset: 0x0000C514
 		public static RealNArray<D> WeightedLstSqrSolve(RealNArray<D> a, RealNArray<D> y, RealNArray<D> w)
 		{
 			RealNArray<D> w2 = w.Transpose().Add(w);
@@ -44,7 +41,6 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		// Token: 0x06000314 RID: 788 RVA: 0x0000E350 File Offset: 0x0000C550
 		public static RealNArray<D> Cholesky(RealNArray<D> a)
 		{
 			if (!a.IsMatrix)

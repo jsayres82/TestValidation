@@ -7,7 +7,6 @@ namespace Nuvo.Math
 	/// <summary>
 	/// Generic Array
 	/// </summary>
-	// Token: 0x02000002 RID: 2
 	public static class Array
 	{
 		/// <summary>
@@ -16,7 +15,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="n1">Dim: 1, Number of elements</param>
 		/// <returns></returns>
-		// Token: 0x06000001 RID: 1 RVA: 0x00002050 File Offset: 0x00000250
 		public static T[] Zeros1d<T>(int n1) where T : INumber<T>, new()
 		{
 			T t = Activator.CreateInstance<T>();
@@ -36,7 +34,6 @@ namespace Nuvo.Math
 		/// <param name="n1">Dim: 1, Number of elements (rows)</param>
 		/// <param name="n2">Dim: 2, Number of elements (cols)</param>
 		/// <returns></returns>
-		// Token: 0x06000002 RID: 2 RVA: 0x00002090 File Offset: 0x00000290
 		public static T[][] Zeros2d<T>(int n1, int n2) where T : INumber<T>, new()
 		{
 			T t = Activator.CreateInstance<T>();
@@ -60,7 +57,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="n1">Dim: 1, Number of elements</param>
 		/// <returns></returns>
-		// Token: 0x06000003 RID: 3 RVA: 0x000020EC File Offset: 0x000002EC
 		public static T[] Ones1d<T>(int n1) where T : INumber<T>, new()
 		{
 			T t = Activator.CreateInstance<T>();
@@ -80,7 +76,6 @@ namespace Nuvo.Math
 		/// <param name="n1">Dim: 1, Number of elements (rows)</param>
 		/// <param name="n2">Dim: 2, Number of elements (cols)</param>
 		/// <returns></returns>
-		// Token: 0x06000004 RID: 4 RVA: 0x0000212C File Offset: 0x0000032C
 		public static T[][] Ones2d<T>(int n1, int n2) where T : INumber<T>, new()
 		{
 			T t = Activator.CreateInstance<T>();
@@ -104,7 +99,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="n">Number of Rows and Cols</param>
 		/// <returns></returns>
-		// Token: 0x06000005 RID: 5 RVA: 0x00002188 File Offset: 0x00000388
 		public static T[][] Identity<T>(int n) where T : INumber<T>, new()
 		{
 			T t = Activator.CreateInstance<T>();
@@ -137,7 +131,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="a">Vector</param>
 		/// <returns></returns>
-		// Token: 0x06000006 RID: 6 RVA: 0x00002210 File Offset: 0x00000410
 		public static T[] Copy<T>(T[] a) where T : new()
 		{
 			T[] b = new T[a.Length];
@@ -151,7 +144,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="a">Matrix</param>
 		/// <returns></returns>
-		// Token: 0x06000007 RID: 7 RVA: 0x00002230 File Offset: 0x00000430
 		public static T[][] Copy<T>(T[][] a) where T : new()
 		{
 			int n = a.Length;
@@ -170,7 +162,6 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <typeparam name="T">Real Type</typeparam>
 		/// <param name="a"></param>
-		// Token: 0x06000008 RID: 8 RVA: 0x00002270 File Offset: 0x00000470
 		public static void PrettyPrint<T>(T[] a) where T : IRealNumber<T>, new()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -188,7 +179,6 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <typeparam name="T">Real Type</typeparam>
 		/// <param name="a"></param>
-		// Token: 0x06000009 RID: 9 RVA: 0x000022D4 File Offset: 0x000004D4
 		public static void PrettyPrint<T>(T[][] a) where T : IRealNumber<T>, new()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -234,7 +224,6 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <typeparam name="T">Complex Type</typeparam>
 		/// <param name="a"></param>
-		// Token: 0x0600000A RID: 10 RVA: 0x000023EC File Offset: 0x000005EC
 		public static void PrettyPrint<T>(Complex<T>[] a) where T : IRealNumber<T>, new()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -253,7 +242,6 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <typeparam name="T">Real Type</typeparam>
 		/// <param name="a"></param>
-		// Token: 0x0600000B RID: 11 RVA: 0x0000247C File Offset: 0x0000067C
 		public static void PrettyPrint<T>(Complex<T>[][] a ) where T : IRealNumber<T>, new()
 		{
 			StringBuilder sb = new StringBuilder();

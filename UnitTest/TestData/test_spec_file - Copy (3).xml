@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MeasurementProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TestInfo>
+    <TestName>Module RF Measurement</TestName>
+    <Program>MUX</Program>
+    <WaferName>N/A</WaferName>
+    <TestArticles>
+      <TestArticle>
+        <Name>Pentaplexer</Name>
+        <PartNumber>1025668</PartNumber>
+        <MeasurementFiles>
+          <string>sparam_P1P2P3.s3p</string>
+        </MeasurementFiles>
+      </TestArticle>
+    </TestArticles>
+  </TestInfo>
+  <TestRequirements>
+    <TestRequirement>
+      <Name>Return Loss Band 3</Name>
+      <DomainLimit>
+        <LessThanOrEqualValidator>
+          <Value>-5</Value>
+          <Unit>DecibelMilliwatt</Unit>
+          <Prefix>None</Prefix>
+        </LessThanOrEqualValidator>
+        <StartFrequency>1100000000</StartFrequency>
+        <EndFrequency>1500000000</EndFrequency>
+      </DomainLimit>
+      <ScatteringParameter>
+        <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
+        <MeasurementVariables>
+          <string>S11</string>
+        </MeasurementVariables>
+      </ScatteringParameter>
+    </TestRequirement>
+    <TestRequirement>
+      <Name>Insertion Loss Band 2</Name>
+      <DomainLimit>
+        <GreaterThanValidator>
+          <Value>5</Value>
+          <Unit>DecibelMilliwatt</Unit>
+          <Prefix>None</Prefix>
+        </GreaterThanValidator>
+        <StartFrequency>6000000000</StartFrequency>
+        <EndFrequency>8000000000</EndFrequency>
+      </DomainLimit>
+      <ScatteringParameter>
+        <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
+        <MeasurementVariables>
+          <string>S12</string>
+        </MeasurementVariables>
+      </ScatteringParameter>
+    </TestRequirement>
+    <TestRequirement>
+      <Name>Insertion Loss Band 1</Name>
+      <DomainLimit>
+        <LessThanValidator>
+          <Value>-8</Value>
+          <Unit>DecibelMilliwatt</Unit>
+          <Prefix>None</Prefix>
+        </LessThanValidator>
+        <StartFrequency>13000000000</StartFrequency>
+        <EndFrequency>17000000000</EndFrequency>
+      </DomainLimit>
+      <ScatteringParameter>
+        <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
+        <MeasurementVariables>
+          <string>S13</string>
+        </MeasurementVariables>
+      </ScatteringParameter>
+    </TestRequirement>
+  </TestRequirements>
+</MeasurementProcessor>

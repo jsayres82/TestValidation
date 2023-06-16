@@ -11,7 +11,6 @@ namespace Nuvo.Math.Ndims
 	/// Generic Complex Array
 	/// </summary>
 	/// <typeparam name="T">Real Element Type</typeparam>
-	// Token: 0x0200003A RID: 58
 	[XmlType("ComplexNArray")]
 	[Serializable]
 	public class ComplexNArray<T> : NArray<ComplexNArray<T>, Complex<T>>, IConsole, IStorage<ComplexNArray<T>>, IArrayArithmetic<ComplexNArray<T>, Complex<T>>, IArithmetic<ComplexNArray<T>>, IMath<ComplexNArray<T>>, IArrayComplexMath<ComplexNArray<T>, RealNArray<T>, Complex<T>, T>, IComplexMath<ComplexNArray<T>, RealNArray<T>> where D : new()
@@ -21,7 +20,6 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <param name="real">Real Part</param>
 		/// <param name="imag">Imaginary Part</param>
-		// Token: 0x060002EF RID: 751 RVA: 0x0000D3E8 File Offset: 0x0000B5E8
 		public void InitReIm(RealNArray<T> real, RealNArray<T> imag)
 		{
 			int d = real.ndims;
@@ -49,7 +47,6 @@ namespace Nuvo.Math.Ndims
 		/// Initializes a Complex Array with all Imaginary Parts = 0
 		/// </summary>
 		/// <param name="real">Real Part</param>
-		// Token: 0x060002F0 RID: 752 RVA: 0x0000D48C File Offset: 0x0000B68C
 		public void InitRe(RealNArray<T> real)
 		{
 			int i = real.numel;
@@ -66,7 +63,6 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <param name="real">Real Part</param>
 		/// <param name="imag">Imaginary Part</param>
-		// Token: 0x060002F1 RID: 753 RVA: 0x0000D4E4 File Offset: 0x0000B6E4
 		public void InitDblReIm(double[] real, double[] imag)
 		{
 			int n = real.Length;
@@ -87,7 +83,6 @@ namespace Nuvo.Math.Ndims
 		/// Returns the real value.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002F2 RID: 754 RVA: 0x0000D544 File Offset: 0x0000B744
 		public double[] DblRealValue()
 		{
 			int i = base.numel;
@@ -103,7 +98,6 @@ namespace Nuvo.Math.Ndims
 		/// Returns the imaginary value.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002F3 RID: 755 RVA: 0x0000D580 File Offset: 0x0000B780
 		public double[] DblImagValue()
 		{
 			int i = base.numel;
@@ -119,7 +113,6 @@ namespace Nuvo.Math.Ndims
 		/// Complex conjugate transpose 2D-Array (Matrix)
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002F4 RID: 756 RVA: 0x0000D5BC File Offset: 0x0000B7BC
 		public ComplexNArray<T> CTranspose()
 		{
 			return base.Conj().Transpose();
@@ -129,7 +122,6 @@ namespace Nuvo.Math.Ndims
 		/// Override ToString() to display an Object.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002F5 RID: 757 RVA: 0x0000D5CC File Offset: 0x0000B7CC
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -186,7 +178,6 @@ namespace Nuvo.Math.Ndims
 			return sb.ToString();
 		}
 
-		// Token: 0x060002F6 RID: 758 RVA: 0x0000D7AC File Offset: 0x0000B9AC
 		internal RealNArray<T> ElementUnOp2(UnaryOperation2<Complex<T>, T> op)
 		{
 			int n = base.numel;
@@ -203,7 +194,6 @@ namespace Nuvo.Math.Ndims
 		/// Returns the real part.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002F7 RID: 759 RVA: 0x0000D7F3 File Offset: 0x0000B9F3
 		public RealNArray<T> Real()
 		{
 			return this.ElementUnOp2(new UnaryOperation2<T, Complex>(this.Real));
@@ -213,7 +203,6 @@ namespace Nuvo.Math.Ndims
 		/// Returns the imaginary part.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002F8 RID: 760 RVA: 0x0000D807 File Offset: 0x0000BA07
 		public RealNArray<T> Imag()
 		{
 			return this.ElementUnOp2(new UnaryOperation2<T,T>(T.Imag()));
@@ -223,7 +212,6 @@ namespace Nuvo.Math.Ndims
 		/// Returns the absolute value.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002F9 RID: 761 RVA: 0x0000D81B File Offset: 0x0000BA1B
 		public RealNArray<T> Abs()
 		{
 			return this.ElementUnOp2(new UnaryOperation2<T, T>(Complex<T>.Abs()));
@@ -233,7 +221,6 @@ namespace Nuvo.Math.Ndims
 		/// Returns the angle.
 		/// </summary>
 		/// <returns></returns>
-		// Token: 0x060002FA RID: 762 RVA: 0x0000D82F File Offset: 0x0000BA2F
 		public RealNArray<T> Angle()
 		{
 			return this.ElementUnOp2(new UnaryOperation2<T, T>(Complex<T>.FromPolarCoordinates().Angle()));

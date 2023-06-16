@@ -7,7 +7,6 @@ namespace Nuvo.Math.Interface
 	/// </summary>
 	/// <typeparam name="T">Array Type</typeparam>
 	/// <typeparam name="O">Element Type</typeparam>
-	// Token: 0x02000014 RID: 20
 	public interface IArrayArithmetic<T, O> 
 	{
 		/// <summary>
@@ -15,7 +14,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns>the sum</returns>
-		// Token: 0x06000137 RID: 311
 		T LAdd(O b);
 
 		/// <summary>
@@ -23,7 +21,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns>the difference</returns>
-		// Token: 0x06000138 RID: 312
 		T LSubtract(O b);
 
 		/// <summary>
@@ -31,7 +28,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns>the product</returns>
-		// Token: 0x06000139 RID: 313
 		T LMultiply(O b);
 
 		/// <summary>
@@ -39,7 +35,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns>the quotient</returns>
-		// Token: 0x0600013A RID: 314
 		T LDivide(O b);
 
 		/// <summary>
@@ -47,7 +42,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="a">The first operand</param>
 		/// <returns>the sum</returns>
-		// Token: 0x0600013B RID: 315
 		T RAdd(O a);
 
 		/// <summary>
@@ -55,7 +49,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="a">The first operand</param>
 		/// <returns>the difference</returns>
-		// Token: 0x0600013C RID: 316
 		T RSubtract(O a);
 
 		/// <summary>
@@ -63,7 +56,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="a">The first operand</param>
 		/// <returns>the product</returns>
-		// Token: 0x0600013D RID: 317
 		T RMultiply(O a);
 
 		/// <summary>
@@ -71,7 +63,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="a">The first operand</param>
 		/// <returns>the quotient</returns>
-		// Token: 0x0600013E RID: 318
 		T RDivide(O a);
 	}
 }

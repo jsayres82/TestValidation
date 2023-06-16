@@ -7,7 +7,6 @@ namespace Nuvo.Math.Interface
 	/// </summary>
 	/// <typeparam name="T">Array Type</typeparam>
 	/// <typeparam name="O">Element Type</typeparam>
-	// Token: 0x0200001A RID: 26
 	public interface IArrayMath<T, O> : IMath<O>
 	{
 		/// <summary>
@@ -15,7 +14,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns></returns>
-		// Token: 0x06000161 RID: 353
 		T LLog(O b);
 
 		/// <summary>
@@ -23,7 +21,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="a">The first operand</param>
 		/// <returns></returns>
-		// Token: 0x06000162 RID: 354
 		T RLog(O a);
 
 		/// <summary>
@@ -31,7 +28,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns></returns>
-		// Token: 0x06000163 RID: 355
 		T LPow(O b);
 
 		/// <summary>
@@ -39,7 +35,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="a">The first operand</param>
 		/// <returns></returns>
-		// Token: 0x06000164 RID: 356
 		T RPow(O a);
 	}
 }

@@ -8,7 +8,6 @@ namespace Nuvo.Math
 	/// <summary>
 	/// Generic Linear Algebra
 	/// </summary>
-	// Token: 0x02000005 RID: 5
 	public static class LinAlg
 	{
 		/// <summary>
@@ -16,7 +15,6 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="a">Matrix</param>
 		/// <returns>Matrix</returns>
-		// Token: 0x0600005E RID: 94 RVA: 0x0000359C File Offset: 0x0000179C
 		public static Number[][] ParallelDotMMt(Number[][] a)
 		{
 			int n = a.Length;
@@ -52,7 +50,6 @@ namespace Nuvo.Math
 		/// <param name="a">Matrix</param>
 		/// <param name="b">Matrix</param>
 		/// <returns>Matrix</returns>
-		// Token: 0x0600005F RID: 95 RVA: 0x0000361C File Offset: 0x0000181C
 		public static Number[][] ParallelDot(Number[][] a, Number[][] b)
 		{
 			int n = a.Length;
@@ -98,7 +95,6 @@ namespace Nuvo.Math
 		/// <param name="a">Matrix</param>
 		/// <param name="b">Matrix</param>
 		/// <returns>Matrix</returns>
-		// Token: 0x06000060 RID: 96 RVA: 0x000036E0 File Offset: 0x000018E0
 		public static T[][] Dot<T>(T[][] a, T[][] b) where T : INumber<T>, new()
 		{
 			int n = a.Length;
@@ -144,7 +140,6 @@ namespace Nuvo.Math
 		/// <param name="a">Matrix</param>
 		/// <param name="b">Column Vector</param>
 		/// <returns>Column Vector</returns>
-		// Token: 0x06000061 RID: 97 RVA: 0x000037BC File Offset: 0x000019BC
 		public static T[] Dot<T>(T[][] a, T[] b) where T : INumber<T>, new()
 		{
 			int n = a.Length;
@@ -180,7 +175,6 @@ namespace Nuvo.Math
 		/// <param name="l">Matrix</param>
 		/// <param name="y">Column Vector</param>
 		/// <returns>Column Vector</returns>
-		// Token: 0x06000062 RID: 98 RVA: 0x00003868 File Offset: 0x00001A68
 		public static T[] Fsub<T>(T[][] l, T[] y) where T : INumber<T>, new()
 		{
 			int n = y.Length;
@@ -212,7 +206,6 @@ namespace Nuvo.Math
 		/// <param name="u">Matrix</param>
 		/// <param name="y">Column Vector</param>
 		/// <returns>Column Vector</returns>
-		// Token: 0x06000063 RID: 99 RVA: 0x000038F8 File Offset: 0x00001AF8
 		public static T[] Bsub<T>(T[][] u, T[] y) where T : INumber<T>, new()
 		{
 			int n = y.Length;
@@ -235,7 +228,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="a">Matrix</param>
 		/// <returns>LU Result</returns>
-		// Token: 0x06000064 RID: 100 RVA: 0x00003984 File Offset: 0x00001B84
 		public static LuResult<T> Lu<T>(T[][] a) where T : INumber<T>, new()
 		{
 			int n = a.Length;
@@ -316,7 +308,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="a">Matrix</param>
 		/// <returns></returns>
-		// Token: 0x06000065 RID: 101 RVA: 0x00003BDC File Offset: 0x00001DDC
 		public static T Det<T>(T[][] a) where T : INumber<T>, new()
 		{
 			int n = a.Length;
@@ -359,7 +350,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="a">Matrix</param>
 		/// <returns></returns>
-		// Token: 0x06000066 RID: 102 RVA: 0x00003CA0 File Offset: 0x00001EA0
 		public static bool IsDetZero<T>(T[][] a) where T : INumber<T>, new()
 		{
 			int n = a.Length;
@@ -388,7 +378,6 @@ namespace Nuvo.Math
 		/// <param name="a">Input Matrix</param>
 		/// <param name="y">Known Vector</param>
 		/// <returns>Solution Vector</returns>
-		// Token: 0x06000067 RID: 103 RVA: 0x00003D28 File Offset: 0x00001F28
 		public static T[] Solve<T>(T[][] a, T[] y) where T : INumber<T>, new()
 		{
 			LuResult<T> lup = LinAlg.Lu<T>(a);
@@ -408,7 +397,6 @@ namespace Nuvo.Math
 		/// <param name="a">Matrix</param>
 		/// <param name="b">Matrix</param>
 		/// <returns>Matrix</returns>
-		// Token: 0x06000068 RID: 104 RVA: 0x00003D84 File Offset: 0x00001F84
 		public static T[][] Dot_invA_B<T>(T[][] a, T[][] b) where T : INumber<T>, new()
 		{
 			int n = a.Length;
@@ -456,7 +444,6 @@ namespace Nuvo.Math
 		/// <param name="a">Matrix</param>
 		/// <param name="b">Matrix</param>
 		/// <returns>Matrix</returns>
-		// Token: 0x06000069 RID: 105 RVA: 0x00003E74 File Offset: 0x00002074
 		public static T[][] Dot_A_invB<T>(T[][] a, T[][] b) where T : INumber<T>, new()
 		{
 			int n = a.Length;
@@ -494,7 +481,6 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="a">Matrix</param>
 		/// <returns></returns>
-		// Token: 0x0600006A RID: 106 RVA: 0x00003F2C File Offset: 0x0000212C
 		public static T[][] Inv<T>(T[][] a) where T : INumber<T>, new()
 		{
 			LuResult<T> lup = LinAlg.Lu<T>(a);
@@ -526,7 +512,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="a">Matrix</param>
 		/// <returns>Matrix</returns>
-		// Token: 0x0600006B RID: 107 RVA: 0x00003FE8 File Offset: 0x000021E8
 		public static T[][] Transpose<T>(T[][] a) where T : INumber<T>, new()
 		{
 			int n = a.Length;
@@ -553,7 +538,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Type</typeparam>
 		/// <param name="a">Matrix</param>
 		/// <returns>Matrix</returns>
-		// Token: 0x0600006C RID: 108 RVA: 0x00004048 File Offset: 0x00002248
 		public static T[][] CTranspose<T>(T[][] a) where T : INumber<T>, new()
 		{
 			int n = a.Length;
@@ -581,7 +565,6 @@ namespace Nuvo.Math
 		/// <param name="a">Input Matrix</param>
 		/// <param name="y">Known Vector</param>
 		/// <returns>Solution Vector</returns>
-		// Token: 0x0600006D RID: 109 RVA: 0x000040B4 File Offset: 0x000022B4
 		public static T[] LstSqrSolve<T>(T[][] a, T[] y) where T : INumber<T>, new()
 		{
 			T[][] at = LinAlg.CTranspose<T>(a);
@@ -595,7 +578,6 @@ namespace Nuvo.Math
 		/// <param name="a">Matrix</param>
 		/// <param name="index_1">Row Index 1</param>
 		/// <param name="index_2">Row Index 2</param>
-		// Token: 0x0600006E RID: 110 RVA: 0x000040DC File Offset: 0x000022DC
 		private static void InterchangeRows<T>(T[][] a, int index_1, int index_2) where T : INumber<T>, new()
 		{
 			T[] temp = a[index_1];
@@ -603,7 +585,6 @@ namespace Nuvo.Math
 			a[index_2] = temp;
 		}
 
-		// Token: 0x0600006F RID: 111 RVA: 0x000040F8 File Offset: 0x000022F8
 		private static void InterchangeRows(int[] a, int index_1, int index_2)
 		{
 			int temp = a[index_1];
@@ -620,7 +601,6 @@ namespace Nuvo.Math
 		/// <param name="y">Known Vector</param>
 		/// <param name="w">Weight Matrix</param>
 		/// <returns>Solution Vector</returns>
-		// Token: 0x06000070 RID: 112 RVA: 0x00004114 File Offset: 0x00002314
 		public static T[] WeightedLstSqrSolve<T>(T[][] a, T[] y, T[][] w) where T : IRealNumber<T>, new()
 		{
 			int n = w.Length;
@@ -652,7 +632,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Real Type</typeparam>
 		/// <param name="a">Matrix</param>
 		/// <returns>Matrix</returns>
-		// Token: 0x06000071 RID: 113 RVA: 0x000041C0 File Offset: 0x000023C0
 		public static T[][] Cholesky<T>(T[][] a) where T : IRealNumber<T>, new()
 		{
 			int n = a.Length;
@@ -697,7 +676,6 @@ namespace Nuvo.Math
 		/// <typeparam name="T">Real Number Type</typeparam>
 		/// <param name="m">Covariance Matrix</param>
 		/// <returns>Jacobi Matrix</returns>
-		// Token: 0x06000072 RID: 114 RVA: 0x0000430C File Offset: 0x0000250C
 		public static T[][] ComputeJacobiEig<T>(T[][] m) where T : IRealNumber<T>, new()
 		{
 			int num;
@@ -711,7 +689,6 @@ namespace Nuvo.Math
 		/// <param name="m">Covariance Matrix</param>
 		/// <param name="n2">Number of non zero Eigenvalues</param>
 		/// <returns>Jacobi Matrix</returns>
-		// Token: 0x06000073 RID: 115 RVA: 0x00004324 File Offset: 0x00002524
 		public static T[][] ComputeJacobiEig<T>(T[][] m, out int n2) where T : IRealNumber<T>, new()
 		{
 			int i = m.Length;
@@ -738,7 +715,6 @@ namespace Nuvo.Math
 			return k;
 		}
 
-		// Token: 0x06000074 RID: 116 RVA: 0x000043E4 File Offset: 0x000025E4
 		private static double[,] ComputeJacobiEig(double[,] m, out int n2)
 		{
 			int i = m.GetLength(0);
@@ -777,7 +753,6 @@ namespace Nuvo.Math
 		/// <param name="m">Covariance Matrix</param>
 		/// <param name="n2">Number of non zero Eigenvalues</param>
 		/// <returns>Inverse Jacobi Matrix</returns>
-		// Token: 0x06000075 RID: 117 RVA: 0x000044B8 File Offset: 0x000026B8
 		public static T[][] ComputeInvJacobiEig<T>(T[][] m, out int n2) where T : IRealNumber<T>, new()
 		{
 			int i = m.Length;
@@ -804,7 +779,6 @@ namespace Nuvo.Math
 			return k;
 		}
 
-		// Token: 0x06000076 RID: 118 RVA: 0x00004578 File Offset: 0x00002778
 		private static double[,] ComputeInvJacobiEig(double[,] m, out int n2)
 		{
             //int i = m.GetLength(0);
@@ -846,7 +820,6 @@ namespace Nuvo.Math
         /// <param name="y">Known Vector</param>
         /// <param name="w">Weight Matrix</param>
         /// <returns>Solution Vector</returns>
-        // Token: 0x06000077 RID: 119 RVA: 0x00004654 File Offset: 0x00002854
         public static Complex<T>[] WeightedLstSqrSolve<T>(Complex<T>[][] a, Complex<T>[] y, T[][] w) where T : IRealNumber<T>, new()
 		{
 			int n = a.Length;

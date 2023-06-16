@@ -6,7 +6,6 @@ namespace Nuvo.Math
 	/// <summary>
 	/// Double Helper
 	/// </summary>
-	// Token: 0x02000028 RID: 40
 	public static class DoubleHelper
 	{
 		/// <summary>
@@ -16,7 +15,6 @@ namespace Nuvo.Math
 		/// <param name="value2">Value 2</param>
 		/// <param name="epsilon">Epsilon (Default: 1e-15)</param>
 		/// <returns></returns>
-		// Token: 0x06000212 RID: 530 RVA: 0x000098E8 File Offset: 0x00007AE8
 		public static bool IsApproximatelyEqual(double value1, double value2, double epsilon = 1E-15)
 		{
 			if (value1.Equals(value2))
@@ -46,7 +44,6 @@ namespace Nuvo.Math
 		/// <param name="value2">Value 2</param>
 		/// <param name="epsilon">Epsilon (Default: 1e-15)</param>
 		/// <returns></returns>
-		// Token: 0x06000213 RID: 531 RVA: 0x00009963 File Offset: 0x00007B63
 		public static bool IsLessOrApproximatelyEqual(double value1, double value2, double epsilon = 1E-15)
 		{
 			return value1 <= value2 || DoubleHelper.IsApproximatelyEqual(value1, value2, epsilon);
@@ -59,7 +56,6 @@ namespace Nuvo.Math
 		/// <param name="value2">Value 2</param>
 		/// <param name="epsilon">Epsilon (Default: 1e-15)</param>
 		/// <returns></returns>
-		// Token: 0x06000214 RID: 532 RVA: 0x00009973 File Offset: 0x00007B73
 		public static bool IsGreaterOrApproximatelyEqual(double value1, double value2, double epsilon = 1E-15)
 		{
 			return value1 >= value2 || DoubleHelper.IsApproximatelyEqual(value1, value2, epsilon);
@@ -72,7 +68,6 @@ namespace Nuvo.Math
 		/// <param name="values2">Values 2</param>
 		/// <param name="epsilon">Epsilon (Default: 1e-15)</param>
 		/// <returns></returns>
-		// Token: 0x06000215 RID: 533 RVA: 0x00009984 File Offset: 0x00007B84
 		public static bool IsApproximatelyEqual(double[] values1, double[] values2, double epsilon = 1E-15)
 		{
 			int n = (values1 != null) ? values1.Length : 0;
@@ -98,7 +93,6 @@ namespace Nuvo.Math
 		/// <param name="a">Array a</param>
 		/// <param name="b">Array b</param>
 		/// <returns></returns>
-		// Token: 0x06000216 RID: 534 RVA: 0x000099D0 File Offset: 0x00007BD0
 		public static double[] Union(double[] a, double[] b)
 		{
 			int i = 0;
@@ -145,7 +139,6 @@ namespace Nuvo.Math
 		/// <param name="a">Array a</param>
 		/// <param name="b">Array b</param>
 		/// <returns></returns>
-		// Token: 0x06000217 RID: 535 RVA: 0x00009A7C File Offset: 0x00007C7C
 		public static double[] Intersection(double[] a, double[] b)
 		{
 			int i = 0;
