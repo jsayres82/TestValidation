@@ -6,6 +6,18 @@
 
   <ItemGroup>
     <Compile Remove="Ndims\ComplexLinAlg.cs" />
+    <Compile Remove="Ndims\ComplexLuResult.cs" />
+    <Compile Remove="Ndims\ComplexNArray.cs" />
+    <Compile Remove="Ndims\ComplexNumLib.cs" />
+    <Compile Remove="Ndims\IArithmeticOperations.cs" />
+    <Compile Remove="Ndims\LinAlg.cs" />
+    <Compile Remove="Ndims\LuResult.cs" />
+    <Compile Remove="Ndims\NArray.cs" />
+    <Compile Remove="Ndims\NumLib.cs" />
+    <Compile Remove="Ndims\RealLinAlg.cs" />
+    <Compile Remove="Ndims\RealLuResult.cs" />
+    <Compile Remove="Ndims\RealNArray.cs" />
+    <Compile Remove="Ndims\RealNumLib.cs" />
   </ItemGroup>
 
   <ItemGroup>

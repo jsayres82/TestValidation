@@ -7,13 +7,21 @@ using Nuvo.Math.Ndims.Interface;
 
 namespace Nuvo.Math.Ndims
 {
+
+	public interface IStorageOperations<D>
+	{
+		// Define storage operations specific to T
+		// For example: InitNd, Get, Set, etc.
+	}
 	/// <summary>
 	/// Generic Array
 	/// </summary>
 	/// <typeparam name="T">Array Type</typeparam>
 	/// <typeparam name="D">Element Type</typeparam>
 	[Serializable]
-	public class NArray<T, D> : INArray<T, D>, IConsole, IStorage<T>, IArrayArithmetic<T, D>, IArithmetic<T>, IArrayMath<D, T>, IMath<T> where T : INArray<T, D>, new() where D : INumber<D>, new()
+	public class NArray<T, D> : INArray<T, D>, IConsole, IArrayArithmetic<T, D>, IArithmetic<T>, IArrayMath<T, D>, IMath<T>, IStorageOperations<T>, IStorageOperations<T>
+	where T : INArray<T, D>
+	where D : INumber<D>
 	{
 		/// <summary>
 		/// Number of dimensions

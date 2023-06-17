@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nuvo.Math\Nuvo.Math.csproj" />
     <ProjectReference Include="..\RfNetworks\Nuvo.RF_Networks.csproj" />
     <ProjectReference Include="..\TestValidation\Nuvo.TestValidation.csproj" />
   </ItemGroup>

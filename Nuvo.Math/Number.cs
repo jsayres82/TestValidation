@@ -11,8 +11,8 @@ namespace Nuvo.Math
 	/// </summary>    
 	[XmlType("Number")]
 	[Serializable]
-	public struct Number : IRealNumber<Number>, INumber<Number>, IConsole, IStorage<Number>, Interface.IComparable, IElementArithmetic<Number>, IArithmetic<Number>, IMath<Number>, IRealMath<Number>
-	{
+	public struct Number
+	{ 
 		/// <summary>
 		/// Value
 		/// </summary>
@@ -261,7 +261,7 @@ namespace Nuvo.Math
 		/// </summary>
 		public void Debug()
 		{
-			Nuvo.Math.Misc.Console.Debug(this);
+			//Nuvo.Math.Misc.Console.Debug(this);
 		}
 
 		/// <summary>
@@ -670,7 +670,7 @@ namespace Nuvo.Math
 		/// <returns>Result real part</returns>
 		public Number ComplexDivision(Number _b, Number _c, Number _d, out Number _f)
 		{
-			return Math.StandardComplexDivision<Number>(this, _b, _c, _d, out _f);
+			return Math.StandardComplexDivision(this, _b, _c, _d, out _f);
 		}
 
 		/// <summary>
@@ -680,7 +680,7 @@ namespace Nuvo.Math
 		/// <returns></returns>
 		public Number ComplexAbs(Number _b)
 		{
-			return Math.StandardComplexAbs<Number>(this, _b);
+			return Math.StandardComplexAbs(this, _b);
 		}
 
 		private double _value;

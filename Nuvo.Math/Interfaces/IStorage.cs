@@ -7,7 +7,7 @@ namespace Nuvo.Math.Interface
 	/// Storage Interface.
 	/// </summary>
 	/// <typeparam name="T">Type</typeparam>
-	public interface IStorage<T>
+	public interface IStorage<D>
 	{
 		/// <summary>
 		/// Write object data to Binary Writer.
@@ -32,7 +32,7 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="filepath">File Path</param>
 		/// <returns>Object</returns>
-		T BinaryDeserialize(string filepath);
+		D BinaryDeserialize(string filepath);
 
 		/// <summary>
 		/// Binary Serialize an Object to a byte array.
@@ -45,7 +45,7 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="data">Binary Data</param>
 		/// <returns>Object</returns>
-		T BinaryDeserializeFromByteArray(byte[] data);
+		D BinaryDeserializeFromByteArray(byte[] data);
 
 		/// <summary>
 		/// Xml Serialize an Object to File.
@@ -58,7 +58,7 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="filepath">File Path</param>
 		/// <returns>Object</returns>
-		T XmlDeserialize(string filepath);
+		D XmlDeserialize(string filepath);
 
 		/// <summary>
 		/// Xml Serialize an Object to String.
@@ -71,6 +71,6 @@ namespace Nuvo.Math.Interface
 		/// </summary>
 		/// <param name="xml_string">Xml String</param>
 		/// <returns>Object</returns>
-		T XmlDeserializeFromString(string xml_string);
+		D XmlDeserializeFromString(string xml_string);
 	}
 }

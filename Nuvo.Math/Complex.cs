@@ -4,6 +4,9 @@ using System.Xml.Serialization;
 using Nuvo.Math.Interface;
 using Nuvo.Math.Misc;
 
+using Nuvo.Math.Ndims.Interface;
+using Nuvo.Math.Ndims;
+
 namespace Nuvo.Math
 {
 	/// <summary>
@@ -11,17 +14,17 @@ namespace Nuvo.Math
 	/// </summary>
 	/// <typeparam name="T">Real Type</typeparam>
 	[Serializable]
-	public struct Complex<T> : IConsole where T: IRealNumber<T>, new()
+	public class Complex<D> where D : INumber<D>
 	{
 		/// <summary>
 		/// Returns the square root of -1.
 		/// </summary>
 		/// <value></value>
-		public Complex<T> J
+		public Complex<D> J
 		{
 			get
 			{
-				return new Complex<T>(0.0, 1.0);
+				return new Complex<D>(0.0, 1.0);
 			}
 		}
 
@@ -30,7 +33,19 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="r">Real Part</param>
 		/// <param name="i">Imaginary Part</param>
-		public Complex(T r, T i)
+		public Complex()
+		{
+			var x = new Complex<D>(0.0, 1.0);
+			this.real = x.real;
+			this.imag = x.imag;
+		}
+
+		/// <summary>
+		/// Creates a new Complex
+		/// </summary>
+		/// <param name="r">Real Part</param>
+		/// <param name="i">Imaginary Part</param>
+		public Complex(D r, D i)
 		{
 			this.real = r;
 			this.imag = i;
@@ -40,11 +55,11 @@ namespace Nuvo.Math
 		/// Creates a new Complex with Imaginary Part = 0
 		/// </summary>
 		/// <param name="r">Real Part</param>
-		public Complex(T r)
+		public Complex(D r)
 		{
 			this.real = r;
-			T t = Activator.CreateInstance<T>();
-			this.imag = t.Zero;
+			D d = Activator.CreateInstance<D>();
+			this.imag = d.Zero;
 		}
 
 		/// <summary>
@@ -54,9 +69,9 @@ namespace Nuvo.Math
 		/// <param name="i">Imaginary Part</param>
 		public Complex(double r, double i = 0.0)
 		{
-			T _real = Activator.CreateInstance<T>();
+			D _real = Activator.CreateInstance<D>();
 			_real.InitDbl(r);
-			T _imag = Activator.CreateInstance<T>();
+			D _imag = Activator.CreateInstance<D>();
 			_imag.InitDbl(i);
 			this.real = _real;
 			this.imag = _imag;
@@ -68,9 +83,9 @@ namespace Nuvo.Math
 		/// <param name="mag">Magnitude</param>
 		/// <param name="phase">Phase</param>
 		/// <returns>Complex Number</returns>
-		public static Complex<T> FromPolarCoordinates(T mag, T phase)
+		public static Complex<D> FromPolarCoordinates(D mag, D phase)
 		{
-			return new Complex<T>
+			return new Complex<D>
 			{
 				real = mag.Multiply(phase.Cos()),
 				imag = mag.Multiply(phase.Sin())
@@ -82,9 +97,9 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static implicit operator Complex<T>(double a)
+		public static implicit operator Complex<D>(double a)
 		{
-			return new Complex<T>(a, 0.0);
+			return new Complex<D>(a, 0.0);
 		}
 
 		/// <summary>
@@ -92,12 +107,12 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="x"></param>
 		/// <returns></returns>
-		public static implicit operator Complex<T>(T x)
+		public static implicit operator Complex<D>(D x)
 		{
-			Complex<T> result = default(Complex<T>);
+			Complex<D> result = default(Complex<D>);
 			result.real = x;
-			T t = Activator.CreateInstance<T>();
-			result.imag = t.Zero;
+			D d = Activator.CreateInstance<D>();
+			result.imag = d.Zero;
 			return result;
 		}
 
@@ -106,7 +121,7 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="x"></param>
 		/// <returns></returns>
-		public static Complex<T>operator +(Complex<T> x)
+		public static Complex<D>operator +(Complex<D> x)
 		{
 			return x;
 		}
@@ -116,9 +131,9 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="x"></param>
 		/// <returns></returns>
-		public static Complex<T>operator -(Complex<T> x)
+		public static Complex<D>operator -(Complex<D> x)
 		{
-			return new Complex<T>
+			return new Complex<D>
 			{
 				real = x.real.Negative(),
 				imag = x.imag.Negative()
@@ -131,9 +146,9 @@ namespace Nuvo.Math
 		/// <param name="x"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		public static Complex<T>operator +(Complex<T> x, Complex<T> y)
+		public static Complex<D>operator +(Complex<D> x, Complex<D> y)
 		{
-			return new Complex<T>
+			return new Complex<D>
 			{
 				real = x.real.Add(y.real),
 				imag = x.imag.Add(y.imag)
@@ -146,9 +161,9 @@ namespace Nuvo.Math
 		/// <param name="x"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		public static Complex<T>operator -(Complex<T> x, Complex<T> y)
+		public static Complex<D>operator -(Complex<D> x, Complex<D> y)
 		{
-			return new Complex<T>
+			return new Complex<D>
 			{
 				real = x.real.Subtract(y.real),
 				imag = x.imag.Subtract(y.imag)
@@ -161,10 +176,10 @@ namespace Nuvo.Math
 		/// <param name="x"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		public static Complex<T>operator *(Complex<T> x, Complex<T> y)
+		public static Complex<D>operator *(Complex<D> x, Complex<D> y)
 		{
-			Complex<T> result = default(Complex<T>);
-			T t = x.real.Multiply(y.real);
+			Complex<D> result = default(Complex<D>);
+			D t = x.real.Multiply(y.real);
 			result.real = t.Subtract(x.imag.Multiply(y.imag));
 			t = x.real.Multiply(y.imag);
 			result.imag = t.Add(y.real.Multiply(x.imag));
@@ -177,14 +192,14 @@ namespace Nuvo.Math
 		/// <param name="x"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		public static Complex<T>operator /(Complex<T> x, Complex<T> y)
+		public static Complex<D>operator /(Complex<D> x, Complex<D> y)
 		{
-			T a = x.real;
-			T b = x.imag;
-			T c = y.real;
-			T d = y.imag;
-			T f;
-			return new Complex<T>(Math.ComplexDivision<T>(a, b, c, d, out f), f);
+			D a = x.real;
+			D b = x.imag;
+			D c = y.real;
+			D d = y.imag;
+			D g;
+			return new Complex<D>(Math.ComplexDivision<Complex<D>>(a, b, c, d, out g),g);
 		}
 
 		/// <summary>
@@ -192,7 +207,7 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="real">Real Part</param>
 		/// <param name="imag">Imaginary Part</param>
-		public void InitReIm(T real, T imag)
+		public void InitReIm(D real, D imag)
 		{
 			this.real = real;
 			this.imag = imag;
@@ -202,11 +217,11 @@ namespace Nuvo.Math
 		/// Initializes a Complex Number with Imaginary Part = 0.
 		/// </summary>
 		/// <param name="real">Real Part</param>
-		public void InitRe(T real)
+		public void InitRe(D real)
 		{
 			this.real = real;
-			T t = Activator.CreateInstance<T>();
-			this.imag = t.Zero;
+			D d = Activator.CreateInstance<D>();
+			this.imag = d.Zero;
 		}
 
 		/// <summary>
@@ -214,7 +229,7 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="mag">Magnitude</param>
 		/// <param name="phase">Phase</param>
-		public void InitMagPhase(T mag, T phase)
+		public void InitMagPhase(D mag, D phase)
 		{
 			this.real = mag.Multiply(phase.Cos());
 			this.imag = mag.Multiply(phase.Sin());
@@ -227,9 +242,9 @@ namespace Nuvo.Math
 		/// <param name="imag">Imaginary Part</param>
 		public void InitDblReIm(double real, double imag)
 		{
-			this.real = Activator.CreateInstance<T>();
+			this.real = Activator.CreateInstance<D>();
 			this.real.InitDbl(real);
-			this.imag = Activator.CreateInstance<T>();
+			this.imag = Activator.CreateInstance<D>();
 			this.imag.InitDbl(imag);
 		}
 
@@ -293,10 +308,10 @@ namespace Nuvo.Math
 		/// <param name="value">Real part</param>
 		public void InitDbl(double value)
 		{
-			this.real = Activator.CreateInstance<T>();
+			this.real = Activator.CreateInstance<D>();
 			this.real.InitDbl(value);
-			T t = Activator.CreateInstance<T>();
-			this.imag = t.Zero;
+			D d = Activator.CreateInstance<D>();
+			this.imag = d.Zero;
 		}
 
 		/// <summary>
@@ -312,9 +327,9 @@ namespace Nuvo.Math
 		/// Returns the function value.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> FcnValue2()
+		public Complex<D> FcnValue2()
 		{
-			return new Complex<T>(this.real.FcnValue2(), this.imag.FcnValue2());
+			return new Complex<D>(this.real.FcnValue2(), this.imag.FcnValue2());
 		}
 
 		/// <summary>
@@ -346,7 +361,7 @@ namespace Nuvo.Math
 		/// </summary>
 		public void Debug()
 		{
-			Nuvo.Math.Misc.Console.Debug(this);
+			//Nuvo.Math.Misc.Console.Debug(this);
 		}
 
 		/// <summary>
@@ -368,9 +383,9 @@ namespace Nuvo.Math
 		public void BinarySetDataFrom(BinaryReader reader)
 		{
 			reader.ReadInt32();
-			this.real = Activator.CreateInstance<T>();
+			this.real = Activator.CreateInstance<D>();
 			this.real.BinarySetDataFrom(reader);
-			this.imag = Activator.CreateInstance<T>();
+			this.imag = Activator.CreateInstance<D>();
 			this.imag.BinarySetDataFrom(reader);
 		}
 
@@ -388,9 +403,9 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="filepath">File Path</param>
 		/// <returns>Object</returns>
-		public Complex<T> BinaryDeserialize(string filepath)
+		public Complex<D> BinaryDeserialize(string filepath)
 		{
-			return Storage.BinaryDeserialize<Complex<T>>(filepath);
+			return Storage.BinaryDeserialize<Complex<D>>(filepath);
 		}
 
 		/// <summary>
@@ -407,9 +422,9 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="data">Binary Data</param>
 		/// <returns>Object</returns>
-		public Complex<T> BinaryDeserializeFromByteArray(byte[] data)
+		public Complex<D> BinaryDeserializeFromByteArray(byte[] data)
 		{
-			return Storage.BinaryDeserializeFromByteArray<Complex<T>>(data);
+			return Storage.BinaryDeserializeFromByteArray<Complex<D>>(data);
 		}
 
 		/// <summary>
@@ -426,9 +441,9 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="filepath">Xml String</param>
 		/// <returns>Object</returns>
-		public Complex<T> XmlDeserialize(string filepath)
+		public Complex<D> XmlDeserialize(string filepath)
 		{
-			return Storage.XmlDeserialize<Complex<T>>(filepath);
+			return Storage.XmlDeserialize<Complex<D>>(filepath);
 		}
 
 		/// <summary>
@@ -445,9 +460,9 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="xml_string">Xml String</param>
 		/// <returns>Object</returns>
-		public Complex<T> XmlDeserializeFromString(string xml_string)
+		public Complex<D> XmlDeserializeFromString(string xml_string)
 		{
-			return Storage.XmlDeserializeFromString<Complex<T>>(xml_string);
+			return Storage.XmlDeserializeFromString<Complex<D>>(xml_string);
 		}
 
 		/// <summary>
@@ -472,14 +487,14 @@ namespace Nuvo.Math
 		/// Returns the neutral element of addition
 		/// </summary>
 		/// <value>e</value>
-		public Complex<T> Zero
+		public Complex<D> Zero
 		{
 			get
 			{
-				Complex<T> result = default(Complex<T>);
-				T t = Activator.CreateInstance<T>();
+				Complex<D> result = default(Complex<D>);
+				D t = Activator.CreateInstance<D>();
 				result.real = t.Zero;
-				t = Activator.CreateInstance<T>();
+				t = Activator.CreateInstance<D>();
 				result.imag = t.Zero;
 				return result;
 			}
@@ -489,14 +504,14 @@ namespace Nuvo.Math
 		/// Returns the neutral element of multiplication
 		/// </summary>
 		/// <value>e</value>
-		public Complex<T> One
+		public Complex<D> One
 		{
 			get
 			{
-				Complex<T> result = default(Complex<T>);
-				T t = Activator.CreateInstance<T>();
+				Complex<D> result = default(Complex<D>);
+				D t = Activator.CreateInstance<D>();
 				result.real = t.One;
-				t = Activator.CreateInstance<T>();
+				t = Activator.CreateInstance<D>();
 				result.imag = t.Zero;
 				return result;
 			}
@@ -507,7 +522,7 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns>the sum</returns>
-		public Complex<T> Add(Complex<T> b)
+		public Complex<D> Add(Complex<D> b)
 		{
 			return this + b;
 		}
@@ -517,7 +532,7 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns>the difference</returns>
-		public Complex<T> Subtract(Complex<T> b)
+		public Complex<D> Subtract(Complex<D> b)
 		{
 			return this - b;
 		}
@@ -526,7 +541,7 @@ namespace Nuvo.Math
 		/// Returns the negative of the object.
 		/// </summary>
 		/// <returns>The negative</returns>
-		public Complex<T> Negative()
+		public Complex<D> Negative()
 		{
 			return -this;
 		}
@@ -536,7 +551,7 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns>the product</returns>
-		public Complex<T> Multiply(Complex<T> b)
+		public Complex<D> Multiply(Complex<D> b)
 		{
 			return this * b;
 		}
@@ -546,7 +561,7 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="b">The second operand</param>
 		/// <returns>the quotient</returns>
-		public Complex<T> Divide(Complex<T> b)
+		public Complex<D> Divide(Complex<D> b)
 		{
 			return this / b;
 		}
@@ -555,7 +570,7 @@ namespace Nuvo.Math
 		/// Returns e raised to the specified power.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Exp()
+		public Complex<D> Exp()
 		{
 			return this.real.Exp() * (this.imag.Cos() + this.imag.Sin() * this.J);
 		}
@@ -564,9 +579,9 @@ namespace Nuvo.Math
 		/// Returns e raised to the specified power.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Exp(T a) 
+		public Complex<D> Exp(D a) 
 		{
-			Complex<T> val = a;
+			Complex<D> val = a;
 			return val.real.Exp() * (val.imag.Cos() + val.imag.Sin() * val.J);
 		}
 
@@ -574,9 +589,9 @@ namespace Nuvo.Math
 		/// Returns the natural (base e) logarithm of a specified number.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Log()
+		public Complex<D> Log()
 		{
-			T t = this.Abs();
+			D t = this.Abs();
 			return t.Log() + this.Angle() * this.J;
 		}
 
@@ -585,7 +600,7 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="newBase"></param>
 		/// <returns></returns>
-		public Complex<T> Log(Complex<T> newBase)
+		public Complex<D> Log(Complex<D> newBase)
 		{
 			return this.Log() / newBase.Log();
 		}
@@ -594,7 +609,7 @@ namespace Nuvo.Math
 		/// Returns the base 10 logarithm of a specified number.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Log10()
+		public Complex<D> Log10()
 		{
 			return this.Log(10.0);
 		}
@@ -604,7 +619,7 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		public Complex<T> Pow(Complex<T> b)
+		public Complex<D> Pow(Complex<D> b)
 		{
 			return (b * this.Log()).Exp();
 		}
@@ -614,19 +629,19 @@ namespace Nuvo.Math
 		/// </summary>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		public Complex<T> Pow(int b)
+		public Complex<D> Pow(int b)
 		{
 			if (b == 0)
 			{
 				return 1.0;
 			}
-			T c = Activator.CreateInstance<T>();
+			D c = Activator.CreateInstance<D>();
 			c.InitDbl((double)b);
-			T rho = this.Abs();
-			T theta = this.imag.Atan2(this.real);
-			T newRho = c.Multiply(theta);
-			T t = rho.Pow(b);
-			return new Complex<T>
+			D rho = this.Abs();
+			D theta = this.imag.Atan2(this.real);
+			D newRho = c.Multiply(theta);
+			D t = rho.Pow(b);
+			return new Complex<D>
 			{
 				real = t.Multiply(newRho.Cos()),
 				imag = t.Multiply(newRho.Sin())
@@ -637,15 +652,15 @@ namespace Nuvo.Math
 		/// Returns the square root of a specified number.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Sqrt()
+		public Complex<D> Sqrt()
 		{
-			T r = this.Abs();
-			T a = this.Angle();
-			T r_sqrt = r.Sqrt();
-			T two = Activator.CreateInstance<T>();
+			D r = this.Abs();
+			D a = this.Angle();
+			D r_sqrt = r.Sqrt();
+			D two = Activator.CreateInstance<D>();
 			two.InitDbl(2.0);
-			T a_2 = a.Divide(two);
-			return new Complex<T>
+			D a_2 = a.Divide(two);
+			return new Complex<D>
 			{
 				real = r_sqrt.Multiply(a_2.Cos()),
 				imag = r_sqrt.Multiply(a_2.Sin())
@@ -656,47 +671,47 @@ namespace Nuvo.Math
 		/// Returns the sine of the specified angle.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Sin()
+		public Complex<D> Sin()
 		{
-			T a = this.real;
-			T b = this.imag;
-			T t = a.Sin();
-			T r = t.Multiply(b.Cosh());
+			D a = this.real;
+			D b = this.imag;
+			D t = a.Sin();
+			D r = t.Multiply(b.Cosh());
 			t = a.Cos();
-			return new Complex<T>(r, t.Multiply(b.Sinh()));
+			return new Complex<D>(r, t.Multiply(b.Sinh()));
 		}
 
 		/// <summary>
 		/// Returns the cosine of the specified angle.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Cos()
+		public Complex<D> Cos()
 		{
-			T a = this.real;
-			T b = this.imag;
-			T t = a.Cos();
-			T r = t.Multiply(b.Cosh());
+			D a = this.real;
+			D b = this.imag;
+			D t = a.Cos();
+			D r = t.Multiply(b.Cosh());
 			t = a.Sin();
 			t = t.Multiply(b.Sinh());
-			return new Complex<T>(r, t.Negative());
+			return new Complex<D>(r, t.Negative());
 		}
 
 		/// <summary>
 		/// Returns the tangent of the specified angle.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Tan()
+		public Complex<D> Tan()
 		{
-			T t = Activator.CreateInstance<T>();
-			T one = t.One;
-			T a = this.real;
-			T b = this.imag;
-			T tan_a = a.Tan();
-			T tanh_b = b.Tanh();
-			Complex<T> x = new Complex<T>(tan_a, tanh_b);
-			T r = one;
+			D t = Activator.CreateInstance<D>();
+			D one = t.One;
+			D a = this.real;
+			D b = this.imag;
+			D tan_a = a.Tan();
+			D tanh_b = b.Tanh();
+			Complex<D> x = new Complex<D>(tan_a, tanh_b);
+			D r = one;
 			t = tan_a.Multiply(tanh_b);
-			Complex<T> den = new Complex<T>(r, t.Negative());
+			Complex<D> den = new Complex<D>(r, t.Negative());
 			return x / den;
 		}
 
@@ -704,7 +719,7 @@ namespace Nuvo.Math
 		/// Returns the angle whose sine is the specified number.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Asin()
+		public Complex<D> Asin()
 		{
 			return -this.J * (this.J * this + (1.0 - this * this).Sqrt()).Log();
 		}
@@ -713,7 +728,7 @@ namespace Nuvo.Math
 		/// Returns the angle whose cosine is the specified number.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Acos()
+		public Complex<D> Acos()
 		{
 			return -this.J * (this + this.J * (1.0 - this * this).Sqrt()).Log();
 		}
@@ -722,7 +737,7 @@ namespace Nuvo.Math
 		/// Returns the angle whose tangent is the specified number.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Atan()
+		public Complex<D> Atan()
 		{
 			return ((1.0 + this.J * this) / (1.0 - this.J * this)).Log() / (this.J * 2.0);
 		}
@@ -731,44 +746,44 @@ namespace Nuvo.Math
 		/// Returns the hyperbolic sine of the specified angle.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Sinh()
+		public Complex<D> Sinh()
 		{
-			T a = this.real;
-			T b = this.imag;
-			T t = a.Sinh();
-			T r = t.Multiply(b.Cos());
+			D a = this.real;
+			D b = this.imag;
+			D t = a.Sinh();
+			D r = t.Multiply(b.Cos());
 			t = a.Cosh();
-			return new Complex<T>(r, t.Multiply(b.Sin()));
+			return new Complex<D>(r, t.Multiply(b.Sin()));
 		}
 
 		/// <summary>
 		/// Returns the hyperbolic cosine of the specified angle.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Cosh()
+		public Complex<D> Cosh()
 		{
-			T a = this.real;
-			T b = this.imag;
-			T t = a.Cosh();
-			T r = t.Multiply(b.Cos());
+			D a = this.real;
+			D b = this.imag;
+			D t = a.Cosh();
+			D r = t.Multiply(b.Cos());
 			t = a.Sinh();
-			return new Complex<T>(r, t.Multiply(b.Sin()));
+			return new Complex<D>(r, t.Multiply(b.Sin()));
 		}
 
 		/// <summary>
 		/// Returns the hyperbolic tangent of the specified angle.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Tanh()
+		public Complex<D> Tanh()
 		{
-			T t = Activator.CreateInstance<T>();
-			T one = t.One;
-			T a = this.real;
-			T b = this.imag;
-			T tanh_a = a.Tanh();
-			T tan_b = b.Tan();
-			Complex<T> x = new Complex<T>(tanh_a, tan_b);
-			Complex<T> den = new Complex<T>(one, tanh_a.Multiply(tan_b));
+			D t = Activator.CreateInstance<D>();
+			D one = t.One;
+			D a = this.real;
+			D b = this.imag;
+			D tanh_a = a.Tanh();
+			D tan_b = b.Tan();
+			Complex<D> x = new Complex<D>(tanh_a, tan_b);
+			Complex<D> den = new Complex<D>(one, tanh_a.Multiply(tan_b));
 			return x / den;
 		}
 
@@ -776,7 +791,7 @@ namespace Nuvo.Math
 		/// Returns the angle whose hyperbolic sine is the specified number.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Asinh()
+		public Complex<D> Asinh()
 		{
 			return (this + (this * this + 1.0).Sqrt()).Log();
 		}
@@ -785,7 +800,7 @@ namespace Nuvo.Math
 		/// Returns the angle whose hyperbolic cosine is the specified number.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Acosh()
+		public Complex<D> Acosh()
 		{
 			return (this + (this * this - 1.0).Sqrt()).Log();
 		}
@@ -794,7 +809,7 @@ namespace Nuvo.Math
 		/// Returns the angle whose hyperbolic tangent is the specified number.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Atanh()
+		public Complex<Number> Atanh()
 		{
 			return ((1.0 + this) / (1.0 - this)).Log() / 2.0;
 		}
@@ -803,7 +818,7 @@ namespace Nuvo.Math
 		/// Returns the complex conjugate.
 		/// </summary>
 		/// <returns></returns>
-		public Complex<T> Conj()
+		public Complex<Number> Conj()
 		{
 			return this.real - this.imag * this.J;
 		}
@@ -812,7 +827,7 @@ namespace Nuvo.Math
 		/// Returns the real part.
 		/// </summary>
 		/// <returns></returns>
-		public T Real()
+		public Number Real()
 		{
 			return this.real;
 		}
@@ -821,7 +836,7 @@ namespace Nuvo.Math
 		/// Returns the imaginary part.
 		/// </summary>
 		/// <returns></returns>
-		public T Imag()
+		public Number Imag()
 		{
 			return this.imag;
 		}
@@ -830,16 +845,16 @@ namespace Nuvo.Math
 		/// Returns the absolute value.
 		/// </summary>
 		/// <returns></returns>
-		public T Abs()
+		public Number Abs()
 		{
-			return Math.ComplexAbs<T>(this.real, this.imag);
+			return Math.ComplexAbs(this.real, this.imag);
 		}
 
 		/// <summary>
 		/// Returns the angle.
 		/// </summary>
 		/// <returns></returns>
-		public T Angle()
+		public Number Angle()
 		{
 			return this.imag.Atan2(this.real);
 		}
@@ -848,12 +863,12 @@ namespace Nuvo.Math
 		/// Real Part
 		/// </summary>
 		[XmlElement("Real")]
-		public T real;
+		public Number real;
 
 		/// <summary>
 		/// Imaginary Part
 		/// </summary>
 		[XmlElement("Imag")]
-		public T imag;
+		public Number imag;
 	}
 }

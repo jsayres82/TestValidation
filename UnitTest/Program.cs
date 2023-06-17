@@ -12,7 +12,6 @@ using Nuvo.TestValidation.Parameters;
 using Nuvo.TestValidation;
 using Nuvo.RF_Networks;
 using Nuvo.TestValidation.TestResults;
-using Nuvo.Math;
 using System.Linq;
 
 namespace Nuvo.UnitTest
@@ -37,7 +36,7 @@ namespace Nuvo.UnitTest
                 var result = measurementProcessor.ValidateMeasurement();
                 TestReportsDic.Add(serialNumber, result);
                 var r = (result.Results[0] as TestResult<Dictionary<string, List<double[]>>>).ParameterValue.First(); 
-                r.v
+                //r.v
             }
         }
     }

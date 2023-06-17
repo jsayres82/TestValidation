@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using Nuvo.Math.Interface;
 using Nuvo.Math.Misc;
+using Nuvo.Math.Ndims;
 using Nuvo.Math.Ndims.Interface;
 
 namespace Nuvo.Math.Ndims
@@ -13,8 +15,16 @@ namespace Nuvo.Math.Ndims
 	/// <typeparam name="T">Real Element Type</typeparam>
 	[XmlType("ComplexNArray")]
 	[Serializable]
-	public class ComplexNArray<T> : NArray<ComplexNArray<T>, Complex<T>>, IConsole, IStorage<ComplexNArray<T>>, IArrayArithmetic<ComplexNArray<T>, Complex<T>>, IArithmetic<ComplexNArray<T>>, IMath<ComplexNArray<T>>, IArrayComplexMath<ComplexNArray<T>, RealNArray<T>, Complex<T>, T>, IComplexMath<ComplexNArray<T>, RealNArray<T>> where D : new()
+	public class ComplexNArray<T, D> : NArray<ComplexNArray<T, D>, Complex<T>>, IComplexNArray<ComplexNArray<T, D>, RealNArray<T>, Complex<T>, T>
+	where T : IRealNumber<T>, new()
+	where D : IComplexNumber<Complex<T>, T>, new()
 	{
+		public T[] data
+		{
+			get { return base.data.DblRealValue().Select(x => (T)x).ToArray(); }
+			set { base.data = value.Select(x => (Complex<T>)(T)x).ToArray(); }
+		}
+		// Rest of the class implementation
 		/// <summary>
 		/// Initializes a Complex Array
 		/// </summary>
@@ -113,7 +123,7 @@ namespace Nuvo.Math.Ndims
 		/// Complex conjugate transpose 2D-Array (Matrix)
 		/// </summary>
 		/// <returns></returns>
-		public ComplexNArray<T> CTranspose()
+		public ComplexNArray<T, D> CTranspose()
 		{
 			return base.Conj().Transpose();
 		}
@@ -196,7 +206,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public RealNArray<T> Real()
 		{
-			return this.ElementUnOp2(new UnaryOperation2<T, Complex>(this.Real));
+			return this.ElementUnOp2(new UnaryOperation2<Complex<T>, T>(T.Value));
 		}
 
 		/// <summary>
@@ -205,7 +215,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public RealNArray<T> Imag()
 		{
-			return this.ElementUnOp2(new UnaryOperation2<T,T>(T.Imag()));
+			return this.ElementUnOp2(new UnaryOperation2<T,T>(T.Value));
 		}
 
 		/// <summary>
@@ -214,7 +224,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public RealNArray<T> Abs()
 		{
-			return this.ElementUnOp2(new UnaryOperation2<T, T>(Complex<T>.Abs()));
+			return this.ElementUnOp2(new UnaryOperation2<Complex<T>, T>(this.Vector[].Abs()));
 		}
 
 		/// <summary>
