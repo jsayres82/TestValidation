@@ -16,7 +16,7 @@
   </TestInfo>
   <TestRequirements>
     <TestRequirement>
-      <Name>Return Loss Band 3</Name>
+      <Name>Return Loss Band 1</Name>
       <DomainLimit>
         <LessThanValidator>
           <Value>-5</Value>
@@ -27,17 +27,19 @@
         <EndFrequency>1500000000</EndFrequency>
       </DomainLimit>
       <ScatteringParameter>
+        <serialNumber>005</serialNumber>
         <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
         <MeasurementVariables>
           <string>S11</string>
         </MeasurementVariables>
+        <MinimumMargin>-184.9996113274618</MinimumMargin>
       </ScatteringParameter>
     </TestRequirement>
     <TestRequirement>
-      <Name>Insertion Loss Band 2</Name>
+      <Name>Insertion Loss Band 1</Name>
       <DomainLimit>
         <GreaterThanValidator>
-          <Value>-.50</Value>
+          <Value>-2</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
         </GreaterThanValidator>
@@ -45,28 +47,32 @@
         <EndFrequency>1500000000</EndFrequency>
       </DomainLimit>
       <ScatteringParameter>
+        <serialNumber>005</serialNumber>
         <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
         <MeasurementVariables>
           <string>S12</string>
         </MeasurementVariables>
+        <MinimumMargin>-179.49998793709895</MinimumMargin>
       </ScatteringParameter>
     </TestRequirement>
     <TestRequirement>
-      <Name>Insertion Loss Band 1</Name>
+      <Name>Insertion Loss Band 2</Name>
       <DomainLimit>
         <LessThanValidator>
-          <Value>-.25</Value>
+          <Value>-2</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
         </LessThanValidator>
-        <StartFrequency>113000000000</StartFrequency>
-        <EndFrequency>150000000000</EndFrequency>
+        <StartFrequency>2000000000</StartFrequency>
+        <EndFrequency>3000000000</EndFrequency>
       </DomainLimit>
       <ScatteringParameter>
+        <serialNumber>005</serialNumber>
         <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
         <MeasurementVariables>
           <string>S13</string>
         </MeasurementVariables>
+        <MinimumMargin>-24390.513147484147</MinimumMargin>
       </ScatteringParameter>
     </TestRequirement>
   </TestRequirements>

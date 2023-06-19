@@ -41,6 +41,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="OxyPlot.Core" Version="2.1.2" />
+    <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RfNetworks\Nuvo.RF_Networks.csproj" />
     <ProjectReference Include="..\TestValidation\Nuvo.TestValidation.csproj" />
   </ItemGroup>

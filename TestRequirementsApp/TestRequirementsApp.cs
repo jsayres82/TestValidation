@@ -340,7 +340,7 @@ namespace Nuvo.Requirements_Builder
             foreach(var r in results.Results)
             {
                 reqCount++;
-                resultString += $"{reqCount} - {(r as ITestResult).RequirementName}: {((r as ITestResult).Passed ? "Passed" : "Failed")}\r\n";
+                resultString += $"{reqCount} - {(r as ITestResult).RequirementName}: {((r as ITestResult).Passed ? "Passed" : "Failed")} Margin = {(r as ITestResult).MinimumMargin}\r\n";
             }
             MessageBox.Show(resultString);
         }
