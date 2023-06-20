@@ -1,16 +1,25 @@
-﻿using System;
+﻿using System.Xml;
+using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.xml;
+using Nuvo.TestValidation.Limits.Validators;
+using System;
 
 namespace Nuvo.TestValidation.TestResults
 {
     public class TestReport
     {
         public string SerialNumber { get; set; }
+        public string PartDisposition { get; set; }
         public string PartNumber { get; set; }
+
+        [XmlElement("Result", typeof(TestResult<Dictionary<string, List<double[]>>>))]
         public List<object> Results { get; set; }
+
+        public string TestFile { get; set; }
 
         public TestReport()
         {
@@ -22,6 +31,198 @@ namespace Nuvo.TestValidation.TestResults
             PartNumber = partNum;
             Results = new List<object>();
         }
+
+        public void WriteToXml()
+        {
+            UpdatePassFail();
+            XmlSerializer serializer = new XmlSerializer(typeof(TestReport), new[] { typeof(TestResult<int>), typeof(TestResult<string>) });
+
+            using (TextWriter writer = new StreamWriter($"SN{SerialNumber}_Result.xml"))
+            {
+                serializer.Serialize(writer, this);
+            }
+        }
+
+        public void CreatePdfFromXml()
+        {
+            // Load the XML document
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load($"SN{SerialNumber}_Result.xml");
+
+            // Create a new PDF document
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream($"SN{SerialNumber}_Result.pdf", FileMode.Create));
+
+            // Open the PDF document
+            document.Open();
+
+            // Create a table
+            PdfPTable tableHeader = new PdfPTable(1); // Number of columns
+            tableHeader.WidthPercentage = 50;
+            tableHeader.SpacingBefore = 10f;
+            tableHeader.SpacingAfter = 10f;
+
+            // Create and format the header cells
+            PdfPCell headerCell1 = new PdfPCell();
+            Paragraph headerParagraph = new Paragraph();
+            Paragraph headerParagraph2 = new Paragraph();
+            //headerParagraph.AddTabStops(new float[] { 100f, 200f, 300f }); // Set the tab stop positions
+
+            headerParagraph.Add(new Phrase($"Program:", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+            headerCell1.AddElement(headerParagraph);
+            headerParagraph2.Add(new Phrase("1180   ", new Font(Font.TIMES_ROMAN, 14)));
+            headerParagraph2.Alignment = Element.ALIGN_RIGHT;
+            headerParagraph2.SpacingAfter = 10f;
+            headerCell1.AddElement(headerParagraph2);
+            tableHeader.AddCell(headerCell1);
+
+            //headerCell1.BackgroundColor = BaseColor.LightGray;
+            headerCell1 = new PdfPCell();
+            headerParagraph = new Paragraph();
+            headerParagraph2 = new Paragraph();
+            //headerParagraph.AddTabStops(new float[] { 100f, 200f, 300f }); // Set the tab stop positions
+
+            headerParagraph.Add(new Phrase($"Unit Serial Number:", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+            headerCell1.AddElement(headerParagraph);
+            headerParagraph2.Add(new Phrase($"{SerialNumber}   ", new Font(Font.TIMES_ROMAN, 14)));
+            headerParagraph2.Alignment = Element.ALIGN_RIGHT;
+            headerParagraph2.SpacingAfter = 10f;
+            headerCell1.AddElement(headerParagraph2);
+            tableHeader.AddCell(headerCell1);
+
+
+            headerCell1 = new PdfPCell();
+            headerParagraph = new Paragraph();
+            headerParagraph2 = new Paragraph();
+            //headerParagraph.AddTabStops(new float[] { 100f, 200f, 300f }); // Set the tab stop positions
+
+            headerParagraph.Add(new Phrase($"Description:", new Font(Font.TIMES_ROMAN,14,Font.BOLD)));
+            headerCell1.AddElement(headerParagraph);
+            headerParagraph2.Add(new Phrase($"Module RF Test   ", new Font(Font.TIMES_ROMAN, 14)));
+            headerParagraph2.Alignment = Element.ALIGN_RIGHT;
+            headerParagraph2.SpacingAfter = 10f;
+            headerCell1.AddElement(headerParagraph2);
+            tableHeader.AddCell(headerCell1);
+
+            headerCell1 = new PdfPCell();
+            headerParagraph = new Paragraph();
+            headerParagraph2 = new Paragraph();
+            //headerParagraph.AddTabStops(new float[] { 100f, 200f, 300f }); // Set the tab stop positions
+
+            headerParagraph.Add(new Phrase($"Test Date:", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+            headerCell1.AddElement(headerParagraph);
+            headerParagraph2.Add(new Phrase($"{File.GetCreationTime(TestFile)}   ", new Font(Font.TIMES_ROMAN, 14)));
+            headerParagraph2.Alignment = Element.ALIGN_RIGHT;
+            headerCell1.AddElement(headerParagraph2);;
+            tableHeader.AddCell(headerCell1);
+
+            // Add the table to the document
+            document.Add(tableHeader);
+
+            // Create a table
+            PdfPTable table = new PdfPTable(5); // Number of columns
+            table.WidthPercentage = 100;
+            table.SpacingBefore = 10f;
+            table.SpacingAfter = 10f;
+            // Add table headers
+            PdfPCell cell = new PdfPCell(new Phrase("#", new Font(Font.NORMAL, 14, Font.BOLD)));
+            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+            table.AddCell(cell);
+            cell = new PdfPCell(new Phrase("Requirement", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+            table.AddCell(cell);
+            cell = new PdfPCell(new Phrase("Limit", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+            table.AddCell(cell);
+            cell = new PdfPCell(new Phrase("Value", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+            table.AddCell(cell);
+            cell = new PdfPCell(new Phrase("Fail", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+            table.AddCell(cell);
+
+            // Extract data from XML and add to table
+            XmlNodeList resultNodes = xmlDoc.SelectNodes("//Result");
+            int rowNum = 1;
+            foreach (XmlNode resultNode in resultNodes)
+            {
+                string requirementName = resultNode.SelectSingleNode("RequirementName")?.InnerText;
+                bool passed = resultNode.SelectSingleNode("Passed")?.InnerText.ToLower() == "true";
+                double minimumMargin = double.Parse(resultNode.SelectSingleNode("MinimumMargin")?.InnerText);
+                XmlNode n = resultNode.SelectSingleNode("DomainLimit").FirstChild;
+                string limitType = n.Name;
+                string limitValue = n.FirstChild.InnerText;
+                string symbol = LimitToSymbol(limitType, limitValue);
+                string failed = (!passed) ? "X" : "";
+
+                cell = new PdfPCell(new Phrase(rowNum.ToString()));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase(requirementName));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase(symbol));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase((minimumMargin + Convert.ToDouble(limitValue)).ToString("0.###E+0")));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase(failed));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(cell);
+
+                rowNum++;
+            }
+            table.SetWidths(new float[] { 1, 4, 2, 2, 2 });
+            // Add the table to the document
+            document.Add(table);
+
+            // Close the PDF document
+            document.Close();
+        }
+        private string LimitToSymbol(string limit, string value)
+        {
+            switch(limit)
+            {
+                case "GreaterThanValidator":
+                    return $"> {value}";
+                    break;
+
+                case "GreaterThanOrEqualValidator":
+                    return $">= {value}";
+                    break;
+                case "LessThanValidator":
+                    return $"< {value}";
+                    break;
+
+                case "LessThanOrEqualValidator":
+                    return $"<= {value}";
+                    break;
+                case "EqualValidator":
+                    return $"= {value}";
+                    break;
+
+                case "NotEqualValidator":
+                    return $"!= {value}";
+                    break;
+                default:
+                    return "";
+                    break;
+
+            }
+        }
+        public void UpdatePassFail()
+        {
+            bool fail = false; 
+            foreach(TestResult<Dictionary<string, List<double[]>>> r in Results)
+                if(!r.Passed)
+                    fail = true;
+            if (fail)
+                PartDisposition = "Failed";
+            else
+                PartDisposition = "Passed"; 
+        }
+
     }
 
 }

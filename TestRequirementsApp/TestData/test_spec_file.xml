@@ -58,11 +58,11 @@
     <TestRequirement>
       <Name>Phase Delay S11</Name>
       <DomainLimit>
-        <GreaterThanValidator>
-          <Value>-2</Value>
+        <LessThanValidator>
+          <Value>3.5e-9</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </GreaterThanValidator>
+        </LessThanValidator>
         <StartFrequency>650000000</StartFrequency>
         <EndFrequency>21000000000</EndFrequency>
       </DomainLimit>
@@ -78,11 +78,11 @@
     <TestRequirement>
       <Name>Phase Delay S12</Name>
       <DomainLimit>
-        <GreaterThanValidator>
-          <Value>-2</Value>
+		  <LessThanValidator>
+          <Value>3.5e-9</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </GreaterThanValidator>
+        </LessThanValidator>
         <StartFrequency>650000000</StartFrequency>
         <EndFrequency>21000000000</EndFrequency>
       </DomainLimit>
@@ -98,11 +98,11 @@
     <TestRequirement>
       <Name>Phase Delay S13</Name>
       <DomainLimit>
-        <GreaterThanValidator>
-          <Value>-2</Value>
+		  <LessThanValidator>
+          <Value>3.5e-9</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </GreaterThanValidator>
+        </LessThanValidator>
         <StartFrequency>650000000</StartFrequency>
         <EndFrequency>21000000000</EndFrequency>
       </DomainLimit>
@@ -118,11 +118,11 @@
     <TestRequirement>
       <Name>Phase Delay S22</Name>
       <DomainLimit>
-        <GreaterThanValidator>
-          <Value>-2</Value>
+		  <LessThanValidator>
+          <Value>3.5e-9</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </GreaterThanValidator>
+        </LessThanValidator>
         <StartFrequency>650000000</StartFrequency>
         <EndFrequency>21000000000</EndFrequency>
       </DomainLimit>
@@ -138,11 +138,11 @@
     <TestRequirement>
       <Name>Phase Delay S33</Name>
       <DomainLimit>
-        <GreaterThanValidator>
-          <Value>-2</Value>
+		  <LessThanValidator>
+          <Value>3.5e-9</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </GreaterThanValidator>
+        </LessThanValidator>
         <StartFrequency>650000000</StartFrequency>
         <EndFrequency>21000000000</EndFrequency>
       </DomainLimit>

@@ -28,6 +28,7 @@ namespace Nuvo.TestValidation
         private Dictionary<string, double> baseDataSet;
         private Dictionary<string, double> characteristicParameters;
         private string serialNumber; // New field for serial number
+        private string file;
         [XmlElement]
         public TestRequirements TestRequirements;
         public MeasurementProcessor()
@@ -125,7 +126,7 @@ namespace Nuvo.TestValidation
 
 
                 characteristicParameter.FilePath = measurementFile;
-
+                file = measurementFile;
 
                 // Calculate the parameter value based on the base data set and serial number
                 characteristicParameter.CalculateParameterValue(requirement, parseMeasurementsFromFile(measurementFile));
@@ -207,8 +208,13 @@ namespace Nuvo.TestValidation
 
                 // Create a TestResult instance with parameter values of type Dictionary<string, List<double[]>>
                 var result = new TestResult<Dictionary<string, List<double[]>>> (requirement.Name, isPassed, characteristicParameter.ParameterValues, requirement.CharacteristicParameter.MinimumMargin);
+                result.Limit = requirement.Limit;
                 testReport.Results.Add(result);
+
             }
+            testReport.TestFile = file;
+            testReport.WriteToXml();
+            testReport.CreatePdfFromXml();
             return testReport;// testReport;
         }
 

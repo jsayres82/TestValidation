@@ -36,7 +36,7 @@ namespace Nuvo.TestValidation.Parameters
             int index = 0;
             bool passed = true;
             bool ispassed = true;
-
+            MinMargin = double.MaxValue;
             reqLimit = new double[parameterValues[MeasurementVariables.First()].Count];
 
             // Open the StreamWriter here; replace 'filePath' with your actual file path
@@ -160,7 +160,7 @@ namespace Nuvo.TestValidation.Parameters
                         var valF = new double[2]
                         {
                             20*Math.Log10(val[0]),
-                            val[1]*(180/Math.PI)
+                            val[1]
                         };
                         parameterValues[MeasurementVariables[0]].Add(valF);
                         //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
@@ -178,7 +178,7 @@ namespace Nuvo.TestValidation.Parameters
             index = 0;
             foreach (var freq in parameterDomain)
             {
-                data1[index] = parameterValues[MeasurementVariables[0]].ElementAt(index)[1] * (Math.PI/180);
+                data1[index] = parameterValues[MeasurementVariables[0]].ElementAt(index)[1];
                 frequency[index++] = Convert.ToDouble(freq);
             }
 
@@ -187,7 +187,8 @@ namespace Nuvo.TestValidation.Parameters
             index = 0;
             foreach (var freq in parameterDomain)
             {
-                parameterValues[MeasurementVariables[0]][index][0] = data1[index++];
+                parameterValues[MeasurementVariables[0]].ElementAt(index)[0] = data1[index];
+                index++;
             }
             return parameterValues;
         }

@@ -34,7 +34,7 @@ namespace Nuvo.TestValidation.Parameters
             int index = 0;
             bool passed = true;
             bool ispassed = true;
-
+            MinMargin = double.MaxValue;
             reqLimit = new double[parameterValues[MeasurementVariables.First()].Count];
 
             // Open the StreamWriter here; replace 'filePath' with your actual file path
