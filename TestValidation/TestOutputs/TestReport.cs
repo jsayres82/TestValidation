@@ -57,6 +57,20 @@ namespace Nuvo.TestValidation.TestResults
             document.Open();
 
             // Create a table
+            PdfPTable tableHeader1 = new PdfPTable(1); // Number of columns
+            tableHeader1.WidthPercentage = 100;
+            tableHeader1.SpacingBefore = 10f;
+            tableHeader1.SpacingAfter = 10f;
+            // Add image to the document
+            Image image = iTextSharp.text.Image.GetInstance(@"C:\Users\214782\source\repos\TestValidation\TestRequirementsApp\bin\Debug\net5.0-windows\Nuvotronic_Logo.jpg");
+            image.ScaleAbsolute(100,150);
+            PdfPCell imageCell = new PdfPCell();
+            imageCell.HorizontalAlignment = Element.ALIGN_TOP;
+            imageCell.AddElement(image);
+            tableHeader1.AddCell(imageCell);
+            document.Add(tableHeader1);
+
+            // Create a table
             PdfPTable tableHeader = new PdfPTable(1); // Number of columns
             tableHeader.WidthPercentage = 50;
             tableHeader.SpacingBefore = 10f;
@@ -117,6 +131,7 @@ namespace Nuvo.TestValidation.TestResults
             tableHeader.AddCell(headerCell1);
 
             // Add the table to the document
+            tableHeader.HorizontalAlignment = Element.ALIGN_LEFT;
             document.Add(tableHeader);
 
             // Create a table
@@ -154,20 +169,22 @@ namespace Nuvo.TestValidation.TestResults
                 string limitValue = n.FirstChild.InnerText;
                 string symbol = LimitToSymbol(limitType, limitValue);
                 string failed = (!passed) ? "X" : "";
-
-                cell = new PdfPCell(new Phrase(rowNum.ToString()));
+                Font f = new Font(Font.TIMES_ROMAN, 10, Font.NORMAL);
+                if (!passed)
+                    f = new Font(Font.TIMES_ROMAN, 10, Font.NORMAL, BaseColor.Red);
+                cell = new PdfPCell(new Phrase(rowNum.ToString(), f));
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 table.AddCell(cell);
-                cell = new PdfPCell(new Phrase(requirementName));
+                cell = new PdfPCell(new Phrase(requirementName, f));
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 table.AddCell(cell);
                 cell = new PdfPCell(new Phrase(symbol));
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 table.AddCell(cell);
-                cell = new PdfPCell(new Phrase((minimumMargin + Convert.ToDouble(limitValue)).ToString("0.###E+0")));
+                cell = new PdfPCell(new Phrase((minimumMargin + Convert.ToDouble(limitValue)).ToString("0.###E+0"), f));
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 table.AddCell(cell);
-                cell = new PdfPCell(new Phrase(failed));
+                cell = new PdfPCell(new Phrase(failed, f));
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 table.AddCell(cell);
 

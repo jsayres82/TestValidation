@@ -73,4 +73,10 @@
     <Folder Include="Parameters\Transforms\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Nuvotronic_Logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
