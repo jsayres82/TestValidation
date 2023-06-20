@@ -1,15 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ComplexArray.cs" />
+    <Compile Remove="Interfaces\IArrayRealMath.cs" />
     <Compile Remove="Ndims\ComplexLinAlg.cs" />
     <Compile Remove="Ndims\ComplexLuResult.cs" />
     <Compile Remove="Ndims\ComplexNArray.cs" />
     <Compile Remove="Ndims\ComplexNumLib.cs" />
-    <Compile Remove="Ndims\IArithmeticOperations.cs" />
+    <Compile Remove="Ndims\Interface\IComplexNArray.cs" />
+    <Compile Remove="Ndims\Interface\INArray.cs" />
+    <Compile Remove="Ndims\Interface\IRealNArray.cs" />
     <Compile Remove="Ndims\LinAlg.cs" />
     <Compile Remove="Ndims\LuResult.cs" />
     <Compile Remove="Ndims\NArray.cs" />
@@ -22,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Misc\" />
+    <Folder Include="Ndims\Interface\" />
   </ItemGroup>
 
 </Project>

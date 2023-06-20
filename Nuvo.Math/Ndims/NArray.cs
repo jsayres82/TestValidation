@@ -19,9 +19,7 @@ namespace Nuvo.Math.Ndims
 	/// <typeparam name="T">Array Type</typeparam>
 	/// <typeparam name="D">Element Type</typeparam>
 	[Serializable]
-	public class NArray<T, D> : INArray<T, D>, IConsole, IArrayArithmetic<T, D>, IArithmetic<T>, IArrayMath<T, D>, IMath<T>, IStorageOperations<T>, IStorageOperations<T>
-	where T : INArray<T, D>
-	where D : INumber<D>
+	public class NArray<T, D> : INArray<T, D>, IConsole, IStorage<T>, IArrayArithmetic<T, D>, IArithmetic<T>, IArrayMath<T, D>, IMath<T> where T : INArray<T, D>, new() where D : INumber<D>, new()
 	{
 		/// <summary>
 		/// Number of dimensions
@@ -1274,9 +1272,8 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the sum</returns>
 		public T LAdd(D b)
 		{
-			return this.LElementBinOp(new BinaryOperation<D>(Math.Add<D>), b);
+			return LElementBinOp(Math.Add, b);
 		}
-
 		/// <summary>
 		/// Returns the difference of the object and <paramref name="b" />.
 		/// </summary>
@@ -1284,7 +1281,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the difference</returns>
 		public T LSubtract(D b)
 		{
-			return this.LElementBinOp(new BinaryOperation<D>(Math.Subtract<D>), b);
+			return LElementBinOp(Math.Subtract, b);
 		}
 
 		/// <summary>
@@ -1294,7 +1291,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the product</returns>
 		public T LMultiply(D b)
 		{
-			return this.LElementBinOp(new BinaryOperation<D>(Math.Multiply<D>), b);
+			return LElementBinOp(Math.Multiply, b);
 		}
 
 		/// <summary>
@@ -1304,7 +1301,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the quotient</returns>
 		public T LDivide(D b)
 		{
-			return this.LElementBinOp(new BinaryOperation<D>(Math.Divide<D>), b);
+			return LElementBinOp(Math.Divide, b);
 		}
 
 		/// <summary>
@@ -1314,7 +1311,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the sum</returns>
 		public T RAdd(D a)
 		{
-			return this.RElementBinOp(new BinaryOperation<D>(Math.Add<D>), a);
+			return RElementBinOp(Math.Add, a);
 		}
 
 		/// <summary>
@@ -1324,7 +1321,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the difference</returns>
 		public T RSubtract(D a)
 		{
-			return this.RElementBinOp(new BinaryOperation<D>(Math.Subtract<D>), a);
+			return RElementBinOp(Math.Subtract, a);
 		}
 
 		/// <summary>
@@ -1334,7 +1331,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the product</returns>
 		public T RMultiply(D a)
 		{
-			return this.RElementBinOp(new BinaryOperation<D>(Math.Multiply<D>), a);
+			return RElementBinOp(Math.Multiply, a);
 		}
 
 		/// <summary>
@@ -1344,7 +1341,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the quotient</returns>
 		public T RDivide(D a)
 		{
-			return this.RElementBinOp(new BinaryOperation<D>(Math.Divide<D>), a);
+			return RElementBinOp(Math.Divide, a);
 		}
 
 		/// <summary>
@@ -1354,7 +1351,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the sum</returns>
 		public T Add(T b)
 		{
-			return this.ElementBinOp(new BinaryOperation<D>(Math.Add<D>), b);
+			return ElementBinOp(Math.Add, b);
 		}
 
 		/// <summary>
@@ -1364,7 +1361,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the difference</returns>
 		public T Subtract(T b)
 		{
-			return this.ElementBinOp(new BinaryOperation<D>(Math.Subtract<D>), b);
+			return ElementBinOp(Math.Subtract, b);
 		}
 
 		/// <summary>
@@ -1373,9 +1370,8 @@ namespace Nuvo.Math.Ndims
 		/// <returns>The negative</returns>
 		public T Negative()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Negative<D>));
+			return ElementUnOp(Math.Negative);
 		}
-
 		/// <summary>
 		/// Returns the product of the object and <paramref name="b" />.
 		/// </summary>
@@ -1383,7 +1379,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the product</returns>
 		public T Multiply(T b)
 		{
-			return this.ElementBinOp(new BinaryOperation<D>(Math.Multiply<D>), b);
+			return ElementBinOp(Math.Multiply, b);
 		}
 
 		/// <summary>
@@ -1393,7 +1389,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns>the quotient</returns>
 		public T Divide(T b)
 		{
-			return this.ElementBinOp(new BinaryOperation<D>(Math.Divide<D>), b);
+			return ElementBinOp(Math.Divide, b);
 		}
 
 		/// <summary>
@@ -1402,7 +1398,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Exp()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Exp<D>));
+			return ElementUnOp(Math.Exp);
 		}
 
 		/// <summary>
@@ -1411,7 +1407,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Log()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Log<D>));
+			return ElementUnOp(Math.Log);
 		}
 
 		/// <summary>
@@ -1421,7 +1417,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Log(T newBase)
 		{
-			return this.ElementBinOp(new BinaryOperation<D>(Math.Log<D>), newBase);
+			return ElementBinOp(Math.Log, newBase);
 		}
 
 		/// <summary>
@@ -1430,7 +1426,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Log10()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Log10<D>));
+			return ElementUnOp(Math.Log10);
 		}
 
 		/// <summary>
@@ -1440,7 +1436,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Pow(T b)
 		{
-			return this.ElementBinOp(new BinaryOperation<D>(Math.Pow<D>), b);
+			return ElementBinOp(Math.Pow, b);
 		}
 
 		/// <summary>
@@ -1450,7 +1446,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Pow(int b)
 		{
-			return this.LElementBinOp2(new BinaryOperation2<D>(Math.Pow<D>), b);
+			return LElementBinOp2(Math.Pow, b);
 		}
 
 		/// <summary>
@@ -1459,7 +1455,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Sqrt()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Sqrt<D>));
+			return ElementUnOp(Math.Sqrt);
 		}
 
 		/// <summary>
@@ -1468,7 +1464,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Sin()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Sin<D>));
+			return ElementUnOp(Math.Sin);
 		}
 
 		/// <summary>
@@ -1477,7 +1473,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Cos()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Cos<D>));
+			return ElementUnOp(Math.Cos);
 		}
 
 		/// <summary>
@@ -1486,7 +1482,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Tan()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Tan<D>));
+			return ElementUnOp(Math.Tan);
 		}
 
 		/// <summary>
@@ -1495,7 +1491,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Asin()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Asin<D>));
+			return ElementUnOp(Math.Asin);
 		}
 
 		/// <summary>
@@ -1504,7 +1500,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Acos()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Acos<D>));
+			return ElementUnOp(Math.Acos);
 		}
 
 		/// <summary>
@@ -1513,7 +1509,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Atan()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Atan<D>));
+			return ElementUnOp(Math.Atan);
 		}
 
 		/// <summary>
@@ -1522,7 +1518,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Sinh()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Sinh<D>));
+			return ElementUnOp(Math.Sinh);
 		}
 
 		/// <summary>
@@ -1531,7 +1527,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Cosh()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Cosh<D>));
+			return ElementUnOp(Math.Cosh);
 		}
 
 		/// <summary>
@@ -1540,7 +1536,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Tanh()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Tanh<D>));
+			return this.ElementUnOp(Math.Tanh);
 		}
 
 		/// <summary>
@@ -1549,7 +1545,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Asinh()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Asinh<D>));
+			return this.ElementUnOp(Math.Asinh);
 		}
 
 		/// <summary>
@@ -1558,7 +1554,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Acosh()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Acosh<D>));
+			return this.ElementUnOp(Math.Acosh);
 		}
 
 		/// <summary>
@@ -1567,7 +1563,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Atanh()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Atanh<D>));
+			return this.ElementUnOp(Math.Atanh);
 		}
 
 		/// <summary>
@@ -1576,7 +1572,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T Conj()
 		{
-			return this.ElementUnOp(new UnaryOperation<D>(Math.Conj<D>));
+			return ElementUnOp(Math.Conj);
 		}
 
 		/// <summary>
@@ -1586,7 +1582,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T LLog(D b)
 		{
-			return this.LElementBinOp(new BinaryOperation<D>(Math.Log<D>), b);
+			return LElementBinOp(Math.Log, b);
 		}
 
 		/// <summary>
@@ -1596,7 +1592,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T RLog(D a)
 		{
-			return this.RElementBinOp(new BinaryOperation<D>(Math.Log<D>), a);
+			return RElementBinOp(Math.Log, a);
 		}
 
 		/// <summary>
@@ -1606,7 +1602,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T LPow(D b)
 		{
-			return this.LElementBinOp(new BinaryOperation<D>(Math.Pow<D>), b);
+			return LElementBinOp(Math.Pow, b);
 		}
 
 		/// <summary>
@@ -1616,7 +1612,7 @@ namespace Nuvo.Math.Ndims
 		/// <returns></returns>
 		public T RPow(D a)
 		{
-			return this.RElementBinOp(new BinaryOperation<D>(Math.Pow<D>), a);
+			return RElementBinOp(Math.Pow, a);
 		}
 	}
 }

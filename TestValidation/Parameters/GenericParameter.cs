@@ -18,6 +18,8 @@ namespace Nuvo.TestValidation.Parameters
     [Serializable]
     public abstract class GenericParameter : IParameterDetails
     {
+        [XmlIgnore]
+        public string FilePath { get; set; }
         public string serialNumber { get; set; }
         public string Name { get; set; }
 

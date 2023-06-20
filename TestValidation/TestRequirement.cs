@@ -20,6 +20,8 @@ namespace Nuvo.TestValidation.Limits
         [XmlElement("DomainLimit", typeof(DomainLimit))]
         public GenericLimit Limit { get; set; }
 
+        [XmlElement("GroupDelay", typeof(GroupDelayParameter))]
+        [XmlElement("PhaseDelay", typeof(PhaseDelayParameter))]
         [XmlElement("RippleParameter", typeof(RippleParameter))]
         [XmlElement("AttenuationParameter", typeof(AttenuationParameter))]
         [XmlElement("ScatteringParameter", typeof(ScatteringParameter))]

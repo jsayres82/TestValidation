@@ -103,7 +103,7 @@ namespace Nuvo.TestValidation
             {
                 // Retrieve the characteristic parameter for the requirement
                 GenericParameter characteristicParameter = requirement.CharacteristicParameter;
-
+                characteristicParameter.FilePath = TestInfo.TestArticles[0].MeasurementFiles[0];
                 // Calculate the parameter value based on the base data set
                 characteristicParameter.CalculateParameterValue(requirement,
                                         parseMeasurementsFromFile(TestInfo.TestArticles[0].MeasurementFiles[0]));
@@ -112,6 +112,7 @@ namespace Nuvo.TestValidation
                 //characteristicParameters[requirement.Name] = parameterValue.First().Value;
             }
         }
+
         public void CalculateCharacteristicParameters(string measurementFile, string serialNumber)
         {
             UnitSerialNumber = serialNumber;
@@ -121,6 +122,9 @@ namespace Nuvo.TestValidation
                 GenericParameter characteristicParameter = requirement.CharacteristicParameter;
 
                 UnitSerialNumber = serialNumber;
+
+
+                characteristicParameter.FilePath = measurementFile;
 
 
                 // Calculate the parameter value based on the base data set and serial number
@@ -221,7 +225,7 @@ namespace Nuvo.TestValidation
                 for(int i =1; i<=pair.Parameters.NumPorts;i++)
                     for(int j = 1; j <= pair.Parameters.NumPorts; j++)
                     {
-                        s.Add($"{pair.Parameters[i, j].Real} {pair.Parameters[i, j].Imaginary}");
+                        s.Add($"{pair.Parameters[i, j].Magnitude} {pair.Parameters[i, j].Phase}");
                     }
                         dataStr.Add(pair.Frequency_Hz.ToString(),s);
                 //double insertionLoss = matrix[2, 1].Magnitude_dB;
@@ -241,7 +245,7 @@ namespace Nuvo.TestValidation
                     Complex v = Complex.FromPolarCoordinates(System.Convert.ToDouble(val.First()), System.Convert.ToDouble(val.Last()));
                     //Complex v = new Complex(Convert.ToDouble(val.First()), Convert.ToDouble(val.Last()));
                     
-                    data[dList].Add(new double[2] { v.Real, v.Imaginary });
+                    data[dList].Add(new double[2] { v.Magnitude, v.Phase });
                 }
                 //Console.WriteLine();
             }

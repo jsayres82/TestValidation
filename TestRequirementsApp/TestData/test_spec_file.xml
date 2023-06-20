@@ -46,23 +46,123 @@
         <StartFrequency>1100000000</StartFrequency>
         <EndFrequency>1500000000</EndFrequency>
       </DomainLimit>
-      <ScatteringParameter>
+      <PhaseDelay>
         <serialNumber>005</serialNumber>
         <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
         <MeasurementVariables>
           <string>S12</string>
         </MeasurementVariables>
         <MinimumMargin>-179.49998793709895</MinimumMargin>
-      </ScatteringParameter>
+      </PhaseDelay>
+    </TestRequirement>
+    <TestRequirement>
+      <Name>Phase Delay S11</Name>
+      <DomainLimit>
+        <GreaterThanValidator>
+          <Value>-2</Value>
+          <Unit>DecibelMilliwatt</Unit>
+          <Prefix>None</Prefix>
+        </GreaterThanValidator>
+        <StartFrequency>650000000</StartFrequency>
+        <EndFrequency>21000000000</EndFrequency>
+      </DomainLimit>
+      <PhaseDelay>
+        <serialNumber>005</serialNumber>
+        <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
+        <MeasurementVariables>
+          <string>S11</string>
+        </MeasurementVariables>
+        <MinimumMargin>-179.49998793709895</MinimumMargin>
+      </PhaseDelay>
+    </TestRequirement>	
+    <TestRequirement>
+      <Name>Phase Delay S12</Name>
+      <DomainLimit>
+        <GreaterThanValidator>
+          <Value>-2</Value>
+          <Unit>DecibelMilliwatt</Unit>
+          <Prefix>None</Prefix>
+        </GreaterThanValidator>
+        <StartFrequency>650000000</StartFrequency>
+        <EndFrequency>21000000000</EndFrequency>
+      </DomainLimit>
+      <PhaseDelay>
+        <serialNumber>005</serialNumber>
+        <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
+        <MeasurementVariables>
+          <string>S12</string>
+        </MeasurementVariables>
+        <MinimumMargin>-179.49998793709895</MinimumMargin>
+      </PhaseDelay>
+    </TestRequirement>
+    <TestRequirement>
+      <Name>Phase Delay S13</Name>
+      <DomainLimit>
+        <GreaterThanValidator>
+          <Value>-2</Value>
+          <Unit>DecibelMilliwatt</Unit>
+          <Prefix>None</Prefix>
+        </GreaterThanValidator>
+        <StartFrequency>650000000</StartFrequency>
+        <EndFrequency>21000000000</EndFrequency>
+      </DomainLimit>
+      <PhaseDelay>
+        <serialNumber>005</serialNumber>
+        <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
+        <MeasurementVariables>
+          <string>S13</string>
+        </MeasurementVariables>
+        <MinimumMargin>-179.49998793709895</MinimumMargin>
+      </PhaseDelay>
+    </TestRequirement>
+    <TestRequirement>
+      <Name>Phase Delay S22</Name>
+      <DomainLimit>
+        <GreaterThanValidator>
+          <Value>-2</Value>
+          <Unit>DecibelMilliwatt</Unit>
+          <Prefix>None</Prefix>
+        </GreaterThanValidator>
+        <StartFrequency>650000000</StartFrequency>
+        <EndFrequency>21000000000</EndFrequency>
+      </DomainLimit>
+      <PhaseDelay>
+        <serialNumber>005</serialNumber>
+        <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
+        <MeasurementVariables>
+          <string>S22</string>
+        </MeasurementVariables>
+        <MinimumMargin>-179.49998793709895</MinimumMargin>
+      </PhaseDelay>
+    </TestRequirement>
+    <TestRequirement>
+      <Name>Phase Delay S33</Name>
+      <DomainLimit>
+        <GreaterThanValidator>
+          <Value>-2</Value>
+          <Unit>DecibelMilliwatt</Unit>
+          <Prefix>None</Prefix>
+        </GreaterThanValidator>
+        <StartFrequency>650000000</StartFrequency>
+        <EndFrequency>21000000000</EndFrequency>
+      </DomainLimit>
+      <PhaseDelay>
+        <serialNumber>005</serialNumber>
+        <Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
+        <MeasurementVariables>
+          <string>S33</string>
+        </MeasurementVariables>
+        <MinimumMargin>-179.49998793709895</MinimumMargin>
+      </PhaseDelay>
     </TestRequirement>
     <TestRequirement>
       <Name>Insertion Loss Band 2</Name>
       <DomainLimit>
-        <LessThanValidator>
+        <GreaterThanValidator>
           <Value>-2</Value>
           <Unit>DecibelMilliwatt</Unit>
           <Prefix>None</Prefix>
-        </LessThanValidator>
+        </GreaterThanValidator>
         <StartFrequency>2000000000</StartFrequency>
         <EndFrequency>3000000000</EndFrequency>
       </DomainLimit>

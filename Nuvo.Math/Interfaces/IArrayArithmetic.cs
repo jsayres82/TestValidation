@@ -2,13 +2,13 @@
 
 namespace Nuvo.Math.Interface
 {
-	/// <summary>
-	/// Array Arithmetic Interface.
-	/// </summary>
-	/// <typeparam name="T">Array Type</typeparam>
-	/// <typeparam name="O">Element Type</typeparam>
-	public interface IArrayArithmetic<T, O> 
-	{
+    /// <summary>
+    /// Array Arithmetic Interface.
+    /// </summary>
+    /// <typeparam name="T">Array Type</typeparam>
+    /// <typeparam name="O">Element Type</typeparam>
+    public interface IArrayArithmetic<T, O> : IArithmetic<T>
+    {
 		/// <summary>
 		/// Returns the sum of the object and <paramref name="b" />.
 		/// </summary>

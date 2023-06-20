@@ -1,6 +1,5 @@
 ﻿using System;
 using Nuvo.Math.Interface;
-using Nuvo.Math.Ndims.Interface;
 
 namespace Nuvo.Math.Ndims
 {

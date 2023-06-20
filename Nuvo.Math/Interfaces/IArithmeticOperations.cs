@@ -1,6 +1,4 @@
-﻿using Nuvo.Math.Ndims.Interface;
-
-namespace Nuvo.Math
+﻿namespace Nuvo.Math.Interfaces
 {
     public interface IArithmeticOperations<T>
     {

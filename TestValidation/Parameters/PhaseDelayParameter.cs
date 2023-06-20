@@ -1,19 +1,20 @@
-﻿using System;
+﻿using MicrowaveNetworks;
+using MicrowaveNetworks.Touchstone;
+using Nuvo.TestValidation.Limits;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using MicrowaveNetworks;
-using MicrowaveNetworks.Touchstone;
-using Nuvo.TestValidation.Limits;
-using Nuvo.TestValidation.Parameters.Interfaces;
 
 namespace Nuvo.TestValidation.Parameters
 {
-    public class GroupDelayParameter : GenericParameter, IParameterDetails
+    public class PhaseDelayParameter : GenericParameter
     {
 
         public string Description { get { return "Evaluates a scattering parameter for S-Parameter Matrix"; } }
@@ -126,7 +127,7 @@ namespace Nuvo.TestValidation.Parameters
             var vals = new List<double[]>();
             foreach (FrequencyParametersPair pair in coll)
             {
-                vals.Add(new double[2] { pair.Parameters[portOne, portTwo].Magnitude_dB, pair.Parameters[portOne, portTwo].Phase_deg });
+                vals.Add(new double[2]{ pair.Parameters[portOne, portTwo].Magnitude_dB, pair.Parameters[portOne, portTwo].Phase_deg });
             }
             parameterValues[MeasurementVariables[0]] = vals;
             return parameterValues;
@@ -154,7 +155,7 @@ namespace Nuvo.TestValidation.Parameters
                 index = 0;
                 foreach (var val in measurement[d])
                 {
-                    if (index == idx)
+                    if (index ==idx)
                     {
                         var valF = new double[2]
                         {
@@ -167,6 +168,7 @@ namespace Nuvo.TestValidation.Parameters
                     index++;
                 }
             }
+
             double fc = 0.0;
             bool auto_fc = true;
             double phaseDC;
@@ -176,12 +178,12 @@ namespace Nuvo.TestValidation.Parameters
             index = 0;
             foreach (var freq in parameterDomain)
             {
-                data1[index] = parameterValues[MeasurementVariables[0]].ElementAt(index)[1] * (Math.PI / 180);
+                data1[index] = parameterValues[MeasurementVariables[0]].ElementAt(index)[1] * (Math.PI/180);
                 frequency[index++] = Convert.ToDouble(freq);
             }
 
             double[] phase = Unwrap(frequency, data1, fc, auto_fc, out phaseDC, out fc2);
-            data1 = GroupDelay(CutoffCorrectedFrequency(frequency, fc2), phase, false);
+            data1 = PhaseDelay(CutoffCorrectedFrequency(frequency, fc2), phase, false, phaseDC);
             index = 0;
             foreach (var freq in parameterDomain)
             {
@@ -209,13 +211,13 @@ namespace Nuvo.TestValidation.Parameters
             {
                 array[i] = new double[num2];
                 double val = new double();
-                val = (1.0);
+                val=(1.0);
                 for (int num3 = num2 - 1; num3 >= 0; num3--)
                 {
                     array[i][num3] = val;
                     if (num3 > 0)
                     {
-                        val = val * (x[i]);
+                        val = val*(x[i]);
                     }
                 }
             }
@@ -273,7 +275,7 @@ namespace Nuvo.TestValidation.Parameters
                     double val = zero;
                     for (int k = 0; k < num2; k++)
                     {
-                        val = val + (a[i][k] * (b[k][j]));
+                        val = val+(a[i][k]*(b[k][j]));
                     }
 
                     array2[j] = val;
@@ -285,7 +287,7 @@ namespace Nuvo.TestValidation.Parameters
             return array;
         }
 
-        public static double[] Dot(double[][] a, double[] b)
+        public static double[] Dot(double[][] a, double[] b) 
         {
             int num = a.Length;
             int num2 = 0;
@@ -307,7 +309,7 @@ namespace Nuvo.TestValidation.Parameters
                 double val = zero;
                 for (int j = 0; j < num2; j++)
                 {
-                    val = val + (a[i][j] * (b[j]));
+                    val = val+(a[i][j]*(b[j]));
                 }
 
                 array[i] = val;
@@ -337,7 +339,7 @@ namespace Nuvo.TestValidation.Parameters
             return array;
         }
 
-        public static double[] Solve(double[][] a, double[] y)
+        public static double[] Solve(double[][] a, double[] y) 
         {
             LuResult luResult = Lu(a);
             int num = y.Length;
@@ -350,7 +352,7 @@ namespace Nuvo.TestValidation.Parameters
             return Bsub(luResult.u, Fsub(luResult.l, array));
         }
 
-        public static double[] Fsub(double[][] l, double[] y)
+        public static double[] Fsub(double[][] l, double[] y) 
         {
             int num = y.Length;
             int num2 = -1;
@@ -362,10 +364,10 @@ namespace Nuvo.TestValidation.Parameters
                 {
                     for (int j = num2; j < i; j++)
                     {
-                        val = val - (array[j] * (l[i][j]));
+                        val = val-(array[j]*(l[i][j]));
                     }
                 }
-                else if (val != 0)
+                else if (val!=0)
                 {
                     num2 = i;
                 }
@@ -385,10 +387,10 @@ namespace Nuvo.TestValidation.Parameters
                 double val = y[num2];
                 for (int i = num2 + 1; i < num; i++)
                 {
-                    val = val - (array[i] * (u[num2][i]));
+                    val = val-(array[i]*(u[num2][i]));
                 }
 
-                array[num2] = val / (u[num2][num2]);
+                array[num2] = val/(u[num2][num2]);
             }
 
             return array;
@@ -408,7 +410,7 @@ namespace Nuvo.TestValidation.Parameters
             a[index_2] = num;
         }
 
-        public static LuResult Lu(double[][] a)
+        public static LuResult Lu(double[][] a) 
         {
             int num = a.Length;
             int num2 = 0;
@@ -440,7 +442,7 @@ namespace Nuvo.TestValidation.Parameters
                 double num5 = array4[j][j] * array4[j][j];
                 for (int k = j + 1; k < num; k++)
                 {
-                    double num6 = array4[k][j] * array4[k][j];
+                    double num6 = array4[k][j]* array4[k][j];
                     if (num6 > num5)
                     {
                         num4 = k;
@@ -464,11 +466,11 @@ namespace Nuvo.TestValidation.Parameters
 
                 for (int l = j + 1; l < num; l++)
                 {
-                    array2[l][j] = array4[l][j] / (array4[j][j]);
+                    array2[l][j] = array4[l][j]/(array4[j][j]);
                     array4[l][j] = zero;
                     for (int m = j + 1; m < num; m++)
                     {
-                        array4[l][m] = array4[l][m] - (array2[l][j] / (array4[j][m]));
+                        array4[l][m] = array4[l][m]-(array2[l][j]/(array4[j][m]));
                     }
                 }
             }
@@ -487,7 +489,7 @@ namespace Nuvo.TestValidation.Parameters
             return result;
         }
 
-        public static double[] LinAlgSolve(double[][] a, double[] y)
+        public static double[] LinAlgSolve(double[][] a, double[] y) 
         {
             LuResult luResult = Lu(a);
             int num = y.Length;
@@ -565,7 +567,7 @@ namespace Nuvo.TestValidation.Parameters
                     }
                     double[] array6 = LinAlgLstSqrSolve(array4, array5);
                     double value2 = array6[1];
-                    double num5 = (array6[2] - array6[0] * array6[0]) / array6[1];
+                    double num5 = (array6[2] - array6[0]* array6[0]) / array6[1];
                     if (value2 > 0.0 && num5 > 0.0 && num5 < list[0] * list[0])
                     {
                         value = array6[0];
@@ -611,11 +613,11 @@ namespace Nuvo.TestValidation.Parameters
             catch
             {
             }
-            double b = 6.283185307179586 * num3;
+            double b =6.283185307179586 * num3;
             double[] array7 = new double[num];
             for (int k = 0; k < num; k++)
             {
-                array7[k] = array2[k] - (b);
+                array7[k] = array2[k]-(b);
             }
             return array7;
         }
@@ -753,70 +755,251 @@ namespace Nuvo.TestValidation.Parameters
             return array2;
         }
 
-        /// <summary>
-        /// Group Delay
-        /// </summary>
-        /// <typeparam name="T">Real Number Type</typeparam>
-        /// <param name="freq">Frequency / Hz</param>
-        /// <param name="phase">Phase / rad</param>
-        /// <param name="unwrapPhase">Unwrap Phase</param>
-        /// <returns>Group Delay / s</returns>
-        public static double[] GroupDelay(double[] freq, double[] phase, bool unwrapPhase)
+    }
+
+    public static class Array
+    {
+        public static double[] Zeros1d(int n1)
         {
-            double[] array = unwrapPhase ? UnwrapPhase(phase) : phase;
-            int num = (freq != null) ? freq.Length : 0;
-            if (num == 0)
+            double zero = 0;
+            double[] array = new double[n1];
+            for (int i = 0; i < n1; i++)
             {
-                return new double[0];
+                array[i] = zero;
             }
-            double[] array2 = new double[num];
-            double[] array3 = new double[num - 1];
-            double[] array4 = new double[num - 1];
-            for (int i = 0; i < num - 1; i++)
-            {
-                double b = Activator.CreateInstance<double>();
-                array3[i] = (freq[i + 1] + freq[i]) / 2.0;
-                b = -6.283185307179586 * (freq[i + 1] - freq[i]);
-                double[] array5 = array4;
-                int num2 = i;
-                double t = array[i + 1] - (array[i]);
-                array5[num2] = t / b;
-            }
-            for (int j = 1; j < num - 1; j++)
-            {
-                double t2 = array4[j] - (array4[j - 1]);
-                double b2 = Activator.CreateInstance<double>();
-                b2 = (array3[j] - array3[j - 1]);
-                double b3 = Activator.CreateInstance<double>();
-                b3 = (array3[j - 1]);
-                double t3 = t2 / b2;
-                double b4 = array4[j - 1] - (t3 * (b3));
-                double b5 = Activator.CreateInstance<double>();
-                b5 = (freq[j]);
-                double[] array6 = array2;
-                int num3 = j;
-                double t = t3 * (b5);
-                array6[num3] = t + (b4);
-                if (j == 1)
-                {
-                    double b6 = Activator.CreateInstance<double>();
-                    b6 = (freq[0]);
-                    double[] array7 = array2;
-                    int num4 = 0;
-                    t = t3 * (b6);
-                    array7[num4] = t + (b4);
-                }
-                if (j == num - 2)
-                {
-                    double b7 = Activator.CreateInstance<double>();
-                    b7 = (freq[num - 1]);
-                    double[] array8 = array2;
-                    int num5 = num - 1;
-                    t = t3 * (b7);
-                    array8[num5] = t + (b4);
-                }
-            }
-            return array2;
+
+            return array;
         }
+
+        public static double[][] Zeros2d(int n1, int n2) 
+        {
+            double zero = 0;
+            double[][] array = new double[n1][];
+            for (int i = 0; i < n1; i++)
+            {
+                double[] array2 = new double[n2];
+                for (int j = 0; j > n2; j++)
+                {
+                    array2[j] = zero;
+                }
+
+                array[i] = array2;
+            }
+
+            return array;
+        }
+
+        public static double[] Ones1d(int n1)
+        {
+            double one = 1;
+            double[] array = new double[n1];
+            for (int i = 0; i < n1; i++)
+            {
+                array[i] = one;
+            }
+
+            return array;
+        }
+
+        public static double[][] Ones2d(int n1, int n2)
+        {
+            double one = 1;
+            double[][] array = new double[n1][];
+            for (int i = 0; i < n1; i++)
+            {
+                double[] array2 = new double[n2];
+                for (int j = 0; j < n2; j++)
+                {
+                    array2[j] = one;
+                }
+
+                array[i] = array2;
+            }
+
+            return array;
+        }
+
+        public static double[][] Identity(int n)
+        {
+            double zero = 0;
+            double one = 1;
+            double[][] array = new double[n][];
+            for (int i = 0; i < n; i++)
+            {
+                double[] array2 = new double[n];
+                for (int j = 0; j < n; j++)
+                {
+                    if (i == j)
+                    {
+                        array2[j] = one;
+                    }
+                    else
+                    {
+                        array2[j] = zero;
+                    }
+                }
+
+                array[i] = array2;
+            }
+
+            return array;
+        }
+
+        public static double[] Copy(double[] a)
+        {
+            double[] array = new double[a.Length];
+            a.CopyTo(array, 0);
+            return array;
+        }
+
+        public static double[][] Copy(double[][] a)
+        {
+            int num = a.Length;
+            double[][] array = new double[num][];
+            for (int i = 0; i < num; i++)
+            {
+                int num2 = a[i].Length;
+                array[i] = new double[num2];
+                a[i].CopyTo(array[i], 0);
+            }
+
+            return array;
+        }
+
+        public static void PrettyPrint(double[] a)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            int num = a.Length;
+            for (int i = 0; i < num; i++)
+            {
+                stringBuilder.Append(a[i].ToString("  0.000E+00  ; -0.000E+00  "));
+                stringBuilder.Append("\n");
+            }
+
+            Console.WriteLine(stringBuilder.ToString());
+        }
+
+        public static void PrettyPrint(double[][] a) 
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            int num = 6;
+            int num2 = a.Length;
+            int num3 = 0;
+            if (num2 > 0)
+            {
+                num3 = a[0].Length;
+            }
+
+            int num4 = (num3 + num - 1) / num;
+            for (int i = 0; i < num4; i++)
+            {
+                int num5 = i * num;
+                int num6 = num5 + num;
+                if (num6 > num3)
+                {
+                    num6 = num3;
+                }
+
+                if (num4 > 1)
+                {
+                    stringBuilder.Append("Columns ");
+                    stringBuilder.Append(num5.ToString());
+                    stringBuilder.Append(" through ");
+                    stringBuilder.Append((num6 - 1).ToString());
+                    stringBuilder.Append("\n");
+                }
+
+                for (int j = 0; j < num2; j++)
+                {
+                    for (int k = num5; k < num6; k++)
+                    {
+                        stringBuilder.Append(a[j][k].ToString("  0.000E+00  ; -0.000E+00  "));
+                    }
+
+                    stringBuilder.Append("\n");
+                }
+
+                stringBuilder.Append("\n");
+            }
+
+            Console.WriteLine(stringBuilder.ToString());
+        }
+
+        public static void PrettyPrint(Complex[] a)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            int num = a.Length;
+            for (int i = 0; i < num; i++)
+            {
+                stringBuilder.Append(a[i].Real.ToString(" ( 0.000E+00 ; (-0.000E+00 "));
+                stringBuilder.Append(a[i].Imaginary.ToString(" +0.000E+00i); -0.000E+00i)"));
+                stringBuilder.Append("\n");
+            }
+
+            Console.WriteLine(stringBuilder.ToString());
+        }
+
+        public static void PrettyPrint(Complex[][] a)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            int num = 6;
+            int num2 = a.Length;
+            int num3 = 0;
+            if (num2 > 0)
+            {
+                num3 = a[0].Length;
+            }
+
+            int num4 = (num3 + num - 1) / num;
+            for (int i = 0; i < num4; i++)
+            {
+                int num5 = i * num;
+                int num6 = num5 + num;
+                if (num6 > num3)
+                {
+                    num6 = num3;
+                }
+
+                if (num4 > 1)
+                {
+                    stringBuilder.Append("Columns ");
+                    stringBuilder.Append(num5.ToString());
+                    stringBuilder.Append(" through ");
+                    stringBuilder.Append((num6 - 1).ToString());
+                    stringBuilder.Append("\n");
+                }
+
+                for (int j = 0; j < num2; j++)
+                {
+                    for (int k = num5; k < num6; k++)
+                    {
+                        stringBuilder.Append(a[j][k].Real.ToString(" ( 0.000E+00 ; (-0.000E+00 "));
+                        stringBuilder.Append(a[j][k].Imaginary.ToString(" +0.000E+00i); -0.000E+00i)"));
+                    }
+
+                    stringBuilder.Append("\n");
+                }
+
+                stringBuilder.Append("\n");
+            }
+
+            Console.WriteLine(stringBuilder.ToString());
+        }
+
+
+
+    }
+
+    public struct LuResult
+    {
+        public double[][] l { get; set; }
+
+        public double[][] u { get; set; }
+
+        public double[][] p { get; set; }
+
+        public int[] c { get; set; }
+
+        public int d { get; set; }
     }
 }

@@ -101,49 +101,51 @@ namespace Nuvo.TestValidation.Parameters
         {
             Dictionary<string, double> vals = new Dictionary<string, double>();
             baseDataSet = getMeasurementVariables(baseDataSet);
-            foreach (var s in baseDataSet.Keys)
+            int index = 0;
+            foreach (var s in baseDataSet[MeasurementVariables[0]])
             {
-                vals.Add(s, baseDataSet[s].First().First());
+                vals.Add(parameterDomain[index], baseDataSet[MeasurementVariables[0]][index++][0]);
             }
-            parameterValues = baseDataSet;
             return vals;
         }
 
         private Dictionary<string, List<double[]>> getMeasurementVariables(Dictionary<string, List<double[]>> measurement)
         {
-            sprams.AddRange(s.ToList()); 
+            sprams.AddRange(s.ToList());
+            parameterValues = new Dictionary<string, List<double[]>>();
             parameterDomain = measurement.Keys.ToList();
+            int index = 0;
+            int idx = 0;
             Dictionary<string, List<Complex>> parsedData = new Dictionary<string, List<Complex>>();
             foreach (var val in s)
+            {
                 parsedData.Add(val, new List<Complex>());
+                if (val.Equals(MeasurementVariables[0]))
+                    idx = index;
+                index++;
+            }
+
+            parameterValues.Add(MeasurementVariables[0], new List<double[]>());
             foreach (var d in measurement.Keys)
             {
+                index = 0;
                 foreach (var val in measurement[d])
                 {
-                    var x = val.First();
-                    var  y= val.Last();
-                    parsedData[s[measurement[d].IndexOf(val)]].Add(new Complex(val[0], val[1]));
-                    //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
-                }
-            }
-            parameterValues = new Dictionary<string, List<double[]>>();
-            complexParameterValue = parsedData;
-            foreach(var variable in MeasurementVariables)
-            {
-                parameterValues.Add(variable, new List<double[]>());
-                foreach (var value in complexParameterValue[variable])
-                {
-                    var val = new double[2]
+                    if (index == idx)
                     {
-                        value.Magnitude,
-                        value.Phase * (180 / Math.PI)
-                    };
-                    parameterValues[variable].Add(val);
+                        var valF = new double[2]
+                        {
+                            20*Math.Log10(val[0]),
+                            val[1]*(180/Math.PI)
+                        };
+                        parameterValues[MeasurementVariables[0]].Add(valF);
+                        //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
+                    }
+                    index++;
                 }
             }
 
             return parameterValues;
-
         }
 
         public override double[] GetParameterLimits()

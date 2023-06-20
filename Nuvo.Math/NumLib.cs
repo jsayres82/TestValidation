@@ -389,13 +389,13 @@ namespace Nuvo.Math
 			{
 				return yy;
 			}
-			Number[] y_u = new Number[y.Length];
+            T[] y_u = new T[y.Length];
 			for (int j = 0; j < y.Length; j++)
 			{
-				y_u[j] = y[j].StdUnc;
+				//y_u[j] = y[j].StdUnc;
 			}
 			double yy_value = yy.Value;
-			double yy2_u = NumLib.Interpolation<Number>(x, y_u, 1, xx).Value;
+			double yy2_u = NumLib.Interpolation<T>(x, y_u, 1, xx).Value;
 			T t_yy_value = Activator.CreateInstance<T>();
 			t_yy_value.InitDbl(yy_value);
 			T t_f = Activator.CreateInstance<T>();
@@ -839,12 +839,12 @@ namespace Nuvo.Math
 				}
 				return nan;
 			}
-			Number[] y_value = new Number[n];
-			for (int i3 = 0; i3 < n; i3++)
-			{
-				y_value[i3] = y[i3].Value;
-			}
-			Number[] yy_value = NumLib.SplineInterpolation<Number>(x, y_value, xx, startBoundary, startDerivativeValue.Value, endBoundary, endDerivativeValue.Value);
+			T[] y_value = new T[n];
+			//for (int i3 = 0; i3 < n; i3++)
+			//{
+			//	y_value[i3] = y[i3].Value;
+			//}
+			//T[] yy_value = NumLib.SplineInterpolation<T>(x, y_value, xx, startBoundary, startDerivativeValue.Value, endBoundary, endDerivativeValue.Value);
 			T[] yy_lin = NumLib.Interpolation2<T>(x, y, 1, xx);
 			T[] yy = new T[n2];
 			for (int i4 = 0; i4 < n2; i4++)
@@ -861,8 +861,8 @@ namespace Nuvo.Math
 				}
 				if (!exists)
 				{
-					double temp = yy_value[i4].Value - yy_lin[i4].Value;
-					yy[i4] = yy_lin[i4].Add(NumLib.TNum<T>(temp));
+					//double temp = yy_value[i4].Value - yy_lin[i4].Value;
+					//yy[i4] = yy_lin[i4].Add(NumLib.TNum<T>(temp));
 				}
 			}
 			return yy;

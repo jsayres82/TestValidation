@@ -13,13 +13,13 @@ namespace Nuvo.Math.Ndims
 	/// <typeparam name="D">Real Element Type</typeparam>
 	[XmlType("RealNArray")]
 	[Serializable]
-	public class RealNArray<D> : NArray<RealNArray<D>, D>, IRealNArray<RealNArray<D>, D>, INArray<RealNArray<D>, D>, IConsole, IStorage<RealNArray<D>>, IArrayArithmetic<RealNArray<D>, D>, IArithmetic<RealNArray<D>>, IArrayMath<RealNArray<D>, D>, IMath<RealNArray<D>>, IArrayRealMath<RealNArray<D>, D>, IRealMath<RealNArray<D>> where D : IRealNumber<D>, new()
-	{
-		/// <summary>
-		/// Returns the value.
-		/// </summary>
-		/// <returns></returns>
-		public double[] DblValue()
+    public class RealNArray<D> : NArray<RealNArray<D>, D>, IRealNArray<RealNArray<D>, D>, INArray<RealNArray<D>, D>, IConsole, IStorage<RealNArray<D>>, IArrayArithmetic<RealNArray<D>, D>, IArithmetic<RealNArray<D>>, IArrayMath<RealNArray<D>, D>, IMath<RealNArray<D>>, IArrayRealMath<RealNArray<D>, D>, IRealMath<RealNArray<D>> where D : IRealNumber<D>, new()
+    {
+        /// <summary>
+        /// Returns the value.
+        /// </summary>
+        /// <returns></returns>
+        public double[] DblValue()
 		{
 			int i = base.numel;
 			double[] values = new double[i];
@@ -97,18 +97,18 @@ namespace Nuvo.Math.Ndims
 		/// </summary>
 		/// <returns></returns>
 		public RealNArray<D> Abs()
-		{
-			return base.ElementUnOp(new UnaryOperation<D>(Math.Abs<D>));
-		}
+        {
+            return ElementUnOp(Math.Abs);
+        }
 
 		/// <summary>
 		/// Returns a value indicating the sign of a number.
 		/// </summary>
 		/// <returns></returns>
 		public RealNArray<D> Sign()
-		{
-			return base.ElementUnOp(new UnaryOperation<D>(Math.Sign<D>));
-		}
+        {
+            return ElementUnOp(Math.Sign);
+        }
 
 		/// <summary>
 		/// Returns the angle whose tangent is the quotient of two specified numbers.
@@ -116,9 +116,9 @@ namespace Nuvo.Math.Ndims
 		/// <param name="b"></param>
 		/// <returns></returns>
 		public RealNArray<D> Atan2(RealNArray<D> b)
-		{
-			return base.ElementBinOp(new BinaryOperation<D>(Math.Atan2<D>), b);
-		}
+        {
+            return ElementBinOp(Math.Atan2, b);
+        }
 
 		/// <summary>
 		/// Complex division
@@ -165,9 +165,9 @@ namespace Nuvo.Math.Ndims
 		/// <param name="_b">Imag part</param>
 		/// <returns></returns>
 		public RealNArray<D> ComplexAbs(RealNArray<D> _b)
-		{
-			return base.ElementBinOp(new BinaryOperation<D>(Math.ComplexAbs<D>), _b);
-		}
+        {
+            return ElementBinOp(Math.ComplexAbs, _b);
+        }
 
 		/// <summary>
 		/// Returns the angle whose tangent is the quotient of the object and <paramref name="b" />.
@@ -175,9 +175,9 @@ namespace Nuvo.Math.Ndims
 		/// <param name="b">The second operand</param>
 		/// <returns>the angle</returns>
 		public RealNArray<D> LAtan2(D b)
-		{
-			return base.LElementBinOp(new BinaryOperation<D>(Math.Atan2<D>), b);
-		}
+        {
+            return LElementBinOp(Math.Atan2, b);
+        }
 
 		/// <summary>
 		/// Returns the angle whose tangent is the quotient of <paramref name="a" /> and the object.
@@ -185,8 +185,8 @@ namespace Nuvo.Math.Ndims
 		/// <param name="a">The first operand</param>
 		/// <returns>the angle</returns>
 		public RealNArray<D> RAtan2(D a)
-		{
-			return base.RElementBinOp(new BinaryOperation<D>(Math.Atan2<D>), a);
-		}
+        {
+            return RElementBinOp(Math.Atan2, a);
+        }
 	}
 }
