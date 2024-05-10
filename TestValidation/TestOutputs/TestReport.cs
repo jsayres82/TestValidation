@@ -67,17 +67,20 @@ namespace Nuvo.TestValidation.TestResults
             PdfPCell imageCell = new PdfPCell();
             imageCell.HorizontalAlignment = Element.ALIGN_TOP;
             imageCell.AddElement(image);
+            imageCell.Border = PdfPCell.NO_BORDER; // Remove cell borders
             tableHeader1.AddCell(imageCell);
+
             document.Add(tableHeader1);
 
             // Create a table
             PdfPTable tableHeader = new PdfPTable(1); // Number of columns
-            tableHeader.WidthPercentage = 50;
+            tableHeader.WidthPercentage = 100;
             tableHeader.SpacingBefore = 10f;
             tableHeader.SpacingAfter = 10f;
 
             // Create and format the header cells
             PdfPCell headerCell1 = new PdfPCell();
+            headerCell1.BorderWidth = 2f;
             Paragraph headerParagraph = new Paragraph();
             Paragraph headerParagraph2 = new Paragraph();
             //headerParagraph.AddTabStops(new float[] { 100f, 200f, 300f }); // Set the tab stop positions
@@ -92,6 +95,7 @@ namespace Nuvo.TestValidation.TestResults
 
             //headerCell1.BackgroundColor = BaseColor.LightGray;
             headerCell1 = new PdfPCell();
+            headerCell1.BorderWidth = 2f;
             headerParagraph = new Paragraph();
             headerParagraph2 = new Paragraph();
             //headerParagraph.AddTabStops(new float[] { 100f, 200f, 300f }); // Set the tab stop positions
@@ -106,6 +110,7 @@ namespace Nuvo.TestValidation.TestResults
 
 
             headerCell1 = new PdfPCell();
+            headerCell1.BorderWidth = 2f;
             headerParagraph = new Paragraph();
             headerParagraph2 = new Paragraph();
             //headerParagraph.AddTabStops(new float[] { 100f, 200f, 300f }); // Set the tab stop positions
@@ -119,6 +124,7 @@ namespace Nuvo.TestValidation.TestResults
             tableHeader.AddCell(headerCell1);
 
             headerCell1 = new PdfPCell();
+            headerCell1.BorderWidth = 2f;
             headerParagraph = new Paragraph();
             headerParagraph2 = new Paragraph();
             //headerParagraph.AddTabStops(new float[] { 100f, 200f, 300f }); // Set the tab stop positions
@@ -172,7 +178,7 @@ namespace Nuvo.TestValidation.TestResults
                 Font f = new Font(Font.TIMES_ROMAN, 10, Font.NORMAL);
                 if (!passed)
                     f = new Font(Font.TIMES_ROMAN, 10, Font.NORMAL, BaseColor.Red);
-                cell = new PdfPCell(new Phrase(rowNum.ToString(), f));
+                cell = new PdfPCell(new Phrase((rowNum*10).ToString(), f));
                 cell.HorizontalAlignment = Element.ALIGN_CENTER;
                 table.AddCell(cell);
                 cell = new PdfPCell(new Phrase(requirementName, f));

@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicrowaveNetworks", "Microw
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuvo.Math", "Nuvo.Math\Nuvo.Math.csproj", "{05192E6D-C1EF-4010-B04C-6F366777666D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuvo.TestMetrics", "TestMetrics\Nuvo.TestMetrics.csproj", "{C77EEC19-6302-4CB8-9617-1A4E5C140FD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuvo.TestServer", "TestServer\Nuvo.TestServer.csproj", "{8FAA6508-2C5A-4259-98A5-64D589F9179E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{05192E6D-C1EF-4010-B04C-6F366777666D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05192E6D-C1EF-4010-B04C-6F366777666D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05192E6D-C1EF-4010-B04C-6F366777666D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C77EEC19-6302-4CB8-9617-1A4E5C140FD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C77EEC19-6302-4CB8-9617-1A4E5C140FD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C77EEC19-6302-4CB8-9617-1A4E5C140FD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C77EEC19-6302-4CB8-9617-1A4E5C140FD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FAA6508-2C5A-4259-98A5-64D589F9179E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FAA6508-2C5A-4259-98A5-64D589F9179E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FAA6508-2C5A-4259-98A5-64D589F9179E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FAA6508-2C5A-4259-98A5-64D589F9179E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
