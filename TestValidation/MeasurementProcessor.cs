@@ -76,7 +76,7 @@ namespace Nuvo.TestValidation
         public TestRequirements ParseTestRequirementsFromXml(string xmlFilePath)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(TestRequirements));
-            using (StreamReader reader = new StreamReader("C:\\Users\\214782\\source\\repos\\Nuvo.TestValidation\\Nuvo.TestValidation\\bin\\Debug\\net5.0\\test_requirements.xml"))
+            using (StreamReader reader = new StreamReader(Path.Combine(System.IO.Directory.GetCurrentDirectory(), "test_requirements.xml")))
             {
                 TestRequirements requirements = (TestRequirements)serializer.Deserialize(reader);
 

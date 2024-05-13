@@ -62,7 +62,7 @@ namespace Nuvo.TestValidation.TestResults
             tableHeader1.SpacingBefore = 10f;
             tableHeader1.SpacingAfter = 10f;
             // Add image to the document
-            Image image = iTextSharp.text.Image.GetInstance(@"C:\Users\214782\source\repos\TestValidation\TestRequirementsApp\bin\Debug\net5.0-windows\Nuvotronic_Logo.jpg");
+            Image image = iTextSharp.text.Image.GetInstance(Path.Combine(System.IO.Directory.GetCurrentDirectory(),"Nuvotronic_Logo.jpg"));
             image.ScaleAbsolute(100,150);
             PdfPCell imageCell = new PdfPCell();
             imageCell.HorizontalAlignment = Element.ALIGN_TOP;
