@@ -273,12 +273,8 @@ namespace Nuvo.Requirements_Builder
             control.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             //// Add the control to a form and display the form
             flp2.Controls.Add(control);
-            //testInfoCtrl1.TestInfoUpdated -= TestInfoCtrl1_TestInfoUpdated;
-            var info = testInfoCtrl1.testInfo;
-            var specFile = $"{testInfoCtrl1.folderName}\\{testInfoCtrl1.fileName}.xml";
-            testInfoCtrl1 = new TestInfoCtrl();
-            testInfoCtrl1.UpdateTestInfo(info, specFile);
-            testInfoCtrl1.TestInfoUpdated += TestInfoCtrl1_TestInfoUpdated;
+
+            testInfoCtrl1.UpdateTestInfo(measurementProcessor.TestInfo, specFile);
         }
 
         private void Form1_Load(object sender, EventArgs e)
