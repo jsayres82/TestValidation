@@ -10,12 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Parameters\Transforms\**" />
-    <EmbeddedResource Remove="Parameters\Transforms\**" />
-    <None Remove="Parameters\Transforms\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Convert.cs" />
     <Compile Remove="Limits\Units\Units.cs" />
     <Compile Remove="Parameters\BlackmanHarrisWindow.cs" />
@@ -70,7 +64,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Parameters\Transforms\" />
+    <Folder Include="Calculators\Antenna\" />
+    <Folder Include="Calculators\Generic\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -84,7 +84,7 @@ namespace Nuvo.Requirements_Builder
         private void UpdateFromSpecFile(string specFile)
         {
             flp2.Controls.Clear();
-            if(measurementProcessor.TestRequirements!=null)
+            if (measurementProcessor.TestRequirements != null)
                 measurementProcessor.TestRequirements.Requirements.Clear();
             requirements = measurementProcessor.ParseTestSpecsFromXml(specFile);
             testInfoCtrl1.UpdateTestInfo(measurementProcessor.TestInfo, specFile);
@@ -117,7 +117,7 @@ namespace Nuvo.Requirements_Builder
             f.Height = 200;
             f.AutoSize = true;
             parentControl.Controls.Add(f);
-           
+
             Type objectType = obj.GetType();
 
             foreach (PropertyInfo propertyInfo in objectType.GetProperties())
@@ -127,7 +127,7 @@ namespace Nuvo.Requirements_Builder
                 label.Text = propertyInfo.Name;
                 if (propertyInfo.Name.Equals("Item"))
                     break;
-               
+
                 label.AutoSize = true;
                 if (propertyInfo.PropertyType == typeof(Unit))
                 {
@@ -195,7 +195,7 @@ namespace Nuvo.Requirements_Builder
                         // Add the label and text box to the parent control
                         parentControl.Controls.Add(f);
                     }
-                        // If the property is a complex object, recursively create controls for it
+                    // If the property is a complex object, recursively create controls for it
                     if (propertyInfo.PropertyType.IsClass && propertyInfo.PropertyType != typeof(string))
                     {
                         if (propertyInfo.Name != "Limit")
@@ -215,7 +215,7 @@ namespace Nuvo.Requirements_Builder
             {
                 reqCount++;
                 // Create the custom control
-                TestRequirementControl control = new TestRequirementControl(requirement, reqCount,limitTypes,requirementTypes,parameterTypes);
+                TestRequirementControl control = new TestRequirementControl(requirement, reqCount, limitTypes, requirementTypes, parameterTypes);
                 control.RequirementUpdated += Control_RequirementUpdated;
                 control.BorderStyle = BorderStyle.FixedSingle;
                 control.Top = reqCount * 50;
@@ -229,8 +229,15 @@ namespace Nuvo.Requirements_Builder
 
         private void Control_RequirementUpdated(object sender, EventArgs e)
         {
-            var ctrl= (sender as TestRequirementControl);
-            measurementProcessor.TestRequirements.Requirements[(sender as TestRequirementControl).reqNum - 1] = ctrl.testRequirement;
+            var ctrl = (sender as TestRequirementControl);
+            if(measurementProcessor.TestRequirements.Requirements.Count < (sender as TestRequirementControl).reqNum)
+            {
+                measurementProcessor.TestRequirements.Requirements.Add(ctrl.testRequirement);
+            }
+            else
+            {
+                measurementProcessor.TestRequirements.Requirements[(sender as TestRequirementControl).reqNum - 1] = ctrl.testRequirement;
+            }
         }
 
         private void comboBoxLimitTypes_SelectedIndexChanged(object sender, EventArgs e)
@@ -253,14 +260,32 @@ namespace Nuvo.Requirements_Builder
 
         private void butonNewSpecFile_Click(object sender, EventArgs e)
         {
-
+            flp2.Controls.Clear();
+            if (measurementProcessor.TestRequirements != null)
+                measurementProcessor.TestRequirements.Requirements.Clear();
+            int reqNum = flp2.Controls.Count + 1;
+            TestRequirementControl control = new TestRequirementControl(reqNum);
+            control.RequirementUpdated += Control_RequirementUpdated;
+            control.BorderStyle = BorderStyle.FixedSingle;
+            control.Top = (flp2.Controls.Count + 1) * 50;
+            control.AutoSize = true;
+            control.Dock = DockStyle.Fill;
+            control.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            //// Add the control to a form and display the form
+            flp2.Controls.Add(control);
+            //testInfoCtrl1.TestInfoUpdated -= TestInfoCtrl1_TestInfoUpdated;
+            var info = testInfoCtrl1.testInfo;
+            var specFile = $"{testInfoCtrl1.folderName}\\{testInfoCtrl1.fileName}.xml";
+            testInfoCtrl1 = new TestInfoCtrl();
+            testInfoCtrl1.UpdateTestInfo(info, specFile);
+            testInfoCtrl1.TestInfoUpdated += TestInfoCtrl1_TestInfoUpdated;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-        
+
         private void buttonSaveSpecFile_Click(object sender, EventArgs e)
         {
             // Serialize the TestRequirement instance to XML
@@ -337,12 +362,26 @@ namespace Nuvo.Requirements_Builder
             var results = TestReportsDic[listBoxSerialNumbers.SelectedItem.ToString()];
             var resultString = $"SN {results.SerialNumber}\r\n";
             int reqCount = 0;
-            foreach(var r in results.Results)
+            foreach (var r in results.Results)
             {
                 reqCount++;
                 resultString += $"{reqCount} - {(r as ITestResult).RequirementName}: {((r as ITestResult).Passed ? "Passed" : "Failed")} Margin = {(r as ITestResult).MinimumMargin.ToString("0.###E+0")}\r\n";
             }
             MessageBox.Show(resultString);
+        }
+
+        private void btnAddSpec_Click(object sender, EventArgs e)
+        {
+            int reqNum = flp2.Controls.Count + 1;
+            TestRequirementControl control = new TestRequirementControl(reqNum);
+            control.RequirementUpdated += Control_RequirementUpdated;
+            control.BorderStyle = BorderStyle.FixedSingle;
+            control.Top = (flp2.Controls.Count + 1) * 50;
+            control.AutoSize = true;
+            control.Dock = DockStyle.Fill;
+            control.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            //// Add the control to a form and display the form
+            flp2.Controls.Add(control);
         }
     }
 

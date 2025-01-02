@@ -13,7 +13,7 @@ namespace Nuvo.Requirements_Builder
 {
     public partial class RequirementInfoCtrl : UserControl
     {
-        TestRequirement testRequirement;
+        private TestRequirement testRequirement;
         public RequirementInfoCtrl()
         {
             testRequirement = new TestRequirement()

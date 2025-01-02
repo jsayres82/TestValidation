@@ -37,6 +37,29 @@ namespace Nuvo.Requirements_Builder
             InitializeComponent();
             InitializeComponents();            
         }
+        public TestRequirementControl(int reqnum)
+        {
+            var limit = new LimitCtrl();
+            limits = limit.limitTypes;
+            var parameter = new ParameterCtrl();
+            parameters = parameter.parameterTypes;
+            var requirement = new RequirementInfoCtrl();
+            testRequirement = requirement.GetTestRequirement();
+            reqNum = reqnum;
+            controls = new Dictionary<string, Control>();
+
+            InitializeComponent();
+            reqCtrl = new RequirementInfoCtrl();
+            flowLayoutPanel1.Controls.Add(reqCtrl);
+            reqCtrl.UpdateInfo(testRequirement, reqNum);
+            limCtrl = new LimitCtrl();
+            flowLayoutPanel1.Controls.Add(limCtrl);
+            limCtrl.UpdateLimit(testRequirement.Limit as GenericLimit);
+            paramCtrl = new ParameterCtrl();
+            flowLayoutPanel1.Controls.Add(paramCtrl);
+            paramCtrl.UpdateLimit(testRequirement.CharacteristicParameter as GenericParameter);
+                //InitializeComponents();
+        }
 
         private void InitializeComponents()
         {

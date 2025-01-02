@@ -16,27 +16,35 @@ namespace Nuvo.Requirements_Builder
     {
         public event EventHandler TestInfoUpdated;
         public BindingSource source;
+        public bool isBound = false;
         public TestInfo testInfo { get; set; }
         public string fileName { get; set; }
         public string folderName { get; set; }
         public TestInfoCtrl()
         {
             //bindingDataSource1 = new BindingSource();
-
+            isBound = false;
             testInfo = new TestInfo() { TestName = "Test", Program = "1180", WaferName = "Pentaplexer", TestArticles = new List<TestArticle>() };
             InitializeComponent();
+            BindData();
+            isBound = true;
         }
         public TestInfoCtrl(TestInfo info)
         {
             testInfo = new TestInfo() { TestName = "Test", Program = "1180", WaferName = "Pentaplexer", TestArticles = new List<TestArticle>() };
-
+            isBound = false;
             InitializeComponent();
             BindData();
+            isBound = true;
         }
 
         private void MeasurementInfoCtrl_Load(object sender, EventArgs e)
         {
-            BindData();
+            if(isBound == false)
+            {
+                BindData();
+                isBound = true;
+            }
         }
 
         private void BindData()

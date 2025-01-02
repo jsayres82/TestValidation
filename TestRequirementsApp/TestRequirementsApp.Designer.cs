@@ -30,293 +30,290 @@ namespace Nuvo.Requirements_Builder
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestRequirementsApp));
-            this.butonNewSpecFile = new System.Windows.Forms.Button();
-            this.buttonOpenSpecFile = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.listBoxSerialNumbers = new System.Windows.Forms.ListBox();
-            this.buttonProcessResults = new System.Windows.Forms.Button();
-            this.buttonSelectFolder = new System.Windows.Forms.Button();
-            this.textBoxDataFolder = new Nuvo.Requirements_Builder.EmptyTextTextBox();
-            this.labelSerialNumbers = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxRequirements = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxLimitTypes = new System.Windows.Forms.ComboBox();
-            this.labelSpecTypes = new System.Windows.Forms.Label();
-            this.comboBoxParameters = new System.Windows.Forms.ComboBox();
-            this.buttonSaveSpecFile = new System.Windows.Forms.Button();
-            this.flp2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.flp = new System.Windows.Forms.FlowLayoutPanel();
-            this.testInfoCtrl1 = new Nuvo.Requirements_Builder.TestInfoCtrl();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.flp.SuspendLayout();
-            this.SuspendLayout();
+            butonNewSpecFile = new System.Windows.Forms.Button();
+            buttonOpenSpecFile = new System.Windows.Forms.Button();
+            splitContainer1 = new System.Windows.Forms.SplitContainer();
+            listBoxSerialNumbers = new System.Windows.Forms.ListBox();
+            buttonProcessResults = new System.Windows.Forms.Button();
+            buttonSelectFolder = new System.Windows.Forms.Button();
+            textBoxDataFolder = new EmptyTextTextBox();
+            labelSerialNumbers = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            comboBoxRequirements = new System.Windows.Forms.ComboBox();
+            label1 = new System.Windows.Forms.Label();
+            comboBoxLimitTypes = new System.Windows.Forms.ComboBox();
+            labelSpecTypes = new System.Windows.Forms.Label();
+            comboBoxParameters = new System.Windows.Forms.ComboBox();
+            buttonSaveSpecFile = new System.Windows.Forms.Button();
+            flp2 = new System.Windows.Forms.FlowLayoutPanel();
+            flp = new System.Windows.Forms.FlowLayoutPanel();
+            testInfoCtrl1 = new TestInfoCtrl();
+            openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            btnAddSpec = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            flp.SuspendLayout();
+            SuspendLayout();
             // 
             // butonNewSpecFile
             // 
-            this.butonNewSpecFile.Location = new System.Drawing.Point(11, 8);
-            this.butonNewSpecFile.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.butonNewSpecFile.Name = "butonNewSpecFile";
-            this.butonNewSpecFile.Size = new System.Drawing.Size(113, 31);
-            this.butonNewSpecFile.TabIndex = 0;
-            this.butonNewSpecFile.Text = "New Spec File";
-            this.butonNewSpecFile.UseVisualStyleBackColor = true;
-            this.butonNewSpecFile.Click += new System.EventHandler(this.butonNewSpecFile_Click);
+            butonNewSpecFile.Location = new System.Drawing.Point(10, 6);
+            butonNewSpecFile.Name = "butonNewSpecFile";
+            butonNewSpecFile.Size = new System.Drawing.Size(99, 23);
+            butonNewSpecFile.TabIndex = 0;
+            butonNewSpecFile.Text = "New Spec File";
+            butonNewSpecFile.UseVisualStyleBackColor = true;
+            butonNewSpecFile.Click += butonNewSpecFile_Click;
             // 
             // buttonOpenSpecFile
             // 
-            this.buttonOpenSpecFile.Location = new System.Drawing.Point(11, 47);
-            this.buttonOpenSpecFile.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonOpenSpecFile.Name = "buttonOpenSpecFile";
-            this.buttonOpenSpecFile.Size = new System.Drawing.Size(113, 31);
-            this.buttonOpenSpecFile.TabIndex = 0;
-            this.buttonOpenSpecFile.Text = "Open Spec File";
-            this.buttonOpenSpecFile.UseVisualStyleBackColor = true;
-            this.buttonOpenSpecFile.Click += new System.EventHandler(this.buttonOpenSpecFile_Click);
+            buttonOpenSpecFile.Location = new System.Drawing.Point(10, 35);
+            buttonOpenSpecFile.Name = "buttonOpenSpecFile";
+            buttonOpenSpecFile.Size = new System.Drawing.Size(99, 23);
+            buttonOpenSpecFile.TabIndex = 0;
+            buttonOpenSpecFile.Text = "Open Spec File";
+            buttonOpenSpecFile.UseVisualStyleBackColor = true;
+            buttonOpenSpecFile.Click += buttonOpenSpecFile_Click;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Cursor = System.Windows.Forms.Cursors.HSplit;
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            splitContainer1.Cursor = System.Windows.Forms.Cursors.HSplit;
+            splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            splitContainer1.Location = new System.Drawing.Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.listBoxSerialNumbers);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonProcessResults);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonSelectFolder);
-            this.splitContainer1.Panel1.Controls.Add(this.textBoxDataFolder);
-            this.splitContainer1.Panel1.Controls.Add(this.labelSerialNumbers);
-            this.splitContainer1.Panel1.Controls.Add(this.label3);
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.comboBoxRequirements);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.comboBoxLimitTypes);
-            this.splitContainer1.Panel1.Controls.Add(this.labelSpecTypes);
-            this.splitContainer1.Panel1.Controls.Add(this.comboBoxParameters);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonSaveSpecFile);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonOpenSpecFile);
-            this.splitContainer1.Panel1.Controls.Add(this.butonNewSpecFile);
-            this.splitContainer1.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.splitContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
+            splitContainer1.Panel1.Controls.Add(btnAddSpec);
+            splitContainer1.Panel1.Controls.Add(listBoxSerialNumbers);
+            splitContainer1.Panel1.Controls.Add(buttonProcessResults);
+            splitContainer1.Panel1.Controls.Add(buttonSelectFolder);
+            splitContainer1.Panel1.Controls.Add(textBoxDataFolder);
+            splitContainer1.Panel1.Controls.Add(labelSerialNumbers);
+            splitContainer1.Panel1.Controls.Add(label3);
+            splitContainer1.Panel1.Controls.Add(label2);
+            splitContainer1.Panel1.Controls.Add(comboBoxRequirements);
+            splitContainer1.Panel1.Controls.Add(label1);
+            splitContainer1.Panel1.Controls.Add(comboBoxLimitTypes);
+            splitContainer1.Panel1.Controls.Add(labelSpecTypes);
+            splitContainer1.Panel1.Controls.Add(comboBoxParameters);
+            splitContainer1.Panel1.Controls.Add(buttonSaveSpecFile);
+            splitContainer1.Panel1.Controls.Add(buttonOpenSpecFile);
+            splitContainer1.Panel1.Controls.Add(butonNewSpecFile);
+            splitContainer1.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
+            splitContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            splitContainer1.Panel1.Paint += splitContainer1_Panel1_Paint;
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.flp2);
-            this.splitContainer1.Panel2.Controls.Add(this.flp);
-            this.splitContainer1.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer1.Size = new System.Drawing.Size(1782, 1061);
-            this.splitContainer1.SplitterDistance = 131;
-            this.splitContainer1.SplitterWidth = 5;
-            this.splitContainer1.TabIndex = 0;
+            splitContainer1.Panel2.Controls.Add(flp2);
+            splitContainer1.Panel2.Controls.Add(flp);
+            splitContainer1.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
+            splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            splitContainer1.Size = new System.Drawing.Size(1559, 796);
+            splitContainer1.SplitterDistance = 131;
+            splitContainer1.TabIndex = 0;
             // 
             // listBoxSerialNumbers
             // 
-            this.listBoxSerialNumbers.FormattingEnabled = true;
-            this.listBoxSerialNumbers.ItemHeight = 20;
-            this.listBoxSerialNumbers.Location = new System.Drawing.Point(1280, 36);
-            this.listBoxSerialNumbers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.listBoxSerialNumbers.Name = "listBoxSerialNumbers";
-            this.listBoxSerialNumbers.Size = new System.Drawing.Size(137, 84);
-            this.listBoxSerialNumbers.TabIndex = 19;
-            this.listBoxSerialNumbers.SelectedIndexChanged += new System.EventHandler(this.listBoxSerialNumbers_SelectedIndexChanged);
+            listBoxSerialNumbers.FormattingEnabled = true;
+            listBoxSerialNumbers.ItemHeight = 15;
+            listBoxSerialNumbers.Location = new System.Drawing.Point(1120, 27);
+            listBoxSerialNumbers.Name = "listBoxSerialNumbers";
+            listBoxSerialNumbers.Size = new System.Drawing.Size(120, 64);
+            listBoxSerialNumbers.TabIndex = 19;
+            listBoxSerialNumbers.SelectedIndexChanged += listBoxSerialNumbers_SelectedIndexChanged;
             // 
             // buttonProcessResults
             // 
-            this.buttonProcessResults.Location = new System.Drawing.Point(1110, 85);
-            this.buttonProcessResults.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonProcessResults.Name = "buttonProcessResults";
-            this.buttonProcessResults.Size = new System.Drawing.Size(120, 31);
-            this.buttonProcessResults.TabIndex = 18;
-            this.buttonProcessResults.Text = "Process Results";
-            this.buttonProcessResults.UseVisualStyleBackColor = true;
-            this.buttonProcessResults.Click += new System.EventHandler(this.buttonProcessResults_Click);
+            buttonProcessResults.Location = new System.Drawing.Point(971, 64);
+            buttonProcessResults.Name = "buttonProcessResults";
+            buttonProcessResults.Size = new System.Drawing.Size(105, 23);
+            buttonProcessResults.TabIndex = 18;
+            buttonProcessResults.Text = "Process Results";
+            buttonProcessResults.UseVisualStyleBackColor = true;
+            buttonProcessResults.Click += buttonProcessResults_Click;
             // 
             // buttonSelectFolder
             // 
-            this.buttonSelectFolder.Location = new System.Drawing.Point(1063, 85);
-            this.buttonSelectFolder.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonSelectFolder.Name = "buttonSelectFolder";
-            this.buttonSelectFolder.Size = new System.Drawing.Size(39, 31);
-            this.buttonSelectFolder.TabIndex = 17;
-            this.buttonSelectFolder.Text = "...";
-            this.buttonSelectFolder.UseVisualStyleBackColor = true;
-            this.buttonSelectFolder.Click += new System.EventHandler(this.buttonSelectFolder_Click);
+            buttonSelectFolder.Location = new System.Drawing.Point(930, 64);
+            buttonSelectFolder.Name = "buttonSelectFolder";
+            buttonSelectFolder.Size = new System.Drawing.Size(34, 23);
+            buttonSelectFolder.TabIndex = 17;
+            buttonSelectFolder.Text = "...";
+            buttonSelectFolder.UseVisualStyleBackColor = true;
+            buttonSelectFolder.Click += buttonSelectFolder_Click;
             // 
             // textBoxDataFolder
             // 
-            this.textBoxDataFolder.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            this.textBoxDataFolder.EmptyText = null;
-            this.textBoxDataFolder.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxDataFolder.Location = new System.Drawing.Point(463, 87);
-            this.textBoxDataFolder.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBoxDataFolder.Name = "textBoxDataFolder";
-            this.textBoxDataFolder.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxDataFolder.Size = new System.Drawing.Size(595, 27);
-            this.textBoxDataFolder.TabIndex = 16;
+            textBoxDataFolder.EmptyForeColor = System.Drawing.SystemColors.GrayText;
+            textBoxDataFolder.EmptyText = null;
+            textBoxDataFolder.ForeColor = System.Drawing.SystemColors.WindowText;
+            textBoxDataFolder.Location = new System.Drawing.Point(405, 65);
+            textBoxDataFolder.Name = "textBoxDataFolder";
+            textBoxDataFolder.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
+            textBoxDataFolder.Size = new System.Drawing.Size(521, 23);
+            textBoxDataFolder.TabIndex = 16;
             // 
             // labelSerialNumbers
             // 
-            this.labelSerialNumbers.AutoSize = true;
-            this.labelSerialNumbers.Location = new System.Drawing.Point(1293, 8);
-            this.labelSerialNumbers.Name = "labelSerialNumbers";
-            this.labelSerialNumbers.Size = new System.Drawing.Size(106, 20);
-            this.labelSerialNumbers.TabIndex = 9;
-            this.labelSerialNumbers.Text = "SerialNumbers";
+            labelSerialNumbers.AutoSize = true;
+            labelSerialNumbers.Location = new System.Drawing.Point(1131, 6);
+            labelSerialNumbers.Name = "labelSerialNumbers";
+            labelSerialNumbers.Size = new System.Drawing.Size(84, 15);
+            labelSerialNumbers.TabIndex = 9;
+            labelSerialNumbers.Text = "SerialNumbers";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(463, 63);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(181, 20);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Measurement Data Folder";
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(405, 47);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(143, 15);
+            label3.TabIndex = 9;
+            label3.Text = "Measurement Data Folder";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(144, 91);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 20);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Parameters";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(126, 68);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(66, 15);
+            label2.TabIndex = 9;
+            label2.Text = "Parameters";
             // 
             // comboBoxRequirements
             // 
-            this.comboBoxRequirements.FormattingEnabled = true;
-            this.comboBoxRequirements.Location = new System.Drawing.Point(242, 87);
-            this.comboBoxRequirements.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.comboBoxRequirements.Name = "comboBoxRequirements";
-            this.comboBoxRequirements.Size = new System.Drawing.Size(203, 28);
-            this.comboBoxRequirements.TabIndex = 7;
-            this.comboBoxRequirements.SelectedIndexChanged += new System.EventHandler(this.comboBoxRequirements_SelectedIndexChanged);
+            comboBoxRequirements.FormattingEnabled = true;
+            comboBoxRequirements.Location = new System.Drawing.Point(212, 65);
+            comboBoxRequirements.Name = "comboBoxRequirements";
+            comboBoxRequirements.Size = new System.Drawing.Size(178, 23);
+            comboBoxRequirements.TabIndex = 7;
+            comboBoxRequirements.SelectedIndexChanged += comboBoxRequirements_SelectedIndexChanged;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(144, 52);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 20);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Requirements";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(126, 39);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(80, 15);
+            label1.TabIndex = 6;
+            label1.Text = "Requirements";
             // 
             // comboBoxLimitTypes
             // 
-            this.comboBoxLimitTypes.FormattingEnabled = true;
-            this.comboBoxLimitTypes.Location = new System.Drawing.Point(242, 48);
-            this.comboBoxLimitTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.comboBoxLimitTypes.Name = "comboBoxLimitTypes";
-            this.comboBoxLimitTypes.Size = new System.Drawing.Size(203, 28);
-            this.comboBoxLimitTypes.TabIndex = 4;
-            this.comboBoxLimitTypes.SelectedIndexChanged += new System.EventHandler(this.comboBoxLimitTypes_SelectedIndexChanged);
+            comboBoxLimitTypes.FormattingEnabled = true;
+            comboBoxLimitTypes.Location = new System.Drawing.Point(212, 36);
+            comboBoxLimitTypes.Name = "comboBoxLimitTypes";
+            comboBoxLimitTypes.Size = new System.Drawing.Size(178, 23);
+            comboBoxLimitTypes.TabIndex = 4;
+            comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
             // 
             // labelSpecTypes
             // 
-            this.labelSpecTypes.AutoSize = true;
-            this.labelSpecTypes.Location = new System.Drawing.Point(144, 12);
-            this.labelSpecTypes.Name = "labelSpecTypes";
-            this.labelSpecTypes.Size = new System.Drawing.Size(98, 20);
-            this.labelSpecTypes.TabIndex = 3;
-            this.labelSpecTypes.Text = "Part Numbers";
+            labelSpecTypes.AutoSize = true;
+            labelSpecTypes.Location = new System.Drawing.Point(126, 9);
+            labelSpecTypes.Name = "labelSpecTypes";
+            labelSpecTypes.Size = new System.Drawing.Size(80, 15);
+            labelSpecTypes.TabIndex = 3;
+            labelSpecTypes.Text = "Part Numbers";
             // 
             // comboBoxParameters
             // 
-            this.comboBoxParameters.FormattingEnabled = true;
-            this.comboBoxParameters.Location = new System.Drawing.Point(242, 9);
-            this.comboBoxParameters.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.comboBoxParameters.Name = "comboBoxParameters";
-            this.comboBoxParameters.Size = new System.Drawing.Size(203, 28);
-            this.comboBoxParameters.TabIndex = 1;
+            comboBoxParameters.FormattingEnabled = true;
+            comboBoxParameters.Location = new System.Drawing.Point(212, 7);
+            comboBoxParameters.Name = "comboBoxParameters";
+            comboBoxParameters.Size = new System.Drawing.Size(178, 23);
+            comboBoxParameters.TabIndex = 1;
             // 
             // buttonSaveSpecFile
             // 
-            this.buttonSaveSpecFile.Location = new System.Drawing.Point(14, 85);
-            this.buttonSaveSpecFile.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonSaveSpecFile.Name = "buttonSaveSpecFile";
-            this.buttonSaveSpecFile.Size = new System.Drawing.Size(113, 31);
-            this.buttonSaveSpecFile.TabIndex = 0;
-            this.buttonSaveSpecFile.Text = "Save Spec File";
-            this.buttonSaveSpecFile.UseVisualStyleBackColor = true;
-            this.buttonSaveSpecFile.Click += new System.EventHandler(this.buttonSaveSpecFile_Click);
+            buttonSaveSpecFile.Location = new System.Drawing.Point(12, 64);
+            buttonSaveSpecFile.Name = "buttonSaveSpecFile";
+            buttonSaveSpecFile.Size = new System.Drawing.Size(99, 23);
+            buttonSaveSpecFile.TabIndex = 0;
+            buttonSaveSpecFile.Text = "Save Spec File";
+            buttonSaveSpecFile.UseVisualStyleBackColor = true;
+            buttonSaveSpecFile.Click += buttonSaveSpecFile_Click;
             // 
             // flp2
             // 
-            this.flp2.AutoScroll = true;
-            this.flp2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flp2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.flp2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flp2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flp2.Location = new System.Drawing.Point(0, 254);
-            this.flp2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.flp2.Name = "flp2";
-            this.flp2.Size = new System.Drawing.Size(1782, 671);
-            this.flp2.TabIndex = 3;
-            this.flp2.WrapContents = false;
-            this.flp2.Paint += new System.Windows.Forms.PaintEventHandler(this.flp2_Paint);
+            flp2.AutoScroll = true;
+            flp2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            flp2.BackColor = System.Drawing.Color.WhiteSmoke;
+            flp2.Dock = System.Windows.Forms.DockStyle.Fill;
+            flp2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            flp2.Location = new System.Drawing.Point(0, 191);
+            flp2.Name = "flp2";
+            flp2.Size = new System.Drawing.Size(1559, 470);
+            flp2.TabIndex = 3;
+            flp2.WrapContents = false;
+            flp2.Paint += flp2_Paint;
             // 
             // flp
             // 
-            this.flp.AutoSize = true;
-            this.flp.Controls.Add(this.testInfoCtrl1);
-            this.flp.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flp.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flp.Location = new System.Drawing.Point(0, 0);
-            this.flp.MinimumSize = new System.Drawing.Size(0, 200);
-            this.flp.Name = "flp";
-            this.flp.Size = new System.Drawing.Size(1782, 254);
-            this.flp.TabIndex = 0;
+            flp.AutoSize = true;
+            flp.Controls.Add(testInfoCtrl1);
+            flp.Dock = System.Windows.Forms.DockStyle.Top;
+            flp.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            flp.Location = new System.Drawing.Point(0, 0);
+            flp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            flp.MinimumSize = new System.Drawing.Size(0, 150);
+            flp.Name = "flp";
+            flp.Size = new System.Drawing.Size(1559, 191);
+            flp.TabIndex = 0;
             // 
             // testInfoCtrl1
             // 
-            this.testInfoCtrl1.fileName = null;
-            this.testInfoCtrl1.folderName = null;
-            this.testInfoCtrl1.Location = new System.Drawing.Point(3, 5);
-            this.testInfoCtrl1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.testInfoCtrl1.Name = "testInfoCtrl1";
-            this.testInfoCtrl1.Size = new System.Drawing.Size(1226, 244);
-            this.testInfoCtrl1.TabIndex = 1;
+            testInfoCtrl1.fileName = null;
+            testInfoCtrl1.folderName = null;
+            testInfoCtrl1.Location = new System.Drawing.Point(3, 4);
+            testInfoCtrl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            testInfoCtrl1.Name = "testInfoCtrl1";
+            testInfoCtrl1.Size = new System.Drawing.Size(1073, 183);
+            testInfoCtrl1.TabIndex = 1;
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // btnAddSpec
+            // 
+            btnAddSpec.Location = new System.Drawing.Point(12, 93);
+            btnAddSpec.Name = "btnAddSpec";
+            btnAddSpec.Size = new System.Drawing.Size(99, 23);
+            btnAddSpec.TabIndex = 20;
+            btnAddSpec.Text = "Add Spec";
+            btnAddSpec.UseVisualStyleBackColor = true;
+            btnAddSpec.Click += btnAddSpec_Click;
             // 
             // TestRequirementsApp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1782, 1061);
-            this.Controls.Add(this.splitContainer1);
-            this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MinimumSize = new System.Drawing.Size(1775, 998);
-            this.Name = "TestRequirementsApp";
-            this.Text = "Test Requirements App";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.Resize += new System.EventHandler(this.Form1_Resize);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.flp.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.Silver;
+            ClientSize = new System.Drawing.Size(1559, 796);
+            Controls.Add(splitContainer1);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            MinimumSize = new System.Drawing.Size(1555, 758);
+            Name = "TestRequirementsApp";
+            Text = "Test Requirements App";
+            Load += Form1_Load;
+            Resize += Form1_Resize;
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            flp.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
@@ -342,6 +339,7 @@ namespace Nuvo.Requirements_Builder
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ListBox listBoxSerialNumbers;
         private System.Windows.Forms.Label labelSerialNumbers;
+        private System.Windows.Forms.Button btnAddSpec;
     }
 }
 
