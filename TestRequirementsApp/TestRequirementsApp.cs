@@ -230,13 +230,32 @@ namespace Nuvo.Requirements_Builder
         private void Control_RequirementUpdated(object sender, EventArgs e)
         {
             var ctrl = (sender as TestRequirementControl);
-            if(measurementProcessor.TestRequirements.Requirements.Count < (sender as TestRequirementControl).reqNum)
+            if(e == null)
             {
-                measurementProcessor.TestRequirements.Requirements.Add(ctrl.testRequirement);
+                if (measurementProcessor.TestRequirements.Requirements.Count < (sender as TestRequirementControl).reqNum)
+                {
+                    measurementProcessor.TestRequirements.Requirements.Add(ctrl.testRequirement);
+                }
+                else
+                {
+                    measurementProcessor.TestRequirements.Requirements[(sender as TestRequirementControl).reqNum - 1] = ctrl.testRequirement;
+                }
             }
             else
             {
-                measurementProcessor.TestRequirements.Requirements[(sender as TestRequirementControl).reqNum - 1] = ctrl.testRequirement;
+                var delReqNum = (sender as TestRequirementControl).reqNum;
+                measurementProcessor.TestRequirements.Requirements.Remove((sender as TestRequirementControl).testRequirement);
+                flp2.Controls.RemoveAt(delReqNum - 1);
+                foreach (TestRequirementControl c in flp2.Controls)
+                {
+                    if(c.reqNum > delReqNum)
+                    {
+                        c.reqNum--;
+                        c.reqCtrl.UpdateInfo(c.testRequirement, c.reqNum);
+                        c.Top = c.reqNum * 50;
+                    }
+
+                }
             }
         }
 

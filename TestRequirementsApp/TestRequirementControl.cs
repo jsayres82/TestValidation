@@ -23,7 +23,8 @@ namespace Nuvo.Requirements_Builder
         public TestRequirement testRequirement;
         public Dictionary<string, Control> controls;
         public int reqNum;
-        public Type[] limits,parameters,requirements;
+        public Type[] limits, parameters, requirements;
+        public bool IsDeleted = false;
 
         public TestRequirementControl(TestRequirement requirement, int count, Type[] l, Type[] r, Type[] p)
         {
@@ -35,8 +36,9 @@ namespace Nuvo.Requirements_Builder
             controls = new Dictionary<string, Control>();
 
             InitializeComponent();
-            InitializeComponents();            
+            InitializeComponents();
         }
+
         public TestRequirementControl(int reqnum)
         {
             var limit = new LimitCtrl();
@@ -58,7 +60,7 @@ namespace Nuvo.Requirements_Builder
             paramCtrl = new ParameterCtrl();
             flowLayoutPanel1.Controls.Add(paramCtrl);
             paramCtrl.UpdateLimit(testRequirement.CharacteristicParameter as GenericParameter);
-                //InitializeComponents();
+            //InitializeComponents();
         }
 
         private void InitializeComponents()
@@ -97,18 +99,22 @@ namespace Nuvo.Requirements_Builder
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            if(flowLayoutPanel1.Enabled)
+            if (flowLayoutPanel1.Enabled)
             {
                 buttonEdit.Text = "EDIT";
                 testRequirement.Name = reqCtrl.GetTestRequirement().Name;
                 testRequirement.Limit = limCtrl.GetLimit();
                 testRequirement.CharacteristicParameter = paramCtrl.GetParameter();
                 flowLayoutPanel1.Enabled = false;
+                btnDelete.Enabled = false;
+                btnDelete.Visible = false;
                 RequirementUpdated.Invoke(this, null);
             }
             else
             {
                 buttonEdit.Text = "SAVE";
+                btnDelete.Enabled = true;
+                btnDelete.Visible = true;
                 flowLayoutPanel1.Enabled = true;
             }
         }
@@ -288,6 +294,12 @@ namespace Nuvo.Requirements_Builder
             }
 
             return propertyValues;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            IsDeleted = true;
+            RequirementUpdated.Invoke(this,new EventArgs());
         }
     }
 }
