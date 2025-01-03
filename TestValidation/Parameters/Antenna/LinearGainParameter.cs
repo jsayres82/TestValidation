@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nuvo.TestValidation.Parameters.Antenna
 {
-    public class CoPolarizationParameter : GenericParameter
+    public class LinearGainParameter : GenericParameter
     {
         public override List<string> MeasurementVariables { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 

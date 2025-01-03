@@ -31,7 +31,9 @@ namespace Nuvo.TestValidation.Limits.Units
             DecibelMicroVolt,
             Percent,
             MilliWatt,
-            MicroVolt
+            MicroVolt,
+            Degree,
+            Phase
         };
         
 

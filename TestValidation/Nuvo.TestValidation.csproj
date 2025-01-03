@@ -67,7 +67,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Calculators\Antenna\" />
     <Folder Include="Calculators\Generic\" />
   </ItemGroup>
 
