@@ -33,25 +33,19 @@ namespace Nuvo.Requirements_Builder
             butonNewSpecFile = new System.Windows.Forms.Button();
             buttonOpenSpecFile = new System.Windows.Forms.Button();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
+            btnAddSpec = new System.Windows.Forms.Button();
             listBoxSerialNumbers = new System.Windows.Forms.ListBox();
             buttonProcessResults = new System.Windows.Forms.Button();
             buttonSelectFolder = new System.Windows.Forms.Button();
             textBoxDataFolder = new EmptyTextTextBox();
             labelSerialNumbers = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
-            comboBoxRequirements = new System.Windows.Forms.ComboBox();
-            label1 = new System.Windows.Forms.Label();
-            comboBoxLimitTypes = new System.Windows.Forms.ComboBox();
-            labelSpecTypes = new System.Windows.Forms.Label();
-            comboBoxParameters = new System.Windows.Forms.ComboBox();
             buttonSaveSpecFile = new System.Windows.Forms.Button();
             flp2 = new System.Windows.Forms.FlowLayoutPanel();
             flp = new System.Windows.Forms.FlowLayoutPanel();
             testInfoCtrl1 = new TestInfoCtrl();
             openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            btnAddSpec = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -97,18 +91,11 @@ namespace Nuvo.Requirements_Builder
             splitContainer1.Panel1.Controls.Add(textBoxDataFolder);
             splitContainer1.Panel1.Controls.Add(labelSerialNumbers);
             splitContainer1.Panel1.Controls.Add(label3);
-            splitContainer1.Panel1.Controls.Add(label2);
-            splitContainer1.Panel1.Controls.Add(comboBoxRequirements);
-            splitContainer1.Panel1.Controls.Add(label1);
-            splitContainer1.Panel1.Controls.Add(comboBoxLimitTypes);
-            splitContainer1.Panel1.Controls.Add(labelSpecTypes);
-            splitContainer1.Panel1.Controls.Add(comboBoxParameters);
             splitContainer1.Panel1.Controls.Add(buttonSaveSpecFile);
             splitContainer1.Panel1.Controls.Add(buttonOpenSpecFile);
             splitContainer1.Panel1.Controls.Add(butonNewSpecFile);
             splitContainer1.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             splitContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            splitContainer1.Panel1.Paint += splitContainer1_Panel1_Paint;
             // 
             // splitContainer1.Panel2
             // 
@@ -119,6 +106,16 @@ namespace Nuvo.Requirements_Builder
             splitContainer1.Size = new System.Drawing.Size(1559, 796);
             splitContainer1.SplitterDistance = 131;
             splitContainer1.TabIndex = 0;
+            // 
+            // btnAddSpec
+            // 
+            btnAddSpec.Location = new System.Drawing.Point(12, 93);
+            btnAddSpec.Name = "btnAddSpec";
+            btnAddSpec.Size = new System.Drawing.Size(99, 23);
+            btnAddSpec.TabIndex = 20;
+            btnAddSpec.Text = "Add Spec";
+            btnAddSpec.UseVisualStyleBackColor = true;
+            btnAddSpec.Click += btnAddSpec_Click;
             // 
             // listBoxSerialNumbers
             // 
@@ -132,7 +129,7 @@ namespace Nuvo.Requirements_Builder
             // 
             // buttonProcessResults
             // 
-            buttonProcessResults.Location = new System.Drawing.Point(971, 64);
+            buttonProcessResults.Location = new System.Drawing.Point(698, 26);
             buttonProcessResults.Name = "buttonProcessResults";
             buttonProcessResults.Size = new System.Drawing.Size(105, 23);
             buttonProcessResults.TabIndex = 18;
@@ -142,7 +139,7 @@ namespace Nuvo.Requirements_Builder
             // 
             // buttonSelectFolder
             // 
-            buttonSelectFolder.Location = new System.Drawing.Point(930, 64);
+            buttonSelectFolder.Location = new System.Drawing.Point(657, 26);
             buttonSelectFolder.Name = "buttonSelectFolder";
             buttonSelectFolder.Size = new System.Drawing.Size(34, 23);
             buttonSelectFolder.TabIndex = 17;
@@ -155,7 +152,7 @@ namespace Nuvo.Requirements_Builder
             textBoxDataFolder.EmptyForeColor = System.Drawing.SystemColors.GrayText;
             textBoxDataFolder.EmptyText = null;
             textBoxDataFolder.ForeColor = System.Drawing.SystemColors.WindowText;
-            textBoxDataFolder.Location = new System.Drawing.Point(405, 65);
+            textBoxDataFolder.Location = new System.Drawing.Point(132, 27);
             textBoxDataFolder.Name = "textBoxDataFolder";
             textBoxDataFolder.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
             textBoxDataFolder.Size = new System.Drawing.Size(521, 23);
@@ -173,64 +170,11 @@ namespace Nuvo.Requirements_Builder
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(405, 47);
+            label3.Location = new System.Drawing.Point(132, 9);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(143, 15);
             label3.TabIndex = 9;
             label3.Text = "Measurement Data Folder";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(126, 68);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(66, 15);
-            label2.TabIndex = 9;
-            label2.Text = "Parameters";
-            // 
-            // comboBoxRequirements
-            // 
-            comboBoxRequirements.FormattingEnabled = true;
-            comboBoxRequirements.Location = new System.Drawing.Point(212, 65);
-            comboBoxRequirements.Name = "comboBoxRequirements";
-            comboBoxRequirements.Size = new System.Drawing.Size(178, 23);
-            comboBoxRequirements.TabIndex = 7;
-            comboBoxRequirements.SelectedIndexChanged += comboBoxRequirements_SelectedIndexChanged;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(126, 39);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(80, 15);
-            label1.TabIndex = 6;
-            label1.Text = "Requirements";
-            // 
-            // comboBoxLimitTypes
-            // 
-            comboBoxLimitTypes.FormattingEnabled = true;
-            comboBoxLimitTypes.Location = new System.Drawing.Point(212, 36);
-            comboBoxLimitTypes.Name = "comboBoxLimitTypes";
-            comboBoxLimitTypes.Size = new System.Drawing.Size(178, 23);
-            comboBoxLimitTypes.TabIndex = 4;
-            comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
-            // 
-            // labelSpecTypes
-            // 
-            labelSpecTypes.AutoSize = true;
-            labelSpecTypes.Location = new System.Drawing.Point(126, 9);
-            labelSpecTypes.Name = "labelSpecTypes";
-            labelSpecTypes.Size = new System.Drawing.Size(80, 15);
-            labelSpecTypes.TabIndex = 3;
-            labelSpecTypes.Text = "Part Numbers";
-            // 
-            // comboBoxParameters
-            // 
-            comboBoxParameters.FormattingEnabled = true;
-            comboBoxParameters.Location = new System.Drawing.Point(212, 7);
-            comboBoxParameters.Name = "comboBoxParameters";
-            comboBoxParameters.Size = new System.Drawing.Size(178, 23);
-            comboBoxParameters.TabIndex = 1;
             // 
             // buttonSaveSpecFile
             // 
@@ -254,7 +198,6 @@ namespace Nuvo.Requirements_Builder
             flp2.Size = new System.Drawing.Size(1559, 470);
             flp2.TabIndex = 3;
             flp2.WrapContents = false;
-            flp2.Paint += flp2_Paint;
             // 
             // flp
             // 
@@ -283,16 +226,6 @@ namespace Nuvo.Requirements_Builder
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
-            // btnAddSpec
-            // 
-            btnAddSpec.Location = new System.Drawing.Point(12, 93);
-            btnAddSpec.Name = "btnAddSpec";
-            btnAddSpec.Size = new System.Drawing.Size(99, 23);
-            btnAddSpec.TabIndex = 20;
-            btnAddSpec.Text = "Add Spec";
-            btnAddSpec.UseVisualStyleBackColor = true;
-            btnAddSpec.Click += btnAddSpec_Click;
-            // 
             // TestRequirementsApp
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -318,15 +251,9 @@ namespace Nuvo.Requirements_Builder
 
         #endregion
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ComboBox comboBoxParameters;
         private System.Windows.Forms.Button buttonOpenSpecFile;
         private System.Windows.Forms.Button butonNewSpecFile;
-        private System.Windows.Forms.Label labelSpecTypes;
         private System.Windows.Forms.FlowLayoutPanel flp;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxLimitTypes;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBoxRequirements;
         private TestInfoCtrl measurementInfoCtrl1;
         private System.Windows.Forms.Button buttonSaveSpecFile;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;

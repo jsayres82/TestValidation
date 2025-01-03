@@ -54,11 +54,11 @@ namespace Nuvo.Requirements_Builder
             reqCtrl = new RequirementInfoCtrl();
             flowLayoutPanel1.Controls.Add(reqCtrl);
             reqCtrl.UpdateInfo(testRequirement, reqNum);
+            paramCtrl = new ParameterCtrl();
+            flowLayoutPanel1.Controls.Add(paramCtrl);
             limCtrl = new LimitCtrl();
             flowLayoutPanel1.Controls.Add(limCtrl);
             limCtrl.UpdateLimit(testRequirement.Limit as GenericLimit);
-            paramCtrl = new ParameterCtrl();
-            flowLayoutPanel1.Controls.Add(paramCtrl);
             paramCtrl.UpdateLimit(testRequirement.CharacteristicParameter as GenericParameter);
             //InitializeComponents();
         }
@@ -79,20 +79,22 @@ namespace Nuvo.Requirements_Builder
                             break;
                         case "Limit":
                             limCtrl = new LimitCtrl();
-                            flowLayoutPanel1.Controls.Add(limCtrl);
                             limCtrl.UpdateLimit(testRequirement.Limit as GenericLimit);
                             break;
                         case "CharacteristicParameter":
                             if (!property.Name.Equals("Property"))
                             {
                                 paramCtrl = new ParameterCtrl();
-                                flowLayoutPanel1.Controls.Add(paramCtrl);
                                 paramCtrl.UpdateLimit(testRequirement.CharacteristicParameter as GenericParameter);
                             }
                             break;
                         default:
                             break;
                     }
+                    if(paramCtrl != null)
+                        flowLayoutPanel1.Controls.Add(paramCtrl);
+                    if(limCtrl != null)
+                        flowLayoutPanel1.Controls.Add(limCtrl);
                 }
             }
         }

@@ -28,6 +28,11 @@ namespace Nuvo.Requirements_Builder
         public List<string> SerialNumbers = new List<string>();
         public Dictionary<string, TestReport> TestReportsDic = new Dictionary<string, TestReport>();
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
         public TestRequirementsApp()
         {
             InitializeComponent();
@@ -51,21 +56,9 @@ namespace Nuvo.Requirements_Builder
                 .ToArray();
 
             // Loop through the CharacteristicParameter classes
-            foreach (Type limitType in limitTypes)
-            {
-                comboBoxLimitTypes.Items.Add(limitType.Name);
-            }
-            // Loop through the CharacteristicParameter classes
-            foreach (Type requirementType in requirementTypes)
-            {
-                comboBoxRequirements.Items.Add(requirementType.Name);
-            }
-
-            // Loop through the CharacteristicParameter classes
             foreach (Type parameterType in parameterTypes)
             {
                 Console.WriteLine($"Characteristic Parameter: {parameterType.Name}");
-                comboBoxParameters.Items.Add(parameterType.Name);
                 // Get all the methods of the CharacteristicParameter class
                 MethodInfo[] methods = parameterType.GetMethods();
 
@@ -230,7 +223,7 @@ namespace Nuvo.Requirements_Builder
         private void Control_RequirementUpdated(object sender, EventArgs e)
         {
             var ctrl = (sender as TestRequirementControl);
-            if(e == null)
+            if (e == null)
             {
                 if (measurementProcessor.TestRequirements.Requirements.Count < (sender as TestRequirementControl).reqNum)
                 {
@@ -248,7 +241,7 @@ namespace Nuvo.Requirements_Builder
                 flp2.Controls.RemoveAt(delReqNum - 1);
                 foreach (TestRequirementControl c in flp2.Controls)
                 {
-                    if(c.reqNum > delReqNum)
+                    if (c.reqNum > delReqNum)
                     {
                         c.reqNum--;
                         c.reqCtrl.UpdateInfo(c.testRequirement, c.reqNum);
@@ -257,24 +250,6 @@ namespace Nuvo.Requirements_Builder
 
                 }
             }
-        }
-
-        private void comboBoxLimitTypes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Type[] typeArgs = { typeof(double) };
-            var makeme = limitTypes[comboBoxLimitTypes.SelectedIndex].MakeGenericType(typeArgs);
-            var o = Activator.CreateInstance(makeme);
-            PropertyInfo[] properties = o.GetType().GetProperties();
-
-            CreateControls(o, flp2);
-        }
-
-        private void comboBoxRequirements_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var o = Activator.CreateInstance(requirementTypes[comboBoxRequirements.SelectedIndex]);
-            PropertyInfo[] properties = o.GetType().GetProperties();
-
-            CreateControls(o, flp2);
         }
 
         private void butonNewSpecFile_Click(object sender, EventArgs e)
@@ -296,11 +271,6 @@ namespace Nuvo.Requirements_Builder
             testInfoCtrl1.UpdateTestInfo(measurementProcessor.TestInfo, specFile);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonSaveSpecFile_Click(object sender, EventArgs e)
         {
             // Serialize the TestRequirement instance to XML
@@ -313,31 +283,18 @@ namespace Nuvo.Requirements_Builder
 
         private void buttonOpenSpecFile_Click(object sender, EventArgs e)
         {
-
             DialogResult result = openFileDialog1.ShowDialog();
             if (result.Equals(DialogResult.OK))
             {
                 specFile = openFileDialog1.FileName;
                 UpdateFromSpecFile(specFile);
             }
-
         }
-
 
         private void Form1_Resize(object sender, EventArgs e)
         {
             foreach (Control c in flp2.Controls)
                 c.Width = this.Width;
-        }
-
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void flp2_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void buttonProcessResults_Click(object sender, EventArgs e)
@@ -360,16 +317,6 @@ namespace Nuvo.Requirements_Builder
             }
 
             MessageBox.Show($"Processing Complete.  {files.Count} Analyzed");
-        }
-
-        private void buttonSelectFolder_Click(object sender, EventArgs e)
-        {
-            DialogResult result = folderBrowserDialog1.ShowDialog();
-            if (result.Equals(DialogResult.OK))
-            {
-                MeasurementFolder = folderBrowserDialog1.SelectedPath;
-                textBoxDataFolder.Text = MeasurementFolder;
-            }
         }
 
         private void listBoxSerialNumbers_SelectedIndexChanged(object sender, EventArgs e)
@@ -397,6 +344,16 @@ namespace Nuvo.Requirements_Builder
             control.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             //// Add the control to a form and display the form
             flp2.Controls.Add(control);
+        }
+
+        private void buttonSelectFolder_Click(object sender, EventArgs e)
+        {
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result.Equals(DialogResult.OK))
+            {
+                MeasurementFolder = folderBrowserDialog1.SelectedPath;
+                textBoxDataFolder.Text = MeasurementFolder;
+            }
         }
     }
 

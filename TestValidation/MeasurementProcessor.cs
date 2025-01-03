@@ -197,7 +197,7 @@ namespace Nuvo.TestValidation
             // Create a new instance of the TestReport class
 
             //TestReport report = new TestReport();
-            TestReport testReport = new TestReport(UnitSerialNumber, TestInfo.TestArticles[0].PartNumber);
+            TestReport testReport = new TestReport(UnitSerialNumber, TestInfo.TestName, TestInfo.WaferName, TestInfo.Program, TestInfo.TestArticles[0].PartNumber);
             foreach (var requirement in TestRequirements.Requirements)
             {
                 // Retrieve the characteristic parameter for the requirement

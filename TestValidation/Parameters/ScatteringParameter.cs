@@ -36,6 +36,9 @@ namespace Nuvo.TestValidation.Parameters
             bool ispassed = true;
             MinMargin = double.MaxValue;
             reqLimit = new double[parameterValues[MeasurementVariables.First()].Count];
+            
+            if (File.Exists($"SerialNumber{serialNumber}_requirement_{req.Name}.csv"))
+                File.Delete($"SerialNumber{serialNumber}_requirement_{req.Name}.csv");
 
             // Open the StreamWriter here; replace 'filePath' with your actual file path
             sw = new StreamWriter($"SerialNumber{serialNumber}_requirement_{req.Name}.csv",true);
@@ -81,6 +84,9 @@ namespace Nuvo.TestValidation.Parameters
         }
         public static void WriteToCsv<T>(string filePath, T testValue, T margin, T limit)
         {
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+
             // Check if the file exists
             if (!File.Exists(filePath))
             {

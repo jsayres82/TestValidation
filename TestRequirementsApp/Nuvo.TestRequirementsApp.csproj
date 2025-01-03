@@ -84,6 +84,21 @@
     <None Update="TestData\combined_sparamsSparams.s6p">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\MeasurementFiles\1025668_SN001_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\MeasurementFiles\1025668_SN002_sparam_P1P3P4.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\MeasurementFiles\1025668_SN003_sparam_P1P4P5.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\MeasurementFiles\1025668_SN004_sparam_P1P5P6.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\MeasurementFiles\1025668_SN010_sparam_P1P2P3.s3p">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\sparam_P1P2P3.s3p">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
