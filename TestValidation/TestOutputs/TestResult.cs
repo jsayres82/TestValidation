@@ -28,6 +28,13 @@ namespace Nuvo.TestValidation.TestResults
         }
 
 
+        public TestResult(string parameterName, bool isPassed, double margin)
+        {
+            MinimumMargin = margin;
+            RequirementName = parameterName;
+            Passed = isPassed;
+        }
+
         public TestResult(string parameterName, bool isPassed, T parameterValues, double margin)
         {
             MinimumMargin = margin;

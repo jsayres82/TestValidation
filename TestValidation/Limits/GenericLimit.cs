@@ -24,7 +24,7 @@ namespace Nuvo.TestValidation.Limits
         public abstract GenericValidator<double> Validator { get; set; }
         public virtual bool ValidateMeasurement(double freq, double measurement)
         {
-            return ValidateMeasurement(measurement);
+            return ValidateMeasurement(measurement);  
         }
         public abstract double CalculateMargin(double domainValue, double rangeValue);
         public virtual bool ValidateMeasurement(double measurement)

@@ -6,120 +6,104 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Nuvo.TestValidation.Calculators;
+using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Limits;
 using Nuvo.TestValidation.Limits.Validators;
 using Nuvo.TestValidation.Parameters.Interfaces;
 using Nuvo.TestValidation.TestResults;
+using Nuvo.TestValidation.Utilities;
+using Nuvo.TestValidation.Utilities.Math;
+using Org.BouncyCastle.Ocsp;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace Nuvo.TestValidation.Parameters
 {
     public class ScatteringParameter : GenericParameter
     {
-        public string Description { get { return "Evaluates a scattering parameter for S-Parameter Matrix"; } }
-        public override List<string> MeasurementVariables { get; set; }
+        string[] s = new string[9] { "S11", "S12", "S13", "S21", "S22", "S23", "S31", "S32", "S33" };
+        List<string> sprams = new List<string>();
+        private List<(double, double, double, double, string)> csvData = new List<(double, double, double, double, string)>();
+        private MathClass myMath = new MathClass();
+        private List<string> parameterDomain = new List<string>();
+        private Dictionary<string, List<double[]>> scatteringParameterValues = new Dictionary<string, List<double[]>>();
+        
         [XmlIgnore]
-        public override Dictionary<string, List<double[]>> ParameterValues { get => parameterValues; }
+        public override Dictionary<string, List<object[]>> ParameterValues
+        {
+            get
+            {
+                return scatteringParameterValues.ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
+            }
+        }
+
+        public override List<string> MeasurementVariables { get; set; } = new List<string>();
+
         public override double MinimumMargin 
         {
-             get => MinMargin; 
-             set => MinMargin = value; 
+            get
+            {
+                return MinMargin;
+            }
+            set { MinMargin = value; }
         }
-        private double[] reqLimit;
-        private Dictionary<string, List<double[]>> parameterValues = new Dictionary<string, List<double[]>>();
-        public static StreamWriter sw;
-        private List<string> parameterDomain = new List<string>();
-        private Dictionary<string, List<Complex>> complexParameterValue = new Dictionary<string, List<Complex>>();
-        public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement)
+
+        public ScatteringParameter(IParameterValueCalculator calculator)
+            : base(calculator)
+        {
+        }
+
+        public ScatteringParameter()
+            : base()
+        {
+        }
+
+        public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement)
         {
             int index = 0;
-            bool passed = true;
-            bool ispassed = true;
+            bool isPassed = true;
             MinMargin = double.MaxValue;
-            reqLimit = new double[parameterValues[MeasurementVariables.First()].Count];
-            
-            if (File.Exists($"SerialNumber{serialNumber}_requirement_{req.Name}.csv"))
-                File.Delete($"SerialNumber{serialNumber}_requirement_{req.Name}.csv");
-
-            // Open the StreamWriter here; replace 'filePath' with your actual file path
-            sw = new StreamWriter($"SerialNumber{serialNumber}_requirement_{req.Name}.csv",true);
-            sw.WriteLine($"Frequency,TestValue,Margin,{req.Limit.Validator.GetType().Name},Result");
+            var reqLimit = new double[ParameterValues.Count];
+            csvData = new List<(double, double, double, double, string)>();
 
             foreach (var sParam in MeasurementVariables)
             {
-                foreach (var val in parameterValues[sParam])
+                foreach (var val in scatteringParameterValues)
                 {
-                    double testValue = val[0];
+                    // First Value in first array at frequency point "val"
+                    double testValue = val.Value[0][0];
                     double limit = req.Limit.Validator.Value;
                     reqLimit[index] = limit;
-                    passed = true;
-                    if (!req.Limit.ValidateMeasurement(System.Convert.ToDouble(parameterDomain.ElementAt(index)), testValue))
-                    {
-                        passed = false;
-                        ispassed = false;
-                    }
-                    string result = passed == true ? "Passed" : "Failed";
+                    var freq = System.Convert.ToDouble(val.Key);
+                    bool passed = req.Limit.ValidateMeasurement(freq, testValue);
+                    isPassed &= passed;
+                    string result = passed ? "Passed" : "Failed";
 
-                    double margin = req.Limit.CalculateMargin(System.Convert.ToDouble(parameterDomain.ElementAt(index)),testValue);
-                    if (!double.NaN.Equals(margin))
+                    double margin = req.Limit.CalculateMargin(freq, testValue);
+                    if (!double.IsNaN(margin))
                     {
+                        MinMargin = Math.Min(MinMargin, margin);
                         if (margin < MinMargin)
                             MinMargin = margin;
-                        // Write the test value, margin, and limit to the CSV file
-                        sw.WriteLine($"{System.Convert.ToDouble(parameterDomain.ElementAt(index))},{testValue},{margin},{limit},{result}");
-
                     }
-                    else
-                    {
-                        var test = 1;
-                    }
+                    csvData.Add((freq, testValue, margin, limit, result));
 
                     index++;
                 }
             }
 
-            // Close the StreamWriter after all measurements have been validated
-            sw.Close();
+            string fileName = $"{new FileInfo(FilePath).DirectoryName}\\SerialNumber{SerialNumber}_requirement_{req.Name}.csv";
+            WriteToCsv(fileName, csvData);
 
-            return ispassed;
-        }
-        public static void WriteToCsv<T>(string filePath, T testValue, T margin, T limit)
-        {
-            if (File.Exists(filePath))
-                File.Delete(filePath);
-
-            // Check if the file exists
-            if (!File.Exists(filePath))
-            {
-                // Create a new file and write the header
-                using (StreamWriter sw = File.CreateText(filePath))
-                {
-                    sw.WriteLine("TestValue,Margin,Limit");
-                }
-            }
-
-            // Append the test value, margin, and limit to the existing CSV file
-            using (StreamWriter sw = File.AppendText(filePath))
-            {
-                sw.WriteLine($"{testValue},{margin},{limit}");
-            }
-        }
-        public override Dictionary<string, double> CalculateParameterValue(TestRequirement req, Dictionary<string, List<double[]>> baseDataSet)
-        {
-            Dictionary<string, double> vals = new Dictionary<string, double>();
-            baseDataSet = getMeasurementVariables(baseDataSet);
-            int index = 0;
-            foreach (var s in baseDataSet[MeasurementVariables[0]])
-            {
-                vals.Add(parameterDomain[index], baseDataSet[MeasurementVariables[0]][index++][0]);
-            }
-            return vals;
+            return isPassed;
         }
 
         private Dictionary<string, List<double[]>> getMeasurementVariables(Dictionary<string, List<double[]>> measurement)
         {
             sprams.AddRange(s.ToList());
-            parameterValues = new Dictionary<string, List<double[]>>();
-            parameterDomain = measurement.Keys.ToList();
+            //parameterDomain = measurement.Keys.ToList();
             int index = 0;
             int idx = 0;
             Dictionary<string, List<Complex>> parsedData = new Dictionary<string, List<Complex>>();
@@ -131,7 +115,7 @@ namespace Nuvo.TestValidation.Parameters
                 index++;
             }
 
-            parameterValues.Add(MeasurementVariables[0], new List<double[]>());
+            scatteringParameterValues.Add(MeasurementVariables[0], new List<double[]>());
             foreach (var d in measurement.Keys)
             {
                 index = 0;
@@ -141,26 +125,81 @@ namespace Nuvo.TestValidation.Parameters
                     {
                         var valF = new double[2]
                         {
-                            20*Math.Log10(val[0]),
-                            val[1]*(180/Math.PI)
+                            20*Math.Log10(Convert.ToDouble(val[0])),
+                            Convert.ToDouble(val[1])*(180/Math.PI)
                         };
-                        parameterValues[MeasurementVariables[0]].Add(valF);
+                        scatteringParameterValues[MeasurementVariables[0]].Add(valF);
                         //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
                     }
                     index++;
                 }
             }
 
-            return parameterValues;
+            return scatteringParameterValues;
         }
 
-        public override double[] GetParameterLimits()
+        public override Dictionary<string, List<object[]>> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet)
         {
+            scatteringParameterValues = new Dictionary<string, List<double[]>>();
+            sprams.AddRange(s.ToList());
+            int index = 0;
+            int idx = 0;
+            Dictionary<string, List<Complex>> parsedData = new Dictionary<string, List<Complex>>();
+            foreach (var val in s)
+            {
+                parsedData.Add(val, new List<Complex>());
+                if (val.Equals(MeasurementVariables[0]))
+                    idx = index;
+                index++;
+            }
+            index = 0;
+            parameterDomain = baseDataSet.Keys.ToList();
+            foreach (var d in baseDataSet)
+            {
+                index = 0;
+                foreach (var val in d.Value)
+                {
+                    if (index == idx)
+                    {
+                        var valF = new double[1]
+                        {
+                            Convert.ToDouble(val[0])
+                            //Convert.ToDouble(val[1])
+                        };
+                        scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valF });
 
-            return reqLimit;
+                        //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
+                    }
+                    index++;
+                }
+            }
+
+            return ParameterValues;
         }
 
-        string[] s =new string[9] { "S11", "S12", "S13", "S21", "S22", "S23", "S31", "S32", "S33" };
-        List<string> sprams = new List<string>();
+        public override object[] GetParameterLimits()
+        {
+            return new object[] { double.MinValue, double.MaxValue }; // Example for double
+        }
+
+        private void WriteToCsv(string fileName, IEnumerable<(double frequency, double testValue, double margin, double limit, string result)> results)
+        {
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+
+            using (var sw = new StreamWriter(fileName, false))
+            {
+                sw.WriteLine("Frequency,TestValue,Margin,Limit,Result");
+                foreach (var (frequency, testValue, margin, limit, result) in results)
+                {
+                    if (!double.IsNaN(margin))
+                    {
+                        sw.WriteLine($"{frequency},{testValue},{margin},{limit},{result}");
+                    }
+                }
+            }
+        }
     }
 }

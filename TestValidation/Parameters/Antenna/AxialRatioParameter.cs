@@ -1,33 +1,52 @@
-﻿using Nuvo.TestValidation.Limits;
+﻿using Nuvo.TestValidation.Calculators.Interfaces;
+using Nuvo.TestValidation.Limits;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Nuvo.TestValidation.Parameters.Antenna
 {
     public class AxialRatioParameter : GenericParameter
     {
-        public override List<string> MeasurementVariables { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private Dictionary<string, List<double[]>> axialRatioParameterValues = new Dictionary<string, List<double[]>>();
 
-        public override Dictionary<string, List<double[]>> ParameterValues => throw new NotImplementedException();
-
-        public override double MinimumMargin { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public override Dictionary<string, double> CalculateParameterValue(TestRequirement req, Dictionary<string, List<double[]>> baseDataSet)
+        [XmlIgnore]
+        public override Dictionary<string, List<object[]>> ParameterValues
         {
-            throw new NotImplementedException();
+            get
+            {
+                return axialRatioParameterValues.ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
+            }
         }
 
-        public override double[] GetParameterLimits()
+        public override List<string> MeasurementVariables { get; set; } = new List<string>();
+
+        public override double MinimumMargin { get; set; }
+
+        public AxialRatioParameter(IParameterValueCalculator calculator)
+            : base(calculator)
         {
-            throw new NotImplementedException();
         }
 
-        public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement)
+        public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement)
         {
-            throw new NotImplementedException();
+            // Convert back to double arrays for validation
+            Dictionary<string, List<double[]>> doubleMeasurement = measurement.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.Select(arr => arr.Cast<double>().ToArray()).ToList());
+
+            // Your validation logic here for doubles
+            return true; // Placeholder
+        }
+
+        public override object[] GetParameterLimits()
+        {
+            return new object[] { double.MinValue, double.MaxValue }; // Example for double
         }
     }
 }

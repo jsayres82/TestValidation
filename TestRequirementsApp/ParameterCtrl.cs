@@ -62,7 +62,11 @@ namespace Nuvo.Requirements_Builder
 
         public GenericParameter GetParameter()
         {
-            Parameter.MeasurementVariables[0] = textBoxAdditionalProperty1.Text;
+            if(Parameter.MeasurementVariables.Count > 0)
+                Parameter.MeasurementVariables[0] = textBoxAdditionalProperty1.Text;
+            else
+                Parameter.MeasurementVariables.Add(textBoxAdditionalProperty1.Text);
+
             return Parameter;
         }
 

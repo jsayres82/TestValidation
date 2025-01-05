@@ -7,8 +7,9 @@ using System.Xml.Serialization;
 using Nuvo.TestValidation.Limits;
 using Nuvo.TestValidation.Limits.Validators;
 using Nuvo.TestValidation.Parameters.Interfaces;
-using Nuvo.TestValidation.Parameters.Interfaces;
 using System.Collections;
+using Nuvo.TestValidation.Calculators.Interfaces;
+using Nuvo.TestValidation.Calculators;
 
 namespace Nuvo.TestValidation.Parameters
 {
@@ -20,22 +21,49 @@ namespace Nuvo.TestValidation.Parameters
     {
         [XmlIgnore]
         public string FilePath { get; set; }
-        public string serialNumber { get; set; }
+        public string SerialNumber { get; set; }
         public string Name { get; set; }
 
-        //public abstract bool ValidateMeasurement(Dictionary<string, double> measurement);
         public string Description { get; set; }
 
         public abstract List<string> MeasurementVariables { get; set; }
         protected double MinMargin = double.MaxValue;
+
         [XmlIgnore]
-        public abstract Dictionary<string,List<double[]>> ParameterValues { get; }
+        public abstract Dictionary<string, List<object[]>> ParameterValues { get; }
+
         public abstract double MinimumMargin { get; set; }
 
-        public abstract bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<double[]>> measurement);
-        public abstract Dictionary<string, double> CalculateParameterValue(TestRequirement req, Dictionary<string, List<double[]>> baseDataSet);
+        public abstract bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement);
 
-        public abstract double[] GetParameterLimits();
+        private IParameterValueCalculator _parameterValueCalculator;
+
+        public GenericParameter(IParameterValueCalculator calculator)
+        {
+            _parameterValueCalculator = new DoubleParameterValueCalculator();
+        }
+
+        public GenericParameter()
+        {
+            _parameterValueCalculator = new DoubleParameterValueCalculator();
+        }
+
+        public virtual Dictionary<string, object> CalculateParameterValue2(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet)
+        {
+            return _parameterValueCalculator.Calculate2(req, baseDataSet);
+        }
+
+        public virtual Dictionary<string, List<object[]>>  CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet)
+        {
+            return _parameterValueCalculator.Calculate(req, baseDataSet);
+        }
+
+        public abstract object[] GetParameterLimits();
+
+        Dictionary<string, object> IParameterDetails.CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

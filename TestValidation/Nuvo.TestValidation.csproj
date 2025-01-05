@@ -27,6 +27,7 @@
     <Compile Remove="Parameters\Mode.cs" />
     <Compile Remove="Parameters\NormalKaiserWindow.cs" />
     <Compile Remove="Parameters\RectangularWindow.cs" />
+    <Compile Remove="Parameters\ScatteringParameter - Copy.cs" />
     <Compile Remove="Parameters\TimeGatingSettings.cs" />
     <Compile Remove="Parameters\Transform.cs" />
     <Compile Remove="Parameters\TriangleWindow.cs" />
