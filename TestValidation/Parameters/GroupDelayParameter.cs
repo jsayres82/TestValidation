@@ -35,6 +35,9 @@ namespace Nuvo.TestValidation.Parameters
             }
         }
         public string Description { get { return "Evaluates a scattering parameter for S-Parameter Matrix"; } }
+
+        private List<string> variableNames = new List<string>() { "S-Param" };
+        public override List<string> VariableNames { get { return variableNames; } }
         public override List<string> MeasurementVariables { get; set; }
         public override double MinimumMargin
         {

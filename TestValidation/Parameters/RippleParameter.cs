@@ -25,7 +25,8 @@ namespace Nuvo.TestValidation.Parameters
                     kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
             }
         }
-
+        private List<string> variableNames = new List<string>() { "S-Param" };
+        public override List<string> VariableNames { get { return variableNames; } }
         public override List<string> MeasurementVariables { get; set; } = new List<string>();
 
         public override double MinimumMargin { get; set; }

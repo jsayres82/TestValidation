@@ -13,8 +13,9 @@ namespace Nuvo.TestValidation.Parameters.Interfaces
         string SerialNumber { get; set; }
         string Name { get; set; }
         string Description { get; set; }
-        List<string> MeasurementVariables { get; set; }
-        Dictionary<string, List<object[]>> ParameterValues { get; }
+        int ParameterVariableCount { get; set; }
+        List<string> VariableNames { get; }
+        Dictionary<string, List<object[]>> ParameterValues { get; set; }
         double MinimumMargin { get; set; }
         bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement);
         Dictionary<string, object> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet);

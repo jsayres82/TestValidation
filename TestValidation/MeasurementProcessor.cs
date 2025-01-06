@@ -232,7 +232,7 @@ namespace Nuvo.TestValidation
                 for (int i = 1; i <= pair.Parameters.NumPorts; i++)
                     for (int j = 1; j <= pair.Parameters.NumPorts; j++)
                     {
-                        s.Add($"{pair.Parameters[i, j].Magnitude_dB} {pair.Parameters[i, j].Phase}");
+                        s.Add($"{pair.Parameters[i, j].Magnitude_dB} {pair.Parameters[i, j].Phase_deg}");
                     }
                 dataStr.Add(pair.Frequency_Hz.ToString(), s);
                 //double insertionLoss = matrix[2, 1].Magnitude_dB;

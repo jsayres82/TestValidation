@@ -29,297 +29,299 @@ namespace Nuvo.Requirements_Builder
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.flpMain = new System.Windows.Forms.FlowLayoutPanel();
-            this.flpParam = new System.Windows.Forms.FlowLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxSpecTypes = new Nuvo.Requirements_Builder.EmptyTextComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBoxAdditionalProperty1 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxAdditionalProperty2 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
-            this.panelHeader1 = new Nuvo.Requirements_Builder.PanelHeader();
-            this.panelDetails = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBoxUnitsPrefix = new Nuvo.Requirements_Builder.EmptyTextComboBox();
-            this.comboBoxLimitUnits = new Nuvo.Requirements_Builder.EmptyTextComboBox();
-            this.labelAdditionalProperty2 = new System.Windows.Forms.Label();
-            this.labelAdditionalProperty1 = new System.Windows.Forms.Label();
-            this.emptyTextTextBox3 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
-            this.emptyTextTextBox1 = new Nuvo.Requirements_Builder.EmptyTextTextBox();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.flpMain.SuspendLayout();
-            this.flpParam.SuspendLayout();
-            this.panelDetails.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            flpMain = new System.Windows.Forms.FlowLayoutPanel();
+            flpParam = new System.Windows.Forms.FlowLayoutPanel();
+            label2 = new System.Windows.Forms.Label();
+            comboBoxSpecTypes = new EmptyTextComboBox();
+            label1 = new System.Windows.Forms.Label();
+            richTextBox1 = new System.Windows.Forms.RichTextBox();
+            labelVariableName1 = new System.Windows.Forms.Label();
+            textBoxAdditionalProperty1 = new EmptyTextTextBox();
+            labelVariableName2 = new System.Windows.Forms.Label();
+            textBoxAdditionalProperty2 = new EmptyTextTextBox();
+            panelHeader1 = new PanelHeader();
+            panelDetails = new System.Windows.Forms.Panel();
+            label8 = new System.Windows.Forms.Label();
+            listView1 = new System.Windows.Forms.ListView();
+            label6 = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
+            comboBoxUnitsPrefix = new EmptyTextComboBox();
+            comboBoxLimitUnits = new EmptyTextComboBox();
+            labelAdditionalProperty2 = new System.Windows.Forms.Label();
+            labelAdditionalProperty1 = new System.Windows.Forms.Label();
+            emptyTextTextBox3 = new EmptyTextTextBox();
+            emptyTextTextBox1 = new EmptyTextTextBox();
+            bindingSource1 = new System.Windows.Forms.BindingSource(components);
+            flpMain.SuspendLayout();
+            flpParam.SuspendLayout();
+            panelDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
+            SuspendLayout();
             // 
             // flpMain
             // 
-            this.flpMain.Controls.Add(this.flpParam);
-            this.flpMain.Location = new System.Drawing.Point(0, 29);
-            this.flpMain.Name = "flpMain";
-            this.flpMain.Size = new System.Drawing.Size(455, 291);
-            this.flpMain.TabIndex = 0;
+            flpMain.Controls.Add(flpParam);
+            flpMain.Location = new System.Drawing.Point(0, 29);
+            flpMain.Name = "flpMain";
+            flpMain.Size = new System.Drawing.Size(455, 291);
+            flpMain.TabIndex = 0;
             // 
             // flpParam
             // 
-            this.flpParam.Controls.Add(this.label2);
-            this.flpParam.Controls.Add(this.comboBoxSpecTypes);
-            this.flpParam.Controls.Add(this.label1);
-            this.flpParam.Controls.Add(this.richTextBox1);
-            this.flpParam.Controls.Add(this.label7);
-            this.flpParam.Controls.Add(this.textBoxAdditionalProperty1);
-            this.flpParam.Controls.Add(this.label3);
-            this.flpParam.Controls.Add(this.textBoxAdditionalProperty2);
-            this.flpParam.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpParam.Location = new System.Drawing.Point(3, 3);
-            this.flpParam.Name = "flpParam";
-            this.flpParam.Size = new System.Drawing.Size(158, 288);
-            this.flpParam.TabIndex = 0;
+            flpParam.Controls.Add(label2);
+            flpParam.Controls.Add(comboBoxSpecTypes);
+            flpParam.Controls.Add(label1);
+            flpParam.Controls.Add(richTextBox1);
+            flpParam.Controls.Add(labelVariableName1);
+            flpParam.Controls.Add(textBoxAdditionalProperty1);
+            flpParam.Controls.Add(labelVariableName2);
+            flpParam.Controls.Add(textBoxAdditionalProperty2);
+            flpParam.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            flpParam.Location = new System.Drawing.Point(3, 3);
+            flpParam.Name = "flpParam";
+            flpParam.Size = new System.Drawing.Size(158, 288);
+            flpParam.TabIndex = 0;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.MediumBlue;
-            this.label2.Location = new System.Drawing.Point(5, 5);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 5, 3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(112, 30);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "Parameter";
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.ForeColor = System.Drawing.Color.MediumBlue;
+            label2.Location = new System.Drawing.Point(5, 5);
+            label2.Margin = new System.Windows.Forms.Padding(5, 5, 3, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(112, 30);
+            label2.TabIndex = 23;
+            label2.Text = "Parameter";
             // 
             // comboBoxSpecTypes
             // 
-            this.comboBoxSpecTypes.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            this.comboBoxSpecTypes.EmptyText = null;
-            this.comboBoxSpecTypes.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.comboBoxSpecTypes.FormattingEnabled = true;
-            this.comboBoxSpecTypes.Location = new System.Drawing.Point(3, 38);
-            this.comboBoxSpecTypes.Name = "comboBoxSpecTypes";
-            this.comboBoxSpecTypes.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            this.comboBoxSpecTypes.Size = new System.Drawing.Size(145, 23);
-            this.comboBoxSpecTypes.TabIndex = 15;
-            this.comboBoxSpecTypes.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpecTypes_SelectedIndexChanged);
+            comboBoxSpecTypes.EmptyForeColor = System.Drawing.SystemColors.GrayText;
+            comboBoxSpecTypes.EmptyText = null;
+            comboBoxSpecTypes.ForeColor = System.Drawing.SystemColors.WindowText;
+            comboBoxSpecTypes.FormattingEnabled = true;
+            comboBoxSpecTypes.Location = new System.Drawing.Point(3, 38);
+            comboBoxSpecTypes.Name = "comboBoxSpecTypes";
+            comboBoxSpecTypes.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
+            comboBoxSpecTypes.Size = new System.Drawing.Size(145, 23);
+            comboBoxSpecTypes.TabIndex = 15;
+            comboBoxSpecTypes.SelectedIndexChanged += comboBoxSpecTypes_SelectedIndexChanged;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 64);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 15);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Parameter Description";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(3, 64);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(124, 15);
+            label1.TabIndex = 22;
+            label1.Text = "Parameter Description";
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Enabled = false;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 82);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(145, 96);
-            this.richTextBox1.TabIndex = 21;
-            this.richTextBox1.Text = "";
+            richTextBox1.Enabled = false;
+            richTextBox1.Location = new System.Drawing.Point(3, 82);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new System.Drawing.Size(145, 64);
+            richTextBox1.TabIndex = 21;
+            richTextBox1.Text = "";
             // 
-            // label7
+            // labelVariableName1
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 181);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(119, 15);
-            this.label7.TabIndex = 20;
-            this.label7.Text = "Additional Property 1";
+            labelVariableName1.AutoSize = true;
+            labelVariableName1.Location = new System.Drawing.Point(3, 149);
+            labelVariableName1.Name = "labelVariableName1";
+            labelVariableName1.Size = new System.Drawing.Size(119, 15);
+            labelVariableName1.TabIndex = 20;
+            labelVariableName1.Text = "Additional Property 1";
+            labelVariableName1.Visible = false;
             // 
             // textBoxAdditionalProperty1
             // 
-            this.textBoxAdditionalProperty1.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            this.textBoxAdditionalProperty1.EmptyText = null;
-            this.textBoxAdditionalProperty1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxAdditionalProperty1.Location = new System.Drawing.Point(3, 199);
-            this.textBoxAdditionalProperty1.Name = "textBoxAdditionalProperty1";
-            this.textBoxAdditionalProperty1.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxAdditionalProperty1.Size = new System.Drawing.Size(119, 23);
-            this.textBoxAdditionalProperty1.TabIndex = 17;
+            textBoxAdditionalProperty1.EmptyForeColor = System.Drawing.SystemColors.GrayText;
+            textBoxAdditionalProperty1.EmptyText = null;
+            textBoxAdditionalProperty1.ForeColor = System.Drawing.SystemColors.WindowText;
+            textBoxAdditionalProperty1.Location = new System.Drawing.Point(3, 167);
+            textBoxAdditionalProperty1.Name = "textBoxAdditionalProperty1";
+            textBoxAdditionalProperty1.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
+            textBoxAdditionalProperty1.Size = new System.Drawing.Size(119, 23);
+            textBoxAdditionalProperty1.TabIndex = 17;
+            textBoxAdditionalProperty1.Visible = false;
             // 
-            // label3
+            // labelVariableName2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 225);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 15);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Additional Property 2";
+            labelVariableName2.AutoSize = true;
+            labelVariableName2.Location = new System.Drawing.Point(3, 193);
+            labelVariableName2.Name = "labelVariableName2";
+            labelVariableName2.Size = new System.Drawing.Size(119, 15);
+            labelVariableName2.TabIndex = 19;
+            labelVariableName2.Text = "Additional Property 2";
+            labelVariableName2.Visible = false;
             // 
             // textBoxAdditionalProperty2
             // 
-            this.textBoxAdditionalProperty2.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            this.textBoxAdditionalProperty2.EmptyText = null;
-            this.textBoxAdditionalProperty2.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxAdditionalProperty2.Location = new System.Drawing.Point(3, 243);
-            this.textBoxAdditionalProperty2.Name = "textBoxAdditionalProperty2";
-            this.textBoxAdditionalProperty2.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxAdditionalProperty2.Size = new System.Drawing.Size(119, 23);
-            this.textBoxAdditionalProperty2.TabIndex = 18;
+            textBoxAdditionalProperty2.EmptyForeColor = System.Drawing.SystemColors.GrayText;
+            textBoxAdditionalProperty2.EmptyText = null;
+            textBoxAdditionalProperty2.ForeColor = System.Drawing.SystemColors.WindowText;
+            textBoxAdditionalProperty2.Location = new System.Drawing.Point(3, 211);
+            textBoxAdditionalProperty2.Name = "textBoxAdditionalProperty2";
+            textBoxAdditionalProperty2.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
+            textBoxAdditionalProperty2.Size = new System.Drawing.Size(119, 23);
+            textBoxAdditionalProperty2.TabIndex = 18;
+            textBoxAdditionalProperty2.Visible = false;
             // 
             // panelHeader1
             // 
-            this.panelHeader1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panelHeader1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelHeader1.HeaderText = "Measurement Parameter";
-            this.panelHeader1.Location = new System.Drawing.Point(0, 0);
-            this.panelHeader1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.panelHeader1.Name = "panelHeader1";
-            this.panelHeader1.Size = new System.Drawing.Size(458, 23);
-            this.panelHeader1.TabIndex = 2;
-            this.panelHeader1.Load += new System.EventHandler(this.panelHeader1_Load);
+            panelHeader1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            panelHeader1.Dock = System.Windows.Forms.DockStyle.Top;
+            panelHeader1.HeaderText = "Measurement Parameter";
+            panelHeader1.Location = new System.Drawing.Point(0, 0);
+            panelHeader1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelHeader1.Name = "panelHeader1";
+            panelHeader1.Size = new System.Drawing.Size(458, 23);
+            panelHeader1.TabIndex = 2;
             // 
             // panelDetails
             // 
-            this.panelDetails.Controls.Add(this.label8);
-            this.panelDetails.Controls.Add(this.listView1);
-            this.panelDetails.Controls.Add(this.label6);
-            this.panelDetails.Controls.Add(this.label5);
-            this.panelDetails.Controls.Add(this.comboBoxUnitsPrefix);
-            this.panelDetails.Controls.Add(this.comboBoxLimitUnits);
-            this.panelDetails.Controls.Add(this.labelAdditionalProperty2);
-            this.panelDetails.Controls.Add(this.labelAdditionalProperty1);
-            this.panelDetails.Controls.Add(this.emptyTextTextBox3);
-            this.panelDetails.Controls.Add(this.emptyTextTextBox1);
-            this.panelDetails.Location = new System.Drawing.Point(167, 29);
-            this.panelDetails.Name = "panelDetails";
-            this.panelDetails.Size = new System.Drawing.Size(288, 291);
-            this.panelDetails.TabIndex = 4;
+            panelDetails.Controls.Add(label8);
+            panelDetails.Controls.Add(listView1);
+            panelDetails.Controls.Add(label6);
+            panelDetails.Controls.Add(label5);
+            panelDetails.Controls.Add(comboBoxUnitsPrefix);
+            panelDetails.Controls.Add(comboBoxLimitUnits);
+            panelDetails.Controls.Add(labelAdditionalProperty2);
+            panelDetails.Controls.Add(labelAdditionalProperty1);
+            panelDetails.Controls.Add(emptyTextTextBox3);
+            panelDetails.Controls.Add(emptyTextTextBox1);
+            panelDetails.Location = new System.Drawing.Point(167, 29);
+            panelDetails.Name = "panelDetails";
+            panelDetails.Size = new System.Drawing.Size(288, 291);
+            panelDetails.TabIndex = 4;
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.ForeColor = System.Drawing.Color.MediumBlue;
-            this.label8.Location = new System.Drawing.Point(12, 8);
-            this.label8.Margin = new System.Windows.Forms.Padding(5, 5, 3, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(239, 30);
-            this.label8.TabIndex = 24;
-            this.label8.Text = "Measurement Variables";
+            label8.AutoSize = true;
+            label8.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label8.ForeColor = System.Drawing.Color.MediumBlue;
+            label8.Location = new System.Drawing.Point(12, 8);
+            label8.Margin = new System.Windows.Forms.Padding(5, 5, 3, 0);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(239, 30);
+            label8.TabIndex = 24;
+            label8.Text = "Measurement Variables";
             // 
             // listView1
             // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(12, 41);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(244, 65);
-            this.listView1.TabIndex = 15;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            listView1.HideSelection = false;
+            listView1.Location = new System.Drawing.Point(12, 41);
+            listView1.Name = "listView1";
+            listView1.Size = new System.Drawing.Size(244, 65);
+            listView1.TabIndex = 15;
+            listView1.UseCompatibleStateImageBehavior = false;
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 122);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 15);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Units Prefix";
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(11, 122);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(67, 15);
+            label6.TabIndex = 14;
+            label6.Text = "Units Prefix";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(136, 122);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 15);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "Limit Units";
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(136, 122);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(64, 15);
+            label5.TabIndex = 14;
+            label5.Text = "Limit Units";
             // 
             // comboBoxUnitsPrefix
             // 
-            this.comboBoxUnitsPrefix.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            this.comboBoxUnitsPrefix.EmptyText = null;
-            this.comboBoxUnitsPrefix.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.comboBoxUnitsPrefix.FormattingEnabled = true;
-            this.comboBoxUnitsPrefix.Location = new System.Drawing.Point(11, 140);
-            this.comboBoxUnitsPrefix.Name = "comboBoxUnitsPrefix";
-            this.comboBoxUnitsPrefix.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            this.comboBoxUnitsPrefix.Size = new System.Drawing.Size(119, 23);
-            this.comboBoxUnitsPrefix.TabIndex = 13;
+            comboBoxUnitsPrefix.EmptyForeColor = System.Drawing.SystemColors.GrayText;
+            comboBoxUnitsPrefix.EmptyText = null;
+            comboBoxUnitsPrefix.ForeColor = System.Drawing.SystemColors.WindowText;
+            comboBoxUnitsPrefix.FormattingEnabled = true;
+            comboBoxUnitsPrefix.Location = new System.Drawing.Point(11, 140);
+            comboBoxUnitsPrefix.Name = "comboBoxUnitsPrefix";
+            comboBoxUnitsPrefix.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
+            comboBoxUnitsPrefix.Size = new System.Drawing.Size(119, 23);
+            comboBoxUnitsPrefix.TabIndex = 13;
             // 
             // comboBoxLimitUnits
             // 
-            this.comboBoxLimitUnits.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            this.comboBoxLimitUnits.EmptyText = null;
-            this.comboBoxLimitUnits.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.comboBoxLimitUnits.FormattingEnabled = true;
-            this.comboBoxLimitUnits.Location = new System.Drawing.Point(136, 140);
-            this.comboBoxLimitUnits.Name = "comboBoxLimitUnits";
-            this.comboBoxLimitUnits.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            this.comboBoxLimitUnits.Size = new System.Drawing.Size(125, 23);
-            this.comboBoxLimitUnits.TabIndex = 13;
+            comboBoxLimitUnits.EmptyForeColor = System.Drawing.SystemColors.GrayText;
+            comboBoxLimitUnits.EmptyText = null;
+            comboBoxLimitUnits.ForeColor = System.Drawing.SystemColors.WindowText;
+            comboBoxLimitUnits.FormattingEnabled = true;
+            comboBoxLimitUnits.Location = new System.Drawing.Point(136, 140);
+            comboBoxLimitUnits.Name = "comboBoxLimitUnits";
+            comboBoxLimitUnits.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
+            comboBoxLimitUnits.Size = new System.Drawing.Size(125, 23);
+            comboBoxLimitUnits.TabIndex = 13;
             // 
             // labelAdditionalProperty2
             // 
-            this.labelAdditionalProperty2.AutoSize = true;
-            this.labelAdditionalProperty2.Location = new System.Drawing.Point(145, 178);
-            this.labelAdditionalProperty2.Name = "labelAdditionalProperty2";
-            this.labelAdditionalProperty2.Size = new System.Drawing.Size(119, 15);
-            this.labelAdditionalProperty2.TabIndex = 10;
-            this.labelAdditionalProperty2.Text = "Additional Property 2";
+            labelAdditionalProperty2.AutoSize = true;
+            labelAdditionalProperty2.Location = new System.Drawing.Point(145, 178);
+            labelAdditionalProperty2.Name = "labelAdditionalProperty2";
+            labelAdditionalProperty2.Size = new System.Drawing.Size(119, 15);
+            labelAdditionalProperty2.TabIndex = 10;
+            labelAdditionalProperty2.Text = "Additional Property 2";
             // 
             // labelAdditionalProperty1
             // 
-            this.labelAdditionalProperty1.AutoSize = true;
-            this.labelAdditionalProperty1.Location = new System.Drawing.Point(11, 178);
-            this.labelAdditionalProperty1.Name = "labelAdditionalProperty1";
-            this.labelAdditionalProperty1.Size = new System.Drawing.Size(119, 15);
-            this.labelAdditionalProperty1.TabIndex = 10;
-            this.labelAdditionalProperty1.Text = "Additional Property 1";
+            labelAdditionalProperty1.AutoSize = true;
+            labelAdditionalProperty1.Location = new System.Drawing.Point(11, 178);
+            labelAdditionalProperty1.Name = "labelAdditionalProperty1";
+            labelAdditionalProperty1.Size = new System.Drawing.Size(119, 15);
+            labelAdditionalProperty1.TabIndex = 10;
+            labelAdditionalProperty1.Text = "Additional Property 1";
             // 
             // emptyTextTextBox3
             // 
-            this.emptyTextTextBox3.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            this.emptyTextTextBox3.EmptyText = null;
-            this.emptyTextTextBox3.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.emptyTextTextBox3.Location = new System.Drawing.Point(145, 196);
-            this.emptyTextTextBox3.Name = "emptyTextTextBox3";
-            this.emptyTextTextBox3.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            this.emptyTextTextBox3.Size = new System.Drawing.Size(119, 23);
-            this.emptyTextTextBox3.TabIndex = 9;
+            emptyTextTextBox3.EmptyForeColor = System.Drawing.SystemColors.GrayText;
+            emptyTextTextBox3.EmptyText = null;
+            emptyTextTextBox3.ForeColor = System.Drawing.SystemColors.WindowText;
+            emptyTextTextBox3.Location = new System.Drawing.Point(145, 196);
+            emptyTextTextBox3.Name = "emptyTextTextBox3";
+            emptyTextTextBox3.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
+            emptyTextTextBox3.Size = new System.Drawing.Size(119, 23);
+            emptyTextTextBox3.TabIndex = 9;
             // 
             // emptyTextTextBox1
             // 
-            this.emptyTextTextBox1.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            this.emptyTextTextBox1.EmptyText = null;
-            this.emptyTextTextBox1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.emptyTextTextBox1.Location = new System.Drawing.Point(11, 196);
-            this.emptyTextTextBox1.Name = "emptyTextTextBox1";
-            this.emptyTextTextBox1.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            this.emptyTextTextBox1.Size = new System.Drawing.Size(119, 23);
-            this.emptyTextTextBox1.TabIndex = 9;
+            emptyTextTextBox1.EmptyForeColor = System.Drawing.SystemColors.GrayText;
+            emptyTextTextBox1.EmptyText = null;
+            emptyTextTextBox1.ForeColor = System.Drawing.SystemColors.WindowText;
+            emptyTextTextBox1.Location = new System.Drawing.Point(11, 196);
+            emptyTextTextBox1.Name = "emptyTextTextBox1";
+            emptyTextTextBox1.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
+            emptyTextTextBox1.Size = new System.Drawing.Size(119, 23);
+            emptyTextTextBox1.TabIndex = 9;
             // 
             // bindingSource1
             // 
-            this.bindingSource1.DataSource = this.label8.Controls;
+            bindingSource1.DataSource = label8.Controls;
             // 
             // ParameterCtrl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.Controls.Add(this.panelDetails);
-            this.Controls.Add(this.panelHeader1);
-            this.Controls.Add(this.flpMain);
-            this.Name = "ParameterCtrl";
-            this.Size = new System.Drawing.Size(458, 328);
-            this.flpMain.ResumeLayout(false);
-            this.flpParam.ResumeLayout(false);
-            this.flpParam.PerformLayout();
-            this.panelDetails.ResumeLayout(false);
-            this.panelDetails.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoSize = true;
+            Controls.Add(panelDetails);
+            Controls.Add(panelHeader1);
+            Controls.Add(flpMain);
+            Name = "ParameterCtrl";
+            Size = new System.Drawing.Size(458, 328);
+            flpMain.ResumeLayout(false);
+            flpParam.ResumeLayout(false);
+            flpParam.PerformLayout();
+            panelDetails.ResumeLayout(false);
+            panelDetails.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -339,7 +341,7 @@ namespace Nuvo.Requirements_Builder
         private EmptyTextTextBox emptyTextTextBox3;
         private System.Windows.Forms.Label label7;
         private EmptyTextTextBox textBoxAdditionalProperty1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelVariableName2;
         private EmptyTextTextBox textBoxAdditionalProperty2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox richTextBox1;
@@ -347,5 +349,6 @@ namespace Nuvo.Requirements_Builder
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.Label labelVariableName1;
     }
 }

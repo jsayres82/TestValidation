@@ -28,19 +28,19 @@ namespace Nuvo.Requirements_Builder
 
         public TestRequirementControl(TestRequirement requirement, int count, Type[] l, Type[] r, Type[] p)
         {
+            InitializeComponent();
             limits = l;
             parameters = p;
             requirements = r;
             reqNum = count;
             testRequirement = requirement;
             controls = new Dictionary<string, Control>();
-
-            InitializeComponent();
             InitializeComponents();
         }
 
         public TestRequirementControl(int reqnum)
         {
+            InitializeComponent();
             var limit = new LimitCtrl();
             limits = limit.limitTypes;
             var parameter = new ParameterCtrl();
@@ -50,7 +50,6 @@ namespace Nuvo.Requirements_Builder
             reqNum = reqnum;
             controls = new Dictionary<string, Control>();
 
-            InitializeComponent();
             reqCtrl = new RequirementInfoCtrl();
             flowLayoutPanel1.Controls.Add(reqCtrl);
             reqCtrl.UpdateInfo(testRequirement, reqNum);

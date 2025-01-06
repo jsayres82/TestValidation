@@ -1,83 +1,77 @@
-﻿using System;
+﻿using MicrowaveNetworks;
+using MicrowaveNetworks.Touchstone;
+using Nuvo.TestValidation.Calculators;
+using Nuvo.TestValidation.Calculators.Interfaces;
+using Nuvo.TestValidation.Limits;
+using Nuvo.TestValidation.Utilities.Math;
+using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Nuvo.TestValidation.Calculators;
-using Nuvo.TestValidation.Calculators.Interfaces;
-using Nuvo.TestValidation.Limits;
-using Nuvo.TestValidation.Limits.Validators;
-using Nuvo.TestValidation.Parameters.Interfaces;
-using Nuvo.TestValidation.TestResults;
-using Nuvo.TestValidation.Utilities;
-using Nuvo.TestValidation.Utilities.Math;
-using Org.BouncyCastle.Ocsp;
-using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace Nuvo.TestValidation.Parameters
 {
-    public class ScatteringParameter : GenericParameter
+    public class PhaseBalanceParameter : GenericParameter
     {
         string[] s = new string[9] { "S11", "S12", "S13", "S21", "S22", "S23", "S31", "S32", "S33" };
         List<string> sprams = new List<string>();
+        private List<string> parameterDomain = new List<string>();
         private List<(double, double, double, double, string)> csvData = new List<(double, double, double, double, string)>();
         private MathClass myMath = new MathClass();
-        private List<string> parameterDomain = new List<string>();
-        private Dictionary<string, List<double[]>> scatteringParameterValues = new Dictionary<string, List<double[]>>();
-        
+
+        private Dictionary<string, List<double[]>> phaseBalanceParameterValues = new Dictionary<string, List<double[]>>();
+
         [XmlIgnore]
         public override Dictionary<string, List<object[]>> ParameterValues
         {
             get
             {
-                return scatteringParameterValues.ToDictionary(
+                return phaseBalanceParameterValues.ToDictionary(
                     kvp => kvp.Key,
                     kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
             }
         }
 
+        public override List<string> MeasurementVariables { get; set; }
 
-        public override List<string> VariableNames { get; } = new List<string>() { "S-Param" };
+        public override double MinimumMargin { get; set; }
 
-        public override List<string> MeasurementVariables { get; set; } = new List<string>();
+        public override List<string> VariableNames { get; } = new List<string>() { "S-Param", "All S-Params" };
 
-        public override double MinimumMargin 
-        {
-            get
-            {
-                return MinMargin;
-            }
-            set { MinMargin = value; }
-        }
-
-        public ScatteringParameter(IParameterValueCalculator calculator)
+        public PhaseBalanceParameter(IParameterValueCalculator calculator)
             : base(calculator)
         {
-
-            Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
-            VariableNames = new List<string>() { "S-Param" }; 
+            Description = "Compares the unwrapped phase of specified \"S-Param\" to the mean of those in \"All S-Params\" list(comma seperated)";
+            ParameterVariableCount = 2;
         }
 
-        public ScatteringParameter()
-            : base()
+        public PhaseBalanceParameter()
         {
-            Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
-            VariableNames = new List<string>() { "S-Param" };
+            Description = "Compares the unwrapped phase of specified \"S-Param\" to the mean of those in \"All S-Params\" list(comma seperated)";
+            ParameterVariableCount = 2;
         }
 
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement)
         {
+            // Convert back to double arrays for validation
+            Dictionary<string, List<double[]>> doubleMeasurement = measurement.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.Select(arr => arr.Cast<double>().ToArray()).ToList());
+
             int index = 0;
             bool isPassed = true;
             MinMargin = double.MaxValue;
-            csvData = new List<(double, double, double, double, string)>();
 
             foreach (var sParam in MeasurementVariables)
             {
-                foreach (var val in scatteringParameterValues)
+                foreach (var val in phaseBalanceParameterValues)
                 {
                     // First Value in first array at frequency point "val"
                     double testValue = val.Value[0][0];
@@ -106,47 +100,9 @@ namespace Nuvo.TestValidation.Parameters
             return isPassed;
         }
 
-        private Dictionary<string, List<double[]>> getMeasurementVariables(Dictionary<string, List<double[]>> measurement)
-        {
-            sprams.AddRange(s.ToList());
-            //parameterDomain = measurement.Keys.ToList();
-            int index = 0;
-            int idx = 0;
-            Dictionary<string, List<Complex>> parsedData = new Dictionary<string, List<Complex>>();
-            foreach (var val in s)
-            {
-                parsedData.Add(val, new List<Complex>());
-                if (val.Equals(MeasurementVariables[0]))
-                    idx = index;
-                index++;
-            }
-
-            scatteringParameterValues.Add(MeasurementVariables[0], new List<double[]>());
-            foreach (var d in measurement.Keys)
-            {
-                index = 0;
-                foreach (var val in measurement[d])
-                {
-                    if (index == idx)
-                    {
-                        var valF = new double[2]
-                        {
-                            20*Math.Log10(Convert.ToDouble(val[0])),
-                            Convert.ToDouble(val[1])*(180/Math.PI)
-                        };
-                        scatteringParameterValues[MeasurementVariables[0]].Add(valF);
-                        //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
-                    }
-                    index++;
-                }
-            }
-
-            return scatteringParameterValues;
-        }
-
         public override Dictionary<string, List<object[]>> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet)
         {
-            scatteringParameterValues = new Dictionary<string, List<double[]>>();
+            phaseBalanceParameterValues = new Dictionary<string, List<double[]>>();
             sprams.AddRange(s.ToList());
             int index = 0;
             int idx = 0;
@@ -169,10 +125,10 @@ namespace Nuvo.TestValidation.Parameters
                     {
                         var valF = new double[1]
                         {
-                            Convert.ToDouble(val[0])
+                            Convert.ToDouble(val[1])
                             //Convert.ToDouble(val[1])
                         };
-                        scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valF });
+                        phaseBalanceParameterValues.Add(d.Key.ToString(), new List<double[]>() { valF });
 
                         //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
                     }

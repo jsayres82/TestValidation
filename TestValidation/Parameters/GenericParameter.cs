@@ -23,9 +23,9 @@ namespace Nuvo.TestValidation.Parameters
         public string FilePath { get; set; }
         public string SerialNumber { get; set; }
         public string Name { get; set; }
-
-        public string Description { get; set; }
-
+        public virtual int ParameterVariableCount { get; set; } = 1;
+        public virtual string Description { get; set; } = "";
+        public abstract List<string> VariableNames { get; }
         public abstract List<string> MeasurementVariables { get; set; }
         protected double MinMargin = double.MaxValue;
 
@@ -33,6 +33,7 @@ namespace Nuvo.TestValidation.Parameters
         public abstract Dictionary<string, List<object[]>> ParameterValues { get; }
 
         public abstract double MinimumMargin { get; set; }
+        Dictionary<string, List<object[]>> IParameterDetails.ParameterValues { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public abstract bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement);
 

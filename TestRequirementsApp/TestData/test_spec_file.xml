@@ -27,12 +27,12 @@
 				<EndFrequency>17000000000</EndFrequency>
 			</DomainLimit>
 			<ScatteringParameter>
-				<serialNumber>005</serialNumber>
-				<Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
+				<ParameterVariableCount>1</ParameterVariableCount>
+				<Description>Compares the value of the specified "S-Param" to the limit specified.</Description>
 				<MeasurementVariables>
-					<string>S11</string>
+					<string>S12</string>
 				</MeasurementVariables>
-				<MinimumMargin>-184.9996113274618</MinimumMargin>
+				<MinimumMargin>1.7976931348623157E+308</MinimumMargin>
 			</ScatteringParameter>
 		</TestRequirement>
 		<TestRequirement>
@@ -46,76 +46,15 @@
 				<StartFrequency>1500000000</StartFrequency>
 				<EndFrequency>2000000000</EndFrequency>
 			</DomainLimit>
-			<ScatteringParameter>
-				<serialNumber>005</serialNumber>
-				<Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
-				<MeasurementVariables>
-					<string>S33</string>
-				</MeasurementVariables>
-				<MinimumMargin>-184.9996113274618</MinimumMargin>
-			</ScatteringParameter>
-		</TestRequirement>
-		<TestRequirement>
-			<Name>Return Loss Band 1</Name>
-			<DomainLimit>
-				<LessThanValidator>
-					<Value>-5</Value>
-					<Unit>DecibelMilliwatt</Unit>
-					<Prefix>None</Prefix>
-				</LessThanValidator>
-				<StartFrequency>1100000000</StartFrequency>
-				<EndFrequency>1500000000</EndFrequency>
-			</DomainLimit>
-			<ScatteringParameter>
-				<serialNumber>005</serialNumber>
-				<Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
-				<MeasurementVariables>
-					<string>S22</string>
-				</MeasurementVariables>
-				<MinimumMargin>-184.9996113274618</MinimumMargin>
-			</ScatteringParameter>
-		</TestRequirement>
-		<TestRequirement>
-			<Name>Insertion Loss Band 1</Name>
-			<DomainLimit>
-				<GreaterThanValidator>
-					<Value>-2</Value>
-					<Unit>DecibelMilliwatt</Unit>
-					<Prefix>None</Prefix>
-				</GreaterThanValidator>
-				<StartFrequency>2000000000</StartFrequency>
-				<EndFrequency>3000000000</EndFrequency>
-			</DomainLimit>
-			<ScatteringParameter>
-				<serialNumber>005</serialNumber>
-				<Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
+			<PhaseDelay>
+				<ParameterVariableCount>2</ParameterVariableCount>
+				<Description>Compares the unwrapped phase of specified "S-Param" to the mean of those in "All S-Params" list(comma seperated)</Description>
 				<MeasurementVariables>
 					<string>S12</string>
+					<string>S12,S13</string>
 				</MeasurementVariables>
-				<MinimumMargin>-24390.513147484147</MinimumMargin>
-			</ScatteringParameter>
-		</TestRequirement>
-		<TestRequirement>
-			<Name>Insertion Loss Band 2</Name>
-			<DomainLimit>
-				<GreaterThanValidator>
-					<Value>-2</Value>
-					<Unit>DecibelMilliwatt</Unit>
-					<Prefix>None</Prefix>
-				</GreaterThanValidator>
-				<StartFrequency>2000000000</StartFrequency>
-				<EndFrequency>3000000000</EndFrequency>
-			</DomainLimit>
-			<ScatteringParameter>
-				<serialNumber>005</serialNumber>
-				<Description>Evaluates a scattering parameter for S-Parameter Matrix</Description>
-				<MeasurementVariables>
-					<string>S13</string>
-				</MeasurementVariables>
-				<MinimumMargin>-24390.513147484147</MinimumMargin>
-			</ScatteringParameter>
+				<MinimumMargin>0</MinimumMargin>
+			</PhaseDelay>
 		</TestRequirement>
 	</TestRequirements>
-	<UnitSerialNumber>010</UnitSerialNumber>
-	<PartNumber>1025668</PartNumber>
 </MeasurementProcessor>

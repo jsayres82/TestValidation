@@ -20,6 +20,7 @@ namespace Nuvo.Requirements_Builder
         public Type ParameterType;
         public ParameterCtrl()
         {
+            InitializeComponent();
             Parameter = new ScatteringParameter()
             {
                 MeasurementVariables = new List<string>()
@@ -29,7 +30,40 @@ namespace Nuvo.Requirements_Builder
                 Name = ""
             };
             ParameterType = Parameter.GetType();
+
+            // Load the assembly containing the CharacteristicParameter classes
+            Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
+
+            // Get all the CharacteristicParameter classes
+            parameterTypes = assembly.GetTypes()
+                .Where(t => t.IsSubclassOf(typeof(GenericParameter)))
+                .ToArray();
+
+            // Loop through the CharacteristicParameter classes
+            foreach (Type parameterType in parameterTypes)
+            {
+                Console.WriteLine($"Characteristic Parameter: {parameterType.Name}");
+                comboBoxSpecTypes.Items.Add(parameterType.Name);
+                // Get all the methods of the CharacteristicParameter class
+                MethodInfo[] methods = parameterType.GetMethods();
+
+                // Loop through the methods
+                foreach (MethodInfo method in methods)
+                {
+                    Console.WriteLine($"- Method: {method.Name}");
+                }
+
+                Console.WriteLine();
+            }
+            comboBoxUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
+            comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
+            comboBoxSpecTypes.SelectedIndexChanged -= this.comboBoxSpecTypes_SelectedIndexChanged;
+        }
+        public ParameterCtrl(GenericParameter param)
+        {
             InitializeComponent();
+            Parameter = param;
+            ParameterType = Parameter.GetType();
 
             // Load the assembly containing the CharacteristicParameter classes
             Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
@@ -62,10 +96,25 @@ namespace Nuvo.Requirements_Builder
 
         public GenericParameter GetParameter()
         {
-            if(Parameter.MeasurementVariables.Count > 0)
-                Parameter.MeasurementVariables[0] = textBoxAdditionalProperty1.Text;
-            else
-                Parameter.MeasurementVariables.Add(textBoxAdditionalProperty1.Text);
+            var idx = 0;
+            var count = Parameter.ParameterVariableCount;
+            var measVars = new List<string>() { textBoxAdditionalProperty1.Text, textBoxAdditionalProperty2.Text };
+            //Parameter.MeasurementVariables.Clear();
+            if (Parameter.MeasurementVariables == null)
+            {
+                Parameter.MeasurementVariables = new List<string>() { "","" };
+            }
+            for (int i = 0; i < count; i++) // var name in Parameter.VariableNames)
+            {
+                if (Parameter.MeasurementVariables[i] == null)
+                    Parameter.MeasurementVariables.Add(measVars[i]);
+                else
+                    Parameter.MeasurementVariables[i] = measVars[i];
+            }
+            //if (Parameter.MeasurementVariables.Count > 0)
+            //    Parameter.MeasurementVariables[0] = textBoxAdditionalProperty1.Text;
+            //else
+            //    Parameter.MeasurementVariables.Add(textBoxAdditionalProperty1.Text);
 
             return Parameter;
         }
@@ -82,6 +131,8 @@ namespace Nuvo.Requirements_Builder
             //testInfo.WaferName = newInfo.WaferName;
             //testInfo.TestArticles = newInfo.TestArticles;
             //bindingSource1.ResetBindings(true);
+
+            comboBoxSpecTypes.SelectedIndexChanged -= this.comboBoxSpecTypes_SelectedIndexChanged;
             BindData();
             comboBoxSpecTypes.SelectedIndexChanged += this.comboBoxSpecTypes_SelectedIndexChanged;
         }
@@ -96,14 +147,35 @@ namespace Nuvo.Requirements_Builder
 
                 comboBoxSpecTypes.Text = ParameterType.Name;
                 richTextBox1.Text = Parameter.Description;
-                foreach (var variable in Parameter.MeasurementVariables.ToList())
+                var count = Parameter.ParameterVariableCount;
+                ShowAdditialParamCtrls(count);
+                for (int i = 0; i < count; i++)
+                {
+                    if (i == 0)
+                    {
+                        if (Parameter.MeasurementVariables[i] == null)
+                            Parameter.MeasurementVariables.Add(textBoxAdditionalProperty1.Text);
+                        else
+                            textBoxAdditionalProperty1.Text = Parameter.MeasurementVariables[i];
+                        labelVariableName1.Text = Parameter.VariableNames[i].ToString();
+                    }
+                    else if (i == 1)
+                    {
+                        labelVariableName2.Text = Parameter.VariableNames[i].ToString();
+                        if (Parameter.MeasurementVariables[i] == null)
+                            Parameter.MeasurementVariables.Add(textBoxAdditionalProperty2.Text);
+                        else
+                            textBoxAdditionalProperty2.Text = Parameter.MeasurementVariables[i];
+                    }
+                }
+                foreach (var variable in Parameter.MeasurementVariables)
                 {
                     listView1.Items.Add(variable);
-                    textBoxAdditionalProperty1.Text = variable;
                 }
                 //textBoxAdditionalProperty1.Text = Parameter.Description;
                 //richTextBox1.DataBindings.Add("Text", bindingSource1, "Description");
                 //textBoxAdditionalProperty1.DataBindings.Add("Text", bindingSource1, "MeasurementVariables[0]");
+                //textBoxAdditionalProperty2.DataBindings.Add("Text", bindingSource1, "MeasurementVariables[1]");
 
                 //// If there are multiple TestArticles in the list, you can bind to the first one
                 //if (testInfo.TestArticles != null && testInfo.TestArticles.Count > 0)
@@ -119,6 +191,7 @@ namespace Nuvo.Requirements_Builder
 
             }
         }
+
         private void panelHeader1_Load(object sender, EventArgs e)
         {
 
@@ -128,11 +201,44 @@ namespace Nuvo.Requirements_Builder
         {
             var o = Activator.CreateInstance(parameterTypes[comboBoxSpecTypes.SelectedIndex]);
             PropertyInfo[] properties = o.GetType().GetProperties();
-            (o as GenericParameter).MeasurementVariables = new List<string>()
+            Parameter = (o as GenericParameter);
+            var count = Parameter.ParameterVariableCount;
+            ShowAdditialParamCtrls(count);
+            for (int i = 0; i < count; i++)
             {
-                textBoxAdditionalProperty1.Text
-            };
+                if (i == 0)
+                {
+                    labelVariableName1.Text = (o as GenericParameter).VariableNames[i];
+                    textBoxAdditionalProperty1.Text = "";
+                }
+                else if (i == 1)
+                {
+                    labelVariableName2.Text = (o as GenericParameter).VariableNames[i];
+                    textBoxAdditionalProperty2.Text = "";
+                }
+            }
             Parameter = o as GenericParameter;
+        }
+
+        private void ShowAdditialParamCtrls(int count)
+        {
+            labelVariableName1.Visible = false;
+            textBoxAdditionalProperty1.Visible = false;
+            labelVariableName2.Visible = false;
+            textBoxAdditionalProperty2.Visible = false;
+            for (int i = 0; i < count; i++)
+            {
+                if (i == 0)
+                {
+                    labelVariableName1.Visible = true;
+                    textBoxAdditionalProperty1.Visible = true;
+                }
+                else if (i == 1)
+                {
+                    labelVariableName2.Visible = true;
+                    textBoxAdditionalProperty2.Visible = true;
+                }
+            }
         }
     }
 }

@@ -17,5 +17,6 @@ namespace Nuvo.TestValidation
         public string WaferName { get; set; }
         //public string PartNum { get; set; }
         public List<TestArticle> TestArticles { get; set; }
+        public string InputFileType { get; set; }
     }
 }
