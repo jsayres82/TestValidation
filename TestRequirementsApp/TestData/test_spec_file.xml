@@ -27,34 +27,42 @@
 				<EndFrequency>17000000000</EndFrequency>
 			</DomainLimit>
 			<ScatteringParameter>
+				<SerialNumber>010</SerialNumber>
 				<ParameterVariableCount>1</ParameterVariableCount>
 				<Description>Compares the value of the specified "S-Param" to the limit specified.</Description>
+				<VariableNames>
+					<string>S-Param</string>
+				</VariableNames>
 				<MeasurementVariables>
 					<string>S12</string>
 				</MeasurementVariables>
-				<MinimumMargin>1.7976931348623157E+308</MinimumMargin>
+				<MinimumMargin>-4.40879381</MinimumMargin>
 			</ScatteringParameter>
 		</TestRequirement>
 		<TestRequirement>
-			<Name>Return Loss Band 2</Name>
+			<Name>PhaseBalance</Name>
 			<DomainLimit>
 				<LessThanValidator>
 					<Value>-5</Value>
-					<Unit>DecibelMilliwatt</Unit>
+					<Unit>Degree</Unit>
 					<Prefix>None</Prefix>
 				</LessThanValidator>
 				<StartFrequency>1500000000</StartFrequency>
-				<EndFrequency>2000000000</EndFrequency>
+				<EndFrequency>15000000000</EndFrequency>
 			</DomainLimit>
-			<PhaseDelay>
+			<PhaseBalanceParameter>
 				<ParameterVariableCount>2</ParameterVariableCount>
 				<Description>Compares the unwrapped phase of specified "S-Param" to the mean of those in "All S-Params" list(comma seperated)</Description>
+				<VariableNames>
+					<string>S-Param</string>
+					<string>All S-Params</string>
+				</VariableNames>
 				<MeasurementVariables>
-					<string>S12</string>
-					<string>S12,S13</string>
+					<string>S21</string>
+					<string>S21,S31</string>
 				</MeasurementVariables>
 				<MinimumMargin>0</MinimumMargin>
-			</PhaseDelay>
+			</PhaseBalanceParameter>
 		</TestRequirement>
 	</TestRequirements>
 </MeasurementProcessor>

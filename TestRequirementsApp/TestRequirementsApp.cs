@@ -209,14 +209,14 @@ namespace Nuvo.Requirements_Builder
                 reqCount++;
                 // Create the custom control
                 TestRequirementControl control = new TestRequirementControl(requirement, reqCount, limitTypes, requirementTypes, parameterTypes);
-                control.RequirementUpdated += Control_RequirementUpdated;
                 control.BorderStyle = BorderStyle.FixedSingle;
                 control.Top = reqCount * 50;
                 control.AutoSize = true;
                 control.Dock = DockStyle.Fill;
                 control.AutoSizeMode = AutoSizeMode.GrowAndShrink;
                 //// Add the control to a form and display the form
-                flp2.Controls.Add(control);
+                flp2.Controls.Add(control); 
+                control.RequirementUpdated += Control_RequirementUpdated;
             }
         }
 

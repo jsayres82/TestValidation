@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Nuvo.TestValidation.Calculators
 {
-    public class PhaseDelayCalculator
+    public class PhaseBalanceCalculator
     {
         public static double CalculatePhaseDelay(double[] signal1, double[] signal2, double sampleRate)
         {

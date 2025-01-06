@@ -100,9 +100,9 @@ namespace Nuvo.Requirements_Builder
             var count = Parameter.ParameterVariableCount;
             var measVars = new List<string>() { textBoxAdditionalProperty1.Text, textBoxAdditionalProperty2.Text };
             //Parameter.MeasurementVariables.Clear();
-            if (Parameter.MeasurementVariables == null)
+            if (Parameter.MeasurementVariables == null || Parameter.MeasurementVariables.Count == 0)
             {
-                Parameter.MeasurementVariables = new List<string>() { "","" };
+                Parameter.MeasurementVariables = new List<string>() { "", "" };
             }
             for (int i = 0; i < count; i++) // var name in Parameter.VariableNames)
             {
@@ -132,7 +132,7 @@ namespace Nuvo.Requirements_Builder
             //testInfo.TestArticles = newInfo.TestArticles;
             //bindingSource1.ResetBindings(true);
 
-            comboBoxSpecTypes.SelectedIndexChanged -= this.comboBoxSpecTypes_SelectedIndexChanged;
+            //comboBoxSpecTypes.SelectedIndexChanged -= this.comboBoxSpecTypes_SelectedIndexChanged;
             BindData();
             comboBoxSpecTypes.SelectedIndexChanged += this.comboBoxSpecTypes_SelectedIndexChanged;
         }
@@ -145,6 +145,7 @@ namespace Nuvo.Requirements_Builder
                 //bindingSource2.DataSource = LimitType;
                 //bindingSource3.DataSource = ValidatorType;
 
+                ParameterType = Parameter.GetType();
                 comboBoxSpecTypes.Text = ParameterType.Name;
                 richTextBox1.Text = Parameter.Description;
                 var count = Parameter.ParameterVariableCount;

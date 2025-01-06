@@ -84,7 +84,7 @@ namespace Nuvo.Requirements_Builder
                             if (!property.Name.Equals("Property"))
                             {
                                 paramCtrl = new ParameterCtrl();
-                                paramCtrl.UpdateLimit(testRequirement.CharacteristicParameter as GenericParameter);
+                                paramCtrl.UpdateLimit(testRequirement.CharacteristicParameter);
                             }
                             break;
                         default:

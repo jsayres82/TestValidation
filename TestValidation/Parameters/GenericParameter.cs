@@ -13,6 +13,8 @@ using Nuvo.TestValidation.Calculators;
 
 namespace Nuvo.TestValidation.Parameters
 {
+    [XmlInclude(typeof(PhaseBalanceParameter))]
+    [XmlInclude(typeof(GroupDelayParameter))]
     [XmlInclude(typeof(AttenuationParameter))]
     [XmlInclude( typeof(ScatteringParameter))]
     [XmlInclude(typeof(RippleParameter))]
