@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Nuvo.TestValidation.Limits;
+using Nuvo.TestValidation.Limits.Units;
 using Nuvo.TestValidation.Limits.Validators;
 using Nuvo.TestValidation.Parameters;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
@@ -52,8 +53,14 @@ namespace Nuvo.Requirements_Builder
             {
                 comboBoxLimitTypes.Items.Add(limitType.Name);
             }
-            comboBoxUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
-            comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
+            comboBoxValidUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
+            //comboBoxLimitPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
+            comboBoxLimitPrefix.Text = "None";
+            comboBoxLimitPrefix.Items.Add("None");
+            comboBoxValidatorUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
+            comboBoxLimitUnits.Text = "Hertz";
+            comboBoxLimitUnits.Items.Add("Hertz");
+            //comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
 
             comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
             comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
@@ -77,11 +84,13 @@ namespace Nuvo.Requirements_Builder
             {
                 if (p.Name.Equals("Start"))
                 {
-                    p.SetValue(Limit, System.Convert.ToDouble(textBoxAdditionalProperty1.Text));
+                    //var val = UnitConverter.Convert(System.Convert.ToDouble(textBoxAdditionalProperty1.Text), Unit.None, Unit.None, Enum.Parse<Prefix>(comboBoxLimitPrefix.Text), Prefix.None);
+                    p.SetValue(Limit, System.Convert.ToDouble(textBoxAdditionalProperty1.Text));//val);
                 }
                 else if (p.Name.Equals("End"))
                 {
-                    p.SetValue(Limit, System.Convert.ToDouble(textBoxAdditionalProperty2.Text));
+                    //var val = UnitConverter.Convert(System.Convert.ToDouble(textBoxAdditionalProperty1.Text), Unit.None, Unit.None, Enum.Parse<Prefix>(comboBoxLimitPrefix.Text), Prefix.None);
+                    p.SetValue(Limit, System.Convert.ToDouble(textBoxAdditionalProperty2.Text));//val);
                 }
                 else if (p.Name.Equals("MinValue"))
                 {
@@ -101,11 +110,11 @@ namespace Nuvo.Requirements_Builder
                         }
                         else if (p2.Name.Equals("Prefix"))
                         {
-                            p2.SetValue(Limit.Validator, Enum.Parse<Prefix>(comboBoxUnitsPrefix.Text));
+                            p2.SetValue(Limit.Validator, Enum.Parse<Prefix>(comboBoxValidUnitsPrefix.Text));
                         }
                         else if (p2.Name.Equals("Unit"))
                         {
-                            p2.SetValue(Limit.Validator, Enum.Parse<Unit>(comboBoxLimitUnits.Text));
+                            p2.SetValue(Limit.Validator, Enum.Parse<Unit>(comboBoxValidatorUnits.Text));
                         }
                         else if (p2.Name.Equals("LowerBound"))
                         {
@@ -173,11 +182,11 @@ namespace Nuvo.Requirements_Builder
                             }
                             else if (p2.Name.Equals("Prefix"))
                             {
-                                comboBoxUnitsPrefix.Text = p2.GetValue(Limit.Validator).ToString();
+                                comboBoxValidUnitsPrefix.Text = p2.GetValue(Limit.Validator).ToString();
                             }
                             else if (p2.Name.Equals("Unit"))
                             {
-                                comboBoxLimitUnits.Text = p2.GetValue(Limit.Validator).ToString();
+                                comboBoxValidatorUnits.Text = p2.GetValue(Limit.Validator).ToString();
                             }
                             else if (p2.Name.Equals("LowerBound"))
                             {
@@ -207,7 +216,6 @@ namespace Nuvo.Requirements_Builder
 
         private void comboBoxLimitTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
             bindingSource1.ResetBindings(false);
             var o = Activator.CreateInstance(limitTypes[comboBoxLimitTypes.SelectedIndex]);
@@ -247,22 +255,22 @@ namespace Nuvo.Requirements_Builder
                 }
                 else if (p.Name.Equals("Unit"))
                 {
-                    p.SetValue(Limit.Validator, Unit.DecibelMilliwatt);
+                    p.SetValue(Limit.Validator, Unit.dBmW);
                 }
                 else if (p.Name.Equals("LowerBound"))
                 {
                     labeLNames.Add(p.Name);
-                    p.SetValue(Limit.Validator, Unit.DecibelMilliwatt);
+                    p.SetValue(Limit.Validator, Unit.dBmW);
                 }
                 else if (p.Name.Equals("UpperBound"))
                 {
                     labeLNames.Add(p.Name);
-                    p.SetValue(Limit.Validator, Unit.DecibelMilliwatt);
+                    p.SetValue(Limit.Validator, Unit.dBmW);
                 }
                 else if (p.Name.Equals("Tolerance"))
                 {
                     labeLNames.Add(p.Name);
-                    p.SetValue(Limit.Validator, Unit.DecibelMilliwatt);
+                    p.SetValue(Limit.Validator, Unit.dBmW);
                 }
             }
             ShowAdditialParamCtrls(labeLNames);
@@ -311,5 +319,9 @@ namespace Nuvo.Requirements_Builder
             }
         }
 
+        private void comboBoxLimitUnits_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

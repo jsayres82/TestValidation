@@ -20,7 +20,7 @@
 			<DomainLimit>
 				<LessThanValidator>
 					<Value>-5</Value>
-					<Unit>DecibelMilliwatt</Unit>
+					<Unit>dBmW</Unit>
 					<Prefix>None</Prefix>
 				</LessThanValidator>
 				<StartFrequency>1500000000</StartFrequency>
