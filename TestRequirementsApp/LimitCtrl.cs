@@ -77,7 +77,7 @@ namespace Nuvo.Requirements_Builder
             {
                 if (p.Name.Equals("Start"))
                 {
-                    p.SetValue(Limit,System.Convert.ToDouble(textBoxAdditionalProperty1.Text));
+                    p.SetValue(Limit, System.Convert.ToDouble(textBoxAdditionalProperty1.Text));
                 }
                 else if (p.Name.Equals("End"))
                 {
@@ -97,7 +97,7 @@ namespace Nuvo.Requirements_Builder
                     {
                         if (p2.Name.Equals("Value"))
                         {
-                            p2.SetValue(Limit.Validator, System.Convert.ToDouble(textBoxValue.Text));
+                            p2.SetValue(Limit.Validator, System.Convert.ToDouble(tbAddProp1.Text));
                         }
                         else if (p2.Name.Equals("Prefix"))
                         {
@@ -107,6 +107,18 @@ namespace Nuvo.Requirements_Builder
                         {
                             p2.SetValue(Limit.Validator, Enum.Parse<Unit>(comboBoxLimitUnits.Text));
                         }
+                        else if (p2.Name.Equals("LowerBound"))
+                        {
+                            p2.SetValue(Limit.Validator, System.Convert.ToDouble(tbAddProp1.Text));
+                        }
+                        else if (p2.Name.Equals("UpperBound"))
+                        {
+                            p2.SetValue(Limit.Validator, System.Convert.ToDouble(tbAddProp2.Text));
+                        }
+                        else if (p2.Name.Equals("Tolerance"))
+                        {
+                            p2.SetValue(Limit.Validator, System.Convert.ToDouble(tbAddProp1.Text));
+                        }
                     }
                 }
             }
@@ -115,7 +127,7 @@ namespace Nuvo.Requirements_Builder
 
         public void UpdateLimit(GenericLimit limit)
         {
-            if(limit != null)
+            if (limit != null)
             {
 
                 comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
@@ -135,7 +147,7 @@ namespace Nuvo.Requirements_Builder
                     comboBoxLimitTypes.Text = Limit.GetType().Name;
                     if (p.Name.Equals("Start"))
                     {
-                        textBoxAdditionalProperty1.Text =  p.GetValue(Limit).ToString();
+                        textBoxAdditionalProperty1.Text = p.GetValue(Limit).ToString();
                     }
                     else if (p.Name.Equals("End"))
                     {
@@ -151,12 +163,13 @@ namespace Nuvo.Requirements_Builder
                     }
                     else if (p.Name.Equals("Validator"))
                     {
+                        List<string> labeLNames = new List<string>();
                         comboBoxValidators.Text = Limit.Validator.GetType().Name;
                         foreach (var p2 in Limit.Validator.GetType().GetProperties())
                         {
                             if (p2.Name.Equals("Value"))
                             {
-                                textBoxValue.Text = p2.GetValue(Limit.Validator).ToString();
+                                tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
                             }
                             else if (p2.Name.Equals("Prefix"))
                             {
@@ -166,7 +179,23 @@ namespace Nuvo.Requirements_Builder
                             {
                                 comboBoxLimitUnits.Text = p2.GetValue(Limit.Validator).ToString();
                             }
+                            else if (p2.Name.Equals("LowerBound"))
+                            {
+                                labeLNames.Add(p.Name);
+                                tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
+                            }
+                            else if (p2.Name.Equals("UpperBound"))
+                            {
+                                labeLNames.Add(p.Name);
+                                tbAddProp2.Text = p2.GetValue(Limit.Validator).ToString();
+                            }
+                            else if (p2.Name.Equals("Tolerance"))
+                            {
+                                labeLNames.Add(p.Name);
+                                tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
+                            }
                         }
+                        ShowAdditialParamCtrls(labeLNames);
                     }
                 }
                 BindData();
@@ -205,13 +234,14 @@ namespace Nuvo.Requirements_Builder
             PropertyInfo[] properties = o.GetType().GetProperties();
 
             Limit.Validator = o as GenericValidator<double>;
+            List<string> labeLNames = new List<string>();
             foreach (var p in properties)
             {
                 if (p.Name.Equals("Value"))
                 {
                     p.SetValue(Limit.Validator, 0);
                 }
-                else if(p.Name.Equals("Prefix"))
+                else if (p.Name.Equals("Prefix"))
                 {
                     p.SetValue(Limit.Validator, Prefix.None);
                 }
@@ -219,7 +249,23 @@ namespace Nuvo.Requirements_Builder
                 {
                     p.SetValue(Limit.Validator, Unit.DecibelMilliwatt);
                 }
+                else if (p.Name.Equals("LowerBound"))
+                {
+                    labeLNames.Add(p.Name);
+                    p.SetValue(Limit.Validator, Unit.DecibelMilliwatt);
+                }
+                else if (p.Name.Equals("UpperBound"))
+                {
+                    labeLNames.Add(p.Name);
+                    p.SetValue(Limit.Validator, Unit.DecibelMilliwatt);
+                }
+                else if (p.Name.Equals("Tolerance"))
+                {
+                    labeLNames.Add(p.Name);
+                    p.SetValue(Limit.Validator, Unit.DecibelMilliwatt);
+                }
             }
+            ShowAdditialParamCtrls(labeLNames);
         }
 
         private void BindData()
@@ -227,6 +273,41 @@ namespace Nuvo.Requirements_Builder
             if (Limit != null)
             {
 
+            }
+        }
+
+        private void ShowAdditialParamCtrls(List<string> labelNames)
+        {
+            labelAdditionalProperty1.Visible = false;
+            labelAdditionalProperty2.Visible = false;
+            tbAddProp1.Visible = false;
+            tbAddProp2.Visible = false;
+            switch (labelNames.Count)
+            {
+                case 0:
+                    labelAdditionalProperty1.Text = "Limit Value";
+                    labelAdditionalProperty1.Visible = true;
+                    tbAddProp1.Visible = true;
+                    break;
+                case 1:
+                    labelAdditionalProperty1.Text = "Value";
+                    labelAdditionalProperty2.Text = labelNames[0];
+                    labelAdditionalProperty1.Visible = true;
+                    labelAdditionalProperty2.Visible = true;
+                    tbAddProp1.Visible = true;
+                    tbAddProp2.Visible = true;
+                    break;
+
+                case 2:
+                    labelAdditionalProperty1.Text = labelNames[0];
+                    labelAdditionalProperty2.Text = labelNames[1];
+                    labelAdditionalProperty1.Visible = true;
+                    labelAdditionalProperty2.Visible = true;
+                    tbAddProp1.Visible = true;
+                    tbAddProp2.Visible = true;
+                    break;
+                default:
+                    break;
             }
         }
 
