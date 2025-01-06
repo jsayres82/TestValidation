@@ -40,6 +40,15 @@ namespace Nuvo.TestValidation.Parameters
         }
 
         public override List<string> MeasurementVariables { get; set; } = new List<string>();
+        public override List<string> VariableNames { get; set; } = new List<string>()
+        {
+            "S-Param"
+        };
+
+        public override Dictionary<string, string> MeasurementVariables = new Dictionary<string, string>()
+        {
+            {"S-Param","" }
+        };
 
         public override double MinimumMargin 
         {
