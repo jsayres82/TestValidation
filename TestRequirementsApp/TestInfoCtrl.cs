@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Nuvo.TestValidation;
+using Nuvo.TestValidation.Utilities;
+using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 
 namespace Nuvo.Requirements_Builder
 {
@@ -22,25 +26,50 @@ namespace Nuvo.Requirements_Builder
         public string folderName { get; set; }
         public TestInfoCtrl()
         {
-            //bindingDataSource1 = new BindingSource();
             isBound = false;
-            testInfo = new TestInfo() { TestName = "Test", Program = "1180", WaferName = "Pentaplexer", TestArticles = new List<TestArticle>() };
+            testInfo = new TestInfo() { TestName = "Test", Program = "1180", WaferName = "Pentaplexer", TestArticles = new TestArticle() };
             InitializeComponent();
             BindData();
             isBound = true;
+            cbMeasuremntFileType.SelectedIndexChanged -= CbMeasuremntFileType_SelectedIndexChanged;
+            cbMeasuremntFileType.Items.AddRange(Enum.GetNames(typeof(MeasFileTypes)));
+            cbMeasuremntFileType.SelectedIndexChanged += CbMeasuremntFileType_SelectedIndexChanged;
         }
+
+
         public TestInfoCtrl(TestInfo info)
         {
-            testInfo = new TestInfo() { TestName = "Test", Program = "1180", WaferName = "Pentaplexer", TestArticles = new List<TestArticle>() };
+            testInfo = new TestInfo() { TestName = "Test", Program = "1180", WaferName = "Pentaplexer", TestArticles = new TestArticle() };
             isBound = false;
             InitializeComponent();
             BindData();
             isBound = true;
+            cbMeasuremntFileType.SelectedIndexChanged -= CbMeasuremntFileType_SelectedIndexChanged;
+            cbMeasuremntFileType.Items.AddRange(Enum.GetNames(typeof(MeasFileTypes)));
+            cbMeasuremntFileType.SelectedIndexChanged += CbMeasuremntFileType_SelectedIndexChanged;
+        }
+
+        private void CbMeasuremntFileType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            panelParamCount.Visible = false;
+            testInfo.MeasFileType = cbMeasuremntFileType.Text;
+            if (testInfo.MeasFileType.Equals(Enum.GetName(MeasFileTypes.sXp)))
+            {
+                panelParamCount.Visible = true;
+            }
+            else
+            {
+                panelParamCount.Visible = false;
+            }
+            if (!flowLayoutPanel2.Enabled)
+                testInfo.ParamCount = System.Convert.ToInt32(testInfo.ParamCount);
+            else
+                nudParameterCount.Value = System.Convert.ToDecimal(testInfo.ParamCount);
         }
 
         private void MeasurementInfoCtrl_Load(object sender, EventArgs e)
         {
-            if(isBound == false)
+            if (isBound == false)
             {
                 BindData();
                 isBound = true;
@@ -51,31 +80,26 @@ namespace Nuvo.Requirements_Builder
         {
             if (testInfo != null)
             {
-                bindingDataSource1.DataSource= testInfo;
+                bindingDataSource1.DataSource = testInfo;
 
                 textBoxTestName.DataBindings.Add("Text", bindingDataSource1, "TestName");
-                //textBoxTestName.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
                 textBoxProgram.DataBindings.Add("Text", bindingDataSource1, "Program");
-                //textBoxProgram.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
                 textBoxWaferName.DataBindings.Add("Text", bindingDataSource1, "WaferName");
-                //textBoxWaferName.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
+                textBoxPartNumber.DataBindings.Add("Text", bindingDataSource1, "PartNum");
+                cbMeasuremntFileType.DataBindings.Add("Text", bindingDataSource1, "MeasFileType");
+
+                nudParameterCount.Value = System.Convert.ToDecimal(testInfo.ParamCount);
 
                 // If there are multiple TestArticles in the list, you can bind to the first one
-                if (testInfo.TestArticles != null && testInfo.TestArticles.Count > 0)
+                if (testInfo.TestArticles != null)
                 {
-                    TestArticle firstArticle = testInfo.TestArticles[0];
-                    //textBoxSpecFileName.DataBindings.Add("Text", bindingSource1, "PartNumber");
-                    //textBoxSpecFileName.DataBindings./*DefaultDataSourceUpdateMode*/ = DataSourceUpdateMode.OnPropertyChanged;
-                    //// Bind the MeasurementFiles property to a control within the TestArticle user control, if available
-                    //// Replace "someControl" with the actual control name within the TestArticle user control
-                    //testArticle1.DataBindings.Add("Text", bindingSource1, "MeasurementFiles");
-                    ////testArticle1.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
+                    TestArticle firstArticle = testInfo.TestArticles;
                 }
 
             }
         }
 
-        public void UpdateTestInfo(TestInfo newInfo,string specFile)
+        public void UpdateTestInfo(TestInfo newInfo, string specFile)
         {
             fileName = Path.GetFileNameWithoutExtension(specFile);
             folderName = Path.GetDirectoryName(specFile);
@@ -84,6 +108,22 @@ namespace Nuvo.Requirements_Builder
             testInfo.TestName = newInfo.TestName;
             testInfo.Program = newInfo.Program;
             testInfo.WaferName = newInfo.WaferName;
+            testInfo.PartNum = newInfo.PartNum;
+            testInfo.MeasFileType = newInfo.MeasFileType;
+            if (testInfo.MeasFileType == null)
+                testInfo.MeasFileType = Enum.GetName(MeasFileTypes.None);
+            
+                if (testInfo.MeasFileType.Equals(Enum.GetName(MeasFileTypes.sXp)))
+                {
+                    panelParamCount.Visible = true;
+                }
+                else
+                {
+                    panelParamCount.Visible = false;
+                }
+                testInfo.ParamCount = newInfo.ParamCount;
+                nudParameterCount.Value = System.Convert.ToDecimal(testInfo.ParamCount);
+
             testInfo.TestArticles = newInfo.TestArticles;
             bindingDataSource1.ResetBindings(true);
         }
@@ -100,18 +140,12 @@ namespace Nuvo.Requirements_Builder
                 textBoxProgram.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
                 textBoxWaferName.DataBindings.Add("Text", bindingDataSource1, "WaferName");
                 textBoxWaferName.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-                // If there are multiple TestArticles in the list, you can bind to the first one
-                //if (testInfo.TestArticles != null && testInfo.TestArticles.Count > 0)
-                //{
-                //    TestArticle firstArticle = testInfo.TestArticles[0];
-                //    textBoxSpecFileName.DataBindings.Add("Text", firstArticle, "PartNumber");
-                //    textBoxSpecFileName.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-                //    // Bind the MeasurementFiles property to a control within the TestArticle user control, if available
-                //    // Replace "someControl" with the actual control name within the TestArticle user control
-                //    testArticle1.DataBindings.Add("Text", firstArticle, "MeasurementFiles");
-                //    testArticle1.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-                //}
+                textBoxPartNumber.DataBindings.Add("Text", bindingDataSource1, "PartNum");
+                textBoxPartNumber.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
+                cbMeasuremntFileType.DataBindings.Add("Text", bindingDataSource1, "MeasFileType");
+                cbMeasuremntFileType.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
 
+                nudParameterCount.Value = System.Convert.ToDecimal(testInfo.ParamCount);
                 bindingDataSource1.DataSource = newTestInfo;
             }
         }
@@ -122,8 +156,8 @@ namespace Nuvo.Requirements_Builder
 
         private void buttonSelectFolder_Click(object sender, EventArgs e)
         {
-           DialogResult result = folderBrowserDialog1.ShowDialog();
-            if(result.Equals(DialogResult.OK))
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result.Equals(DialogResult.OK))
             {
                 folderName = folderBrowserDialog1.SelectedPath;
                 textBoxSpecFileLoc.Text = folderName;
@@ -148,6 +182,10 @@ namespace Nuvo.Requirements_Builder
                 testInfo.Program = textBoxProgram.Text;
                 testInfo.TestName = textBoxTestName.Text;
                 testInfo.WaferName = textBoxWaferName.Text;
+                testInfo.PartNum = textBoxPartNumber.Text;
+                testInfo.MeasFileType = cbMeasuremntFileType.Text;
+                testInfo.ParamCount = System.Convert.ToInt16(nudParameterCount.Value);
+                testInfo.TestArticles = testArticleCtrl1.Article;
                 flowLayoutPanel2.Enabled = false;
                 TestInfoUpdated.Invoke(this, null);
             }

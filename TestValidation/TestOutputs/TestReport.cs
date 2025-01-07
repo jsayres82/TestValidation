@@ -80,7 +80,7 @@ namespace Nuvo.TestValidation.TestResults
 
             // Create a new PDF document
             Document document = new Document();
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream($"{filePath}\\SN{SerialNumber}_Result.pdf", FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream($"{filePath}\\SN{SerialNumber}_Result.pdf", FileMode.OpenOrCreate));
 
             // Open the PDF document
             document.Open();

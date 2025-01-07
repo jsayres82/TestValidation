@@ -99,7 +99,7 @@ namespace Nuvo.Requirements_Builder
             var idx = 0;
             var count = Parameter.ParameterVariableCount;
             var measVars = new List<string>() { textBoxAdditionalProperty1.Text, textBoxAdditionalProperty2.Text };
-            //Parameter.MeasurementVariables.Clear();
+
             if (Parameter.MeasurementVariables == null || Parameter.MeasurementVariables.Count == 0)
             {
                 Parameter.MeasurementVariables = new List<string>() { "", "" };
@@ -111,28 +111,12 @@ namespace Nuvo.Requirements_Builder
                 else
                     Parameter.MeasurementVariables[i] = measVars[i];
             }
-            //if (Parameter.MeasurementVariables.Count > 0)
-            //    Parameter.MeasurementVariables[0] = textBoxAdditionalProperty1.Text;
-            //else
-            //    Parameter.MeasurementVariables.Add(textBoxAdditionalProperty1.Text);
-
             return Parameter;
         }
 
         public void UpdateLimit(GenericParameter param)
         {
             Parameter = param;
-            //fileName = Path.GetFileNameWithoutExtension(specFile);
-            //folderName = Path.GetDirectoryName(specFile);
-            //textBoxSpecFileLoc.Text = folderName;
-            //textBoxSpecFileName.Text = fileName;
-            //testInfo.TestName = newInfo.TestName;
-            //testInfo.Program = newInfo.Program;
-            //testInfo.WaferName = newInfo.WaferName;
-            //testInfo.TestArticles = newInfo.TestArticles;
-            //bindingSource1.ResetBindings(true);
-
-            //comboBoxSpecTypes.SelectedIndexChanged -= this.comboBoxSpecTypes_SelectedIndexChanged;
             BindData();
             comboBoxSpecTypes.SelectedIndexChanged += this.comboBoxSpecTypes_SelectedIndexChanged;
         }
@@ -141,10 +125,6 @@ namespace Nuvo.Requirements_Builder
         {
             if (Parameter != null)
             {
-                //bindingSource1.DataSource = Parameter;
-                //bindingSource2.DataSource = LimitType;
-                //bindingSource3.DataSource = ValidatorType;
-
                 ParameterType = Parameter.GetType();
                 comboBoxSpecTypes.Text = ParameterType.Name;
                 richTextBox1.Text = Parameter.Description;
@@ -173,23 +153,6 @@ namespace Nuvo.Requirements_Builder
                 {
                     listView1.Items.Add(variable);
                 }
-                //textBoxAdditionalProperty1.Text = Parameter.Description;
-                //richTextBox1.DataBindings.Add("Text", bindingSource1, "Description");
-                //textBoxAdditionalProperty1.DataBindings.Add("Text", bindingSource1, "MeasurementVariables[0]");
-                //textBoxAdditionalProperty2.DataBindings.Add("Text", bindingSource1, "MeasurementVariables[1]");
-
-                //// If there are multiple TestArticles in the list, you can bind to the first one
-                //if (testInfo.TestArticles != null && testInfo.TestArticles.Count > 0)
-                //{
-                //    TestArticle firstArticle = testInfo.TestArticles[0];
-                //    //textBoxSpecFileName.DataBindings.Add("Text", bindingSource1, "PartNumber");
-                //    //textBoxSpecFileName.DataBindings./*DefaultDataSourceUpdateMode*/ = DataSourceUpdateMode.OnPropertyChanged;
-                //    //// Bind the MeasurementFiles property to a control within the TestArticle user control, if available
-                //    //// Replace "someControl" with the actual control name within the TestArticle user control
-                //    //testArticle1.DataBindings.Add("Text", bindingSource1, "MeasurementFiles");
-                //    ////testArticle1.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-                //}
-
             }
         }
 

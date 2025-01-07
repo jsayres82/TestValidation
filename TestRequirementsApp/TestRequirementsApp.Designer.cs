@@ -219,7 +219,7 @@ namespace Nuvo.Requirements_Builder
             testInfoCtrl1.Location = new System.Drawing.Point(3, 4);
             testInfoCtrl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             testInfoCtrl1.Name = "testInfoCtrl1";
-            testInfoCtrl1.Size = new System.Drawing.Size(1073, 183);
+            testInfoCtrl1.Size = new System.Drawing.Size(1081, 183);
             testInfoCtrl1.TabIndex = 1;
             // 
             // openFileDialog1

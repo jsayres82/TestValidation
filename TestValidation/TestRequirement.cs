@@ -10,15 +10,18 @@ using Nuvo.TestValidation.Parameters;
 
 namespace Nuvo.TestValidation.Limits
 {
+    /// <summary>
+    /// Meat and potatoes.
+    /// Requirement has 3 things:
+    ///     1. A human friendly name
+    ///     2. A device parameter we are evaluating
+    ///     3. A specified performance level it needs to meet
+    /// </summary>
     public class TestRequirement
     {
         [XmlElement("Name")]
         public string Name { get; set; }
 
-        [XmlElement("DoubleLimt", typeof(DoubleLimt))]
-        [XmlElement("RangeLimit", typeof(RangeLimit))]
-        [XmlElement("DomainLimit", typeof(DomainLimit))]
-        public GenericLimit Limit { get; set; }
 
         [XmlElement("GroupDelayParameter", typeof(GroupDelayParameter))]
         [XmlElement("PhaseBalanceParameter", typeof(PhaseBalanceParameter))]
@@ -26,6 +29,13 @@ namespace Nuvo.TestValidation.Limits
         [XmlElement("AttenuationParameter", typeof(AttenuationParameter))]
         [XmlElement("ScatteringParameter", typeof(ScatteringParameter))]
         public GenericParameter CharacteristicParameter { get; set; }
+
+
+
+        [XmlElement("DoubleLimt", typeof(DoubleLimt))]
+        [XmlElement("RangeLimit", typeof(RangeLimit))]
+        [XmlElement("DomainLimit", typeof(DomainLimit))]
+        public GenericLimit Limit { get; set; }
 
         public void SetCharacteristicParameter(GenericParameter characteristicParameter)
         {

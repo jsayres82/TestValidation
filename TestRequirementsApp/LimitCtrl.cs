@@ -84,12 +84,10 @@ namespace Nuvo.Requirements_Builder
             {
                 if (p.Name.Equals("Start"))
                 {
-                    //var val = UnitConverter.Convert(System.Convert.ToDouble(textBoxAdditionalProperty1.Text), Unit.None, Unit.None, Enum.Parse<Prefix>(comboBoxLimitPrefix.Text), Prefix.None);
                     p.SetValue(Limit, System.Convert.ToDouble(textBoxAdditionalProperty1.Text));//val);
                 }
                 else if (p.Name.Equals("End"))
                 {
-                    //var val = UnitConverter.Convert(System.Convert.ToDouble(textBoxAdditionalProperty1.Text), Unit.None, Unit.None, Enum.Parse<Prefix>(comboBoxLimitPrefix.Text), Prefix.None);
                     p.SetValue(Limit, System.Convert.ToDouble(textBoxAdditionalProperty2.Text));//val);
                 }
                 else if (p.Name.Equals("MinValue"))
@@ -142,15 +140,6 @@ namespace Nuvo.Requirements_Builder
                 comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
                 comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
                 Limit = limit;
-                //fileName = Path.GetFileNameWithoutExtension(specFile);
-                //folderName = Path.GetDirectoryName(specFile);
-                //textBoxSpecFileLoc.Text = folderName;
-                //textBoxSpecFileName.Text = fileName;
-                //testInfo.TestName = newInfo.TestName;
-                //testInfo.Program = newInfo.Program;
-                //testInfo.WaferName = newInfo.WaferName;
-                //testInfo.TestArticles = newInfo.TestArticles;
-                //bindingSource1.ResetBindings(true);
                 foreach (var p in Limit.GetType().GetProperties())
                 {
                     comboBoxLimitTypes.Text = Limit.GetType().Name;
@@ -319,9 +308,5 @@ namespace Nuvo.Requirements_Builder
             }
         }
 
-        private void comboBoxLimitUnits_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

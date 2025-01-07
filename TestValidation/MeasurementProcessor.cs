@@ -14,6 +14,8 @@ using Nuvo.TestValidation.TestResults;
 using MicrowaveNetworks;
 using MicrowaveNetworks.Touchstone;
 using System.Data;
+using Org.BouncyCastle.Tls;
+using Nuvo.TestValidation.Utilities;
 
 namespace Nuvo.TestValidation
 {
@@ -44,10 +46,13 @@ namespace Nuvo.TestValidation
             {
                 if (Directory.Exists(folderPath))
                 {
-                    List<string> partNumbers = TestInfo.TestArticles.Select(article => article.PartNumber).ToList();
-                    PartNumber = partNumbers.First();
+                    List<string> partNumbers = new List<string>();
+                    var extension = TestInfo.MeasFileType;
+                    if (extension.Equals("sXp"))
+                        extension = $"s{TestInfo.ParamCount}p";
+                    PartNumber = TestInfo.PartNum;
                     return Directory.GetFiles(folderPath)
-                        .Where(file => partNumbers.Any(partNumber => file.Contains(partNumber)))
+                        .Where(f => (f.EndsWith(extension) & f.Contains(PartNumber)))
                         .ToArray();
                 }
                 else
@@ -105,13 +110,10 @@ namespace Nuvo.TestValidation
             {
                 // Retrieve the characteristic parameter for the requirement
                 GenericParameter characteristicParameter = requirement.CharacteristicParameter;
-                characteristicParameter.FilePath = TestInfo.TestArticles[0].MeasurementFiles[0];
+                characteristicParameter.FilePath = TestInfo.TestArticles.MeasurementFiles[0];
                 // Calculate the parameter value based on the base data set
                 characteristicParameter.CalculateParameterValue(requirement,
-                                        parseMeasurementsFromFile(TestInfo.TestArticles[0].MeasurementFiles[0]));
-
-                // Store the parameter value in the dictionary
-                //characteristicParameters[requirement.Name] = parameterValue.First().Value;
+                                        parseMeasurementsFromFile(TestInfo.TestArticles.MeasurementFiles[0]));
             }
         }
 
@@ -131,9 +133,6 @@ namespace Nuvo.TestValidation
 
                 // Calculate the parameter value based on the base data set and serial number
                 characteristicParameter.CalculateParameterValue(requirement, parseMeasurementsFromFile(measurementFile));
-
-                // Store the parameter value in the dictionary
-                //characteristicParameters[requirement.Name] = parameterValue.First().Value;
             }
         }
 
@@ -144,9 +143,6 @@ namespace Nuvo.TestValidation
             {
                 // Retrieve the characteristic parameter for the requirement
                 GenericParameter characteristicParameter = requirement.CharacteristicParameter;
-
-                // Get the parameter value from the dictionary
-                //double parameterValue = characteristicParameters[requirement.Name];
 
                 // Validate the measurement against the requirement
                 var isPassed = characteristicParameter.ValidateMeasurement(requirement, new Dictionary<string, List<object[]>>());
@@ -161,7 +157,7 @@ namespace Nuvo.TestValidation
         public bool ValidateMeasurement(string serialNumber)
         {
             this.serialNumber = serialNumber; // Store the serial number
-            //TestReport results = new TestReport(UnitSerialNumber, TestInfo.TestArticles[0].PartNumber);
+            //TestReport results = new TestReport(UnitSerialNumber, TestInfo.PartNum);
             foreach (var requirement in TestRequirements.Requirements)
             {
                 // Retrieve the characteristic parameter for the requirement
@@ -177,10 +173,8 @@ namespace Nuvo.TestValidation
 
         public TestReport ValidateMeasurement()
         {
-            // Create a new instance of the TestReport class
-
-            //TestReport report = new TestReport();
-            TestReport testReport = new TestReport(UnitSerialNumber, TestInfo.TestName, TestInfo.WaferName, TestInfo.Program, TestInfo.TestArticles[0].PartNumber);
+            FileAccessChecker fileCheck = new FileAccessChecker();
+            TestReport testReport = new TestReport(UnitSerialNumber, TestInfo.TestName, TestInfo.WaferName, TestInfo.Program, TestInfo.PartNum);
             foreach (var requirement in TestRequirements.Requirements)
             {
                 // Retrieve the characteristic parameter for the requirement
@@ -197,7 +191,10 @@ namespace Nuvo.TestValidation
             }
             testReport.TestFile = file;
             testReport.WriteToXml(new FileInfo(file).DirectoryName);
-            testReport.CreatePdfFromXml(new FileInfo(file).DirectoryName);
+            
+            if(fileCheck.TryToAccessFile($"{file}\\SN{UnitSerialNumber}_Result.xml"))
+                testReport.CreatePdfFromXml(new FileInfo(file).DirectoryName);
+
             return testReport;// testReport;
         }
 
@@ -208,14 +205,11 @@ namespace Nuvo.TestValidation
                 // Retrieve the characteristic parameter for the requirement
                 GenericParameter characteristicParameter = requirement.CharacteristicParameter;
 
-                string filePath = Path.Combine(measurementFolder, TestInfo.TestArticles[0].MeasurementFiles[0]);
+                string filePath = Path.Combine(measurementFolder, TestInfo.TestArticles.MeasurementFiles[0]);
 
                 // Calculate the parameter value based on the base data set
                 characteristicParameter.CalculateParameterValue(requirement,
                                         parseMeasurementsFromFile(filePath));
-
-                // Store the parameter value in the dictionary
-                //characteristicParameters[requirement.Name] = parameterValue.First().Value;
             }
         }
 
@@ -223,7 +217,6 @@ namespace Nuvo.TestValidation
         {
             Dictionary<string, List<object[]>> data = new Dictionary<string, List<object[]>>();
             SParameterCombiner combiner = new SParameterCombiner();
-            //Dictionary<string, List<string>> dataStr = combiner.ExtractSParameterData(filePath);
             Dictionary<string, List<string>> dataStr = new Dictionary<string, List<string>>();
             INetworkParametersCollection coll = Touchstone.ReadAllData(filePath);
             foreach (FrequencyParametersPair pair in coll)
@@ -235,8 +228,6 @@ namespace Nuvo.TestValidation
                         s.Add($"{pair.Parameters[i, j].Magnitude_dB} {pair.Parameters[i, j].Phase_deg}");
                     }
                 dataStr.Add(pair.Frequency_Hz.ToString(), s);
-                //double insertionLoss = matrix[2, 1].Magnitude_dB;
-                //Console.WriteLine($"Insertion loss at {frequency} is {insertionLoss} dB");
             }
             foreach (var dList in dataStr.Keys)
             {
@@ -248,54 +239,10 @@ namespace Nuvo.TestValidation
                     var val = d.Split(" ");
                     Complex v = Complex.FromPolarCoordinates(System.Convert.ToDouble(val.First()), System.Convert.ToDouble(val.Last()));
 
-                    // Convert double[] to object[]
                     data[dList].Add(new object[] { Convert.ToDouble(val.First()), Convert.ToDouble(val.Last()) });
                 }
             }
             return data;
         }
-
-        //private Dictionary<string, List<double[]>> parseMeasurementsFromFile(string filePath)
-        //{
-        //    Dictionary<string, List<double[]>> data = new Dictionary<string, List<double[]>>();
-        //    SParameterCombiner combiner = new SParameterCombiner();
-        //    //Dictionary<string, List<string>> dataStr = combiner.ExtractSParameterData(filePath);
-        //    Dictionary<string, List<string>> dataStr = new Dictionary<string, List<string>>();
-        //    INetworkParametersCollection coll = Touchstone.ReadAllData(filePath);
-        //    foreach (FrequencyParametersPair pair in coll)
-        //    {
-        //        List<string> s = new List<string>();
-        //        for(int i =1; i<=pair.Parameters.NumPorts;i++)
-        //            for(int j = 1; j <= pair.Parameters.NumPorts; j++)
-        //            {
-        //                s.Add($"{pair.Parameters[i, j].Magnitude_dB} {pair.Parameters[i, j].Phase}");
-        //            }
-        //                dataStr.Add(pair.Frequency_Hz.ToString(),s);
-        //        //double insertionLoss = matrix[2, 1].Magnitude_dB;
-        //        //Console.WriteLine($"Insertion loss at {frequency} is {insertionLoss} dB");
-        //    }
-        //    foreach (var dList in dataStr.Keys)
-        //    {
-        //        //Console.Write($"{dList}: ");
-        //        if (dList == "")
-        //            continue;
-        //        data.Add(dList, new List<double[]>());
-        //        foreach (var d in dataStr[dList])
-        //        {
-
-        //            //Console.Write($"{d} "); 
-        //            var val = d.Split(" ");
-        //            Complex v = Complex.FromPolarCoordinates(System.Convert.ToDouble(val.First()), System.Convert.ToDouble(val.Last()));
-        //            //Complex v = new Complex(Convert.ToDouble(val.First()), Convert.ToDouble(val.Last()));
-                    
-        //            data[dList].Add(new double[2] { Convert.ToDouble(val.First()), Convert.ToDouble(val.Last())});
-        //        }
-        //        //Console.WriteLine();
-        //    }
-        //    return data;
-        //}
-
-
-
     }
 }

@@ -21,11 +21,18 @@ namespace Nuvo.TestValidation.Parameters
 {
     public class ScatteringParameter : GenericParameter
     {
+        // This can go away now that we pass number of indeces. Need to implement a utility function that can generates the string arrays
         string[] s = new string[9] { "S11", "S12", "S13", "S21", "S22", "S23", "S31", "S32", "S33" };
         List<string> sprams = new List<string>();
+
+        // This holds the results that will be written to file as we validate the set
         private List<(double, double, double, double, string)> csvData = new List<(double, double, double, double, string)>();
+
         private MathClass myMath = new MathClass();
+
+        // All points from start to stop that we need to evaluate.
         private List<string> parameterDomain = new List<string>();
+        // What we want to end up with.
         private Dictionary<string, List<double[]>> scatteringParameterValues = new Dictionary<string, List<double[]>>();
         
         [XmlIgnore]
@@ -39,11 +46,15 @@ namespace Nuvo.TestValidation.Parameters
             }
         }
 
-
+        // Is currently justin the matrix index to evaluate for right now.  But if we were to implement an amplitude balance we could add the list of ports as well
+        // then just set the requirment to use the AmplitudeBalanceCalulator
         public override List<string> VariableNames { get; } = new List<string>() { "S-Param" };
 
+        // What to use for each variable. For S-Param it would be S12 or S11 or S15. For amplitude balance it would be S12,S13,S14,S15 to indicate that want to compare
+        //  to normalize S15 to the average of the four(S12,S13,S14,S15)
         public override List<string> MeasurementVariables { get; set; } = new List<string>();
 
+        // What gets reported in the report output table
         public override double MinimumMargin 
         {
             get
@@ -53,6 +64,10 @@ namespace Nuvo.TestValidation.Parameters
             set { MinMargin = value; }
         }
 
+        /// <summary>
+        /// Constructor - Each calculator would have it's own description of what it is doing
+        /// </summary>
+        /// <param name="calculator"></param>
         public ScatteringParameter(IParameterValueCalculator calculator)
             : base(calculator)
         {
@@ -60,7 +75,9 @@ namespace Nuvo.TestValidation.Parameters
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
             VariableNames = new List<string>() { "S-Param" }; 
         }
-
+        /// <summary>
+        /// Constructor - Needed for serialization.
+        /// </summary>
         public ScatteringParameter()
             : base()
         {
@@ -68,6 +85,12 @@ namespace Nuvo.TestValidation.Parameters
             VariableNames = new List<string>() { "S-Param" };
         }
 
+        /// <summary>
+        /// Creates output dispo
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="measurement"></param>
+        /// <returns></returns>
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement)
         {
             int index = 0;
@@ -106,44 +129,12 @@ namespace Nuvo.TestValidation.Parameters
             return isPassed;
         }
 
-        private Dictionary<string, List<double[]>> getMeasurementVariables(Dictionary<string, List<double[]>> measurement)
-        {
-            sprams.AddRange(s.ToList());
-            //parameterDomain = measurement.Keys.ToList();
-            int index = 0;
-            int idx = 0;
-            Dictionary<string, List<Complex>> parsedData = new Dictionary<string, List<Complex>>();
-            foreach (var val in s)
-            {
-                parsedData.Add(val, new List<Complex>());
-                if (val.Equals(MeasurementVariables[0]))
-                    idx = index;
-                index++;
-            }
-
-            scatteringParameterValues.Add(MeasurementVariables[0], new List<double[]>());
-            foreach (var d in measurement.Keys)
-            {
-                index = 0;
-                foreach (var val in measurement[d])
-                {
-                    if (index == idx)
-                    {
-                        var valF = new double[2]
-                        {
-                            20*Math.Log10(Convert.ToDouble(val[0])),
-                            Convert.ToDouble(val[1])*(180/Math.PI)
-                        };
-                        scatteringParameterValues[MeasurementVariables[0]].Add(valF);
-                        //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
-                    }
-                    index++;
-                }
-            }
-
-            return scatteringParameterValues;
-        }
-
+        /// <summary>
+        /// Get the value
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="baseDataSet"></param>
+        /// <returns></returns>
         public override Dictionary<string, List<object[]>> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet)
         {
             scatteringParameterValues = new Dictionary<string, List<double[]>>();
@@ -158,7 +149,7 @@ namespace Nuvo.TestValidation.Parameters
                     idx = index;
                 index++;
             }
-            index = 0;
+
             parameterDomain = baseDataSet.Keys.ToList();
             foreach (var d in baseDataSet)
             {
@@ -170,11 +161,8 @@ namespace Nuvo.TestValidation.Parameters
                         var valF = new double[1]
                         {
                             Convert.ToDouble(val[0])
-                            //Convert.ToDouble(val[1])
                         };
                         scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valF });
-
-                        //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
                     }
                     index++;
                 }
@@ -182,12 +170,21 @@ namespace Nuvo.TestValidation.Parameters
 
             return ParameterValues;
         }
-
+        
+        /// <summary>
+        /// Dont remember, it's not used yet though
+        /// </summary>
+        /// <returns></returns>
         public override object[] GetParameterLimits()
         {
             return new object[] { double.MinValue, double.MaxValue }; // Example for double
         }
 
+        /// <summary>
+        /// Save the csv that will be used for pdf graphs and also wafer/lot level data outputs.
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="results"></param>
         private void WriteToCsv(string fileName, IEnumerable<(double frequency, double testValue, double margin, double limit, string result)> results)
         {
             if (File.Exists(fileName))

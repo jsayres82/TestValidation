@@ -9,14 +9,19 @@ using System.Xml.Serialization;
 
 namespace Nuvo.TestValidation
 {
+    /// <summary>
+    /// Header information useful in for the test report and also to help with program logic
+    /// </summary>
     [Serializable]
     public class TestInfo
     {
         public string TestName { get; set; }
         public string Program { get; set; }
         public string WaferName { get; set; }
-        //public string PartNum { get; set; }
-        public List<TestArticle> TestArticles { get; set; }
-        public string InputFileType { get; set; }
+        public string PartNum { get; set; }
+        public string MeasFileType { get; set; }
+        public int ParamCount { get; set; } = 0;
+        [XmlIgnore]
+        public TestArticle TestArticles { get; set; }
     }
 }

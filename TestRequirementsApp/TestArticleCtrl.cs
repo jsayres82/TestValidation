@@ -13,8 +13,12 @@ namespace Nuvo.Requirements_Builder
 {
     public partial class TestArticleCtrl : UserControl
     {
+        /// <summary>
+        /// This use to be a list of TestArticles but I don't have any use for it yet.  Maybe a 
+        /// test article could be a specific az/el coordinate of antenna data?
+        /// </summary>
         private TestArticle article;
-
+        public TestArticle Article { get { return article; } }
         public TestArticleCtrl()
         {
             InitializeComponent();
@@ -31,8 +35,7 @@ namespace Nuvo.Requirements_Builder
         {
             if (article != null)
             {
-                textBoxTestName.DataBindings.Add("Text", article, "Name");
-                emptyTextTextBox1.DataBindings.Add("Text", article, "PartNumber");
+                textBoxWaferLotNum.DataBindings.Add("Text", article, "PartNumber");
 
                 if (article.MeasurementFiles != null)
                 {
@@ -41,12 +44,17 @@ namespace Nuvo.Requirements_Builder
             }
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        public List<string> GetTestedPartNumbers()
         {
-
+            return article.MeasurementFiles;
         }
 
-        private void emptyTextTextBox1_TextChanged(object sender, EventArgs e)
+        public string GetWaferLotTested()
+        {
+            return article.WaferLotNumber;
+        }
+
+        private void textBoxWaferLotNum_TextChanged(object sender, EventArgs e)
         {
 
         }

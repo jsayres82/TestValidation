@@ -82,7 +82,6 @@ namespace Nuvo.Requirements_Builder
             requirements = measurementProcessor.ParseTestSpecsFromXml(specFile);
             testInfoCtrl1.UpdateTestInfo(measurementProcessor.TestInfo, specFile);
             testInfoCtrl1.TestInfoUpdated += TestInfoCtrl1_TestInfoUpdated;
-            //dgv.Show();
             DisplayTestRequirements(requirements.Requirements);
         }
 
@@ -131,7 +130,6 @@ namespace Nuvo.Requirements_Builder
                     Unit value = Enum.Parse<Unit>(val);
                     var index = comboBox.Items.IndexOf(val);
                     comboBox.SelectedIndex = index;
-                    //comboBox.DataBindings.Add("SelectedItem", propertyInfo.GetValue(obj), propertyInfo.Name);
 
                     f.Controls.Add(new Label { Text = propertyInfo.Name });
                     f.Controls.Add(comboBox);
@@ -215,7 +213,7 @@ namespace Nuvo.Requirements_Builder
                 control.Dock = DockStyle.Fill;
                 control.AutoSizeMode = AutoSizeMode.GrowAndShrink;
                 //// Add the control to a form and display the form
-                flp2.Controls.Add(control); 
+                flp2.Controls.Add(control);
                 control.RequirementUpdated += Control_RequirementUpdated;
             }
         }

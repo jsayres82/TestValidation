@@ -9,6 +9,9 @@ using Nuvo.TestValidation.Parameters;
 
 namespace Nuvo.TestValidation.Limits
 {
+    /// <summary>
+    /// Range and Domain could be handled with same class but this makes doing things like evaluating gain over frequency and gain over az/el cleaner
+    /// </summary>
     public abstract class GenericLimit
     {
         [XmlElement("GreaterThanOrEqualValidator", typeof(GreaterThanOrEqualValidator<double>))]
@@ -22,11 +25,14 @@ namespace Nuvo.TestValidation.Limits
         [XmlElement("RampValidator", typeof(RampValidator<double>))]
         [XmlElement("BoundedValidator", typeof(BoundedValidator<double>))]
         public abstract GenericValidator<double> Validator { get; set; }
+
         public virtual bool ValidateMeasurement(double freq, double measurement)
         {
             return ValidateMeasurement(measurement);  
         }
+
         public abstract double CalculateMargin(double domainValue, double rangeValue);
+
         public virtual bool ValidateMeasurement(double measurement)
         {
             return true;

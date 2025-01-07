@@ -1,4 +1,5 @@
 ﻿using Nuvo.TestValidation.Limits;
+using Nuvo.TestValidation.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace Nuvo.TestValidation.Parameters.Interfaces
         string Description { get; set; }
         int ParameterVariableCount { get; set; }
         List<string> VariableNames { get; }
-        Dictionary<string, List<object[]>> ParameterValues { get; set; }
+        Dictionary<string, List<object[]>> ParameterValues { get; }
+        List<MeasFileTypes> FileTypesHandlers { get; }
         double MinimumMargin { get; set; }
+        Dictionary<string, List<object[]>> ParseFile(string fileName);
         bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement);
-        Dictionary<string, object> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet);
+        Dictionary<string, List<object[]>> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet);
         object[] GetParameterLimits();
     }
 }

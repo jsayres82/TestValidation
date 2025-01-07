@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Nuvo.TestValidation.Limits
-{    public class TestRequirements
+{   
+    /// <summary>
+    /// It's own special class to make serialization easier.
+    /// </summary>
+    public class TestRequirements
     {
         [XmlElement("TestRequirement")]
         public List<TestRequirement> Requirements { get; set; }

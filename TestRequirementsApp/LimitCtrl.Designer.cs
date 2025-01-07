@@ -295,7 +295,6 @@ namespace Nuvo.Requirements_Builder
             comboBoxValidatorUnits.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
             comboBoxValidatorUnits.Size = new System.Drawing.Size(125, 23);
             comboBoxValidatorUnits.TabIndex = 13;
-            comboBoxValidatorUnits.SelectedIndexChanged += comboBoxLimitUnits_SelectedIndexChanged;
             // 
             // comboBoxValidators
             // 

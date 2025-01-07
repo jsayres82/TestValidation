@@ -126,11 +126,8 @@ namespace Nuvo.TestValidation.Parameters
                         var valF = new double[1]
                         {
                             Convert.ToDouble(val[1])
-                            //Convert.ToDouble(val[1])
                         };
                         phaseBalanceParameterValues.Add(d.Key.ToString(), new List<double[]>() { valF });
-
-                        //Console.WriteLine($"{s[measurement[d].IndexOf(val)]}: {parsedData[s[measurement[d].IndexOf(val)]].Last().Magnitude} dB  {(180/Math.PI) * parsedData[s[measurement[d].IndexOf(val)]].Last().Phase} degrees");
                     }
                     index++;
                 }

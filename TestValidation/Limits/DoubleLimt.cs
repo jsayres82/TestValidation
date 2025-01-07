@@ -8,6 +8,9 @@ using Nuvo.TestValidation.Limits.Validators;
 
 namespace Nuvo.TestValidation.Limits
 {
+    /// <summary>
+    /// I don't remember why I did this one.  Maybe for things like DC test that have only a single measurement point?
+    /// </summary>
     public class DoubleLimt : GenericLimit
     {
         [XmlElement("Value")]
@@ -31,12 +34,14 @@ namespace Nuvo.TestValidation.Limits
         //{
         //    Value = value;
         //}
+
         public override double CalculateMargin(double domainValue, double rangeValue)
         {
             //if (Start <= domainValue && domainValue <= End)
                 return Validator.CalculateMargin(rangeValue);
             return double.NaN; // Skip validation if outside the specified frequency domain
         }
+
         public override bool ValidateMeasurement(double measurement)
         {
             return Validator.Validate(measurement);
