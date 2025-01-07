@@ -19,6 +19,9 @@ using Nuvo.TestValidation.Utilities;
 
 namespace Nuvo.TestValidation
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class MeasurementProcessor
     {
@@ -34,12 +37,14 @@ namespace Nuvo.TestValidation
         private string file;
         [XmlElement]
         public TestRequirements TestRequirements;
+
         public MeasurementProcessor()
         {
             testRequirements = new List<TestRequirement>();
             baseDataSet = new Dictionary<string, double>();
             characteristicParameters = new Dictionary<string, double>();
         }
+
         public string[] GetFilesInFolder(string folderPath)
         {
             try
@@ -77,7 +82,6 @@ namespace Nuvo.TestValidation
         {
             baseDataSet = dataSet;
         }
-
 
         public TestRequirements ParseTestRequirementsFromXml(string xmlFilePath)
         {
@@ -134,24 +138,6 @@ namespace Nuvo.TestValidation
                 // Calculate the parameter value based on the base data set and serial number
                 characteristicParameter.CalculateParameterValue(requirement, parseMeasurementsFromFile(measurementFile));
             }
-        }
-
-        public List<string> ValidateMeasurementOld()
-        {
-            List<string> results = new List<string>();
-            foreach (var requirement in TestRequirements.Requirements)
-            {
-                // Retrieve the characteristic parameter for the requirement
-                GenericParameter characteristicParameter = requirement.CharacteristicParameter;
-
-                // Validate the measurement against the requirement
-                var isPassed = characteristicParameter.ValidateMeasurement(requirement, new Dictionary<string, List<object[]>>());
-
-                // Print the result
-                Console.WriteLine($"{requirement.Name}: {(isPassed ? "Passed" : "Failed")}");
-                results.Add($"{results.Count + 1} - {requirement.Name}: {(isPassed ? "Passed" : "Failed")}");
-            }
-            return results;
         }
 
         public bool ValidateMeasurement(string serialNumber)
