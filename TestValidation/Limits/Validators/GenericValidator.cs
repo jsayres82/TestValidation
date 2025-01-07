@@ -353,7 +353,6 @@ namespace Nuvo.TestValidation.Limits.Validators
     {
         public U StartValue { get; set; }
         public U EndValue { get; set; }
-        public Prefix Prefix { get; set; }
 
         // Parameterless constructor required for serialization
         public DomainValidator()

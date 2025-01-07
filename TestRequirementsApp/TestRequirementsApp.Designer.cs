@@ -254,7 +254,6 @@ namespace Nuvo.Requirements_Builder
         private System.Windows.Forms.Button buttonOpenSpecFile;
         private System.Windows.Forms.Button butonNewSpecFile;
         private System.Windows.Forms.FlowLayoutPanel flp;
-        private TestInfoCtrl measurementInfoCtrl1;
         private System.Windows.Forms.Button buttonSaveSpecFile;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.FlowLayoutPanel flp2;

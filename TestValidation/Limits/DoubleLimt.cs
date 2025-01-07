@@ -39,7 +39,7 @@ namespace Nuvo.TestValidation.Limits
         {
             //if (Start <= domainValue && domainValue <= End)
                 return Validator.CalculateMargin(rangeValue);
-            return double.NaN; // Skip validation if outside the specified frequency domain
+            //return double.NaN; // Skip validation if outside the specified frequency domain
         }
 
         public override bool ValidateMeasurement(double measurement)
@@ -69,7 +69,7 @@ namespace Nuvo.TestValidation.Limits
                 //    return kvp < Value;
                 //else
                 //    return kvp > Value;
-            return false;
+            //return false;
         }
     }
 }

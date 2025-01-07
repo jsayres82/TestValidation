@@ -96,7 +96,6 @@ namespace Nuvo.Requirements_Builder
 
         public GenericParameter GetParameter()
         {
-            var idx = 0;
             var count = Parameter.ParameterVariableCount;
             var measVars = new List<string>() { textBoxAdditionalProperty1.Text, textBoxAdditionalProperty2.Text };
 

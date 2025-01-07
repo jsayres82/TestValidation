@@ -34,7 +34,6 @@ namespace Nuvo.TestValidation.Parameters
                     kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
             }
         }
-        public string Description { get { return "Evaluates a scattering parameter for S-Parameter Matrix"; } }
 
         private List<string> variableNames = new List<string>() { "S-Param" };
         public override List<string> VariableNames { get { return variableNames; } }
@@ -54,11 +53,13 @@ namespace Nuvo.TestValidation.Parameters
         public GroupDelayParameter(IParameterValueCalculator calculator)
             : base(calculator)
         {
+            Description = "Evaluates a scattering parameter for S-Parameter Matrix";
         }
 
         public GroupDelayParameter()
             : base()
         {
+            Description = "Evaluates a scattering parameter for S-Parameter Matrix";
         }
 
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement)
@@ -108,7 +109,7 @@ namespace Nuvo.TestValidation.Parameters
             //Dictionary<string, List<string>> dataStr = combiner.ExtractSParameterData(filePath);
             Dictionary<string, List<string>> dataStr = new Dictionary<string, List<string>>();
             INetworkParametersCollection coll = Touchstone.ReadAllData(filePath);
-            int index = 0;
+            
             int portOne = Convert.ToInt32(MeasurementVariables[0].Substring(1)[0].ToString());
             int portTwo = Convert.ToInt32(MeasurementVariables[0].Substring(1)[1].ToString());
 
