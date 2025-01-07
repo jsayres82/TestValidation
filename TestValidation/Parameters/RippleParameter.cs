@@ -29,7 +29,7 @@ namespace Nuvo.TestValidation.Parameters
         public override List<string> VariableNames { get { return variableNames; } }
         public override List<string> MeasurementVariables { get; set; } = new List<string>();
 
-        public override double MinimumMargin { get; set; }
+        public override double ValueAtMinMargin { get; set; }
 
         public RippleParameter(IParameterValueCalculator calculator)
             : base(calculator)

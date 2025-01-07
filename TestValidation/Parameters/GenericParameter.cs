@@ -22,9 +22,9 @@ namespace Nuvo.TestValidation.Parameters
     [Serializable]
     public abstract class GenericParameter : IParameterDetails
     {
-        protected double MinMargin = double.MaxValue;
+        public virtual double MinMargin { get; set; } = double.MaxValue;
 
-        [XmlIgnore]
+    [XmlIgnore]
         public string FilePath { get; set; }
         public string SerialNumber { get; set; }
         public string Name { get; set; }
@@ -37,7 +37,7 @@ namespace Nuvo.TestValidation.Parameters
         [XmlIgnore]
         public abstract Dictionary<string, List<object[]>> ParameterValues { get; }
 
-        public abstract double MinimumMargin { get; set; }
+        public abstract double ValueAtMinMargin { get; set; }
 
         public List<MeasFileTypes> FileTypesHandlers { get; } = new List<MeasFileTypes>() { MeasFileTypes.None };
 
@@ -90,5 +90,4 @@ namespace Nuvo.TestValidation.Parameters
             return new Dictionary<string, List<object[]>>();
         }
     }
-
 }

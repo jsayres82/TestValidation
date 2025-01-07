@@ -18,7 +18,8 @@ namespace Nuvo.TestValidation.Parameters.Interfaces
         List<string> VariableNames { get; }
         Dictionary<string, List<object[]>> ParameterValues { get; }
         List<MeasFileTypes> FileTypesHandlers { get; }
-        double MinimumMargin { get; set; }
+        double MinMargin { get; set; }
+        double ValueAtMinMargin { get; set; }
         Dictionary<string, List<object[]>> ParseFile(string fileName);
         bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement);
         Dictionary<string, List<object[]>> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet);

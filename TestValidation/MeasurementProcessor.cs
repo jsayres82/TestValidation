@@ -140,6 +140,22 @@ namespace Nuvo.TestValidation
             }
         }
 
+        public void CalculateCharacteristicParameters(string measurementFolder)
+        {
+            foreach (var requirement in TestRequirements.Requirements)
+            {
+                // Retrieve the characteristic parameter for the requirement
+                GenericParameter characteristicParameter = requirement.CharacteristicParameter;
+
+                string filePath = Path.Combine(measurementFolder, TestInfo.TestArticles.MeasurementFiles[0]);
+
+                characteristicParameter.FilePath = TestInfo.TestArticles.MeasurementFiles[0];
+                // Calculate the parameter value based on the base data set
+                characteristicParameter.CalculateParameterValue(requirement,
+                                        parseMeasurementsFromFile(filePath));
+            }
+        }
+
         public bool ValidateMeasurement(string serialNumber)
         {
             this.serialNumber = serialNumber; // Store the serial number
@@ -170,7 +186,7 @@ namespace Nuvo.TestValidation
                 var isPassed = characteristicParameter.ValidateMeasurement(requirement, new Dictionary<string, List<object[]>>());
 
                 // Create a TestResult instance with parameter values of type Dictionary<string, List<double[]>>
-                var result = new TestResult<Dictionary<string, List<double[]>>> (requirement.Name, isPassed, characteristicParameter.MinimumMargin);
+                var result = new TestResult<Dictionary<string, List<double[]>>> (requirement.Name, isPassed, characteristicParameter.ValueAtMinMargin, characteristicParameter.MinMargin);
                 result.Limit = requirement.Limit;
                 testReport.Results.Add(result);
 
@@ -178,25 +194,10 @@ namespace Nuvo.TestValidation
             testReport.TestFile = file;
             testReport.WriteToXml(new FileInfo(file).DirectoryName);
             
-            if(fileCheck.TryToAccessFile($"{file}\\SN{UnitSerialNumber}_Result.xml"))
+            // if(fileCheck.TryToAccessFile($"{file}\\SN{UnitSerialNumber}_Result.xml"))
                 testReport.CreatePdfFromXml(new FileInfo(file).DirectoryName);
 
             return testReport;// testReport;
-        }
-
-        public void CalculateCharacteristicParameters(string measurementFolder)
-        {
-            foreach (var requirement in TestRequirements.Requirements)
-            {
-                // Retrieve the characteristic parameter for the requirement
-                GenericParameter characteristicParameter = requirement.CharacteristicParameter;
-
-                string filePath = Path.Combine(measurementFolder, TestInfo.TestArticles.MeasurementFiles[0]);
-
-                // Calculate the parameter value based on the base data set
-                characteristicParameter.CalculateParameterValue(requirement,
-                                        parseMeasurementsFromFile(filePath));
-            }
         }
 
         private Dictionary<string, List<object[]>> parseMeasurementsFromFile(string filePath)

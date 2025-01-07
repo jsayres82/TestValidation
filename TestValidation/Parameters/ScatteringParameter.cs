@@ -21,10 +21,8 @@ namespace Nuvo.TestValidation.Parameters
 {
     public class ScatteringParameter : GenericParameter
     {
-        // This can go away now that we pass number of indeces. Need to implement a utility function that can generates the string arrays
-        string[] s = new string[9] { "S11", "S12", "S13", "S21", "S22", "S23", "S31", "S32", "S33" };
-        List<string> sprams = new List<string>();
-
+        List<string> sParams = new List<string>();
+        private int portCount = 0;
         // This holds the results that will be written to file as we validate the set
         private List<(double, double, double, double, string)> csvData = new List<(double, double, double, double, string)>();
 
@@ -55,15 +53,16 @@ namespace Nuvo.TestValidation.Parameters
         public override List<string> MeasurementVariables { get; set; } = new List<string>();
 
         // What gets reported in the report output table
-        public override double MinimumMargin 
+        public override double ValueAtMinMargin 
         {
             get
             {
-                return MinMargin;
+                return valueAtMinMargin;
             }
-            set { MinMargin = value; }
+            set { valueAtMinMargin = value; }
         }
 
+        private double valueAtMinMargin = double.MinValue;
         /// <summary>
         /// Constructor - Each calculator would have it's own description of what it is doing
         /// </summary>
@@ -95,8 +94,10 @@ namespace Nuvo.TestValidation.Parameters
         {
             int index = 0;
             bool isPassed = true;
+            double lastMinMargin = double.MaxValue;
             MinMargin = double.MaxValue;
             csvData = new List<(double, double, double, double, string)>();
+            ValueAtMinMargin = double.MaxValue;
 
             foreach (var sParam in MeasurementVariables)
             {
@@ -113,9 +114,13 @@ namespace Nuvo.TestValidation.Parameters
                     double margin = req.Limit.CalculateMargin(freq, testValue);
                     if (!double.IsNaN(margin))
                     {
-                        MinMargin = Math.Min(MinMargin, margin);
-                        if (margin < MinMargin)
+                        var newMinMargin = Math.Min(lastMinMargin, margin);
+                        if (newMinMargin < lastMinMargin)
+                        {
+                            lastMinMargin = margin;
                             MinMargin = margin;
+                            ValueAtMinMargin = testValue;
+                        }
                         csvData.Add((freq, testValue, margin, limit, result));
                     }
 
@@ -136,13 +141,13 @@ namespace Nuvo.TestValidation.Parameters
         /// <param name="baseDataSet"></param>
         /// <returns></returns>
         public override Dictionary<string, List<object[]>> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet)
-        {
+        {            
             scatteringParameterValues = new Dictionary<string, List<double[]>>();
-            sprams.AddRange(s.ToList());
+            sParams = SParamUtility.GenerateSparamStrings(new FileInfo(FilePath).Extension);
             int index = 0;
             int idx = 0;
             Dictionary<string, List<Complex>> parsedData = new Dictionary<string, List<Complex>>();
-            foreach (var val in s)
+            foreach (var val in sParams)
             {
                 parsedData.Add(val, new List<Complex>());
                 if (val.Equals(MeasurementVariables[0]))

@@ -28,7 +28,7 @@ namespace Nuvo.TestValidation.Parameters.Antenna
 
         public override List<string> MeasurementVariables { get; set; } = new List<string>();
 
-        public override double MinimumMargin { get; set; }
+        public override double ValueAtMinMargin { get; set; }
 
         public LinearGainParameter(IParameterValueCalculator calculator)
             : base(calculator)

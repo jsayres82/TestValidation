@@ -35,6 +35,11 @@ namespace Nuvo.TestValidation.Utilities.Math
                 }
 
                 array[i] = p[i] + num4;
+
+                if (array[i] == 0)
+                {
+                    int err = 1;
+                }
                 num3 = array[i];
             }
 

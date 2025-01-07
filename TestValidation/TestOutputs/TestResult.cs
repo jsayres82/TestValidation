@@ -16,6 +16,7 @@ namespace Nuvo.TestValidation.TestResults
         [XmlIgnore]
         public T ParameterValue { get; set; }
         public double MinimumMargin { get; set; }
+        public double ValueAtMinimumMargin { get; set; }
         [XmlIgnore]
         public double[] ParameterValues { get; set; }
         [XmlElement("DoubleLimt", typeof(DoubleLimt))]
@@ -28,19 +29,21 @@ namespace Nuvo.TestValidation.TestResults
         }
 
 
-        public TestResult(string parameterName, bool isPassed, double margin)
+        public TestResult(string parameterName, bool isPassed, double valuAtMinMargin, double minimumMargin)
         {
-            MinimumMargin = margin;
+            ValueAtMinimumMargin = valuAtMinMargin;
             RequirementName = parameterName;
             Passed = isPassed;
+            MinimumMargin = minimumMargin;
         }
 
-        public TestResult(string parameterName, bool isPassed, T parameterValues, double margin)
+        public TestResult(string parameterName, bool isPassed, T parameterValues, double valuAtMinMargin, double minimumMargin)
         {
-            MinimumMargin = margin;
+            ValueAtMinimumMargin = valuAtMinMargin;
             RequirementName = parameterName;
             Passed = isPassed;
             ParameterValue = parameterValues;
+            MinimumMargin = minimumMargin;
         }
     }
 }

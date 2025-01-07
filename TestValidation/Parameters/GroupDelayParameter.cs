@@ -38,7 +38,7 @@ namespace Nuvo.TestValidation.Parameters
         private List<string> variableNames = new List<string>() { "S-Param" };
         public override List<string> VariableNames { get { return variableNames; } }
         public override List<string> MeasurementVariables { get; set; }
-        public override double MinimumMargin
+        public override double ValueAtMinMargin
         {
             get => MinMargin;
             set => MinMargin = value;

@@ -306,7 +306,7 @@ namespace Nuvo.Requirements_Builder
 
             foreach (var serial in files)
             {
-                var serialNumber = Path.GetFileName(serial).Split("_")[1].Replace("SN", "");
+                var serialNumber = Path.GetFileName(serial).Split("_")[2].Replace("SN", "");
                 SerialNumbers.Add(serialNumber);
                 listBoxSerialNumbers.Items.Add(serialNumber);
                 measurementProcessor.CalculateCharacteristicParameters(serial, serialNumber);
@@ -325,7 +325,7 @@ namespace Nuvo.Requirements_Builder
             foreach (var r in results.Results)
             {
                 reqCount++;
-                resultString += $"{reqCount} - {(r as ITestResult).RequirementName}: {((r as ITestResult).Passed ? "Passed" : "Failed")} Margin = {(r as ITestResult).MinimumMargin.ToString("0.###E+0")}\r\n";
+                resultString += $"{reqCount} - {(r as ITestResult).RequirementName}: {((r as ITestResult).Passed ? "Passed" : "Failed")} Margin = {(r as ITestResult).ValueAtMinimumMargin.ToString("0.###E+0")}\r\n";
             }
             MessageBox.Show(resultString);
         }
