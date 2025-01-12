@@ -46,6 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\microwave-networks\Source\MicrowaveNetworks\MicrowaveNetworks.csproj" />
     <ProjectReference Include="..\RfNetworks\Nuvo.RF_Networks.csproj" />
     <ProjectReference Include="..\TestValidation\Nuvo.TestValidation.csproj" />
   </ItemGroup>
@@ -214,6 +215,12 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Metas.Vna.AgilentModel">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\METAS\Metas.Vna.Tools\Metas.Vna.AgilentModel.dll</HintPath>
+    </Reference>
   </ItemGroup>
 	
 </Project>

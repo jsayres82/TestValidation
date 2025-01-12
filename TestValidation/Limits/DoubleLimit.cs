@@ -11,7 +11,7 @@ namespace Nuvo.TestValidation.Limits
     /// <summary>
     /// I don't remember why I did this one.  Maybe for things like DC test that have only a single measurement point?
     /// </summary>
-    public class DoubleLimt : GenericLimit
+    public class DoubleLimit : GenericLimit
     {
         [XmlElement("Value")]
         public double Value { get; set; }
@@ -35,6 +35,10 @@ namespace Nuvo.TestValidation.Limits
         //    Value = value;
         //}
 
+        public DoubleLimit()
+        {
+
+        }
         public override double CalculateMargin(double domainValue, double rangeValue)
         {
             //if (Start <= domainValue && domainValue <= End)

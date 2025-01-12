@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Numerics;
 using System.Threading.Tasks;
+using MicrowaveNetworks;
 
 namespace Nuvo.TestValidation.Utilities.Math
 {
@@ -46,6 +47,34 @@ namespace Nuvo.TestValidation.Utilities.Math
             return array;
         }
 
+        public static double[] UnwrapPhase(NetworkParameter[] p, bool convertToDegrees = false)
+        {
+            double num = System.Math.PI;
+            double num2 = num;
+            double num3 = 0.0;
+            double num4 = 0.0;
+            int num5 = p.Length;
+            double[] array = new double[num5];
+            for (int i = 0; i < num5; i++)
+            {
+                if (p[i].Phase + num4 - num3 >= num2)
+                {
+                    num4 -= 2.0 * num;
+                }
+                else if (p[i].Phase + num4 - num3 <= 0.0 - num2)
+                {
+                    num4 += 2.0 * num;
+                }
+
+                array[i] = (p[i].Phase + num4);
+
+                num3 = array[i];
+                if(convertToDegrees)
+                    array[i] = array[i] * 180 / System.Math.PI;
+            }
+
+            return array;
+        }
         public static double[] WrapPhase(double[] p)
         {
             int num = p.Length;

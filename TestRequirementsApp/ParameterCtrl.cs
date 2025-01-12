@@ -15,6 +15,7 @@ namespace Nuvo.Requirements_Builder
 {
     public partial class ParameterCtrl : UserControl
     {
+        public event EventHandler ParameterUpdated;
         public Type[] parameterTypes;
         public GenericParameter Parameter;
         public Type ParameterType;
@@ -55,10 +56,11 @@ namespace Nuvo.Requirements_Builder
 
                 Console.WriteLine();
             }
-            comboBoxUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
-            comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
+            comboBoxUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
+            comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(UnitEnum)));
             comboBoxSpecTypes.SelectedIndexChanged -= this.comboBoxSpecTypes_SelectedIndexChanged;
         }
+
         public ParameterCtrl(GenericParameter param)
         {
             InitializeComponent();
@@ -89,8 +91,8 @@ namespace Nuvo.Requirements_Builder
 
                 Console.WriteLine();
             }
-            comboBoxUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
-            comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
+            comboBoxUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
+            comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(UnitEnum)));
             comboBoxSpecTypes.SelectedIndexChanged -= this.comboBoxSpecTypes_SelectedIndexChanged;
         }
 
@@ -155,11 +157,6 @@ namespace Nuvo.Requirements_Builder
             }
         }
 
-        private void panelHeader1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void comboBoxSpecTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
             var o = Activator.CreateInstance(parameterTypes[comboBoxSpecTypes.SelectedIndex]);
@@ -181,6 +178,7 @@ namespace Nuvo.Requirements_Builder
                 }
             }
             Parameter = o as GenericParameter;
+            ParameterUpdated.Invoke(this, null);
         }
 
         private void ShowAdditialParamCtrls(int count)

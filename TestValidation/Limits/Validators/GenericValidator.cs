@@ -11,16 +11,16 @@ namespace Nuvo.TestValidation.Limits.Validators
         public T Value { get; set; }
 
         [XmlElement("Unit")]
-        public Unit Unit { get; set; }
+        public UnitEnum Unit { get; set; }
 
         [XmlElement("Prefix")]
-        public Prefix Prefix { get; set; }
+        public PrefixEnum Prefix { get; set; }
 
         protected GenericValidator()
         {
         }
 
-        protected GenericValidator(T value, Unit unit, Prefix prefix)
+        protected GenericValidator(T value, UnitEnum unit, PrefixEnum prefix)
         {
             Value = value;
             Unit = unit;
@@ -51,7 +51,7 @@ namespace Nuvo.TestValidation.Limits.Validators
         {
         }
 
-        public GreaterThanValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public GreaterThanValidator(T value, UnitEnum unit, PrefixEnum prefix) : base(value, unit, prefix)
         {
         }
 
@@ -75,7 +75,7 @@ namespace Nuvo.TestValidation.Limits.Validators
         {
         }
 
-        public GreaterThanOrEqualValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public GreaterThanOrEqualValidator(T value, UnitEnum unit, PrefixEnum prefix) : base(value, unit, prefix)
         {
         }
 
@@ -99,7 +99,7 @@ namespace Nuvo.TestValidation.Limits.Validators
         {
         }
 
-        public LessThanValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public LessThanValidator(T value, UnitEnum unit, PrefixEnum prefix) : base(value, unit, prefix)
         {
         }
 
@@ -123,7 +123,7 @@ namespace Nuvo.TestValidation.Limits.Validators
         {
         }
 
-        public LessThanOrEqualValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public LessThanOrEqualValidator(T value, UnitEnum unit, PrefixEnum prefix) : base(value, unit, prefix)
         {
         }
 
@@ -147,7 +147,7 @@ namespace Nuvo.TestValidation.Limits.Validators
         {
         }
 
-        public EqualValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public EqualValidator(T value, UnitEnum unit, PrefixEnum prefix) : base(value, unit, prefix)
         {
         }
 
@@ -164,7 +164,7 @@ namespace Nuvo.TestValidation.Limits.Validators
         {
         }
 
-        public NotEqualValidator(T value, Unit unit, Prefix prefix) : base(value, unit, prefix)
+        public NotEqualValidator(T value, UnitEnum unit, PrefixEnum prefix) : base(value, unit, prefix)
         {
         }
 
@@ -181,7 +181,7 @@ namespace Nuvo.TestValidation.Limits.Validators
         {
         }
 
-        public BoundedValidator(T lowerBound, T upperBound, Unit unit, Prefix prefix)
+        public BoundedValidator(T lowerBound, T upperBound, UnitEnum unit, PrefixEnum prefix)
             : base(default, unit, prefix)
         {
             LowerBound = lowerBound;
@@ -227,7 +227,7 @@ namespace Nuvo.TestValidation.Limits.Validators
         {
         }
 
-        public ToleranceValidator(T value, T tolerance, Unit unit, Prefix prefix)
+        public ToleranceValidator(T value, T tolerance, UnitEnum unit, PrefixEnum prefix)
             : base(value, unit, prefix)
         {
             Tolerance = tolerance;
@@ -274,7 +274,7 @@ namespace Nuvo.TestValidation.Limits.Validators
         {
         }
 
-        public PercentageValidator(T value, double percentage, Unit unit, Prefix prefix)
+        public PercentageValidator(T value, double percentage, UnitEnum unit, PrefixEnum prefix)
             : base(value, unit, prefix)
         {
             Percentage = percentage;
@@ -315,7 +315,7 @@ namespace Nuvo.TestValidation.Limits.Validators
         {
         }
 
-        public RampValidator(T value, T rampRate, Unit unit, Prefix prefix)
+        public RampValidator(T value, T rampRate, UnitEnum unit, PrefixEnum prefix)
             : base(value, unit, prefix)
         {
             RampRate = rampRate;
@@ -349,31 +349,31 @@ namespace Nuvo.TestValidation.Limits.Validators
             return da - db;
         }
     }
-    public class DomainValidator<T, U> : GenericValidator<T> where T : IComparable<T>
-    {
-        public U StartValue { get; set; }
-        public U EndValue { get; set; }
+    //public class DomainValidator<T, U> : GenericValidator<T> where T : IComparable<T>
+    //{
+    //    public U StartValue { get; set; }
+    //    public U EndValue { get; set; }
 
-        // Parameterless constructor required for serialization
-        public DomainValidator()
-        {
-        }
+    //    // Parameterless constructor required for serialization
+    //    public DomainValidator()
+    //    {
+    //    }
 
-        public DomainValidator(T value, U startValue, U endValue, Prefix prefix, Unit unit)
-            : base(value, unit, prefix)
-        {
-            StartValue = startValue;
-            EndValue = endValue;
-            Prefix = prefix;
-        }
+    //    public DomainValidator(T value, U startValue, U endValue, PrefixEnum prefix, UnitEnum unit)
+    //        : base(value, unit, prefix)
+    //    {
+    //        StartValue = startValue;
+    //        EndValue = endValue;
+    //        Prefix = prefix;
+    //    }
 
-        public override bool Validate(T measurement)
-        {
-            // Check if measurement falls within the specified domain
-            if (measurement.CompareTo(Value) < 0 || measurement.CompareTo(Value) > 0)
-                return false;
+    //    public override bool Validate(T measurement)
+    //    {
+    //        // Check if measurement falls within the specified domain
+    //        if (measurement.CompareTo(Value) < 0 || measurement.CompareTo(Value) > 0)
+    //            return false;
 
-            return true;
-        }
-    }
+    //        return true;
+    //    }
+    //}
 }

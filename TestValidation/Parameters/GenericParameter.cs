@@ -11,20 +11,23 @@ using System.Collections;
 using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Calculators;
 using Nuvo.TestValidation.Utilities;
+using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 
 namespace Nuvo.TestValidation.Parameters
 {
     [XmlInclude(typeof(PhaseBalanceParameter))]
     [XmlInclude(typeof(GroupDelayParameter))]
-    [XmlInclude(typeof(AttenuationParameter))]
+    [XmlInclude(typeof(AmplitudeBalanceParameter))]
     [XmlInclude( typeof(ScatteringParameter))]
-    [XmlInclude(typeof(RippleParameter))]
+    [XmlInclude(typeof(FlatnessParameter))]
     [Serializable]
     public abstract class GenericParameter : IParameterDetails
     {
+        protected static string LimitStr = "Limit";
+        protected static string ValidatorStr = "Validator";
         public virtual double MinMargin { get; set; } = double.MaxValue;
 
-    [XmlIgnore]
+        [XmlIgnore]
         public string FilePath { get; set; }
         public string SerialNumber { get; set; }
         public string Name { get; set; }
@@ -33,13 +36,20 @@ namespace Nuvo.TestValidation.Parameters
         public abstract List<string> VariableNames { get; }
         public abstract List<string> MeasurementVariables { get; set; }
 
-
         [XmlIgnore]
         public abstract Dictionary<string, List<object[]>> ParameterValues { get; }
 
         public abstract double ValueAtMinMargin { get; set; }
 
         public List<MeasFileTypes> FileTypesHandlers { get; } = new List<MeasFileTypes>() { MeasFileTypes.None };
+
+        public virtual List<object> ValidLimits { get; } = new List<object>();
+
+        public virtual List<object> ValidValidators { get; } = new List<object>();
+
+        public virtual List<string> ValidLimitUnits { get; } = new List<string>();
+
+        public virtual List<string> ValidValidatorUnits { get; } = new List<string>();
 
         public abstract bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement);
 

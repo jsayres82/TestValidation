@@ -10,7 +10,6 @@ namespace Nuvo.TestValidation.Utilities
     {
         None,
         sXp,
-        sXXp,
         DC_Meas,
         AntennaMeasPkg,
         TemperatureLog,

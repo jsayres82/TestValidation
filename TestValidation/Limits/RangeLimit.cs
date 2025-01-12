@@ -28,6 +28,11 @@ namespace Nuvo.TestValidation.Limits
         [XmlElement("BoundedValidator", typeof(BoundedValidator<double>))]
         public override GenericValidator<double> Validator { get; set; }
 
+        public RangeLimit()
+        {
+
+        }
+
         public override double CalculateMargin(double domainValue, double rangeValue)
         {
             //if (Start <= domainValue && domainValue <= End)

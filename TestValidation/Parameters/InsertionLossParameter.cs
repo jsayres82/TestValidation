@@ -1,28 +1,18 @@
-﻿using System;
+﻿using Nuvo.TestValidation.Calculators.Interfaces;
+using Nuvo.TestValidation.Limits.Validators;
+using Nuvo.TestValidation.Limits;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Numerics;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Nuvo.TestValidation.Calculators;
-using Nuvo.TestValidation.Calculators.Interfaces;
-using Nuvo.TestValidation.Limits;
-using Nuvo.TestValidation.Limits.Validators;
-using Nuvo.TestValidation.Parameters.Interfaces;
-using Nuvo.TestValidation.TestResults;
-using Nuvo.TestValidation.Utilities;
-using Nuvo.TestValidation.Utilities.Math;
-using Org.BouncyCastle.Ocsp;
-using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 
 namespace Nuvo.TestValidation.Parameters
 {
-    public class ScatteringParameter : GenericParameter
+    public class InsertionLossParameter : ScatteringParameter
     {
         private Dictionary<string, List<double[]>> scatteringParameterValues = new Dictionary<string, List<double[]>>();
         private List<string> sParams = new List<string>();
@@ -42,6 +32,7 @@ namespace Nuvo.TestValidation.Parameters
             }
         }
 
+
         // Is currently justin the matrix index to evaluate for right now.  But if we were to implement an amplitude balance we could add the list of ports as well
         // then just set the requirment to use the AmplitudeBalanceCalulator
         public override List<string> VariableNames { get; } = new List<string>() { "S-Param" };
@@ -51,7 +42,7 @@ namespace Nuvo.TestValidation.Parameters
         public override List<string> MeasurementVariables { get; set; } = new List<string>();
 
         // What gets reported in the report output table
-        public override double ValueAtMinMargin 
+        public override double ValueAtMinMargin
         {
             get
             {
@@ -65,26 +56,41 @@ namespace Nuvo.TestValidation.Parameters
         /// Constructor - Each calculator would have it's own description of what it is doing
         /// </summary>
         /// <param name="calculator"></param>
-        public ScatteringParameter(IParameterValueCalculator calculator)
+        public InsertionLossParameter(IParameterValueCalculator calculator)
             : base(calculator)
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
             VariableNames = new List<string>() { "S-Param" };
             ValidLimits.Clear();
+            ValidLimitUnits.Clear();
+            ValidLimits.Add(typeof(DomainLimit).Name);
+            ValidLimitUnits.Add(UnitEnum.Hertz.ToString());
+
             ValidValidators.Clear();
-            updateLimitDictionary();
+            ValidValidatorUnits.Clear();
+            ValidValidators.Add(typeof(LessThanOrEqualValidator<double>).Name);
+            ValidValidators.Add(typeof(LessThanValidator<double>).Name);
+            ValidValidatorUnits.Add(UnitEnum.dB.ToString());
         }
+
         /// <summary>
         /// Constructor - Needed for serialization.
         /// </summary>
-        public ScatteringParameter()
+        public InsertionLossParameter()
             : base()
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
             VariableNames = new List<string>() { "S-Param" };
             ValidLimits.Clear();
+            ValidLimitUnits.Clear();
+            ValidLimits.Add(typeof(DomainLimit));
+            ValidLimitUnits.Add(UnitEnum.Hertz.ToString());
+
             ValidValidators.Clear();
-            updateLimitDictionary();
+            ValidValidatorUnits.Clear();
+            ValidValidators.Add(typeof(LessThanOrEqualValidator<>));
+            ValidValidators.Add(typeof(LessThanValidator<>));
+            ValidValidatorUnits.Add(UnitEnum.dB.ToString());
         }
 
         /// <summary>
@@ -143,48 +149,49 @@ namespace Nuvo.TestValidation.Parameters
         /// <param name="req"></param>
         /// <param name="baseDataSet"></param>
         /// <returns></returns>
-        public override Dictionary<string, List<object[]>> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet)
-        {
-            scatteringParameterValues = new Dictionary<string, List<double[]>>();
-            sParams = SParamUtility.GenerateSparamStrings(new FileInfo(FilePath).Extension);
-            int index = 0;
-            int idx = 0;
-            Dictionary<string, List<Complex>> parsedData = new Dictionary<string, List<Complex>>();
-            foreach (var val in sParams)
-            {
-                parsedData.Add(val, new List<Complex>());
-                if (val.Equals(MeasurementVariables[0]))
-                    idx = index;
-                index++;
-            }
+        //public override Dictionary<string, List<object[]>> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet)
+        //{
+        //    scatteringParameterValues = new Dictionary<string, List<double[]>>();
+        //    sParams = SParamUtility.GenerateSparamStrings(new FileInfo(FilePath).Extension);
+        //    int index = 0;
+        //    int idx = 0;
+        //    Dictionary<string, List<Complex>> parsedData = new Dictionary<string, List<Complex>>();
+        //    foreach (var val in sParams)
+        //    {
+        //        parsedData.Add(val, new List<Complex>());
+        //        if (val.Equals(MeasurementVariables[0]))
+        //            idx = index;
+        //        index++;
+        //    }
 
-            parameterDomain = baseDataSet.Keys.ToList();
-            foreach (var d in baseDataSet)
-            {
-                index = 0;
-                foreach (var val in d.Value)
-                {
-                    if (index == idx)
-                    {
-                        var valF = new double[1]
-                        {
-                            System.Convert.ToDouble(val[0])
-                        };
-                        scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valF });
-                    }
-                    index++;
-                }
-            }
-            return ParameterValues;
-        }
-        
+        //    parameterDomain = baseDataSet.Keys.ToList();
+        //    foreach (var d in baseDataSet)
+        //    {
+        //        index = 0;
+        //        foreach (var val in d.Value)
+        //        {
+        //            if (index == idx)
+        //            {
+        //                var valF = new double[1]
+        //                {
+        //                Convert.ToDouble(val[0])
+        //                };
+        //                scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valF });
+        //            }
+        //            index++;
+        //        }
+        //    }
+
+        //    return ParameterValues;
+        //}
+
         /// <summary>
         /// Dont remember, it's not used yet though
         /// </summary>
         /// <returns></returns>
         public override object[] GetParameterLimits()
         {
-            return new object[] { double.MinValue, double.MaxValue }; // Example for double
+            return new object[] { double.MinValue }; // Example for double
         }
 
         /// <summary>
@@ -210,47 +217,6 @@ namespace Nuvo.TestValidation.Parameters
                     }
                 }
             }
-        }
-
-        private void updateLimitDictionary()
-        {
-            // Load the assembly containing the CharacteristicParameter classes
-            Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
-
-            // Get all the Limit classes
-            var limitTypes = assembly.GetTypes()
-                .Where(t => t.IsSubclassOf(typeof(GenericLimit)))
-                .ToArray();
-
-            // Get all the Validator classes
-            var validatorTypes = assembly.GetTypes()
-                .Where(IsIndexType)
-                .ToArray();
-
-            // Loop through the CharacteristicParameter classes
-            foreach (Type limitType in limitTypes)
-            {
-                ValidLimits.Add(limitType);
-            }
-
-            // Loop through the CharacteristicParameter classes
-            foreach (Type validator in validatorTypes)
-            {
-                ValidValidators.Add(validator);
-            }
-
-            //ValidValidatorUnits.AddRange(Enum.GetNames(typeof(UnitEnum)));
-            //ValidLimitUnits.AddRange(Enum.GetNames(typeof(UnitEnum)));
-        }
-
-        private bool IsIndexType(Type type)
-        {
-            var indexDefinition = typeof(GenericValidator<>).GetGenericTypeDefinition();
-            return !type.IsAbstract
-                   && type.IsClass
-                   && type.BaseType is not null
-                   && type.BaseType.IsGenericType
-                   && type.BaseType.GetGenericTypeDefinition() == indexDefinition;
         }
     }
 }

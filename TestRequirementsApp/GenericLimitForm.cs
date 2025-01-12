@@ -33,21 +33,21 @@ namespace Nuvo.Requirements_Builder
 
             foreach (var property in properties)
             {
-                if (property.PropertyType == typeof(Unit))
+                if (property.PropertyType == typeof(UnitEnum))
                 {
                     ComboBox comboBox = new ComboBox();
                     comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                    comboBox.DataSource = Enum.GetValues(typeof(Unit));
+                    comboBox.DataSource = Enum.GetValues(typeof(UnitEnum));
                     comboBox.DataBindings.Add("SelectedItem", _limit, property.Name);
 
                     flowLayoutPanel.Controls.Add(new Label { Text = property.Name });
                     flowLayoutPanel.Controls.Add(comboBox);
                 }
-                else if (property.PropertyType == typeof(Prefix))
+                else if (property.PropertyType == typeof(PrefixEnum))
                 {
                     ComboBox comboBox = new ComboBox();
                     comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                    comboBox.DataSource = Enum.GetValues(typeof(Prefix));
+                    comboBox.DataSource = Enum.GetValues(typeof(PrefixEnum));
                     comboBox.DataBindings.Add("SelectedItem", _limit, property.Name);
 
                     flowLayoutPanel.Controls.Add(new Label { Text = property.Name });
@@ -70,7 +70,7 @@ namespace Nuvo.Requirements_Builder
 
             foreach (var property in properties)
             {
-                if (property.PropertyType == typeof(Unit) || property.PropertyType == typeof(Prefix))
+                if (property.PropertyType == typeof(UnitEnum) || property.PropertyType == typeof(PrefixEnum))
                     continue;
 
                 Control control = flowLayoutPanel.Controls.Find(property.Name, false).FirstOrDefault();

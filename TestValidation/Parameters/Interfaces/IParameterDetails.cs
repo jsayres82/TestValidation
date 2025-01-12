@@ -1,10 +1,12 @@
 ﻿using Nuvo.TestValidation.Limits;
+using Nuvo.TestValidation.Limits.Validators;
 using Nuvo.TestValidation.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 
 namespace Nuvo.TestValidation.Parameters.Interfaces
 {
@@ -16,6 +18,10 @@ namespace Nuvo.TestValidation.Parameters.Interfaces
         string Description { get; set; }
         int ParameterVariableCount { get; set; }
         List<string> VariableNames { get; }
+        List<object> ValidLimits { get; }
+        List<object> ValidValidators { get; }
+        List<string> ValidLimitUnits { get; }
+        List<string> ValidValidatorUnits { get; }
         Dictionary<string, List<object[]>> ParameterValues { get; }
         List<MeasFileTypes> FileTypesHandlers { get; }
         double MinMargin { get; set; }

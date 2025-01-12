@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace Nuvo.Requirements_Builder
 {
     public partial class LimitCtrl : UserControl
     {
+        private static string LimitStr = "Limit";
+        private static string ValidatorStr = "Validator";
         public Type[] limitTypes;
         public Type[] validatorTypes;
         public GenericLimit Limit;
@@ -32,12 +35,12 @@ namespace Nuvo.Requirements_Builder
             // Load the assembly containing the CharacteristicParameter classes
             Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
 
-            // Get all the Requirements classes
+            // Get all the Limit classes
             limitTypes = assembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(GenericLimit)))
                 .ToArray();
 
-            // Get all the Limit classes
+            // Get all the Validator classes
             validatorTypes = assembly.GetTypes()
                 .Where(IsIndexType)
                 .ToArray();
@@ -53,19 +56,68 @@ namespace Nuvo.Requirements_Builder
             {
                 comboBoxLimitTypes.Items.Add(limitType.Name);
             }
-            comboBoxValidUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
+            comboBoxValidUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
             //comboBoxLimitPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
             comboBoxLimitPrefix.Text = "None";
             comboBoxLimitPrefix.Items.Add("None");
-            comboBoxValidatorUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
+            comboBoxValidatorUnits.Items.AddRange(Enum.GetNames(typeof(UnitEnum)));
             comboBoxLimitUnits.Text = "Hertz";
             comboBoxLimitUnits.Items.Add("Hertz");
             //comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
 
             comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
-            comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
+            //comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
             UpdateLimit(Limit);
+        }
 
+        public LimitCtrl(List<object> validLimits, List<object> validValidators, List<string> validLimitUnits, List<string> validLimitValidatorUnits )
+        {
+            InitializeComponent();
+            comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
+            comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
+            comboBoxLimitTypes.Items.Clear();
+            limitTypes = new Type[validLimits.Count];
+            // Loop through the CharacteristicParameter classes
+            for (int i = 0; i < validLimits.Count; i++)// limitType in validLimits)
+            {
+                var o = Activator.CreateInstance((Type)validLimits[i]) as GenericLimit;//
+                limitTypes[i] = o.GetType();
+                comboBoxLimitTypes.Items.Add(limitTypes[i].Name);
+            }
+
+            LimitType = limitTypes[0];
+            Type[] typeArgs = { typeof(double) };
+            comboBoxValidators.Items.Clear();
+            validatorTypes = new Type[validValidators.Count];
+            
+            // Loop through the CharacteristicParameter classes
+            for (int i = 0; i < validValidators.Count; i++)// limitType in validLimits)
+            {
+                var makeme = (Type)validValidators[i];
+                var makeme2 = makeme.MakeGenericType(typeArgs);
+                var o = Activator.CreateInstance(makeme2);
+                validatorTypes[i] = o.GetType();
+                comboBoxValidators.Items.Add(validatorTypes[i].Name);
+            }
+            ValidatorType = validatorTypes[0];
+            comboBoxLimitTypes.SelectedIndex = 0;
+            comboBoxValidators.SelectedIndex = 0;
+            comboBoxValidatorUnits.Items.Clear();
+            comboBoxValidUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
+            comboBoxValidatorUnits.Items.AddRange(validLimitValidatorUnits.ToArray());
+            comboBoxValidUnitsPrefix.SelectedIndex = comboBoxValidUnitsPrefix.Items.IndexOf(PrefixEnum.Giga.ToString());
+            comboBoxValidatorUnits.SelectedIndex = 0;
+
+            comboBoxLimitUnits.Items.Clear();
+            comboBoxLimitPrefix.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
+            comboBoxLimitUnits.Items.AddRange(validLimitUnits.ToArray());
+            comboBoxLimitPrefix.SelectedIndex = comboBoxValidUnitsPrefix.Items.IndexOf(PrefixEnum.None.ToString());
+            comboBoxLimitUnits.SelectedIndex = 0;
+            //comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
+
+            comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
+            //comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
+            UpdateLimit(Limit);
         }
 
         private bool IsIndexType(Type type)
@@ -108,11 +160,11 @@ namespace Nuvo.Requirements_Builder
                         }
                         else if (p2.Name.Equals("Prefix"))
                         {
-                            p2.SetValue(Limit.Validator, Enum.Parse<Prefix>(comboBoxValidUnitsPrefix.Text));
+                            p2.SetValue(Limit.Validator, Enum.Parse<PrefixEnum>(comboBoxValidUnitsPrefix.Text));
                         }
                         else if (p2.Name.Equals("Unit"))
                         {
-                            p2.SetValue(Limit.Validator, Enum.Parse<Unit>(comboBoxValidatorUnits.Text));
+                            p2.SetValue(Limit.Validator, Enum.Parse<UnitEnum>(comboBoxValidatorUnits.Text));
                         }
                         else if (p2.Name.Equals("LowerBound"))
                         {
@@ -211,8 +263,8 @@ namespace Nuvo.Requirements_Builder
             PropertyInfo[] properties = o.GetType().GetProperties();
             (o as GenericLimit).Validator = new LessThanValidator<double>()
             {
-                Prefix = Prefix.None,
-                Unit = Unit.None,
+                Prefix = PrefixEnum.None,
+                Unit = UnitEnum.None,
                 Value = 0
             };
             Limit = o as GenericLimit;
@@ -240,26 +292,26 @@ namespace Nuvo.Requirements_Builder
                 }
                 else if (p.Name.Equals("Prefix"))
                 {
-                    p.SetValue(Limit.Validator, Prefix.None);
+                    p.SetValue(Limit.Validator, PrefixEnum.None);
                 }
                 else if (p.Name.Equals("Unit"))
                 {
-                    p.SetValue(Limit.Validator, Unit.dBmW);
+                    p.SetValue(Limit.Validator, UnitEnum.dBmW);
                 }
                 else if (p.Name.Equals("LowerBound"))
                 {
                     labeLNames.Add(p.Name);
-                    p.SetValue(Limit.Validator, Unit.dBmW);
+                    p.SetValue(Limit.Validator, UnitEnum.dBmW);
                 }
                 else if (p.Name.Equals("UpperBound"))
                 {
                     labeLNames.Add(p.Name);
-                    p.SetValue(Limit.Validator, Unit.dBmW);
+                    p.SetValue(Limit.Validator, UnitEnum.dBmW);
                 }
                 else if (p.Name.Equals("Tolerance"))
                 {
                     labeLNames.Add(p.Name);
-                    p.SetValue(Limit.Validator, Unit.dBmW);
+                    p.SetValue(Limit.Validator, UnitEnum.dBmW);
                 }
             }
             ShowAdditialParamCtrls(labeLNames);

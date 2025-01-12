@@ -1,31 +1,21 @@
-﻿using MathNet.Numerics.Random;
-using MathNet.Numerics.Statistics;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Xml.Serialization;
+using iText.Barcodes.Dmcode;
 using MicrowaveNetworks;
-using MicrowaveNetworks.Touchstone;
-using Nuvo.TestValidation.Calculators;
 using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Limits;
 using Nuvo.TestValidation.Utilities;
 using Nuvo.TestValidation.Utilities.Math;
-using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Numerics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using MicrowaveNetworks;
 
 namespace Nuvo.TestValidation.Parameters
 {
-    public class PhaseBalanceParameter : GenericParameter
+    public class AmplitudeBalanceParameter : GenericParameter
     {
-        private Dictionary<double, List<double[]>> phaseBalanceParameterValues = new Dictionary<double, List<double[]>>();
-        List<string> sParams = new List<string>();
+        private Dictionary<double, List<double[]>> amplitudeBalanceParameterValues = new Dictionary<double, List<double[]>>();
+        private List<string> sParams = new List<string>();
         private List<(double, double, double, double, string)> csvData = new List<(double, double, double, double, string)>();
         // All points from start to stop that we need to evaluate.
         private List<string> parameterDomain = new List<string>();
@@ -36,7 +26,7 @@ namespace Nuvo.TestValidation.Parameters
         {
             get
             {
-                return phaseBalanceParameterValues.ToDictionary(
+                return amplitudeBalanceParameterValues.ToDictionary(
                     kvp => kvp.Key.ToString(),
                     kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
             }
@@ -50,9 +40,9 @@ namespace Nuvo.TestValidation.Parameters
             {
                 return valueAtMinMargin;
             }
-            set 
-            { 
-                valueAtMinMargin = value; 
+            set
+            {
+                valueAtMinMargin = value;
             }
         }
 
@@ -60,16 +50,16 @@ namespace Nuvo.TestValidation.Parameters
 
         public override List<string> VariableNames { get; } = new List<string>() { "S-Param", "All S-Params" };
 
-        public PhaseBalanceParameter(IParameterValueCalculator calculator)
+        public AmplitudeBalanceParameter(IParameterValueCalculator calculator)
             : base(calculator)
         {
-            Description = "Compares the unwrapped phase of specified \"S-Param\" to the mean of those in \"All S-Params\" list(comma seperated)";
+            Description = "Compares the magnitude of specified \"S-Param\" to the mean of those in \"All S-Params\" list(comma seperated)";
             ParameterVariableCount = 2;
         }
 
-        public PhaseBalanceParameter()
+        public AmplitudeBalanceParameter()
         {
-            Description = "Compares the unwrapped phase of specified \"S-Param\" to the mean of those in \"All S-Params\" list(comma seperated)";
+            Description = "Compares the magnitude of specified \"S-Param\" to the mean of those in \"All S-Params\" list(comma seperated)";
             ParameterVariableCount = 2;
         }
 
@@ -86,10 +76,10 @@ namespace Nuvo.TestValidation.Parameters
             MinMargin = double.MaxValue;
             //foreach (var sParam in MeasurementVariables[0])
             {
-                foreach (var val in phaseBalanceParameterValues.Keys)
+                foreach (var val in amplitudeBalanceParameterValues.Keys)
                 {
                     // First Value in first array at frequency point "val"
-                    double testValue = phaseBalanceParameterValues[val][0][0];
+                    double testValue = amplitudeBalanceParameterValues[val][0][0];
                     double limit = req.Limit.Validator.Value;
                     var freq = System.Convert.ToDouble(val);
                     bool passed = req.Limit.ValidateMeasurement(freq, testValue);
@@ -121,7 +111,7 @@ namespace Nuvo.TestValidation.Parameters
 
         public override Dictionary<string, List<object[]>> CalculateParameterValue(TestRequirement req, Dictionary<string, List<object[]>> baseDataSet)
         {
-            phaseBalanceParameterValues = new Dictionary<double, List<double[]>>();
+            amplitudeBalanceParameterValues = new Dictionary<double, List<double[]>>();
             // Determine what sParameters are in object list
             sParams = SParamUtility.GenerateSparamStrings(new FileInfo(FilePath).Extension);
             var coll = GenericDataConverter.ToNetworkParameters(baseDataSet);
@@ -140,25 +130,26 @@ namespace Nuvo.TestValidation.Parameters
                 }
                 else
                 {
-                    ports.Add(index, new int[2] { Convert.ToInt16(index.Substring(0,1)), Convert.ToInt16(index.Substring(1, 1)) });
+                    ports.Add(index, new int[2] { Convert.ToInt16(index.Substring(0, 1)), Convert.ToInt16(index.Substring(1, 1)) });
                 }
             }
 
             Dictionary<string, IReadOnlyDictionary<double, NetworkParameter>> sParamDic = new Dictionary<string, IReadOnlyDictionary<double, NetworkParameter>>();
             foreach (var p in ports)
                 sParamDic.Add(p.Key, coll.GetParametersForPorts(p.Value[0], p.Value[1]));
-            
+
             parameterDomain = baseDataSet.Keys.ToList();
             var sumTraceList = new Dictionary<string, List<double>>(parameterDomain.Count);
             var frequencyList = new List<string>(parameterDomain.Count);
-            var traceArray = MathClass.UnwrapPhase(sParamDic[MeasurementVariables[0].Remove(0,1)].Values.ToArray(), true).ToList();
+            var traceArray = MathClass.UnwrapPhase(sParamDic[MeasurementVariables[0].Remove(0, 1)].Values.ToArray(), true).ToList();
             // Holds the index of the current frequency during looping
             int freqIdx = 0;
             foreach (var p in sParamDic)
             {
                 // Add the new value for sum at current frequency 
                 sumTraceList.Add(p.Key, new List<double>());
-                sumTraceList[p.Key] = MathClass.UnwrapPhase(sParamDic[p.Key].Values.ToArray(), true).ToList();
+                foreach (var np in sParamDic[p.Key].Values)
+                    sumTraceList[p.Key].Add(np.Magnitude_dB);
             }
 
             // perform the calculation - 
@@ -175,14 +166,14 @@ namespace Nuvo.TestValidation.Parameters
             // For each frequency calculate final parameter value
             foreach (var freq in parameterDomain)
             {
-                var traceValAtFreq = traceArray[freqIdx];
+                var traceValAtFreq = sumTraceList[MeasurementVariables[0].Remove(0, 1)][freqIdx];
                 var aveAtFreq = sum[freqIdx] / sParamDic.Keys.Count;
-                var phaseBalVal = Math.Abs(traceValAtFreq - aveAtFreq);
-                var phaseBal = new double[1]
+                var amplitudeBalVal = Math.Abs(traceValAtFreq - aveAtFreq);
+                var amplitudeBalance = new double[1]
                 {
-                        phaseBalVal
+                        amplitudeBalVal
                 };
-                phaseBalanceParameterValues.Add(frequencies.ToArray()[freqIdx++], new List<double[]> { phaseBal } );
+                amplitudeBalanceParameterValues.Add(frequencies.ToArray()[freqIdx++], new List<double[]> { amplitudeBalance });
             }
             return ParameterValues;
         }

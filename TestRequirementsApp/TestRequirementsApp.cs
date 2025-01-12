@@ -121,26 +121,26 @@ namespace Nuvo.Requirements_Builder
                     break;
 
                 label.AutoSize = true;
-                if (propertyInfo.PropertyType == typeof(Unit))
+                if (propertyInfo.PropertyType == typeof(UnitEnum))
                 {
                     ComboBox comboBox = new ComboBox();
                     comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                    comboBox.Items.AddRange(Enum.GetNames(typeof(Unit)));
+                    comboBox.Items.AddRange(Enum.GetNames(typeof(UnitEnum)));
                     var val = propertyInfo.GetValue(obj).ToString();
-                    Unit value = Enum.Parse<Unit>(val);
+                    UnitEnum value = Enum.Parse<UnitEnum>(val);
                     var index = comboBox.Items.IndexOf(val);
                     comboBox.SelectedIndex = index;
 
                     f.Controls.Add(new Label { Text = propertyInfo.Name });
                     f.Controls.Add(comboBox);
                 }
-                else if (propertyInfo.PropertyType == typeof(Prefix))
+                else if (propertyInfo.PropertyType == typeof(PrefixEnum))
                 {
                     ComboBox comboBox = new ComboBox();
                     comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                    comboBox.Items.AddRange(Enum.GetNames(typeof(Prefix)));
+                    comboBox.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
                     var val = propertyInfo.GetValue(obj).ToString();
-                    Prefix value = Enum.Parse<Prefix>(val);
+                    PrefixEnum value = Enum.Parse<PrefixEnum>(val);
                     var index = comboBox.Items.IndexOf(val);
                     comboBox.SelectedIndex = index;
                     //comboBox.DataBindings.Add("SelectedItem", propertyInfo.GetValue(obj), propertyInfo.Name);
@@ -306,7 +306,7 @@ namespace Nuvo.Requirements_Builder
 
             foreach (var serial in files)
             {
-                var serialNumber = Path.GetFileName(serial).Split("_")[2].Replace("SN", "");
+                var serialNumber = Path.GetFileName(serial).Split("_")[1].Replace("SN", "");
                 SerialNumbers.Add(serialNumber);
                 listBoxSerialNumbers.Items.Add(serialNumber);
                 measurementProcessor.CalculateCharacteristicParameters(serial, serialNumber);

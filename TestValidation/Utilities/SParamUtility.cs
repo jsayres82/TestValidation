@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Nuvo.TestValidation.Utilities
 {
-    internal class SParamUtility
+    public class SParamUtility
     {
         public static List<string> GenerateSparamStrings(string extension)
         {

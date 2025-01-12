@@ -8,7 +8,7 @@ namespace Nuvo.TestValidation.Limits.Units
 {
     public static class UnitConverter
     {
-        public enum Unit
+        public enum UnitEnum
         {
             None,
             dB,
@@ -37,7 +37,7 @@ namespace Nuvo.TestValidation.Limits.Units
         };
         
 
-        public enum Prefix
+        public enum PrefixEnum
         {
             Yotta,
             Zetta,
@@ -62,64 +62,64 @@ namespace Nuvo.TestValidation.Limits.Units
             Yocto
         }
 
-        private static readonly Dictionary<Prefix, double> PrefixFactors = new Dictionary<Prefix, double>
+        private static readonly Dictionary<PrefixEnum, double> PrefixFactors = new Dictionary<PrefixEnum, double>
         {
-            { Prefix.Yotta, 1e24 },
-            { Prefix.Zetta, 1e21 },
-            { Prefix.Exa, 1e18 },
-            { Prefix.Peta, 1e15 },
-            { Prefix.Tera, 1e12 },
-            { Prefix.Giga, 1e9 },
-            { Prefix.Mega, 1e6 },
-            { Prefix.Kilo, 1e3 },
-            { Prefix.Hecto, 1e2 },
-            { Prefix.Deca, 1e1 },
-            {Prefix.None, 1e0 },
-            { Prefix.Deci, 1e-1 },
-            { Prefix.Centi, 1e-2 },
-            { Prefix.Milli, 1e-3 },
-            { Prefix.Micro, 1e-6 },
-            { Prefix.Nano, 1e-9 },
-            { Prefix.Pico, 1e-12 },
-            { Prefix.Femto, 1e-15 },
-            { Prefix.Atto, 1e-18 },
-            { Prefix.Zepto, 1e-21 },
-            { Prefix.Yocto, 1e-24 }
+            { PrefixEnum.Yotta, 1e24 },
+            { PrefixEnum.Zetta, 1e21 },
+            { PrefixEnum.Exa, 1e18 },
+            { PrefixEnum.Peta, 1e15 },
+            { PrefixEnum.Tera, 1e12 },
+            { PrefixEnum.Giga, 1e9 },
+            { PrefixEnum.Mega, 1e6 },
+            { PrefixEnum.Kilo, 1e3 },
+            { PrefixEnum.Hecto, 1e2 },
+            { PrefixEnum.Deca, 1e1 },
+            {PrefixEnum.None, 1e0 },
+            { PrefixEnum.Deci, 1e-1 },
+            { PrefixEnum.Centi, 1e-2 },
+            { PrefixEnum.Milli, 1e-3 },
+            { PrefixEnum.Micro, 1e-6 },
+            { PrefixEnum.Nano, 1e-9 },
+            { PrefixEnum.Pico, 1e-12 },
+            { PrefixEnum.Femto, 1e-15 },
+            { PrefixEnum.Atto, 1e-18 },
+            { PrefixEnum.Zepto, 1e-21 },
+            { PrefixEnum.Yocto, 1e-24 }
         };
 
-        private static readonly Dictionary<Prefix, string> PrefixString = new Dictionary<Prefix, string>
+        private static readonly Dictionary<PrefixEnum, string> PrefixString = new Dictionary<PrefixEnum, string>
     {
-        { Prefix.Yotta, "Y" },
-        { Prefix.Zetta, "Z" },
-        { Prefix.Exa, "E" },
-        { Prefix.Peta, "P" },
-        { Prefix.Tera, "T" },
-        { Prefix.Giga, "G" },
-        { Prefix.Mega, "M" },
-        { Prefix.Kilo, "k" },
-        { Prefix.Hecto, "" },
-        { Prefix.Deca, "" },
-        { Prefix.None, "" },
-        { Prefix.Deci, "" },
-        { Prefix.Centi, "" },
-        { Prefix.Milli, "m" },
-        { Prefix.Micro, "u" },
-        { Prefix.Nano, "n" },
-        { Prefix.Pico, "p" },
-        { Prefix.Femto, "f" },
-        { Prefix.Atto, "a" },
-        { Prefix.Zepto, "z" },
-        { Prefix.Yocto, "y" }
+        { PrefixEnum.Yotta, "Y" },
+        { PrefixEnum.Zetta, "Z" },
+        { PrefixEnum.Exa, "E" },
+        { PrefixEnum.Peta, "P" },
+        { PrefixEnum.Tera, "T" },
+        { PrefixEnum.Giga, "G" },
+        { PrefixEnum.Mega, "M" },
+        { PrefixEnum.Kilo, "k" },
+        { PrefixEnum.Hecto, "" },
+        { PrefixEnum.Deca, "" },
+        { PrefixEnum.None, "" },
+        { PrefixEnum.Deci, "" },
+        { PrefixEnum.Centi, "" },
+        { PrefixEnum.Milli, "m" },
+        { PrefixEnum.Micro, "u" },
+        { PrefixEnum.Nano, "n" },
+        { PrefixEnum.Pico, "p" },
+        { PrefixEnum.Femto, "f" },
+        { PrefixEnum.Atto, "a" },
+        { PrefixEnum.Zepto, "z" },
+        { PrefixEnum.Yocto, "y" }
     };
 
-        public static double Convert(double value, Unit sourceUnit, Unit targetUnit, Prefix sourcePrefix = Prefix.None, Prefix targetPrefix = Prefix.None)
+        public static double Convert(double value, UnitEnum sourceUnit, UnitEnum targetUnit, PrefixEnum sourcePrefix = PrefixEnum.None, PrefixEnum targetPrefix = PrefixEnum.None)
         {
             double convertedValue = value;
 
-            if (sourcePrefix != Prefix.None)
+            if (sourcePrefix != PrefixEnum.None)
                 convertedValue *= PrefixFactors[sourcePrefix];
 
-            if (targetPrefix != Prefix.None)
+            if (targetPrefix != PrefixEnum.None)
                 convertedValue /= PrefixFactors[targetPrefix];
 
             return convertedValue;

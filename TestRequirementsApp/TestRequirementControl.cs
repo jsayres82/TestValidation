@@ -11,6 +11,12 @@ using Nuvo.TestValidation.Limits;
 using System.Reflection;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 using Nuvo.TestValidation.Parameters;
+using Nuvo.TestValidation.Limits;
+using Nuvo.TestValidation.Limits.Units;
+using Nuvo.TestValidation.Limits.Validators;
+using Nuvo.TestValidation.Parameters;
+using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using Nuvo.TestValidation.Limits.Validators;
 
 namespace Nuvo.Requirements_Builder
 {
@@ -41,8 +47,6 @@ namespace Nuvo.Requirements_Builder
         public TestRequirementControl(int reqnum)
         {
             InitializeComponent();
-            var limit = new LimitCtrl();
-            limits = limit.limitTypes;
             var parameter = new ParameterCtrl();
             parameters = parameter.parameterTypes;
             var requirement = new RequirementInfoCtrl();
@@ -57,8 +61,9 @@ namespace Nuvo.Requirements_Builder
             flowLayoutPanel1.Controls.Add(paramCtrl);
             limCtrl = new LimitCtrl();
             flowLayoutPanel1.Controls.Add(limCtrl);
-            limCtrl.UpdateLimit(testRequirement.Limit as GenericLimit);
-            paramCtrl.UpdateLimit(testRequirement.CharacteristicParameter as GenericParameter);
+            paramCtrl.UpdateLimit(testRequirement.CharacteristicParameter);
+            paramCtrl.ParameterUpdated += ParamCtrl_ParameterUpdated;
+            limCtrl.UpdateLimit(testRequirement.Limit);
         }
 
         private void InitializeComponents()
@@ -77,7 +82,7 @@ namespace Nuvo.Requirements_Builder
                             break;
                         case "Limit":
                             limCtrl = new LimitCtrl();
-                            limCtrl.UpdateLimit(testRequirement.Limit as GenericLimit);
+                            limCtrl.UpdateLimit(testRequirement.Limit);
                             break;
                         case "CharacteristicParameter":
                             if (!property.Name.Equals("Property"))
@@ -90,11 +95,36 @@ namespace Nuvo.Requirements_Builder
                             break;
                     }
                     if(paramCtrl != null)
+                    {
                         flowLayoutPanel1.Controls.Add(paramCtrl);
+                        paramCtrl.ParameterUpdated += ParamCtrl_ParameterUpdated;
+                    }
                     if(limCtrl != null)
                         flowLayoutPanel1.Controls.Add(limCtrl);
                 }
             }
+        }
+
+        private void ParamCtrl_ParameterUpdated(object sender, EventArgs e)
+        {
+            var param = paramCtrl.Parameter;
+            flowLayoutPanel1.Controls.Remove(limCtrl);
+            setTestRequirementLimit(param);
+            limCtrl = new LimitCtrl(param.ValidLimits, param.ValidValidators, param.ValidLimitUnits, param.ValidValidatorUnits);
+            flowLayoutPanel1.Controls.Add(limCtrl);
+            limCtrl.UpdateLimit(testRequirement.Limit);
+        }
+
+        private void setTestRequirementLimit(GenericParameter param )
+        {
+            Type[] typeArgs = { typeof(double) };
+            var lim = param.ValidLimits[0];
+            testRequirement.Limit = Activator.CreateInstance((Type)lim) as GenericLimit;//paramCtrl.Parameter.ValidLimits.ToArray()[0] as GenericLimit;//s Activator.CreateInstance(paramCtrl.Parameter.ValidLimits.First().GetType()) as GenericLimit;
+            
+            var makeme = (Type)paramCtrl.Parameter.ValidValidators[0];
+            var makeme2 = makeme.MakeGenericType(typeArgs);
+            var validator = Activator.CreateInstance(makeme2);
+            testRequirement.Limit.Validator = validator as GenericValidator<double>;
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)

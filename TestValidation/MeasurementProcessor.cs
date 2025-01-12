@@ -29,7 +29,7 @@ namespace Nuvo.TestValidation
         public TestInfo TestInfo;
         public string UnitSerialNumber { get; set; }
         public string PartNumber { get; set; }
-
+        private Dictionary<string, List<object[]>> measFileObjectDic = new Dictionary<string, List<object[]>>();
         private List<TestRequirement> testRequirements;
         private Dictionary<string, double> baseDataSet;
         private Dictionary<string, double> characteristicParameters;
@@ -115,6 +115,7 @@ namespace Nuvo.TestValidation
                 // Retrieve the characteristic parameter for the requirement
                 GenericParameter characteristicParameter = requirement.CharacteristicParameter;
                 characteristicParameter.FilePath = TestInfo.TestArticles.MeasurementFiles[0];
+
                 // Calculate the parameter value based on the base data set
                 characteristicParameter.CalculateParameterValue(requirement,
                                         parseMeasurementsFromFile(TestInfo.TestArticles.MeasurementFiles[0]));
@@ -124,6 +125,7 @@ namespace Nuvo.TestValidation
         public void CalculateCharacteristicParameters(string measurementFile, string serialNumber)
         {
             UnitSerialNumber = serialNumber;
+            measFileObjectDic = GenericDataConverter.FromNetworkParameters(measurementFile);
             foreach (var requirement in TestRequirements.Requirements)
             {
                 // Retrieve the characteristic parameter for the requirement
@@ -136,7 +138,7 @@ namespace Nuvo.TestValidation
                 file = measurementFile;
 
                 // Calculate the parameter value based on the base data set and serial number
-                characteristicParameter.CalculateParameterValue(requirement, parseMeasurementsFromFile(measurementFile));
+                characteristicParameter.CalculateParameterValue(requirement, measFileObjectDic);
             }
         }
 
@@ -203,31 +205,22 @@ namespace Nuvo.TestValidation
         private Dictionary<string, List<object[]>> parseMeasurementsFromFile(string filePath)
         {
             Dictionary<string, List<object[]>> data = new Dictionary<string, List<object[]>>();
-            SParameterCombiner combiner = new SParameterCombiner();
-            Dictionary<string, List<string>> dataStr = new Dictionary<string, List<string>>();
             INetworkParametersCollection coll = Touchstone.ReadAllData(filePath);
+            Dictionary<string, IList<NetworkParameter>> networkParamCollDataDic = new Dictionary<string, IList<NetworkParameter>>();
             foreach (FrequencyParametersPair pair in coll)
             {
-                List<string> s = new List<string>();
-                for (int i = 1; i <= pair.Parameters.NumPorts; i++)
-                    for (int j = 1; j <= pair.Parameters.NumPorts; j++)
-                    {
-                        s.Add($"{pair.Parameters[i, j].Magnitude_dB} {pair.Parameters[i, j].Phase_deg}");
-                    }
-                dataStr.Add(pair.Frequency_Hz.ToString(), s);
-            }
-            foreach (var dList in dataStr.Keys)
-            {
-                if (dList == "")
-                    continue;
-                data.Add(dList, new List<object[]>());
-                foreach (var d in dataStr[dList])
+                var matrixEnum = pair.Parameters.GetEnumerator(ListFormat.SourcePortMajor);
+                IList<NetworkParameter> flattenedList = new List<NetworkParameter>();
+                while (matrixEnum.MoveNext())
                 {
-                    var val = d.Split(" ");
-                    Complex v = Complex.FromPolarCoordinates(System.Convert.ToDouble(val.First()), System.Convert.ToDouble(val.Last()));
-
-                    data[dList].Add(new object[] { Convert.ToDouble(val.First()), Convert.ToDouble(val.Last()) });
+                    flattenedList.Add(matrixEnum.Current.NetworkParameter);
                 }
+                networkParamCollDataDic.Add(pair.Frequency_Hz.ToString(), flattenedList.ToArray());
+            }
+            foreach (var dList in networkParamCollDataDic)
+            {
+                data.Add(dList.Key.ToString(), new List<object[]>());
+                data[dList.Key.ToString()].Add(new object[] { networkParamCollDataDic[dList.Key] });
             }
             return data;
         }
