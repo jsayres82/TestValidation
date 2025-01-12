@@ -68,8 +68,8 @@ namespace Nuvo.TestValidation.Parameters
 
             ValidValidators.Clear();
             ValidValidatorUnits.Clear();
-            ValidValidators.Add(typeof(LessThanOrEqualValidator<double>).Name);
-            ValidValidators.Add(typeof(LessThanValidator<double>).Name);
+            ValidValidators.Add(typeof(GreaterThanOrEqualValidator<>));
+            ValidValidators.Add(typeof(GreaterThanValidator<>));
             ValidValidatorUnits.Add(UnitEnum.dB.ToString());
         }
 
@@ -88,8 +88,8 @@ namespace Nuvo.TestValidation.Parameters
 
             ValidValidators.Clear();
             ValidValidatorUnits.Clear();
-            ValidValidators.Add(typeof(LessThanOrEqualValidator<>));
-            ValidValidators.Add(typeof(LessThanValidator<>));
+            ValidValidators.Add(typeof(GreaterThanOrEqualValidator<>));
+            ValidValidators.Add(typeof(GreaterThanValidator<>));
             ValidValidatorUnits.Add(UnitEnum.dB.ToString());
         }
 

@@ -239,8 +239,8 @@ namespace Nuvo.TestValidation.Parameters
                 ValidValidators.Add(validator);
             }
 
-            //ValidValidatorUnits.AddRange(Enum.GetNames(typeof(UnitEnum)));
-            //ValidLimitUnits.AddRange(Enum.GetNames(typeof(UnitEnum)));
+            ValidValidatorUnits.AddRange(Enum.GetNames(typeof(UnitEnum)));
+            ValidLimitUnits.AddRange(Enum.GetNames(typeof(UnitEnum)));
         }
 
         private bool IsIndexType(Type type)
