@@ -23,6 +23,7 @@ namespace Nuvo.TestValidation.Limits
         public string Name { get; set; }
 
 
+        [XmlElement("InsertionLossParameter", typeof(InsertionLossParameter))]
         [XmlElement("GroupDelayParameter", typeof(GroupDelayParameter))]
         [XmlElement("PhaseBalanceParameter", typeof(PhaseBalanceParameter))]
         [XmlElement("RippleParameter", typeof(FlatnessParameter))]
@@ -35,6 +36,8 @@ namespace Nuvo.TestValidation.Limits
         [XmlElement("DoubleLimt", typeof(DoubleLimit))]
         [XmlElement("RangeLimit", typeof(RangeLimit))]
         [XmlElement("DomainLimit", typeof(DomainLimit))]
+        [XmlElement("LogSlopedDomainLimit", typeof(LogSlopedDomainLimit))]
+        [XmlElement("LinearSlopedDomainLimit", typeof(LinearSlopedDomainLimit))]
         public GenericLimit Limit { get; set; }
 
         public void SetCharacteristicParameter(GenericParameter characteristicParameter)

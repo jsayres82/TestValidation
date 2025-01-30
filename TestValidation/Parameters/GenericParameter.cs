@@ -15,13 +15,14 @@ using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 
 namespace Nuvo.TestValidation.Parameters
 {
+    [XmlInclude(typeof(InsertionLossParameter))]
     [XmlInclude(typeof(PhaseBalanceParameter))]
     [XmlInclude(typeof(GroupDelayParameter))]
     [XmlInclude(typeof(AmplitudeBalanceParameter))]
     [XmlInclude( typeof(ScatteringParameter))]
     [XmlInclude(typeof(FlatnessParameter))]
     [Serializable]
-    public abstract class GenericParameter : IParameterDetails
+    public abstract class GenericParameter
     {
         protected static string LimitStr = "Limit";
         protected static string ValidatorStr = "Validator";

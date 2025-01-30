@@ -25,7 +25,7 @@ namespace Nuvo.Requirements_Builder
         public Type[] validatorTypes;
         public GenericLimit Limit;
         public Type LimitType, ValidatorType;
-        private int isSlopedLimit = 0;
+        private bool isSlopedLimit = false;
 
         public LimitCtrl()
         {
@@ -194,8 +194,6 @@ namespace Nuvo.Requirements_Builder
             {
                 List<FlowLayoutPanel> flpList = new List<FlowLayoutPanel>();
 
-                //comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
-                //comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
                 Limit = limit;
                 isSlopedLimit = limit.IsSLopedLimit;
 
@@ -203,59 +201,47 @@ namespace Nuvo.Requirements_Builder
                 {
                     if (!p.Name.Equals("Validator"))
                     {
-                        flpList.Add(CreateLimitPanel(p));
-                        flpLimit.Controls.Add(flpList.Last());
                     }
 
                     comboBoxLimitTypes.Text = Limit.GetType().Name;
                     if (p.Name.Equals("Start"))
                     {
-                        textBoxAdditionalProperty1.Text = p.GetValue(Limit).ToString();
                     }
                     else if (p.Name.Equals("End"))
                     {
-                        textBoxAdditionalProperty2.Text = p.GetValue(Limit).ToString();
                     }
                     else if (p.Name.Equals("MinValue"))
                     {
-                        textBoxAdditionalProperty1.Text = p.GetValue(Limit).ToString();
+                        flpList.Add(CreateLimitPanel(p));
+                        flpLimit.Controls.Add(flpList.Last());
                     }
                     else if (p.Name.Equals("MaxValue"))
                     {
-                        textBoxAdditionalProperty2.Text = p.GetValue(Limit).ToString();
+                        flpList.Add(CreateLimitPanel(p));
+                        flpLimit.Controls.Add(flpList.Last());
                     }
                     if (p.Name.Equals("StartValue"))
                     {
-                        textBoxAdditionalProperty1.Text = p.GetValue(Limit).ToString();
+                        flpList.Add(CreateLimitPanel(p));
+                        flpLimit.Controls.Add(flpList.Last());
                     }
                     else if (p.Name.Equals("EndValue"))
                     {
-                        textBoxAdditionalProperty2.Text = p.GetValue(Limit).ToString();
+                        flpList.Add(CreateLimitPanel(p));
+                        flpLimit.Controls.Add(flpList.Last());
                     }
                     if (p.Name.Equals("StartValue2"))
                     {
-                        //if (!Limit.Validator.GetType().ToString().Contains("Bound"))
-                        //{
-                        //    //flpLimit.Controls.Remove(flpList.Last());
-                        //    //flpList.Remove(flpList.Last());
-                        //}
-                        //textBoxAdditionalProperty4.Text = p.GetValue(Limit).ToString();
-                        //tbAddProp3.Text = p.GetValue(Limit).ToString();
                     }
                     else if (p.Name.Equals("EndValue2"))
                     {
-                        //if (!Limit.Validator.GetType().ToString().Contains("Bound"))
-                        //{
-                        //    //flpLimit.Controls.Remove(flpList.Last());
-                        //    //flpList.Remove(flpList.Last());
-                        //}
-                        //textBoxAdditionalProperty4.Text = p.GetValue(Limit).ToString();
-                        //tbAddProp4.Text = p.GetValue(Limit).ToString();
                     }
                     else if (p.Name.Equals("Validator"))
                     {
-                        if (isSlopedLimit==1)
+                        if (!isSlopedLimit)
                         {
+                            flpList.Clear();
+                            flpLimit.Controls.Clear();
                             List<string> labeLNames = new List<string>();
                             //comboBoxValidators.Text = Limit.Validator.GetType().Name;
                             foreach (var p2 in Limit.Validator.GetType().GetProperties())
@@ -266,60 +252,93 @@ namespace Nuvo.Requirements_Builder
                                 }
                                 else
                                 {
-                                    flpList.Add(CreateLimitPanel(p2, Limit.Validator));
-                                    flpLimit.Controls.Add(flpList.Last());
                                     if (p2.Name.Equals("Value"))
                                     {
-
+                                        flpList.Add(CreateLimitPanel(p2, Limit.Validator));
+                                        flpLimit.Controls.Add(flpList.Last());
                                     }
                                     else if (p2.Name.Equals("Prefix"))
                                     {
-                                        comboBoxValidUnitsPrefix.Text = p2.GetValue(Limit.Validator).ToString();
                                     }
                                     else if (p2.Name.Equals("Unit"))
                                     {
-                                        comboBoxValidatorUnits.Text = p2.GetValue(Limit.Validator).ToString();
                                     }
                                     else if (p2.Name.Equals("LowerBound"))
                                     {
-                                        labeLNames.Add(p.Name);
-                                        //tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
+                                        flpList.Add(CreateLimitPanel(p2, Limit.Validator));
+                                        flpLimit.Controls.Add(flpList.Last());
                                     }
                                     else if (p2.Name.Equals("UpperBound"))
                                     {
-                                        labeLNames.Add(p.Name);
-                                        //tbAddProp2.Text = p2.GetValue(Limit.Validator).ToString();
+                                        flpList.Add(CreateLimitPanel(p2, Limit.Validator));
+                                        flpLimit.Controls.Add(flpList.Last());
                                     }
                                     else if (p2.Name.Equals("Tolerance"))
                                     {
-                                        labeLNames.Add(p.Name);
-                                        //tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
+                                        flpList.Add(CreateLimitPanel(p2, Limit.Validator));
+                                        flpLimit.Controls.Add(flpList.Last());
                                     }
                                 }
                             }
                         }
                         else if (Limit.Validator != null)
                         {
-                            List<string> labeLNames = new List<string>();
-                            //comboBoxValidators.Text = Limit.Validator.GetType().Name;
-                            foreach (var p2 in Limit.Validator.GetType().GetProperties())
+                            if (Limit.Validator.GetType().ToString().Contains("Bound"))
                             {
-                                if (p2.Name.Equals("LowerBound"))
+                                if (Limit is LogSlopedDomainLimit)
                                 {
-                                    //tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
+                                    var found = flpList.Where(f => (f.Tag as PropertyInfo).Name == "StartValue2");
+                                    if (!found.Any(f => (f.Tag as PropertyInfo).Name == "StartValue2"))
+                                    {
+                                        flpList.Add(CreateLimitPanel((Limit as LogSlopedDomainLimit).GetType().GetProperties().Where(f => f.Name == "StartValue2").First()));
+                                        flpLimit.Controls.Add(flpList.Last());
+                                    }
+
+                                    found = flpList.Where(f => (f.Tag as PropertyInfo).Name == "EndValue2");
+                                    if (!found.Any(f => (f.Tag as PropertyInfo).Name == "EndValue2"))
+                                    {
+                                        flpList.Add(CreateLimitPanel((Limit as LogSlopedDomainLimit).GetType().GetProperties().Where(f => f.Name == "EndValue2").First()));
+                                        flpLimit.Controls.Add(flpList.Last());
+                                    }
                                 }
-                                else if (p2.Name.Equals("UpperBound"))
+                                else if (Limit is LinearSlopedDomainLimit)
                                 {
-                                    labeLNames.Add(p.Name);
-                                    //tbAddProp2.Text = p2.GetValue(Limit.Validator).ToString();
+                                    var found = flpList.Where(f => (f.Tag as PropertyInfo).Name == "StartValue2");
+                                    if (!found.Any(f => (f.Tag as PropertyInfo).Name == "StartValue2"))
+                                    {
+                                        flpList.Add(CreateLimitPanel((Limit as LinearSlopedDomainLimit).GetType().GetProperties().Where(f => f.Name == "StartValue2").First()));
+                                        flpLimit.Controls.Add(flpList.Last());
+                                    }
+
+                                    found = flpList.Where(f => (f.Tag as PropertyInfo).Name == "EndValue2");
+                                    if (!found.Any(f=> (f.Tag as PropertyInfo).Name == "EndValue2"))
+                                    {
+                                        flpList.Add(CreateLimitPanel((Limit as LinearSlopedDomainLimit).GetType().GetProperties().Where(f => f.Name == "EndValue2").First()));
+                                        flpLimit.Controls.Add(flpList.Last());
+                                    }
                                 }
-                                else if (p2.Name.Equals("Tolerance"))
+
+                            }
+                            else if (Limit.Validator.GetType().ToString().Contains("Toler"))
+                            {
+                                flpList.Add(CreateLimitPanel(Limit.Validator.GetType().GetProperty("Tolerance"), Limit.Validator));
+                                flpLimit.Controls.Add(flpList.Last());
+                            }
+                            else
+                            {
+                                var found = flpList.Where(f => (f.Tag as PropertyInfo).Name == "StartValue2");
+                                if (found.Count() > 0)
                                 {
-                                    labeLNames.Add(p.Name);
-                                    //tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
+                                    flpLimit.Controls.Remove(flpList.Select(f => (f.Tag as PropertyInfo).Name == "StartValue2") as Control);
+                                    flpList.Remove(flpList.Where(f => (f.Tag as PropertyInfo).Name == "StartValue2").First());
+                                }
+                                found = flpList.Where(f => (f.Tag as PropertyInfo).Name == "EndValue2");
+                                if (found.Count() > 0)
+                                {
+                                    flpLimit.Controls.Remove(flpList.Select(f => (f.Tag as PropertyInfo).Name == "EndValue2") as Control);// Remove(flpList.Last());
+                                    flpList.Remove(flpList.Where(f => (f.Tag as PropertyInfo).Name == "EndValue2").First());
                                 }
                             }
-                            ShowAdditialParamCtrls(labeLNames);
                         }
                     }
                     BindData();
@@ -329,6 +348,7 @@ namespace Nuvo.Requirements_Builder
                 }
             }
         }
+
         public void UpdateLimit(GenericLimit limit)
         {
             flpLimit.Controls.Clear();
@@ -345,123 +365,138 @@ namespace Nuvo.Requirements_Builder
                 {
                     if (!p.Name.Equals("Validator"))
                     {
-                        flpList.Add(CreateLimitPanel(p));
-                        flpLimit.Controls.Add(flpList.Last());
                     }
 
                     comboBoxLimitTypes.Text = Limit.GetType().Name;
                     if (p.Name.Equals("Start"))
                     {
-                        textBoxAdditionalProperty1.Text = p.GetValue(Limit).ToString();
                     }
                     else if (p.Name.Equals("End"))
                     {
-                        textBoxAdditionalProperty2.Text = p.GetValue(Limit).ToString();
                     }
                     else if (p.Name.Equals("MinValue"))
                     {
-                        textBoxAdditionalProperty1.Text = p.GetValue(Limit).ToString();
+                        flpList.Add(CreateLimitPanel(p));
+                        flpLimit.Controls.Add(flpList.Last());
                     }
                     else if (p.Name.Equals("MaxValue"))
                     {
-                        textBoxAdditionalProperty2.Text = p.GetValue(Limit).ToString();
+                        flpList.Add(CreateLimitPanel(p));
+                        flpLimit.Controls.Add(flpList.Last());
                     }
                     if (p.Name.Equals("StartValue"))
                     {
-                        textBoxAdditionalProperty1.Text = p.GetValue(Limit).ToString();
+                        flpList.Add(CreateLimitPanel(p));
+                        flpLimit.Controls.Add(flpList.Last());
                     }
                     else if (p.Name.Equals("EndValue"))
                     {
-                        textBoxAdditionalProperty2.Text = p.GetValue(Limit).ToString();
+                        flpList.Add(CreateLimitPanel(p));
+                        flpLimit.Controls.Add(flpList.Last());
                     }
-                    if (p.Name.Equals("StartValue2"))
+                    else if (p.Name.Equals("StartValue2"))
                     {
-                        if (!Limit.Validator.GetType().ToString().Contains("Bound"))
-                        {
-                            //flpLimit.Controls.Remove(flpList.Last());
-                            //flpList.Remove(flpList.Last());
-                        }
-                        //textBoxAdditionalProperty4.Text = p.GetValue(Limit).ToString();
-                        //tbAddProp3.Text = p.GetValue(Limit).ToString();
+                        //if (!Limit.Validator.GetType().ToString().Contains("Bound"))
+                        //{
+                        //    flpLimit.Controls.Remove(flpList.Select(f => (f.Tag as PropertyInfo).Name == "StartValue2") as Control);
+                        //    flpList.Remove(flpList.Where(f=> (f.Tag as PropertyInfo).Name == "StartValue2").First());
+                        //}
                     }
                     else if (p.Name.Equals("EndValue2"))
                     {
-                        if (!Limit.Validator.GetType().ToString().Contains("Bound"))
-                        {
-                            //flpLimit.Controls.Remove(flpList.Last());
-                            //flpList.Remove(flpList.Last());
-                        }
-                        //textBoxAdditionalProperty4.Text = p.GetValue(Limit).ToString();
-                        //tbAddProp4.Text = p.GetValue(Limit).ToString();
+                        //if (!Limit.Validator.GetType().ToString().Contains("Bound"))
+                        //{
+                        //    flpLimit.Controls.Remove(flpList.Select(f => (f.Tag as PropertyInfo).Name == "EndValue2") as Control);// Remove(flpList.Last());
+                        //    flpList.Remove(flpList.Where(f => (f.Tag as PropertyInfo).Name == "EndValue2").First());
+                        //}
                     }
                     else if (p.Name.Equals("Validator"))
                     {
-                        if (isSlopedLimit == 0)
+                        if (!isSlopedLimit)
                         {
-                            List<string> labeLNames = new List<string>();
-                            //comboBoxValidators.Text = Limit.Validator.GetType().Name;
-                            foreach (var p2 in Limit.Validator.GetType().GetProperties())
+                            if (!Limit.Validator.GetType().ToString().Contains("Bound"))
                             {
-                                if (p2.Name.Equals("Validator"))
+                                List<string> labeLNames = new List<string>();
+                                //comboBoxValidators.Text = Limit.Validator.GetType().Name;
+                                foreach (var p2 in Limit.Validator.GetType().GetProperties())
                                 {
-                                    //tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
-                                }
-                                else
-                                {
-                                    flpList.Add(CreateLimitPanel(p2, Limit.Validator));
-                                    flpLimit.Controls.Add(flpList.Last());
-                                    if (p2.Name.Equals("Value"))
+                                    if (p2.Name.Equals("Validator"))
                                     {
-
-                                    }
-                                    else if (p2.Name.Equals("Prefix"))
-                                    {
-                                        comboBoxValidUnitsPrefix.Text = p2.GetValue(Limit.Validator).ToString();
-                                    }
-                                    else if (p2.Name.Equals("Unit"))
-                                    {
-                                        comboBoxValidatorUnits.Text = p2.GetValue(Limit.Validator).ToString();
-                                    }
-                                    else if (p2.Name.Equals("LowerBound"))
-                                    {
-                                        labeLNames.Add(p.Name);
                                         //tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
                                     }
-                                    else if (p2.Name.Equals("UpperBound"))
+                                    else
                                     {
-                                        labeLNames.Add(p.Name);
-                                        //tbAddProp2.Text = p2.GetValue(Limit.Validator).ToString();
-                                    }
-                                    else if (p2.Name.Equals("Tolerance"))
-                                    {
-                                        labeLNames.Add(p.Name);
-                                        //tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
+                                        if (p2.Name.Equals("Value"))
+                                        {
+                                            flpList.Add(CreateLimitPanel(p2, Limit.Validator));
+                                            flpLimit.Controls.Add(flpList.Last());
+                                        }
+                                        else if (p2.Name.Equals("Prefix"))
+                                        {
+                                        }
+                                        else if (p2.Name.Equals("Unit"))
+                                        {
+                                        }
+                                        else if (p2.Name.Equals("LowerBound"))
+                                        {
+                                            flpList.Add(CreateLimitPanel(p2, Limit.Validator));
+                                            flpLimit.Controls.Add(flpList.Last());
+                                        }
+                                        else if (p2.Name.Equals("UpperBound"))
+                                        {
+                                            flpList.Add(CreateLimitPanel(p2, Limit.Validator));
+                                            flpLimit.Controls.Add(flpList.Last());
+                                        }
+                                        else if (p2.Name.Equals("Tolerance"))
+                                        {
+                                            flpList.Add(CreateLimitPanel(p2, Limit.Validator));
+                                            flpLimit.Controls.Add(flpList.Last());
+                                        }
                                     }
                                 }
                             }
                         }
                         else if (Limit.Validator != null)
                         {
-                            List<string> labeLNames = new List<string>();
-                            //comboBoxValidators.Text = Limit.Validator.GetType().Name;
-                            foreach (var p2 in Limit.Validator.GetType().GetProperties())
+                            if (Limit.Validator.GetType().ToString().Contains("Bound"))
                             {
-                                if (p2.Name.Equals("LowerBound"))
+                                if (Limit is LogSlopedDomainLimit)
                                 {
-                                    //tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
+                                    flpList.Add(CreateLimitPanel((Limit as LogSlopedDomainLimit).GetType().GetProperties().Where(f => f.Name == "StartValue2").First()));
+                                    flpLimit.Controls.Add(flpList.Last());
+
+                                    flpList.Add(CreateLimitPanel((Limit as LogSlopedDomainLimit).GetType().GetProperties().Where(f => f.Name == "EndValue2").First()));
+                                    flpLimit.Controls.Add(flpList.Last());
                                 }
-                                else if (p2.Name.Equals("UpperBound"))
+                                else if (Limit is LinearSlopedDomainLimit)
                                 {
-                                    labeLNames.Add(p.Name);
-                                    //tbAddProp2.Text = p2.GetValue(Limit.Validator).ToString();
+                                    flpList.Add(CreateLimitPanel((Limit as LinearSlopedDomainLimit).GetType().GetProperties().Where(f => f.Name == "StartValue2").First()));
+                                    flpLimit.Controls.Add(flpList.Last());
+                                    flpList.Add(CreateLimitPanel((Limit as LinearSlopedDomainLimit).GetType().GetProperties().Where(f => f.Name == "EndValue2").First()));
+                                    flpLimit.Controls.Add(flpList.Last());
                                 }
-                                else if (p2.Name.Equals("Tolerance"))
+
+                            }
+                            else if (Limit.Validator.GetType().ToString().Contains("Toler"))
+                            {
+                                flpList.Add(CreateLimitPanel(Limit.Validator.GetType().GetProperty("Tolerance"), Limit.Validator));
+                                flpLimit.Controls.Add(flpList.Last());
+                            }
+                            else
+                            {
+                                var found = flpList.Select(f => (f.Tag as PropertyInfo).Name == "StartValue2");
+                                if (found.Count() > 0)
                                 {
-                                    labeLNames.Add(p.Name);
-                                    //tbAddProp1.Text = p2.GetValue(Limit.Validator).ToString();
+                                    flpLimit.Controls.Remove(flpList.Select(f => (f.Tag as PropertyInfo).Name == "StartValue2") as Control);
+                                    flpList.Remove(flpList.Where(f => (f.Tag as PropertyInfo).Name == "StartValue2").First());
+                                }
+                                found = flpList.Select(f => (f.Tag as PropertyInfo).Name == "EndValue2");
+                                if (found.Count() > 0)
+                                {
+                                    flpLimit.Controls.Remove(flpList.Select(f => (f.Tag as PropertyInfo).Name == "EndValue2") as Control);// Remove(flpList.Last());
+                                    flpList.Remove(flpList.Where(f => (f.Tag as PropertyInfo).Name == "EndValue2").First());
                                 }
                             }
-                            ShowAdditialParamCtrls(labeLNames);
                         }
                     }
                     BindData();
@@ -505,39 +540,39 @@ namespace Nuvo.Requirements_Builder
 
             PropertyInfo[] properties = o.GetType().GetProperties();
 
-            //Limit.Validator = o as GenericValidator<double>;
-            //List<string> labeLNames = new List<string>();
-            //foreach (var p in properties)
-            //{
-            //    if (p.Name.Equals("Value"))
-            //    {
-            //        p.SetValue(Limit.Validator, 0);
-            //    }
-            //    else if (p.Name.Equals("Prefix"))
-            //    {
-            //        p.SetValue(Limit.Validator, PrefixEnum.None);
-            //    }
-            //    else if (p.Name.Equals("Unit"))
-            //    {
-            //        p.SetValue(Limit.Validator, UnitEnum.dBmW);
-            //    }
-            //    else if (p.Name.Equals("LowerBound"))
-            //    {
-            //        labeLNames.Add(p.Name);
-            //        p.SetValue(Limit.Validator, UnitEnum.dBmW);
-            //    }
-            //    else if (p.Name.Equals("UpperBound"))
-            //    {
-            //        labeLNames.Add(p.Name);
-            //        p.SetValue(Limit.Validator, UnitEnum.dBmW);
-            //    }
-            //    else if (p.Name.Equals("Tolerance"))
-            //    {
-            //        labeLNames.Add(p.Name);
-            //        p.SetValue(Limit.Validator, UnitEnum.dBmW);
-            //    }
-            //}
-            //ShowAdditialParamCtrls(labeLNames);
+            Limit.Validator = o as GenericValidator<double>;
+            List<string> labeLNames = new List<string>();
+            foreach (var p in properties)
+            {
+                if (p.Name.Equals("Value"))
+                {
+                    p.SetValue(Limit.Validator, 0);
+                }
+                else if (p.Name.Equals("Prefix"))
+                {
+                    p.SetValue(Limit.Validator, PrefixEnum.None);
+                }
+                else if (p.Name.Equals("Unit"))
+                {
+                    p.SetValue(Limit.Validator, UnitEnum.dBmW);
+                }
+                else if (p.Name.Equals("LowerBound"))
+                {
+                    labeLNames.Add(p.Name);
+                    p.SetValue(Limit.Validator, UnitEnum.dBmW);
+                }
+                else if (p.Name.Equals("UpperBound"))
+                {
+                    labeLNames.Add(p.Name);
+                    p.SetValue(Limit.Validator, UnitEnum.dBmW);
+                }
+                else if (p.Name.Equals("Tolerance"))
+                {
+                    labeLNames.Add(p.Name);
+                    p.SetValue(Limit.Validator, UnitEnum.dBmW);
+                }
+            }
+            ShowAdditialParamCtrls(labeLNames);
 
             comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
             comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;

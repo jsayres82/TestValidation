@@ -16,30 +16,6 @@
 	</TestInfo>
 	<TestRequirements>
 		<TestRequirement>
-			<Name>Return Loss</Name>
-			<DomainLimit>
-				<LessThanValidator>
-					<Value>-5</Value>
-					<Unit>dBmW</Unit>
-					<Prefix>None</Prefix>
-				</LessThanValidator>
-				<StartFrequency>1500000000</StartFrequency>
-				<EndFrequency>17000000000</EndFrequency>
-			</DomainLimit>
-			<ScatteringParameter>
-				<SerialNumber>010</SerialNumber>
-				<ParameterVariableCount>1</ParameterVariableCount>
-				<Description>Compares the value of the specified "S-Param" to the limit specified.</Description>
-				<VariableNames>
-					<string>S-Param</string>
-				</VariableNames>
-				<MeasurementVariables>
-					<string>S12</string>
-				</MeasurementVariables>
-				<MinimumMargin>-4.40879381</MinimumMargin>
-			</ScatteringParameter>
-		</TestRequirement>
-		<TestRequirement>
 			<Name>PhaseBalance</Name>
 			<DomainLimit>
 				<LessThanValidator>

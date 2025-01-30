@@ -19,7 +19,9 @@ namespace Nuvo.TestValidation.TestResults
         public double ValueAtMinimumMargin { get; set; }
         [XmlIgnore]
         public double[] ParameterValues { get; set; }
-        [XmlElement("DoubleLimt", typeof(DoubleLimit))]
+        [XmlElement("LogSlopedDomainLimit", typeof(LogSlopedDomainLimit))]
+        [XmlElement("LinearSlopedDomainLimit", typeof(LinearSlopedDomainLimit))]
+        [XmlElement("DoubleLimit", typeof(DoubleLimit))]
         [XmlElement("RangeLimit", typeof(RangeLimit))]
         [XmlElement("DomainLimit", typeof(DomainLimit))]
         public GenericLimit Limit { get; set; }

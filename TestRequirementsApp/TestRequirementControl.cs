@@ -118,13 +118,16 @@ namespace Nuvo.Requirements_Builder
         private void setTestRequirementLimit(GenericParameter param )
         {
             Type[] typeArgs = { typeof(double) };
-            var lim = param.ValidLimits[0];
-            testRequirement.Limit = Activator.CreateInstance((Type)lim) as GenericLimit;//paramCtrl.Parameter.ValidLimits.ToArray()[0] as GenericLimit;//s Activator.CreateInstance(paramCtrl.Parameter.ValidLimits.First().GetType()) as GenericLimit;
-            
-            var makeme = (Type)paramCtrl.Parameter.ValidValidators[0];
-            var makeme2 = makeme.MakeGenericType(typeArgs);
-            var validator = Activator.CreateInstance(makeme2);
-            testRequirement.Limit.Validator = validator as GenericValidator<double>;
+            if(param.ValidLimits.Count > 0)
+            {
+                var lim = param.ValidLimits[0];
+                testRequirement.Limit = Activator.CreateInstance((Type)lim) as GenericLimit;//paramCtrl.Parameter.ValidLimits.ToArray()[0] as GenericLimit;//s Activator.CreateInstance(paramCtrl.Parameter.ValidLimits.First().GetType()) as GenericLimit;
+
+                var makeme = (Type)paramCtrl.Parameter.ValidValidators[0];
+                var makeme2 = makeme.MakeGenericType(typeArgs);
+                var validator = Activator.CreateInstance(makeme2);
+                testRequirement.Limit.Validator = validator as GenericValidator<double>;
+            }
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)

@@ -143,11 +143,11 @@ namespace Nuvo.Requirements_Builder
                     }
                     else if (i == 1)
                     {
-                        labelVariableName2.Text = Parameter.VariableNames[i].ToString();
-                        if (Parameter.MeasurementVariables[i] == null)
+                        labelVariableName2.Text = Parameter.VariableNames[i-1].ToString();
+                        if (Parameter.MeasurementVariables[i-1] == null)
                             Parameter.MeasurementVariables.Add(textBoxAdditionalProperty2.Text);
                         else
-                            textBoxAdditionalProperty2.Text = Parameter.MeasurementVariables[i];
+                            textBoxAdditionalProperty2.Text = Parameter.MeasurementVariables[i - 1];
                     }
                 }
                 foreach (var variable in Parameter.MeasurementVariables)
