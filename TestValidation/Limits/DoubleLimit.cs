@@ -15,6 +15,11 @@ namespace Nuvo.TestValidation.Limits
     {
         [XmlElement("Value")]
         public double Value { get; set; }
+        public double End { get; set; }
+        public double StartValue { get; set; }
+        public double EndValue { get; set; }
+        public double StartValue2 { get; set; }
+        public double EndValue2 { get; set; }
 
         //[XmlElement("IsMaxValue")]
         //public bool IsMaxValue { get; set; }

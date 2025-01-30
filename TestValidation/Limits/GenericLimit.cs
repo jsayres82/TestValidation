@@ -25,6 +25,8 @@ namespace Nuvo.TestValidation.Limits
         [XmlElement("RampValidator", typeof(RampValidator<double>))]
         [XmlElement("BoundedValidator", typeof(BoundedValidator<double>))]
         public abstract GenericValidator<double> Validator { get; set; }
+        [XmlIgnore]
+        public int IsSLopedLimit = 0;
         public virtual bool ValidateMeasurement(double freq, double measurement)
         {
             return ValidateMeasurement(measurement);  

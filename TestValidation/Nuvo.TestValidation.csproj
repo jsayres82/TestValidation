@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <Compile Remove="Convert.cs" />
+    <Compile Remove="Limits\LinearSlopedDomainLimit.cs" />
+    <Compile Remove="Limits\LogSlopedDomainLimit.cs" />
     <Compile Remove="Limits\Units\Units.cs" />
     <Compile Remove="Parameters\BlackmanHarrisWindow.cs" />
     <Compile Remove="Parameters\BlackmanNuttallWindow.cs" />

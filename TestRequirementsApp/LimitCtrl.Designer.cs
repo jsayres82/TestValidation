@@ -45,16 +45,13 @@ namespace Nuvo.Requirements_Builder
             comboBoxLimitPrefix = new EmptyTextComboBox();
             comboBoxLimitUnits = new EmptyTextComboBox();
             panelLimit = new System.Windows.Forms.Panel();
-            label6 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
-            label4 = new System.Windows.Forms.Label();
-            comboBoxValidUnitsPrefix = new EmptyTextComboBox();
             comboBoxValidatorUnits = new EmptyTextComboBox();
+            flpLimit = new System.Windows.Forms.FlowLayoutPanel();
+            label6 = new System.Windows.Forms.Label();
+            comboBoxValidUnitsPrefix = new EmptyTextComboBox();
+            label4 = new System.Windows.Forms.Label();
             comboBoxValidators = new EmptyTextComboBox();
-            labelAdditionalProperty2 = new System.Windows.Forms.Label();
-            labelAdditionalProperty1 = new System.Windows.Forms.Label();
-            tbAddProp2 = new EmptyTextTextBox();
-            tbAddProp1 = new EmptyTextTextBox();
             bindingSource1 = new System.Windows.Forms.BindingSource(components);
             panelHeader1 = new PanelHeader();
             bindingSource2 = new System.Windows.Forms.BindingSource(components);
@@ -75,8 +72,9 @@ namespace Nuvo.Requirements_Builder
             flpMain.Controls.Add(panelLimit);
             flpMain.Location = new System.Drawing.Point(0, 29);
             flpMain.Name = "flpMain";
-            flpMain.Size = new System.Drawing.Size(568, 193);
+            flpMain.Size = new System.Drawing.Size(621, 394);
             flpMain.TabIndex = 0;
+            flpMain.Paint += flpMain_Paint;
             // 
             // flpSpec
             // 
@@ -86,7 +84,7 @@ namespace Nuvo.Requirements_Builder
             flpSpec.Controls.Add(panel1);
             flpSpec.Location = new System.Drawing.Point(3, 3);
             flpSpec.Name = "flpSpec";
-            flpSpec.Size = new System.Drawing.Size(283, 183);
+            flpSpec.Size = new System.Drawing.Size(283, 198);
             flpSpec.TabIndex = 0;
             // 
             // label2
@@ -228,61 +226,27 @@ namespace Nuvo.Requirements_Builder
             // 
             // panelLimit
             // 
-            panelLimit.Controls.Add(label6);
+            panelLimit.AutoScroll = true;
             panelLimit.Controls.Add(label5);
-            panelLimit.Controls.Add(label4);
-            panelLimit.Controls.Add(comboBoxValidUnitsPrefix);
             panelLimit.Controls.Add(comboBoxValidatorUnits);
+            panelLimit.Controls.Add(flpLimit);
+            panelLimit.Controls.Add(label6);
+            panelLimit.Controls.Add(comboBoxValidUnitsPrefix);
+            panelLimit.Controls.Add(label4);
             panelLimit.Controls.Add(comboBoxValidators);
-            panelLimit.Controls.Add(labelAdditionalProperty2);
-            panelLimit.Controls.Add(labelAdditionalProperty1);
-            panelLimit.Controls.Add(tbAddProp2);
-            panelLimit.Controls.Add(tbAddProp1);
             panelLimit.Location = new System.Drawing.Point(292, 3);
             panelLimit.Name = "panelLimit";
-            panelLimit.Size = new System.Drawing.Size(273, 183);
+            panelLimit.Size = new System.Drawing.Size(321, 198);
             panelLimit.TabIndex = 4;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(12, 129);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(67, 15);
-            label6.TabIndex = 14;
-            label6.Text = "Units Prefix";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(137, 129);
+            label5.Location = new System.Drawing.Point(13, 55);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(64, 15);
             label5.TabIndex = 14;
             label5.Text = "Limit Units";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label4.ForeColor = System.Drawing.Color.MediumBlue;
-            label4.Location = new System.Drawing.Point(12, 8);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(98, 30);
-            label4.TabIndex = 14;
-            label4.Text = "Validator";
-            // 
-            // comboBoxValidUnitsPrefix
-            // 
-            comboBoxValidUnitsPrefix.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            comboBoxValidUnitsPrefix.EmptyText = null;
-            comboBoxValidUnitsPrefix.ForeColor = System.Drawing.SystemColors.WindowText;
-            comboBoxValidUnitsPrefix.FormattingEnabled = true;
-            comboBoxValidUnitsPrefix.Location = new System.Drawing.Point(12, 147);
-            comboBoxValidUnitsPrefix.Name = "comboBoxValidUnitsPrefix";
-            comboBoxValidUnitsPrefix.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            comboBoxValidUnitsPrefix.Size = new System.Drawing.Size(119, 23);
-            comboBoxValidUnitsPrefix.TabIndex = 13;
             // 
             // comboBoxValidatorUnits
             // 
@@ -290,11 +254,55 @@ namespace Nuvo.Requirements_Builder
             comboBoxValidatorUnits.EmptyText = null;
             comboBoxValidatorUnits.ForeColor = System.Drawing.SystemColors.WindowText;
             comboBoxValidatorUnits.FormattingEnabled = true;
-            comboBoxValidatorUnits.Location = new System.Drawing.Point(137, 147);
+            comboBoxValidatorUnits.Location = new System.Drawing.Point(140, 70);
             comboBoxValidatorUnits.Name = "comboBoxValidatorUnits";
             comboBoxValidatorUnits.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            comboBoxValidatorUnits.Size = new System.Drawing.Size(125, 23);
+            comboBoxValidatorUnits.Size = new System.Drawing.Size(119, 23);
             comboBoxValidatorUnits.TabIndex = 13;
+            // 
+            // flpLimit
+            // 
+            flpLimit.AutoSize = true;
+            flpLimit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            flpLimit.Dock = System.Windows.Forms.DockStyle.Bottom;
+            flpLimit.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            flpLimit.Location = new System.Drawing.Point(0, 198);
+            flpLimit.Name = "flpLimit";
+            flpLimit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            flpLimit.Size = new System.Drawing.Size(321, 0);
+            flpLimit.TabIndex = 5;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(140, 55);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(67, 15);
+            label6.TabIndex = 14;
+            label6.Text = "Units Prefix";
+            // 
+            // comboBoxValidUnitsPrefix
+            // 
+            comboBoxValidUnitsPrefix.EmptyForeColor = System.Drawing.SystemColors.GrayText;
+            comboBoxValidUnitsPrefix.EmptyText = null;
+            comboBoxValidUnitsPrefix.ForeColor = System.Drawing.SystemColors.WindowText;
+            comboBoxValidUnitsPrefix.FormattingEnabled = true;
+            comboBoxValidUnitsPrefix.Location = new System.Drawing.Point(3, 70);
+            comboBoxValidUnitsPrefix.Name = "comboBoxValidUnitsPrefix";
+            comboBoxValidUnitsPrefix.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
+            comboBoxValidUnitsPrefix.Size = new System.Drawing.Size(119, 23);
+            comboBoxValidUnitsPrefix.TabIndex = 13;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label4.ForeColor = System.Drawing.Color.MediumBlue;
+            label4.Location = new System.Drawing.Point(9, -2);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(98, 30);
+            label4.TabIndex = 14;
+            label4.Text = "Validator";
             // 
             // comboBoxValidators
             // 
@@ -302,52 +310,12 @@ namespace Nuvo.Requirements_Builder
             comboBoxValidators.EmptyText = null;
             comboBoxValidators.ForeColor = System.Drawing.SystemColors.WindowText;
             comboBoxValidators.FormattingEnabled = true;
-            comboBoxValidators.Location = new System.Drawing.Point(12, 41);
+            comboBoxValidators.Location = new System.Drawing.Point(9, 28);
             comboBoxValidators.Name = "comboBoxValidators";
             comboBoxValidators.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
             comboBoxValidators.Size = new System.Drawing.Size(194, 23);
             comboBoxValidators.TabIndex = 13;
             comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
-            // 
-            // labelAdditionalProperty2
-            // 
-            labelAdditionalProperty2.AutoSize = true;
-            labelAdditionalProperty2.Location = new System.Drawing.Point(143, 79);
-            labelAdditionalProperty2.Name = "labelAdditionalProperty2";
-            labelAdditionalProperty2.Size = new System.Drawing.Size(119, 15);
-            labelAdditionalProperty2.TabIndex = 10;
-            labelAdditionalProperty2.Text = "Additional Property 2";
-            // 
-            // labelAdditionalProperty1
-            // 
-            labelAdditionalProperty1.AutoSize = true;
-            labelAdditionalProperty1.Location = new System.Drawing.Point(12, 79);
-            labelAdditionalProperty1.Name = "labelAdditionalProperty1";
-            labelAdditionalProperty1.Size = new System.Drawing.Size(119, 15);
-            labelAdditionalProperty1.TabIndex = 10;
-            labelAdditionalProperty1.Text = "Additional Property 1";
-            // 
-            // tbAddProp2
-            // 
-            tbAddProp2.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            tbAddProp2.EmptyText = null;
-            tbAddProp2.ForeColor = System.Drawing.SystemColors.WindowText;
-            tbAddProp2.Location = new System.Drawing.Point(143, 97);
-            tbAddProp2.Name = "tbAddProp2";
-            tbAddProp2.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            tbAddProp2.Size = new System.Drawing.Size(119, 23);
-            tbAddProp2.TabIndex = 9;
-            // 
-            // tbAddProp1
-            // 
-            tbAddProp1.EmptyForeColor = System.Drawing.SystemColors.GrayText;
-            tbAddProp1.EmptyText = null;
-            tbAddProp1.ForeColor = System.Drawing.SystemColors.WindowText;
-            tbAddProp1.Location = new System.Drawing.Point(12, 97);
-            tbAddProp1.Name = "tbAddProp1";
-            tbAddProp1.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
-            tbAddProp1.Size = new System.Drawing.Size(119, 23);
-            tbAddProp1.TabIndex = 9;
             // 
             // panelHeader1
             // 
@@ -357,7 +325,7 @@ namespace Nuvo.Requirements_Builder
             panelHeader1.Location = new System.Drawing.Point(0, 0);
             panelHeader1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panelHeader1.Name = "panelHeader1";
-            panelHeader1.Size = new System.Drawing.Size(571, 23);
+            panelHeader1.Size = new System.Drawing.Size(624, 23);
             panelHeader1.TabIndex = 2;
             // 
             // LimitCtrl
@@ -368,7 +336,7 @@ namespace Nuvo.Requirements_Builder
             Controls.Add(panelHeader1);
             Controls.Add(flpMain);
             Name = "LimitCtrl";
-            Size = new System.Drawing.Size(571, 226);
+            Size = new System.Drawing.Size(624, 426);
             flpMain.ResumeLayout(false);
             flpSpec.ResumeLayout(false);
             flpSpec.PerformLayout();
@@ -390,8 +358,6 @@ namespace Nuvo.Requirements_Builder
         private System.Windows.Forms.FlowLayoutPanel flpSpec;
         private System.Windows.Forms.Panel panelLimit;
         private PanelHeader panelHeader1;
-        private System.Windows.Forms.Label labelAdditionalProperty1;
-        private EmptyTextTextBox tbAddProp1;
         private System.Windows.Forms.Label label4;
         private EmptyTextComboBox comboBoxValidators;
         private System.Windows.Forms.Label label6;
@@ -400,8 +366,6 @@ namespace Nuvo.Requirements_Builder
         private EmptyTextComboBox comboBoxValidatorUnits;
         private System.Windows.Forms.Label label2;
         private EmptyTextComboBox comboBoxLimitTypes;
-        private System.Windows.Forms.Label labelAdditionalProperty2;
-        private EmptyTextTextBox tbAddProp2;
         private System.Windows.Forms.Label label7;
         private EmptyTextTextBox textBoxAdditionalProperty1;
         private System.Windows.Forms.Label label3;
@@ -415,5 +379,6 @@ namespace Nuvo.Requirements_Builder
         private System.Windows.Forms.Label label10;
         private EmptyTextComboBox comboBoxLimitPrefix;
         private EmptyTextComboBox comboBoxLimitUnits;
+        private System.Windows.Forms.FlowLayoutPanel flpLimit;
     }
 }
