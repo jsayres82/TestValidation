@@ -57,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\microwave-networks\Source\MicrowaveNetworks\MicrowaveNetworks.csproj" />
+    <ProjectReference Include="..\MicrowaveNetworks\MicrowaveNetworks.csproj" />
     <ProjectReference Include="..\RfNetworks\Nuvo.RF_Networks.csproj" />
   </ItemGroup>
 
