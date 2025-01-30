@@ -15,7 +15,12 @@ namespace Nuvo.TestValidation.Limits
     {
         [XmlElement("Value")]
         public double Value { get; set; }
-        public double End { get; set; }
+
+        [XmlElement("StartFrequency")]
+        public override double Start { get; set; }
+
+        [XmlElement("EndFrequency")]
+        public override double End { get; set; }
         public double StartValue { get; set; }
         public double EndValue { get; set; }
         public double StartValue2 { get; set; }

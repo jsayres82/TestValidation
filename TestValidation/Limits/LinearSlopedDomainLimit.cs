@@ -11,10 +11,10 @@ namespace Nuvo.TestValidation.Limits
     public class LinearSlopedDomainLimit : GenericLimit
     {
         [XmlElement("StartFrequency")]
-        public double Start { get; set; }
+        public override double Start { get; set; }
 
         [XmlElement("EndFrequency")]
-        public double End { get; set; }
+        public override double End { get; set; }
 
         public double StartValue { get; set; }
         public double EndValue { get; set; }

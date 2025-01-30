@@ -30,16 +30,15 @@ namespace Nuvo.Requirements_Builder
         private void InitializeComponent()
         {
             panel1 = new System.Windows.Forms.Panel();
+            btnDelete = new System.Windows.Forms.Button();
             flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             buttonEdit = new System.Windows.Forms.Button();
-            btnDelete = new System.Windows.Forms.Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.AutoSize = true;
-            panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             panel1.Controls.Add(btnDelete);
             panel1.Controls.Add(flowLayoutPanel1);
             panel1.Controls.Add(buttonEdit);
@@ -48,32 +47,6 @@ namespace Nuvo.Requirements_Builder
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(123, 100);
             panel1.TabIndex = 1;
-            // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.AutoSize = true;
-            flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            flowLayoutPanel1.Enabled = false;
-            flowLayoutPanel1.Location = new System.Drawing.Point(23, 0);
-            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            flowLayoutPanel1.MinimumSize = new System.Drawing.Size(100, 100);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new System.Drawing.Size(100, 100);
-            flowLayoutPanel1.TabIndex = 2;
-            flowLayoutPanel1.WrapContents = false;
-            // 
-            // buttonEdit
-            // 
-            buttonEdit.Dock = System.Windows.Forms.DockStyle.Left;
-            buttonEdit.Location = new System.Drawing.Point(0, 0);
-            buttonEdit.Name = "buttonEdit";
-            buttonEdit.Size = new System.Drawing.Size(23, 100);
-            buttonEdit.TabIndex = 1;
-            buttonEdit.Text = "EDIT";
-            buttonEdit.UseVisualStyleBackColor = true;
-            buttonEdit.Click += buttonEdit_Click;
             // 
             // btnDelete
             // 
@@ -88,12 +61,35 @@ namespace Nuvo.Requirements_Builder
             btnDelete.Visible = false;
             btnDelete.Click += btnDelete_Click;
             // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.AutoSize = true;
+            flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanel1.Enabled = false;
+            flowLayoutPanel1.Location = new System.Drawing.Point(23, 0);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            flowLayoutPanel1.MinimumSize = new System.Drawing.Size(100, 100);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(100, 100);
+            flowLayoutPanel1.TabIndex = 2;
+            // 
+            // buttonEdit
+            // 
+            buttonEdit.Dock = System.Windows.Forms.DockStyle.Left;
+            buttonEdit.Location = new System.Drawing.Point(0, 0);
+            buttonEdit.Name = "buttonEdit";
+            buttonEdit.Size = new System.Drawing.Size(23, 100);
+            buttonEdit.TabIndex = 1;
+            buttonEdit.Text = "EDIT";
+            buttonEdit.UseVisualStyleBackColor = true;
+            buttonEdit.Click += buttonEdit_Click;
+            // 
             // TestRequirementControl
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoSize = true;
-            AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             Controls.Add(panel1);
             Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             MinimumSize = new System.Drawing.Size(100, 100);

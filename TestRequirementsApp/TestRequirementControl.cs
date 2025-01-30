@@ -94,12 +94,12 @@ namespace Nuvo.Requirements_Builder
                         default:
                             break;
                     }
-                    if(paramCtrl != null)
+                    if (paramCtrl != null)
                     {
                         flowLayoutPanel1.Controls.Add(paramCtrl);
                         paramCtrl.ParameterUpdated += ParamCtrl_ParameterUpdated;
                     }
-                    if(limCtrl != null)
+                    if (limCtrl != null)
                         flowLayoutPanel1.Controls.Add(limCtrl);
                 }
             }
@@ -115,10 +115,10 @@ namespace Nuvo.Requirements_Builder
             limCtrl.UpdateLimit(testRequirement.Limit);
         }
 
-        private void setTestRequirementLimit(GenericParameter param )
+        private void setTestRequirementLimit(GenericParameter param)
         {
             Type[] typeArgs = { typeof(double) };
-            if(param.ValidLimits.Count > 0)
+            if (param.ValidLimits.Count > 0)
             {
                 var lim = param.ValidLimits[0];
                 testRequirement.Limit = Activator.CreateInstance((Type)lim) as GenericLimit;//paramCtrl.Parameter.ValidLimits.ToArray()[0] as GenericLimit;//s Activator.CreateInstance(paramCtrl.Parameter.ValidLimits.First().GetType()) as GenericLimit;
@@ -173,7 +173,7 @@ namespace Nuvo.Requirements_Builder
         private void btnDelete_Click(object sender, EventArgs e)
         {
             IsDeleted = true;
-            RequirementUpdated.Invoke(this,new EventArgs());
+            RequirementUpdated.Invoke(this, new EventArgs());
         }
     }
 }

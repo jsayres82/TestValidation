@@ -103,7 +103,7 @@ namespace Nuvo.Requirements_Builder
             splitContainer1.Panel2.Controls.Add(flp);
             splitContainer1.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
             splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            splitContainer1.Size = new System.Drawing.Size(1559, 796);
+            splitContainer1.Size = new System.Drawing.Size(1639, 796);
             splitContainer1.SplitterDistance = 131;
             splitContainer1.TabIndex = 0;
             // 
@@ -189,19 +189,21 @@ namespace Nuvo.Requirements_Builder
             // flp2
             // 
             flp2.AutoScroll = true;
+            flp2.AutoSize = true;
             flp2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             flp2.BackColor = System.Drawing.Color.WhiteSmoke;
             flp2.Dock = System.Windows.Forms.DockStyle.Fill;
             flp2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            flp2.Location = new System.Drawing.Point(0, 191);
+            flp2.Location = new System.Drawing.Point(0, 202);
             flp2.Name = "flp2";
-            flp2.Size = new System.Drawing.Size(1559, 470);
+            flp2.Size = new System.Drawing.Size(1639, 459);
             flp2.TabIndex = 3;
             flp2.WrapContents = false;
             // 
             // flp
             // 
             flp.AutoSize = true;
+            flp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             flp.Controls.Add(testInfoCtrl1);
             flp.Dock = System.Windows.Forms.DockStyle.Top;
             flp.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
@@ -209,17 +211,19 @@ namespace Nuvo.Requirements_Builder
             flp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             flp.MinimumSize = new System.Drawing.Size(0, 150);
             flp.Name = "flp";
-            flp.Size = new System.Drawing.Size(1559, 191);
+            flp.Size = new System.Drawing.Size(1639, 202);
             flp.TabIndex = 0;
             // 
             // testInfoCtrl1
             // 
+            testInfoCtrl1.AutoSize = true;
+            testInfoCtrl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             testInfoCtrl1.fileName = null;
             testInfoCtrl1.folderName = null;
             testInfoCtrl1.Location = new System.Drawing.Point(3, 4);
             testInfoCtrl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             testInfoCtrl1.Name = "testInfoCtrl1";
-            testInfoCtrl1.Size = new System.Drawing.Size(1081, 183);
+            testInfoCtrl1.Size = new System.Drawing.Size(990, 194);
             testInfoCtrl1.TabIndex = 1;
             // 
             // openFileDialog1
@@ -228,13 +232,14 @@ namespace Nuvo.Requirements_Builder
             // 
             // TestRequirementsApp
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.Silver;
-            ClientSize = new System.Drawing.Size(1559, 796);
+            ClientSize = new System.Drawing.Size(1639, 796);
             Controls.Add(splitContainer1);
+            DoubleBuffered = true;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            MinimumSize = new System.Drawing.Size(1555, 758);
+            MinimumSize = new System.Drawing.Size(1655, 758);
             Name = "TestRequirementsApp";
             Text = "Test Requirements App";
             Load += Form1_Load;
@@ -246,6 +251,7 @@ namespace Nuvo.Requirements_Builder
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             flp.ResumeLayout(false);
+            flp.PerformLayout();
             ResumeLayout(false);
         }
 

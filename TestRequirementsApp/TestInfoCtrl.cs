@@ -112,17 +112,17 @@ namespace Nuvo.Requirements_Builder
             testInfo.MeasFileType = newInfo.MeasFileType;
             if (testInfo.MeasFileType == null)
                 testInfo.MeasFileType = Enum.GetName(MeasFileTypes.None);
-            
-                if (testInfo.MeasFileType.Equals(Enum.GetName(MeasFileTypes.sXp)))
-                {
-                    panelParamCount.Visible = true;
-                }
-                else
-                {
-                    panelParamCount.Visible = false;
-                }
-                testInfo.ParamCount = newInfo.ParamCount;
-                nudParameterCount.Value = System.Convert.ToDecimal(testInfo.ParamCount);
+
+            if (testInfo.MeasFileType.Equals(Enum.GetName(MeasFileTypes.sXp)))
+            {
+                panelParamCount.Visible = true;
+            }
+            else
+            {
+                panelParamCount.Visible = false;
+            }
+            testInfo.ParamCount = newInfo.ParamCount;
+            nudParameterCount.Value = System.Convert.ToDecimal(testInfo.ParamCount);
 
             testInfo.TestArticles = newInfo.TestArticles;
             bindingDataSource1.ResetBindings(true);

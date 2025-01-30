@@ -309,7 +309,6 @@ namespace Nuvo.Requirements_Builder
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            AutoSize = true;
             Controls.Add(panelDetails);
             Controls.Add(panelHeader1);
             Controls.Add(flpMain);

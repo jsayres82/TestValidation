@@ -72,9 +72,8 @@ namespace Nuvo.Requirements_Builder
             flpMain.Controls.Add(panelLimit);
             flpMain.Location = new System.Drawing.Point(0, 29);
             flpMain.Name = "flpMain";
-            flpMain.Size = new System.Drawing.Size(621, 394);
+            flpMain.Size = new System.Drawing.Size(636, 394);
             flpMain.TabIndex = 0;
-            flpMain.Paint += flpMain_Paint;
             // 
             // flpSpec
             // 
@@ -84,7 +83,7 @@ namespace Nuvo.Requirements_Builder
             flpSpec.Controls.Add(panel1);
             flpSpec.Location = new System.Drawing.Point(3, 3);
             flpSpec.Name = "flpSpec";
-            flpSpec.Size = new System.Drawing.Size(283, 198);
+            flpSpec.Size = new System.Drawing.Size(283, 225);
             flpSpec.TabIndex = 0;
             // 
             // label2
@@ -227,6 +226,8 @@ namespace Nuvo.Requirements_Builder
             // panelLimit
             // 
             panelLimit.AutoScroll = true;
+            panelLimit.AutoSize = true;
+            panelLimit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             panelLimit.Controls.Add(label5);
             panelLimit.Controls.Add(comboBoxValidatorUnits);
             panelLimit.Controls.Add(flpLimit);
@@ -234,9 +235,11 @@ namespace Nuvo.Requirements_Builder
             panelLimit.Controls.Add(comboBoxValidUnitsPrefix);
             panelLimit.Controls.Add(label4);
             panelLimit.Controls.Add(comboBoxValidators);
+            panelLimit.Dock = System.Windows.Forms.DockStyle.Right;
             panelLimit.Location = new System.Drawing.Point(292, 3);
+            panelLimit.MinimumSize = new System.Drawing.Size(300, 225);
             panelLimit.Name = "panelLimit";
-            panelLimit.Size = new System.Drawing.Size(321, 198);
+            panelLimit.Size = new System.Drawing.Size(300, 225);
             panelLimit.TabIndex = 4;
             // 
             // label5
@@ -265,11 +268,9 @@ namespace Nuvo.Requirements_Builder
             flpLimit.AutoSize = true;
             flpLimit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             flpLimit.Dock = System.Windows.Forms.DockStyle.Bottom;
-            flpLimit.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            flpLimit.Location = new System.Drawing.Point(0, 198);
+            flpLimit.Location = new System.Drawing.Point(0, 225);
             flpLimit.Name = "flpLimit";
-            flpLimit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            flpLimit.Size = new System.Drawing.Size(321, 0);
+            flpLimit.Size = new System.Drawing.Size(300, 0);
             flpLimit.TabIndex = 5;
             // 
             // label6
@@ -325,7 +326,7 @@ namespace Nuvo.Requirements_Builder
             panelHeader1.Location = new System.Drawing.Point(0, 0);
             panelHeader1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panelHeader1.Name = "panelHeader1";
-            panelHeader1.Size = new System.Drawing.Size(624, 23);
+            panelHeader1.Size = new System.Drawing.Size(639, 23);
             panelHeader1.TabIndex = 2;
             // 
             // LimitCtrl
@@ -336,8 +337,9 @@ namespace Nuvo.Requirements_Builder
             Controls.Add(panelHeader1);
             Controls.Add(flpMain);
             Name = "LimitCtrl";
-            Size = new System.Drawing.Size(624, 426);
+            Size = new System.Drawing.Size(639, 426);
             flpMain.ResumeLayout(false);
+            flpMain.PerformLayout();
             flpSpec.ResumeLayout(false);
             flpSpec.PerformLayout();
             panel2.ResumeLayout(false);
@@ -355,7 +357,6 @@ namespace Nuvo.Requirements_Builder
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flpMain;
-        private System.Windows.Forms.FlowLayoutPanel flpSpec;
         private System.Windows.Forms.Panel panelLimit;
         private PanelHeader panelHeader1;
         private System.Windows.Forms.Label label4;
@@ -364,21 +365,22 @@ namespace Nuvo.Requirements_Builder
         private System.Windows.Forms.Label label5;
         private EmptyTextComboBox comboBoxValidUnitsPrefix;
         private EmptyTextComboBox comboBoxValidatorUnits;
-        private System.Windows.Forms.Label label2;
-        private EmptyTextComboBox comboBoxLimitTypes;
-        private System.Windows.Forms.Label label7;
-        private EmptyTextTextBox textBoxAdditionalProperty1;
-        private System.Windows.Forms.Label label3;
-        private EmptyTextTextBox textBoxAdditionalProperty2;
         public System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.BindingSource bindingSource2;
         private System.Windows.Forms.BindingSource bindingSource3;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.FlowLayoutPanel flpLimit;
+        private System.Windows.Forms.FlowLayoutPanel flpSpec;
+        private System.Windows.Forms.Label label2;
+        private EmptyTextComboBox comboBoxLimitTypes;
         private System.Windows.Forms.Panel panel2;
+        private EmptyTextTextBox textBoxAdditionalProperty2;
+        private System.Windows.Forms.Label label3;
+        private EmptyTextTextBox textBoxAdditionalProperty1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private EmptyTextComboBox comboBoxLimitPrefix;
         private EmptyTextComboBox comboBoxLimitUnits;
-        private System.Windows.Forms.FlowLayoutPanel flpLimit;
     }
 }
