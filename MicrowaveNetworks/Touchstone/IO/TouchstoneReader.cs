@@ -1,11 +1,11 @@
-﻿using System;
+﻿using MicrowaveNetworks.Matrices;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.IO;
-using System.Reflection;
-using MicrowaveNetworks.Matrices;
 
 namespace MicrowaveNetworks.Touchstone.IO
 {
@@ -19,6 +19,7 @@ namespace MicrowaveNetworks.Touchstone.IO
         public TouchstoneKeywords Keywords { get; }
         /// <summary>Gets the <see cref="TouchstoneOptions"/> parameters parsed from the options line in the Touchstone file.</summary>
         public TouchstoneOptions Options { get; }
+        public string Header { get => header; set => header = value; }
 
         private static readonly FieldNameLookup<TouchstoneKeywords> keywordLookup = new FieldNameLookup<TouchstoneKeywords>();
         private static readonly string resistanceSignifier = GetTouchstoneFieldName<TouchstoneOptions>(nameof(TouchstoneOptions.Resistance));
@@ -37,7 +38,7 @@ namespace MicrowaveNetworks.Touchstone.IO
             this.reader = reader;
             Options = new TouchstoneOptions();
             Keywords = new TouchstoneKeywords();
-
+            Header = "";
             coreReader = TouchstoneReaderCore.Create(this);
         }
 
@@ -56,7 +57,7 @@ namespace MicrowaveNetworks.Touchstone.IO
         {
             if (string.IsNullOrEmpty(filePath)) throw new ArgumentNullException(nameof(filePath));
             if (!File.Exists(filePath)) throw new FileNotFoundException("File not found", filePath);
-            
+
             StreamReader reader = new StreamReader(filePath);
             try
             {
@@ -111,7 +112,7 @@ namespace MicrowaveNetworks.Touchstone.IO
                 INetworkParametersCollection collection = null;
 
                 // Read returns a nullable FrequencyParametersPair object; in this statement,
-                // we use is to validate that it isn't null and break into its parts in a single step.
+                //  use is to validate that it isn't null and break into its parts in a single step.
                 while (Read() is (double frequency, NetworkParametersMatrix matrix))
                 {
                     if (collection == null)
@@ -199,7 +200,7 @@ namespace MicrowaveNetworks.Touchstone.IO
                 else if (option.Equals(resistanceSignifier, StringComparison.OrdinalIgnoreCase))
                 {
                     // For resistance, this option is specified in the format of "R [value]"
-                    // Hence, we need to actually move the enumerator forward to get the value
+                    // Hence,  need to actually move the enumerator forward to get the value
                     bool success = enumer.MoveNext();
                     if (success)
                     {
@@ -286,7 +287,7 @@ namespace MicrowaveNetworks.Touchstone.IO
         {
             r = 0;
             x = 0;
-            bool parsed = float.TryParse(impedance,out r);
+            bool parsed = float.TryParse(impedance, out r);
             if (!parsed)
             {
                 Match m = Regex.Match(impedance, @"\((?<r>\d+)(?<sign>[+-])(?<x>\d+)j\)");
@@ -313,13 +314,18 @@ namespace MicrowaveNetworks.Touchstone.IO
                 char nextChar = (char)nextCharInt;
                 switch (nextChar)
                 {
-                    // If it's a space, advance forward by character until we hit a definitive value
+                    // If it's a space, advance forward by character until  hit a definitive value
                     case ' ':
                         reader.Read();
                         break;
                     // For new lines and comments, skip to the next line
                     case Constants.CommentChar:
+                        Header += reader.ReadLine();
+                        lineNumber++;
+                        break;
                     case var _ when char.IsWhiteSpace(nextChar):
+                        if (nextChar.Equals('\t'))
+                            return true;
                         reader.ReadLine();
                         lineNumber++;
                         break;
@@ -338,12 +344,15 @@ namespace MicrowaveNetworks.Touchstone.IO
             {
                 switch (nextChar)
                 {
-                    // If it's a space, advance forward by character until we hit a definitive value
+                    // If it's a space, advance forward by character until  hit a definitive value
                     case ' ':
                         reader.Read();
                         break;
                     // For new lines and comments, skip to the next line
                     case Constants.CommentChar:
+                        Header += reader.ReadLine();
+                        lineNumber++;
+                        break;
                     case var _ when char.IsWhiteSpace(nextChar):
                         await reader.ReadLineAsync();
                         lineNumber++;
@@ -435,7 +444,7 @@ namespace MicrowaveNetworks.Touchstone.IO
                     rawFlattenedMatrix.AddRange(TrimAndSplitLine(firstLine));
 
                     // We only need to perform this check if the network has 2 ports or more; a one port network only has a single
-                    // data pair (i.e. two entries) plus frequency. We know that we don't need to investigate subsequent lines.
+                    // data pair (i.e. two entries) plus frequency. We know that  don't need to investigate subsequent lines.
                     if (rawFlattenedMatrix.Count > 3)
                     {
                         while (tsReader.MoveToNextValidLine())
@@ -558,6 +567,7 @@ namespace MicrowaveNetworks.Touchstone.IO
         #endregion
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
+        private string header;
 
         private void Dispose(bool disposing)
         {

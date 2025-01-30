@@ -1,15 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
+using System.
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+Before:
 using System.Threading.Tasks;
 using MathNet.Numerics.LinearAlgebra.Complex;
+After:
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net5.0)'
+Before:
+using System.Threading.Tasks;
+using MathNet.Numerics.LinearAlgebra.Complex;
+After:
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (netstandard2.0)'
+Before:
+using System.Threading.Tasks;
+using MathNet.Numerics.LinearAlgebra.Complex;
+After:
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net472)'
+Before:
+using System.Threading.Tasks;
+using MathNet.Numerics.LinearAlgebra.Complex;
+After:
+using System.Threading.Tasks;
+*/
+Numerics;
 
 namespace MicrowaveNetworks.Matrices
 {
-    using SymmetryExtension;
-
     /// <summary>
     /// Represents the scattering (S) parameters between device ports.
     /// </summary>

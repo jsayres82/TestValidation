@@ -71,5 +71,14 @@ namespace MicrowaveNetworks
         /// <param name="parameters">The <see cref="NetworkParametersMatrix"/> at <paramref name="frequency"/> if it exists; otherwise will be null.</param>
         /// <returns>True if the <see cref="NetworkParametersMatrix"/> at <paramref name="frequency"/> was found; false otherwise.</returns>
         bool TryGetValue(double frequency, out NetworkParametersMatrix parameters);
+
+        /// <summary>
+        /// Gets all network parameters for a specific source and destination port across all frequencies.
+        /// </summary>
+        /// <param name="destinationPort">The destination port of the network parameter.</param>
+        /// <param name="sourcePort">The source port of the network parameter.</param>
+        /// <returns>A dictionary where the keys are frequencies and the values are the network parameters
+        /// measured or derived at that frequency for the specified source and destination ports.</returns>
+        IReadOnlyDictionary<double, NetworkParameter> GetParametersForPorts(int destinationPort, int sourcePort);
     }
 }

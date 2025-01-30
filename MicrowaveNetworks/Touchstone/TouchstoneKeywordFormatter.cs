@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MicrowaveNetworks.Touchstone
+﻿namespace MicrowaveNetworks.Touchstone
 {
 
 
@@ -10,10 +6,10 @@ namespace MicrowaveNetworks.Touchstone
     internal class TouchstoneKeywordFormatter
     {
         internal string KeywordText { get; set; }
-       /* public virtual T ParseKeyword<T>(string keyword)
-        {
+        /* public virtual T ParseKeyword<T>(string keyword)
+         {
 
-        }*/
+         }*/
         public virtual string FormatFullKeyword<T>(string keyword, T value)
         {
             return keyword.FormatKeyword() + " " + value.ToString();

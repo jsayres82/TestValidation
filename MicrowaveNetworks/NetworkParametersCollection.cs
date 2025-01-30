@@ -1,6 +1,74 @@
-﻿using System;
+﻿using C5;
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+Before:
 using System.Linq;
+After:
+using MathNet.Numerics;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net5.0)'
+Before:
+using System.Linq;
+After:
+using MathNet.Numerics;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (netstandard2.0)'
+Before:
+using System.Linq;
+After:
+using MathNet.Numerics;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net472)'
+Before:
+using System.Linq;
+After:
+using MathNet.Numerics;
+*/
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+Before:
+using MathNet.Numerics.Interpolation;
+
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+After:
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net5.0)'
+Before:
+using MathNet.Numerics.Interpolation;
+
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+After:
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (netstandard2.0)'
+Before:
+using MathNet.Numerics.Interpolation;
+
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+After:
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net472)'
+Before:
+using MathNet.Numerics.Interpolation;
+
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+After:
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+*/
+
+
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+Before:
 using SCG = System.Collections.Generic;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +81,136 @@ using MicrowaveNetworks.Internal;
 using System.Threading.Tasks;
 
 using MathNet.Numerics;
+After:
+using MicrowaveNetworks.Collections.Generic;
+using System.Matrices;
+using MicrowaveNetworks.Touchstone.IO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SCG = System.Collections.Numerics;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net5.0)'
+Before:
+using SCG = System.Collections.Generic;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text;
+using C5;
+using MathNet.Numerics.Interpolation;
+using MicrowaveNetworks.Matrices;
+using MicrowaveNetworks.Touchstone.IO;
+using MicrowaveNetworks.Internal;
+using System.Threading.Tasks;
+
+using MathNet.Numerics;
+After:
+using MicrowaveNetworks.Collections.Generic;
+using System.Matrices;
+using MicrowaveNetworks.Touchstone.IO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SCG = System.Collections.Numerics;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (netstandard2.0)'
+Before:
+using SCG = System.Collections.Generic;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text;
+using C5;
+using MathNet.Numerics.Interpolation;
+using MicrowaveNetworks.Matrices;
+using MicrowaveNetworks.Touchstone.IO;
+using MicrowaveNetworks.Internal;
+using System.Threading.Tasks;
+
+using MathNet.Numerics;
+After:
+using MicrowaveNetworks.Collections.Generic;
+using System.Matrices;
+using MicrowaveNetworks.Touchstone.IO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SCG = System.Collections.Numerics;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net472)'
+Before:
+using SCG = System.Collections.Generic;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text;
+using C5;
+using MathNet.Numerics.Interpolation;
+using MicrowaveNetworks.Matrices;
+using MicrowaveNetworks.Touchstone.IO;
+using MicrowaveNetworks.Internal;
+using System.Threading.Tasks;
+
+using MathNet.Numerics;
+After:
+using MicrowaveNetworks.Collections.Generic;
+using System.Matrices;
+using MicrowaveNetworks.Touchstone.IO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SCG = System.Collections.Numerics;
+*/
+using
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+Before:
+using MicrowaveNetworks.Linq;
+using SCG = System.Collections.Generic;
+After:
+using SCG = System.Collections.Generic;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net5.0)'
+Before:
+using MicrowaveNetworks.Linq;
+using SCG = System.Collections.Generic;
+After:
+using SCG = System.Collections.Generic;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (netstandard2.0)'
+Before:
+using MicrowaveNetworks.Linq;
+using SCG = System.Collections.Generic;
+After:
+using SCG = System.Collections.Generic;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net472)'
+Before:
+using MicrowaveNetworks.Linq;
+using SCG = System.Collections.Generic;
+After:
+using SCG = System.Collections.Generic;
+*/
+SCG = System.Collections.Generic;
 
 namespace MicrowaveNetworks
 {
@@ -101,6 +299,7 @@ namespace MicrowaveNetworks
             => new FrequencyParametersPair<TMatrix>(pair.Frequency_Hz, pair.Parameters.ConvertParameterType<TMatrix>());
     }
 
+
     /// <summary>
     /// Represents a collection of frequency dependent network parameters.
     /// </summary>
@@ -125,6 +324,35 @@ namespace MicrowaveNetworks
 #else
         public IReadOnlyCollection<TMatrix> NetworkParameters => networkParameters.Values;
 #endif
+
+        /// <summary>
+        /// Gets all network parameters for a specific source and destination port across all frequencies.
+        /// </summary>
+        /// <param name="destinationPort">The destination port of the network parameter.</param>
+        /// <param name="sourcePort">The source port of the network parameter.</param>
+        /// <returns>A dictionary where the keys are frequencies and the values are the network parameters
+        /// measured or derived at that frequency for the specified source and destination ports.</returns>
+        public IReadOnlyDictionary<double, NetworkParameter> GetParametersForPorts(int destinationPort, int sourcePort)
+        {
+            var parametersForPorts = new Dictionary<double, NetworkParameter>();
+
+            foreach (var frequency in Frequencies)
+            {
+                var networkMatrix = this[frequency];
+                if (destinationPort >= 1 && destinationPort <= NumberOfPorts &&
+                    sourcePort >= 1 && sourcePort <= NumberOfPorts)
+                {
+                    var networkParameter = networkMatrix[destinationPort, sourcePort];
+                    parametersForPorts[frequency] = networkParameter;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("Invalid source or destination port index.");
+                }
+            }
+
+            return parametersForPorts;
+        }
         IReadOnlyCollection<NetworkParametersMatrix> INetworkParametersCollection.NetworkParameters => NetworkParameters;
         /// <summary>Gets the specific subtype of <see cref="NetworkParametersMatrix"/> represented by this collection.</summary>
         /// <remarks>This collection is often created from a file and so the network parameter matrix type will not be known until after this object is created.</remarks>

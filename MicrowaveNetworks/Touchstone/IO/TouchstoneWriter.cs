@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using static MicrowaveNetworks.Internal.Utilities;
@@ -28,7 +28,7 @@ namespace MicrowaveNetworks.Touchstone.IO
         public TouchstoneKeywords Keywords { get; set; } = new TouchstoneKeywords();
         /// <summary>The cancellation token to cancel operations if using the asynchronous write functions.</summary>
         public CancellationToken CancelToken { get; set; } = default;
-
+        public string Header { get; set; } = "";
         private TextWriter Writer { get; set; }
 
         readonly TouchstoneWriterSettings settings;
@@ -48,7 +48,7 @@ namespace MicrowaveNetworks.Touchstone.IO
         /// <summary>
         /// Creates a new <see cref="TouchstoneWriter"/> using the specified file path with default <see cref="TouchstoneWriterSettings"/>.
         /// </summary>
-        /// <param name="filePath">The file to which you want to write. The <see cref="TouchstoneWriter"/> creates a file at the specified path
+        /// <param name="filePath">The file to which we want to write. The <see cref="TouchstoneWriter"/> creates a file at the specified path
         /// or overwrites the existing file.</param>
         /// <returns>A new <see cref="TouchstoneWriter"/> object.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="filePath"/> value is null.</exception>
@@ -56,7 +56,7 @@ namespace MicrowaveNetworks.Touchstone.IO
         /// <summary>
         /// Creates a new <see cref="TouchstoneWriter"/> using the specified file path with the specified settings.
         /// </summary>
-        /// <param name="filePath">The file to which you want to write. The <see cref="TouchstoneWriter"/> creates a file at the specified path
+        /// <param name="filePath">The file to which we want to write. The <see cref="TouchstoneWriter"/> creates a file at the specified path
         /// or overwrites the existing file.</param>
         /// <param name="settings">The <see cref="TouchstoneWriterSettings"/> used to configure the <see cref="TouchstoneWriter"/> instance. 
         /// If <paramref name="settings"/> is null the default settings will be used.</param>
@@ -70,14 +70,14 @@ namespace MicrowaveNetworks.Touchstone.IO
         /// <summary>
         /// Creates a new <see cref="TouchstoneWriter"/> using the specified <see cref="TextWriter"/> with default <see cref="TouchstoneWriterSettings"/>.
         /// </summary>
-        /// <param name="writer">The <see cref="TextWriter"/> to which you want to write. The Touchstone data will be appended to this <see cref="TextWriter"/>.</param>
+        /// <param name="writer">The <see cref="TextWriter"/> to which we want to write. The Touchstone data will be appended to this <see cref="TextWriter"/>.</param>
         /// <returns>A new <see cref="TouchstoneWriter"/> object.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="writer"/> value is null.</exception>
         public static TouchstoneWriter Create(TextWriter writer) => Create(writer, new TouchstoneWriterSettings());
         /// <summary>
         /// Creates a new <see cref="TouchstoneWriter"/> using the specified <see cref="TextWriter"/> with default <see cref="TouchstoneWriterSettings"/>.
         /// </summary>
-        /// <param name="writer">The <see cref="TextWriter"/> to which you want to write. The Touchstone data will be appended to this <see cref="TextWriter"/>.</param>
+        /// <param name="writer">The <see cref="TextWriter"/> to which we want to write. The Touchstone data will be appended to this <see cref="TextWriter"/>.</param>
         /// <param name="settings">The <see cref="TouchstoneWriterSettings"/> used to configure the <see cref="TouchstoneWriter"/> instance. 
         /// If <paramref name="settings"/> is null the default settings will be used.</param>
         /// <returns>A new <see cref="TouchstoneWriter"/> object.</returns>
@@ -90,14 +90,14 @@ namespace MicrowaveNetworks.Touchstone.IO
         /// <summary>
         /// Creates a new <see cref="TouchstoneWriter"/> using the specified <see cref="StringBuilder"/> with default <see cref="TouchstoneWriterSettings"/>.
         /// </summary>
-        /// <param name="sb">The <see cref="StringBuilder"/> to which you want to write. The Touchstone data will be appended to this <see cref="StringBuilder"/>.</param>
+        /// <param name="sb">The <see cref="StringBuilder"/> to which we want to write. The Touchstone data will be appended to this <see cref="StringBuilder"/>.</param>
         /// <returns>A new <see cref="TouchstoneWriter"/> object.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="sb"/> value is null.</exception>
         public static TouchstoneWriter Create(StringBuilder sb) => Create(sb, new TouchstoneWriterSettings());
         /// <summary>
         /// Creates a new <see cref="TouchstoneWriter"/> using the specified <see cref="StringBuilder"/> with default <see cref="TouchstoneWriterSettings"/>.
         /// </summary>
-        /// <param name="sb">The <see cref="StringBuilder"/> to which you want to write. The Touchstone data will be appended to this <see cref="StringBuilder"/>.</param>
+        /// <param name="sb">The <see cref="StringBuilder"/> to which we want to write. The Touchstone data will be appended to this <see cref="StringBuilder"/>.</param>
         /// <param name="settings">The <see cref="TouchstoneWriterSettings"/> used to configure the <see cref="TouchstoneWriter"/> instance. 
         /// If <paramref name="settings"/> is null the default settings will be used.</param>
         /// <returns>A new <see cref="TouchstoneWriter"/> object.</returns>

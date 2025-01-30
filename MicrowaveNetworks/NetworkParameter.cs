@@ -119,7 +119,7 @@ namespace MicrowaveNetworks
 
         public static bool operator <(NetworkParameter left, NetworkParameter right)
         {
-            if(left.Magnitude == (right.Magnitude))
+            if (left.Magnitude == (right.Magnitude))
                 return left.Phase < (right.Phase);
             else
                 return left.Magnitude < (right.Magnitude);

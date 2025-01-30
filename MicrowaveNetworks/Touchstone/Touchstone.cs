@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.IO;
-using MicrowaveNetworks.Touchstone.IO;
-using MicrowaveNetworks.Internal;
-using System.Threading.Tasks;
-using System.Text;
+﻿using MicrowaveNetworks.Internal;
 using MicrowaveNetworks.Matrices;
+using MicrowaveNetworks.Touchstone.IO;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MicrowaveNetworks.Touchstone
 {
@@ -17,7 +17,7 @@ namespace MicrowaveNetworks.Touchstone
     /// Defines a complete Touchstone file according to the version 2.0 specification including the frequency dependent network data as well as the file options and keywords.
     /// </summary>
     /// <remarks>Use this class when writing to a Touchstone file for complete control of the final output, or when making in-memory modifications/round-trip edits to an existing file.
-    /// If only the network data is needed from the file, you can use the <see cref="ReadAllData(string)"/> function to quickly access the data. Alternatively, you
+    /// If only the network data is needed from the file, we can use the <see cref="ReadAllData(string)"/> function to quickly access the data. Alternatively, we
     /// can use the low-level functions defined in <see cref="MicrowaveNetworks.Touchstone.IO"/> for more complete control over file processing.
     /// <para></para>See the specification defined at http://ibis.org/touchstone_ver2.0/touchstone_ver2_0.pdf for more information.</remarks>
     public class Touchstone
@@ -36,7 +36,7 @@ namespace MicrowaveNetworks.Touchstone
         /// Gets or sets the <see cref="INetworkParametersCollection"/> representing the network data present in the Touchstone file.
         /// </summary>
         public INetworkParametersCollection NetworkParameters { get; set; }
-
+        public string Header { get; set; } = "";
         #region Constructors
         internal Touchstone() { }
 
@@ -73,10 +73,10 @@ namespace MicrowaveNetworks.Touchstone
             Keywords = reader.Keywords;
 
             NetworkParameters = reader.ReadToEnd();
+            Header = reader.Header;
         }
         #endregion
         #region IO
-
 
         /// <summary>Writes the Touchstone file object to the specified file with default writer settings.</summary>
         /// <param name="filePath">The *.sNp file to be created or overwritten.</param>
@@ -95,6 +95,12 @@ namespace MicrowaveNetworks.Touchstone
 
             using (TouchstoneWriter writer = TouchstoneWriter.Create(filePath, settings))
             {
+                string[] headers = Header.Split('!');
+                foreach (string l in headers)
+                {
+                    if(!string.IsNullOrEmpty(l))
+                        writer.WriteCommentLine(l);
+                }
                 writer.Options = Options;
                 writer.Keywords = Keywords;
 
@@ -124,6 +130,12 @@ namespace MicrowaveNetworks.Touchstone
 
             using (TouchstoneWriter writer = TouchstoneWriter.Create(filePath, settings))
             {
+                string[] headers = Header.Split('!');
+                foreach (string l in headers)
+                {
+                    if (!string.IsNullOrEmpty(l))
+                        writer.WriteCommentLine(l);
+                }
                 writer.Options = Options;
                 writer.Keywords = Keywords;
                 writer.CancelToken = token;

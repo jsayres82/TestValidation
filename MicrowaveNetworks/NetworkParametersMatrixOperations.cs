@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MicrowaveNetworks.Matrices;
+using System;
 using System.Collections.Generic;
-using MicrowaveNetworks.Matrices;
 using System.Linq;
 
 namespace MicrowaveNetworks

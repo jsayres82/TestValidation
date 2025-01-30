@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using MicrowaveNetworks.Matrices;
+﻿using MicrowaveNetworks.Matrices;
 using MicrowaveNetworks.Touchstone;
+using System;
+using System.Collections.Generic;
 
 namespace MicrowaveNetworks.Internal
 {

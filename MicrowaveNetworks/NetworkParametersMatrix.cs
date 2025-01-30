@@ -1,11 +1,11 @@
-﻿using System;
+﻿using MathNet.Numerics.LinearAlgebra.Complex;
+using MicrowaveNetworks.Internal;
+using MicrowaveNetworks.Matrices;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using System.Numerics;
-using MicrowaveNetworks.Internal;
-using MathNet.Numerics.LinearAlgebra.Complex;
-using MicrowaveNetworks.Matrices;
+using System.Text;
 
 namespace MicrowaveNetworks
 {
@@ -63,7 +63,7 @@ namespace MicrowaveNetworks
 
         /// <summary>Gets the number of ports of the device represented by this matrix.</summary>
         public int NumPorts { get; private set; }
-        
+
         /// <summary>
         /// Gets the <see cref="DenseMatrix"/> that holds the network parameter data.
         /// </summary>
@@ -171,7 +171,7 @@ namespace MicrowaveNetworks
                 Matrix[destinationPort - 1, sourcePort - 1] = value;
             }
         }
-               
+
         /// <summary>Converts this <see cref="NetworkParametersMatrix"/> to the <see cref="NetworkParametersMatrix"/> type specified by <typeparamref name="T"/>.</summary>
         /// <remarks>Each child class is required to define matrix conversion functions to all other parameter matrix types. If the requested type is the same as the current type,
         /// the same object will simply be returned.</remarks>
@@ -180,14 +180,14 @@ namespace MicrowaveNetworks
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="T"/> is <see cref="NetworkParametersMatrix"/> rather than a child class.</exception>
         public T ConvertParameterType<T>() where T : NetworkParametersMatrix
         {
-            // Unfortunate workaround to the fact that you can't directly switch on a System.Type object; switch on a condition that is always
+            // Unfortunate workaround to the fact that we can't directly switch on a System.Type object; switch on a condition that is always
             // true with a guard clause.
             Type parameterType = typeof(T);
             return 0 switch
             {
                 0 when parameterType == typeof(ScatteringParametersMatrix) => (T)(NetworkParametersMatrix)ToSParameters(),
                 0 when parameterType == typeof(TransferParametersMatrix) => (T)(NetworkParametersMatrix)ToTParameters(),
-                0 when parameterType == typeof(NetworkParametersMatrix)  => throw new ArgumentException($"Conversion type must be a child class of {nameof(NetworkParametersMatrix)}.", nameof(parameterType)),
+                0 when parameterType == typeof(NetworkParametersMatrix) => throw new ArgumentException($"Conversion type must be a child class of {nameof(NetworkParametersMatrix)}.", nameof(parameterType)),
                 _ => throw new NotImplementedException(),
             };
             ;

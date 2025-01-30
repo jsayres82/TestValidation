@@ -1,9 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.
+/* Unmerged change from project 'MicrowaveNetworks (net45)'
+Before:
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+After:
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net5.0)'
+Before:
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+After:
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (netstandard2.0)'
+Before:
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+After:
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'MicrowaveNetworks (net472)'
+Before:
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+After:
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+*/
+Globalization;
 
 namespace MicrowaveNetworks.Touchstone.IO
 {
