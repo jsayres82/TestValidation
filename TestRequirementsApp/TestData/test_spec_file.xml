@@ -4,31 +4,18 @@
 		<TestName>Module RF</TestName>
 		<Program>MUX</Program>
 		<WaferName>W1324</WaferName>
-		<TestArticles>
-			<TestArticle>
-				<Name>Pentaplexer</Name>
-				<PartNumber>1025668</PartNumber>
-				<MeasurementFiles>
-					<string>sparam_P1P2P3.s3p</string>
-				</MeasurementFiles>
-			</TestArticle>
-		</TestArticles>
+		<PartNum>1025668</PartNum>
+		<MeasFileType>sXp</MeasFileType>
+		<ParamCount>3</ParamCount>
 	</TestInfo>
 	<TestRequirements>
 		<TestRequirement>
 			<Name>PhaseBalance</Name>
-			<DomainLimit>
-				<LessThanValidator>
-					<Value>-5</Value>
-					<Unit>Degree</Unit>
-					<Prefix>None</Prefix>
-				</LessThanValidator>
-				<StartFrequency>1500000000</StartFrequency>
-				<EndFrequency>15000000000</EndFrequency>
-			</DomainLimit>
 			<PhaseBalanceParameter>
-				<ParameterVariableCount>2</ParameterVariableCount>
+				<MinMargin>-2083.650412500001</MinMargin>
+				<SerialNumber>010</SerialNumber>
 				<Description>Compares the unwrapped phase of specified "S-Param" to the mean of those in "All S-Params" list(comma seperated)</Description>
+				<ParameterVariableCount>2</ParameterVariableCount>
 				<VariableNames>
 					<string>S-Param</string>
 					<string>All S-Params</string>
@@ -37,8 +24,63 @@
 					<string>S21</string>
 					<string>S21,S31</string>
 				</MeasurementVariables>
-				<MinimumMargin>0</MinimumMargin>
+				<FileTypesHandlers>
+					<MeasFileTypes>None</MeasFileTypes>
+					<MeasFileTypes>None</MeasFileTypes>
+				</FileTypesHandlers>
+				<ValueAtMinMargin>2083.650412500001</ValueAtMinMargin>
 			</PhaseBalanceParameter>
+			<DomainLimit>
+				<LessThanValidator>
+					<Value>5</Value>
+					<Unit>dBmW</Unit>
+					<Prefix>None</Prefix>
+				</LessThanValidator>
+				<StartFrequency>1500000000</StartFrequency>
+				<EndFrequency>15000000000</EndFrequency>
+				<StartValue>0</StartValue>
+				<EndValue>0</EndValue>
+				<StartValue2>0</StartValue2>
+				<EndValue2>0</EndValue2>
+			</DomainLimit>
+		</TestRequirement>
+		<TestRequirement>
+			<Name>Port 1 Return Loss</Name>
+			<ScatteringParameter xsi:type="ReturnLossParameter">
+				<MinMargin>1.7976931348623157E+308</MinMargin>
+				<Description>Compares the value of the specified "S-Param" to the limit specified.</Description>
+				<ParameterVariableCount>1</ParameterVariableCount>
+				<VariableNames>
+					<string>S-Param</string>
+				</VariableNames>
+				<MeasurementVariables>
+					<string>S11</string>
+				</MeasurementVariables>
+				<FileTypesHandlers>
+					<MeasFileTypes>None</MeasFileTypes>
+				</FileTypesHandlers>
+				<ValueAtMinMargin>-1.7976931348623157E+308</ValueAtMinMargin>
+				<VariableNames>
+					<string>S-Param</string>
+				</VariableNames>
+				<MeasurementVariables>
+					<string>S11</string>
+				</MeasurementVariables>
+				<ValueAtMinMargin>-1.7976931348623157E+308</ValueAtMinMargin>
+			</ScatteringParameter>
+			<DomainLimit>
+				<LessThanOrEqualValidator>
+					<Value>-15</Value>
+					<Unit>dBmW</Unit>
+					<Prefix>None</Prefix>
+				</LessThanOrEqualValidator>
+				<StartFrequency>1500000000</StartFrequency>
+				<EndFrequency>3000000000</EndFrequency>
+				<StartValue>-15</StartValue>
+				<EndValue>-15</EndValue>
+				<StartValue2>0</StartValue2>
+				<EndValue2>0</EndValue2>
+			</DomainLimit>
 		</TestRequirement>
 	</TestRequirements>
 </MeasurementProcessor>

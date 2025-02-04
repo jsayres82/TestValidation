@@ -21,16 +21,16 @@ namespace Nuvo.TestValidation.Parameters
         private List<string> parameterDomain = new List<string>();
         private int portCount = 0;
 
-        [XmlIgnore]
-        public override Dictionary<string, List<object[]>> ParameterValues
-        {
-            get
-            {
-                return scatteringParameterValues.ToDictionary(
-                    kvp => kvp.Key,
-                    kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
-            }
-        }
+        //[XmlIgnore]
+        //public override Dictionary<string, List<object[]>> ParameterValues
+        //{
+        //    get
+        //    {
+        //        return scatteringParameterValues.ToDictionary(
+        //            kvp => kvp.Key,
+        //            kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
+        //    }
+        //}
 
 
         // Is currently justin the matrix index to evaluate for right now.  But if we were to implement an amplitude balance we could add the list of ports as well
@@ -61,16 +61,6 @@ namespace Nuvo.TestValidation.Parameters
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
             VariableNames = new List<string>() { "S-Param" };
-            ValidLimits.Clear();
-            ValidLimitUnits.Clear();
-            ValidLimits.Add(typeof(DomainLimit).Name);
-            ValidLimitUnits.Add(UnitEnum.Hertz.ToString());
-
-            ValidValidators.Clear();
-            ValidValidatorUnits.Clear();
-            ValidValidators.Add(typeof(GreaterThanOrEqualValidator<>));
-            ValidValidators.Add(typeof(GreaterThanValidator<>));
-            ValidValidatorUnits.Add(UnitEnum.dB.ToString());
         }
 
         /// <summary>
@@ -81,16 +71,6 @@ namespace Nuvo.TestValidation.Parameters
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
             VariableNames = new List<string>() { "S-Param" };
-            ValidLimits.Clear();
-            ValidLimitUnits.Clear();
-            ValidLimits.Add(typeof(DomainLimit));
-            ValidLimitUnits.Add(UnitEnum.Hertz.ToString());
-
-            ValidValidators.Clear();
-            ValidValidatorUnits.Clear();
-            ValidValidators.Add(typeof(GreaterThanOrEqualValidator<>));
-            ValidValidators.Add(typeof(GreaterThanValidator<>));
-            ValidValidatorUnits.Add(UnitEnum.dB.ToString());
         }
 
         /// <summary>

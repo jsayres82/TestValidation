@@ -12,6 +12,7 @@ using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Calculators;
 using Nuvo.TestValidation.Utilities;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using Nuvo.TestValidation.Parameters.Nuvo.TestValidation.Parameters;
 
 namespace Nuvo.TestValidation.Parameters
 {
@@ -20,6 +21,7 @@ namespace Nuvo.TestValidation.Parameters
     [XmlInclude(typeof(GroupDelayParameter))]
     [XmlInclude(typeof(AmplitudeBalanceParameter))]
     [XmlInclude( typeof(ScatteringParameter))]
+    [XmlInclude(typeof(ReturnLossParameter))]
     [XmlInclude(typeof(FlatnessParameter))]
     [Serializable]
     public abstract class GenericParameter
@@ -40,17 +42,10 @@ namespace Nuvo.TestValidation.Parameters
         [XmlIgnore]
         public abstract Dictionary<string, List<object[]>> ParameterValues { get; }
 
+        [XmlIgnore]
         public abstract double ValueAtMinMargin { get; set; }
 
         public List<MeasFileTypes> FileTypesHandlers { get; } = new List<MeasFileTypes>() { MeasFileTypes.None };
-
-        public virtual List<object> ValidLimits { get; } = new List<object>();
-
-        public virtual List<object> ValidValidators { get; } = new List<object>();
-
-        public virtual List<string> ValidLimitUnits { get; } = new List<string>();
-
-        public virtual List<string> ValidValidatorUnits { get; } = new List<string>();
 
         public abstract bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement);
 

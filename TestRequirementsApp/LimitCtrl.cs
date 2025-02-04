@@ -67,56 +67,104 @@ namespace Nuvo.Requirements_Builder
 
             comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
             comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
+
+            comboBoxLimitTypes.SelectedIndex = 1;
+            comboBoxValidators.SelectedIndex = 0;
             UpdateLimit(Limit);
+            comboBoxLimitTypes.SelectedIndex = 0;
         }
 
         public LimitCtrl(List<object> validLimits, List<object> validValidators, List<string> validLimitUnits, List<string> validLimitValidatorUnits)
         {
             InitializeComponent();
+            if(validLimits != null)
+            {
+                comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
+                comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
+                comboBoxLimitTypes.Items.Clear();
+                limitTypes = new Type[validLimits.Count];
+                // Loop through the CharacteristicParameter classes
+                for (int i = 0; i < validLimits.Count; i++)// limitType in validLimits)
+                {
+                    var o = Activator.CreateInstance((Type)validLimits[i]) as GenericLimit;//
+                    limitTypes[i] = o.GetType();
+                    comboBoxLimitTypes.Items.Add(limitTypes[i].Name);
+                }
+
+                LimitType = limitTypes[0];
+                Type[] typeArgs = { typeof(double) };
+                comboBoxValidators.Items.Clear();
+                validatorTypes = new Type[validValidators.Count];
+
+                // Loop through the CharacteristicParameter classes
+                for (int i = 0; i < validValidators.Count; i++)// limitType in validLimits)
+                {
+                    var makeme = (Type)validValidators[i];
+                    var makeme2 = makeme.MakeGenericType(typeArgs);
+                    var o = Activator.CreateInstance(makeme2);
+                    validatorTypes[i] = o.GetType();
+                    comboBoxValidators.Items.Add(validatorTypes[i].Name);
+                }
+                ValidatorType = validatorTypes[0];
+                comboBoxLimitTypes.SelectedIndex = 0;
+                comboBoxValidators.SelectedIndex = 0;
+                comboBoxValidatorUnits.Items.Clear();
+                comboBoxValidUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
+                comboBoxValidatorUnits.Items.AddRange(validLimitValidatorUnits.ToArray());
+                comboBoxValidUnitsPrefix.SelectedIndex = comboBoxValidUnitsPrefix.Items.IndexOf(PrefixEnum.Giga.ToString());
+                comboBoxValidatorUnits.SelectedIndex = 0;
+
+                comboBoxLimitUnits.Items.Clear();
+                comboBoxLimitPrefix.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
+                comboBoxLimitUnits.Items.AddRange(validLimitUnits.ToArray());
+                comboBoxLimitPrefix.SelectedIndex = comboBoxValidUnitsPrefix.Items.IndexOf(PrefixEnum.None.ToString());
+                comboBoxLimitUnits.SelectedIndex = 0;
+                //comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
+                comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
+                comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
+                
+            }
+            else
+            {
             comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
             comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
             comboBoxLimitTypes.Items.Clear();
-            limitTypes = new Type[validLimits.Count];
-            // Loop through the CharacteristicParameter classes
-            for (int i = 0; i < validLimits.Count; i++)// limitType in validLimits)
-            {
-                var o = Activator.CreateInstance((Type)validLimits[i]) as GenericLimit;//
-                limitTypes[i] = o.GetType();
-                comboBoxLimitTypes.Items.Add(limitTypes[i].Name);
+                Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
+
+                // Get all the Limit classes
+                limitTypes = assembly.GetTypes()
+                    .Where(t => t.IsSubclassOf(typeof(GenericLimit)))
+                    .ToArray();
+
+                // Get all the Validator classes
+                validatorTypes = assembly.GetTypes()
+                    .Where(IsIndexType)
+                    .ToArray();
+                LimitType = limitTypes[0];
+                ValidatorType = validatorTypes[0];
+                // Loop through the CharacteristicParameter classes
+                foreach (Type validator in validatorTypes)
+                {
+                    comboBoxValidators.Items.Add(validator.Name);
+                }
+                // Loop through the CharacteristicParameter classes
+                foreach (Type limitType in limitTypes)
+                {
+                    comboBoxLimitTypes.Items.Add(limitType.Name);
+                }
+                comboBoxValidUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
+                //comboBoxLimitPrefix.Items.AddRange(Enum.GetNames(typeof(Prefix)));
+                comboBoxLimitPrefix.Text = "None";
+                comboBoxLimitPrefix.Items.Add("None");
+                comboBoxValidatorUnits.Items.AddRange(Enum.GetNames(typeof(UnitEnum)));
+                comboBoxLimitUnits.Text = "Hertz";
+                comboBoxLimitUnits.Items.Add("Hertz");
+                //comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
+                comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
+                comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
+                comboBoxLimitTypes.SelectedIndex = 0;
+                comboBoxValidators.SelectedIndex = 0;
             }
-
-            LimitType = limitTypes[0];
-            Type[] typeArgs = { typeof(double) };
-            comboBoxValidators.Items.Clear();
-            validatorTypes = new Type[validValidators.Count];
-
-            // Loop through the CharacteristicParameter classes
-            for (int i = 0; i < validValidators.Count; i++)// limitType in validLimits)
-            {
-                var makeme = (Type)validValidators[i];
-                var makeme2 = makeme.MakeGenericType(typeArgs);
-                var o = Activator.CreateInstance(makeme2);
-                validatorTypes[i] = o.GetType();
-                comboBoxValidators.Items.Add(validatorTypes[i].Name);
-            }
-            ValidatorType = validatorTypes[0];
-            comboBoxLimitTypes.SelectedIndex = 0;
-            comboBoxValidators.SelectedIndex = 0;
-            comboBoxValidatorUnits.Items.Clear();
-            comboBoxValidUnitsPrefix.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
-            comboBoxValidatorUnits.Items.AddRange(validLimitValidatorUnits.ToArray());
-            comboBoxValidUnitsPrefix.SelectedIndex = comboBoxValidUnitsPrefix.Items.IndexOf(PrefixEnum.Giga.ToString());
-            comboBoxValidatorUnits.SelectedIndex = 0;
-
-            comboBoxLimitUnits.Items.Clear();
-            comboBoxLimitPrefix.Items.AddRange(Enum.GetNames(typeof(PrefixEnum)));
-            comboBoxLimitUnits.Items.AddRange(validLimitUnits.ToArray());
-            comboBoxLimitPrefix.SelectedIndex = comboBoxValidUnitsPrefix.Items.IndexOf(PrefixEnum.None.ToString());
-            comboBoxLimitUnits.SelectedIndex = 0;
-            //comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
-
-            comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
-            comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
             UpdateLimit(Limit);
         }
 

@@ -24,23 +24,23 @@ namespace Nuvo.TestValidation.Parameters
     {
         public class ReturnLossParameter : ScatteringParameter
         {
-            private Dictionary<string, List<double[]>> scatteringParameterValues = new Dictionary<string, List<double[]>>();
-            private List<string> sParams = new List<string>();
+            //private Dictionary<string, List<double[]>> scatteringParameterValues = new Dictionary<string, List<double[]>>();
+            //private List<string> sParams = new List<string>();
             private List<(double, double, double, double, string)> csvData = new List<(double, double, double, double, string)>();
             // All points from start to stop that we need to evaluate.
             private List<string> parameterDomain = new List<string>();
             private int portCount = 0;
 
-            [XmlIgnore]
-            public override Dictionary<string, List<object[]>> ParameterValues
-            {
-                get
-                {
-                    return scatteringParameterValues.ToDictionary(
-                        kvp => kvp.Key,
-                        kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
-                }
-            }
+            //[XmlIgnore]
+            //public override Dictionary<string, List<object[]>> ParameterValues
+            //{
+            //    get
+            //    {
+            //        return scatteringParameterValues.ToDictionary(
+            //            kvp => kvp.Key,
+            //            kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
+            //    }
+            //}
 
             
             // Is currently justin the matrix index to evaluate for right now.  But if we were to implement an amplitude balance we could add the list of ports as well
@@ -71,16 +71,6 @@ namespace Nuvo.TestValidation.Parameters
             {
                 Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
                 VariableNames = new List<string>() { "S-Param" };
-                ValidLimits.Clear();
-                ValidLimitUnits.Clear();
-                ValidLimits.Add(typeof(DomainLimit));
-                ValidLimitUnits.Add(UnitEnum.dB.ToString());
-
-                ValidValidators.Clear();
-                ValidValidatorUnits.Clear();
-                ValidValidators.Add(typeof(LessThanOrEqualValidator<>));
-                ValidValidators.Add(typeof(LessThanValidator<>));
-                ValidValidatorUnits.Add(UnitEnum.Hertz.ToString());
             }
 
             /// <summary>
@@ -91,16 +81,6 @@ namespace Nuvo.TestValidation.Parameters
             {
                 Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
                 VariableNames = new List<string>() { "S-Param" };
-                ValidLimits.Clear();
-                ValidLimitUnits.Clear();
-                ValidLimits.Add(typeof(DomainLimit));
-                ValidLimitUnits.Add(UnitEnum.Hertz.ToString());
-
-                ValidValidators.Clear();
-                ValidValidatorUnits.Clear();
-                ValidValidators.Add(typeof(LessThanOrEqualValidator<>));
-                ValidValidators.Add(typeof(LessThanValidator<>));
-                ValidValidatorUnits.Add(UnitEnum.dB.ToString());
             }
 
             /// <summary>
@@ -120,10 +100,10 @@ namespace Nuvo.TestValidation.Parameters
 
                 foreach (var sParam in MeasurementVariables)
                 {
-                    foreach (var val in scatteringParameterValues)
+                    foreach (var val in base.ParameterValues)
                     {
                         // First Value in first array at frequency point "val"
-                        double testValue = val.Value[0][0];
+                        double testValue = (double)val.Value[0].First();
                         double limit = req.Limit.Validator.Value;
                         var freq = System.Convert.ToDouble(val.Key);
                         bool passed = req.Limit.ValidateMeasurement(freq, testValue);

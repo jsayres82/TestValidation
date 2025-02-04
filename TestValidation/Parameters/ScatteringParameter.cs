@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using MicrowaveNetworks;
 using Nuvo.TestValidation.Calculators;
 using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Limits;
@@ -70,9 +71,6 @@ namespace Nuvo.TestValidation.Parameters
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
             VariableNames = new List<string>() { "S-Param" };
-            ValidLimits.Clear();
-            ValidValidators.Clear();
-            updateLimitDictionary();
         }
         /// <summary>
         /// Constructor - Needed for serialization.
@@ -82,9 +80,6 @@ namespace Nuvo.TestValidation.Parameters
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
             VariableNames = new List<string>() { "S-Param" };
-            ValidLimits.Clear();
-            ValidValidators.Clear();
-            updateLimitDictionary();
         }
 
         /// <summary>
@@ -166,11 +161,26 @@ namespace Nuvo.TestValidation.Parameters
                 {
                     if (index == idx)
                     {
-                        var valF = new double[1]
+                        NetworkParameter[] val2 = (NetworkParameter[])val[0];
+                        double valF = 0;
+                        switch (req.Limit.Validator.Unit)
                         {
-                            System.Convert.ToDouble(val[0])
-                        };
-                        scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valF });
+                            case UnitEnum.dBmW:
+                                valF = System.Convert.ToDouble(val2[idx].Magnitude_dB);
+                                break;
+                            case UnitEnum.MilliWatt:
+                                valF = System.Convert.ToDouble(val2[idx].Magnitude);
+                                break;
+                            case UnitEnum.Degree:
+                                valF = System.Convert.ToDouble(val2[idx].Phase_deg);
+                                break;
+                            default:
+                                valF = System.Convert.ToDouble(val2[idx].Magnitude_dB);
+                                break;
+                        }
+                        var valArray = new double[1];
+                        valArray[0] = valF;
+                        scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valArray });       
                     }
                     index++;
                 }
@@ -210,37 +220,6 @@ namespace Nuvo.TestValidation.Parameters
                     }
                 }
             }
-        }
-
-        private void updateLimitDictionary()
-        {
-            // Load the assembly containing the CharacteristicParameter classes
-            Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
-
-            // Get all the Limit classes
-            var limitTypes = assembly.GetTypes()
-                .Where(t => t.IsSubclassOf(typeof(GenericLimit)))
-                .ToArray();
-
-            // Get all the Validator classes
-            var validatorTypes = assembly.GetTypes()
-                .Where(IsIndexType)
-                .ToArray();
-
-            // Loop through the CharacteristicParameter classes
-            foreach (Type limitType in limitTypes)
-            {
-                ValidLimits.Add(limitType);
-            }
-
-            // Loop through the CharacteristicParameter classes
-            foreach (Type validator in validatorTypes)
-            {
-                ValidValidators.Add(validator);
-            }
-
-            ValidValidatorUnits.AddRange(Enum.GetNames(typeof(UnitEnum)));
-            ValidLimitUnits.AddRange(Enum.GetNames(typeof(UnitEnum)));
         }
 
         private bool IsIndexType(Type type)
