@@ -32,6 +32,11 @@ namespace Nuvo.Requirements_Builder
             InitializeComponent();
             comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
             comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
+
+            comboBoxValidatorUnits.Items.Clear();
+            comboBoxValidUnitsPrefix.Items.Clear();
+            comboBoxValidators.Items.Clear();
+            comboBoxLimitTypes.Items.Clear();
             // Load the assembly containing the CharacteristicParameter classes
             Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
 
@@ -68,19 +73,20 @@ namespace Nuvo.Requirements_Builder
             comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
             comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
 
-            comboBoxLimitTypes.SelectedIndex = 1;
-            comboBoxValidators.SelectedIndex = 0;
-            UpdateLimit(Limit);
             comboBoxLimitTypes.SelectedIndex = 0;
+            comboBoxValidators.SelectedIndex = 0;
         }
 
         public LimitCtrl(List<object> validLimits, List<object> validValidators, List<string> validLimitUnits, List<string> validLimitValidatorUnits)
         {
             InitializeComponent();
-            if(validLimits != null)
+            if (validLimits != null)
             {
                 comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
                 comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
+                comboBoxValidatorUnits.Items.Clear();
+                comboBoxValidUnitsPrefix.Items.Clear();
+                comboBoxValidators.Items.Clear();
                 comboBoxLimitTypes.Items.Clear();
                 limitTypes = new Type[validLimits.Count];
                 // Loop through the CharacteristicParameter classes
@@ -122,13 +128,16 @@ namespace Nuvo.Requirements_Builder
                 //comboBoxLimitUnits.Items.AddRange(Enum.GetNames(typeof(Unit)));
                 comboBoxValidators.SelectedIndexChanged += comboBoxValidators_SelectedIndexChanged;
                 comboBoxLimitTypes.SelectedIndexChanged += comboBoxLimitTypes_SelectedIndexChanged;
-                
+
             }
             else
             {
-            comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
-            comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
-            comboBoxLimitTypes.Items.Clear();
+                comboBoxValidators.SelectedIndexChanged -= comboBoxValidators_SelectedIndexChanged;
+                comboBoxLimitTypes.SelectedIndexChanged -= comboBoxLimitTypes_SelectedIndexChanged;
+                comboBoxValidatorUnits.Items.Clear();
+                comboBoxValidUnitsPrefix.Items.Clear();
+                comboBoxValidators.Items.Clear();
+                comboBoxLimitTypes.Items.Clear();
                 Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
 
                 // Get all the Limit classes

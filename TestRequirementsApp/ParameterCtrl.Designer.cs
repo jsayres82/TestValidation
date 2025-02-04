@@ -313,7 +313,7 @@ namespace Nuvo.Requirements_Builder
             Controls.Add(panelHeader1);
             Controls.Add(flpMain);
             Name = "ParameterCtrl";
-            Size = new System.Drawing.Size(458, 328);
+            Size = new System.Drawing.Size(458, 278);
             flpMain.ResumeLayout(false);
             flpParam.ResumeLayout(false);
             flpParam.PerformLayout();

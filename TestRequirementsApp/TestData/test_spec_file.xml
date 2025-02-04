@@ -37,17 +37,18 @@
 					<Prefix>None</Prefix>
 				</LessThanValidator>
 				<StartFrequency>1500000000</StartFrequency>
-				<EndFrequency>15000000000</EndFrequency>
-				<StartValue>0</StartValue>
-				<EndValue>0</EndValue>
-				<StartValue2>0</StartValue2>
-				<EndValue2>0</EndValue2>
+				<EndFrequency>35000000000</EndFrequency>
+				<StartValue>5</StartValue>
+				<EndValue>5</EndValue>
+				<StartValue2>5</StartValue2>
+				<EndValue2>5</EndValue2>
 			</DomainLimit>
 		</TestRequirement>
 		<TestRequirement>
 			<Name>Port 1 Return Loss</Name>
 			<ScatteringParameter xsi:type="ReturnLossParameter">
-				<MinMargin>1.7976931348623157E+308</MinMargin>
+				<MinMargin>-8.159616</MinMargin>
+				<SerialNumber>010</SerialNumber>
 				<Description>Compares the value of the specified "S-Param" to the limit specified.</Description>
 				<ParameterVariableCount>1</ParameterVariableCount>
 				<VariableNames>
@@ -58,15 +59,16 @@
 				</MeasurementVariables>
 				<FileTypesHandlers>
 					<MeasFileTypes>None</MeasFileTypes>
+					<MeasFileTypes>None</MeasFileTypes>
 				</FileTypesHandlers>
-				<ValueAtMinMargin>-1.7976931348623157E+308</ValueAtMinMargin>
+				<ValueAtMinMargin>-23.159616</ValueAtMinMargin>
 				<VariableNames>
 					<string>S-Param</string>
 				</VariableNames>
 				<MeasurementVariables>
 					<string>S11</string>
 				</MeasurementVariables>
-				<ValueAtMinMargin>-1.7976931348623157E+308</ValueAtMinMargin>
+				<ValueAtMinMargin>-23.159616</ValueAtMinMargin>
 			</ScatteringParameter>
 			<DomainLimit>
 				<LessThanOrEqualValidator>
@@ -75,12 +77,14 @@
 					<Prefix>None</Prefix>
 				</LessThanOrEqualValidator>
 				<StartFrequency>1500000000</StartFrequency>
-				<EndFrequency>3000000000</EndFrequency>
+				<EndFrequency>3500000000</EndFrequency>
 				<StartValue>-15</StartValue>
 				<EndValue>-15</EndValue>
-				<StartValue2>0</StartValue2>
-				<EndValue2>0</EndValue2>
+				<StartValue2>-15</StartValue2>
+				<EndValue2>-15</EndValue2>
 			</DomainLimit>
 		</TestRequirement>
 	</TestRequirements>
+	<UnitSerialNumber>010</UnitSerialNumber>
+	<PartNumber>1025668</PartNumber>
 </MeasurementProcessor>

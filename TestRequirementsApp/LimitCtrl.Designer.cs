@@ -72,7 +72,7 @@ namespace Nuvo.Requirements_Builder
             flpMain.Controls.Add(panelLimit);
             flpMain.Location = new System.Drawing.Point(0, 29);
             flpMain.Name = "flpMain";
-            flpMain.Size = new System.Drawing.Size(636, 394);
+            flpMain.Size = new System.Drawing.Size(636, 237);
             flpMain.TabIndex = 0;
             // 
             // flpSpec
@@ -337,7 +337,7 @@ namespace Nuvo.Requirements_Builder
             Controls.Add(panelHeader1);
             Controls.Add(flpMain);
             Name = "LimitCtrl";
-            Size = new System.Drawing.Size(639, 426);
+            Size = new System.Drawing.Size(639, 269);
             flpMain.ResumeLayout(false);
             flpMain.PerformLayout();
             flpSpec.ResumeLayout(false);
