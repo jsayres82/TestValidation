@@ -40,50 +40,18 @@ namespace Nuvo.TestValidation.Limits
         [XmlElement("BoundedValidator", typeof(BoundedValidator<double>))]
         public override GenericValidator<double> Validator { get; set; }
 
-        //public DoublePropertyValue(double value)
-        //{
-        //    Value = value;
-        //}
-
         public DoubleLimit()
         {
 
         }
         public override double CalculateMargin(double domainValue, double rangeValue)
         {
-            //if (Start <= domainValue && domainValue <= End)
                 return Validator.CalculateMargin(rangeValue);
-            //return double.NaN; // Skip validation if outside the specified frequency domain
         }
 
         public override bool ValidateMeasurement(double measurement)
         {
             return Validator.Validate(measurement);
-            //Limit.Validate(measurement["Amplitude"]);
-                //switch (Comparison)
-                //{
-                //    case "GT":
-                //        return measurement["Amplitude"] > Value;
-                //        break;
-                //    case "GTEQ":
-                //        return measurement["Amplitude"] >= Value;
-                //        break;
-                //    case "LT":
-                //        return measurement["Amplitude"] < Value;
-                //        break;
-                //    case "LTEQ":
-                //        return measurement["Amplitude"] <= Value;
-                //        break;
-                //    case "EQ":
-                //        return measurement["Amplitude"] == Value;
-                //        break;
-
-                //}
-                //if (IsMaxValue)
-                //    return kvp < Value;
-                //else
-                //    return kvp > Value;
-            //return false;
         }
     }
 }

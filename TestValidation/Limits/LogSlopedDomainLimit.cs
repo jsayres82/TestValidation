@@ -58,7 +58,7 @@ namespace Nuvo.TestValidation.Limits
             if ( Start <= domainValue && domainValue <= End)
             {
                 limitValues.Add(Validator.Value);
-                return ValidateMeasurement(rangeValue);
+                return Validator.Validate(rangeValue);
             }
             else
             {

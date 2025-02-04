@@ -31,16 +31,17 @@ namespace Nuvo.TestValidation.Limits
         public virtual double Start { get; set; }
         [XmlElement("EndFrequency")]
         public virtual double End { get; set; }
-        public virtual bool ValidateMeasurement(double freq, double measurement)
-        {
-            return ValidateMeasurement(measurement);  
-        }
 
         public abstract double CalculateMargin(double domainValue, double rangeValue);
 
+        public virtual bool ValidateMeasurement(double freq, double measurement)
+        {
+            return Validator.Validate(measurement);  
+        }
+
         public virtual bool ValidateMeasurement(double measurement)
         {
-            return true;
+            return Validator.Validate(measurement);
         }
     }
 
