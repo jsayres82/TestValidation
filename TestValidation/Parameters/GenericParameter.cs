@@ -36,8 +36,8 @@ namespace Nuvo.TestValidation.Parameters
         public string Name { get; set; }
         public virtual string Description { get; set; } = "";
         public virtual int ParameterVariableCount { get; set; } = 1;
-        public abstract List<string> VariableNames { get; }
-        public abstract List<string> MeasurementVariables { get; set; }
+        public List<string> VariableNames { get; set; }
+        public List<string> MeasurementVariables { get; set; }
 
         [XmlIgnore]
         public abstract Dictionary<string, List<object[]>> ParameterValues { get; }
@@ -58,6 +58,7 @@ namespace Nuvo.TestValidation.Parameters
         public GenericParameter(IParameterValueCalculator calculator)
         {
             _parameterValueCalculator = new DoubleParameterValueCalculator();
+            VariableNames = new List<string>();
         }
         /// <summary>
         /// Constructor
@@ -65,6 +66,7 @@ namespace Nuvo.TestValidation.Parameters
         public GenericParameter()
         {
             _parameterValueCalculator = new DoubleParameterValueCalculator();
+            VariableNames = new List<string>();
         }
 
         public abstract object[] GetParameterLimits();

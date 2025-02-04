@@ -47,7 +47,7 @@ namespace Nuvo.TestValidation.Limits
         public override bool ValidateMeasurement(double domainValue, double rangeValue)
         {
             if ( Start <= domainValue && domainValue <= End)
-                return ValidateMeasurement(rangeValue);
+                return Validator.Validate(rangeValue);
             return true; // Skip validation if outside the specified frequency domain
         }
     }

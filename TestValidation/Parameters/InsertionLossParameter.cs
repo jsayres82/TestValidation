@@ -21,26 +21,6 @@ namespace Nuvo.TestValidation.Parameters
         private List<string> parameterDomain = new List<string>();
         private int portCount = 0;
 
-        //[XmlIgnore]
-        //public override Dictionary<string, List<object[]>> ParameterValues
-        //{
-        //    get
-        //    {
-        //        return scatteringParameterValues.ToDictionary(
-        //            kvp => kvp.Key,
-        //            kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
-        //    }
-        //}
-
-
-        // Is currently justin the matrix index to evaluate for right now.  But if we were to implement an amplitude balance we could add the list of ports as well
-        // then just set the requirment to use the AmplitudeBalanceCalulator
-        public override List<string> VariableNames { get; } = new List<string>() { "S-Param" };
-
-        // What to use for each variable. For S-Param it would be S12 or S11 or S15. For amplitude balance it would be S12,S13,S14,S15 to indicate that want to compare
-        //  to normalize S15 to the average of the four(S12,S13,S14,S15)
-        public override List<string> MeasurementVariables { get; set; } = new List<string>();
-
         // What gets reported in the report output table
         public override double ValueAtMinMargin
         {
@@ -60,7 +40,6 @@ namespace Nuvo.TestValidation.Parameters
             : base(calculator)
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
-            VariableNames = new List<string>() { "S-Param" };
         }
 
         /// <summary>
@@ -70,7 +49,6 @@ namespace Nuvo.TestValidation.Parameters
             : base()
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
-            VariableNames = new List<string>() { "S-Param" };
         }
 
         /// <summary>
@@ -90,10 +68,10 @@ namespace Nuvo.TestValidation.Parameters
 
             foreach (var sParam in MeasurementVariables)
             {
-                foreach (var val in scatteringParameterValues)
+                foreach (var val in base.ParameterValues)
                 {
                     // First Value in first array at frequency point "val"
-                    double testValue = val.Value[0][0];
+                    double testValue = (double)val.Value[0].First();
                     double limit = req.Limit.Validator.Value;
                     var freq = System.Convert.ToDouble(val.Key);
                     bool passed = req.Limit.ValidateMeasurement(freq, testValue);
@@ -143,7 +121,7 @@ namespace Nuvo.TestValidation.Parameters
         //            idx = index;
         //        index++;
         //    }
-
+        //
         //    parameterDomain = baseDataSet.Keys.ToList();
         //    foreach (var d in baseDataSet)
         //    {
@@ -161,7 +139,7 @@ namespace Nuvo.TestValidation.Parameters
         //            index++;
         //        }
         //    }
-
+        //
         //    return ParameterValues;
         //}
 

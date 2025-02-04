@@ -45,11 +45,11 @@ namespace Nuvo.TestValidation.Parameters
             
             // Is currently justin the matrix index to evaluate for right now.  But if we were to implement an amplitude balance we could add the list of ports as well
             // then just set the requirment to use the AmplitudeBalanceCalulator
-            public override List<string> VariableNames { get; } = new List<string>() { "S-Param" };
+            //public override List<string> VariableNames { get; } = new List<string>() { "S-Param" };
 
             // What to use for each variable. For S-Param it would be S12 or S11 or S15. For amplitude balance it would be S12,S13,S14,S15 to indicate that want to compare
             //  to normalize S15 to the average of the four(S12,S13,S14,S15)
-            public override List<string> MeasurementVariables { get; set; } = new List<string>();
+            //public override List<string> MeasurementVariables { get; set; } = new List<string>();
 
             // What gets reported in the report output table
             public override double ValueAtMinMargin
@@ -70,7 +70,7 @@ namespace Nuvo.TestValidation.Parameters
                 : base(calculator)
             {
                 Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
-                VariableNames = new List<string>() { "S-Param" };
+                //VariableNames = new List<string>() { "S-Param" };
             }
 
             /// <summary>
@@ -80,7 +80,7 @@ namespace Nuvo.TestValidation.Parameters
                 : base()
             {
                 Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
-                VariableNames = new List<string>() { "S-Param" };
+                //VariableNames = new List<string>() { "S-Param" };
             }
 
             /// <summary>

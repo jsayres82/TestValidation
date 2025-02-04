@@ -32,7 +32,7 @@ namespace Nuvo.TestValidation.Parameters
             }
         }
 
-        public override List<string> MeasurementVariables { get; set; }
+        //public override List<string> MeasurementVariables { get; set; }
 
         public override double ValueAtMinMargin
         {
@@ -48,19 +48,21 @@ namespace Nuvo.TestValidation.Parameters
 
         private double valueAtMinMargin = double.MinValue;
 
-        public override List<string> VariableNames { get; } = new List<string>() { "S-Param", "All S-Params" };
+        //public override List<string> VariableNames { get; } = new List<string>() { "S-Param", "All S-Params" };
 
         public AmplitudeBalanceParameter(IParameterValueCalculator calculator)
             : base(calculator)
         {
             Description = "Compares the magnitude of specified \"S-Param\" to the mean of those in \"All S-Params\" list(comma seperated)";
             ParameterVariableCount = 2;
+            VariableNames = new List<string>() { "S-Param", "All S-Params" };
         }
 
         public AmplitudeBalanceParameter()
         {
             Description = "Compares the magnitude of specified \"S-Param\" to the mean of those in \"All S-Params\" list(comma seperated)";
             ParameterVariableCount = 2;
+            VariableNames = new List<string>() { "S-Param", "All S-Params" };
         }
 
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement)

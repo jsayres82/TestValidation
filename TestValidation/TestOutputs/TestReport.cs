@@ -233,7 +233,7 @@ namespace Nuvo.TestValidation.TestResults
                     cell = new PdfPCell(new Phrase(value, f));
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     table.AddCell(cell);
-                    cell = new PdfPCell(new Phrase(symbol));
+                    cell = new PdfPCell(new Phrase(symbol, f));
                     cell.HorizontalAlignment = Element.ALIGN_CENTER;
                     table.AddCell(cell);
                     cell = new PdfPCell(new Phrase(failed, f));
@@ -546,6 +546,7 @@ namespace Nuvo.TestValidation.TestResults
 
             }
         }
+        
         public void UpdatePassFail()
         {
             bool fail = false; 

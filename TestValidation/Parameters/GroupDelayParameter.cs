@@ -38,8 +38,8 @@ namespace Nuvo.TestValidation.Parameters
         }
 
         private List<string> variableNames = new List<string>() { "S-Param" };
-        public override List<string> VariableNames { get { return variableNames; } }
-        public override List<string> MeasurementVariables { get; set; }
+        //public override List<string> VariableNames { get { return variableNames; } }
+        //public override List<string> MeasurementVariables { get; set; }
         public override double ValueAtMinMargin
         {
             get => MinMargin;
@@ -55,12 +55,14 @@ namespace Nuvo.TestValidation.Parameters
             : base(calculator)
         {
             Description = "Evaluates a scattering parameter for S-Parameter Matrix";
+            VariableNames = new List<string>();
         }
 
         public GroupDelayParameter()
             : base()
         {
             Description = "Evaluates a scattering parameter for S-Parameter Matrix";
+            VariableNames = new List<string>();
         }
 
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement)

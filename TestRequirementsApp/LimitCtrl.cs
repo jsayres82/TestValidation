@@ -215,7 +215,7 @@ namespace Nuvo.Requirements_Builder
                     Limit.Validator.Unit = Enum.Parse<UnitEnum>(comboBoxValidatorUnits.Text);
 
                     Limit.Start = System.Convert.ToDouble(textBoxAdditionalProperty1.Text);
-                    Limit.End = System.Convert.ToDouble(textBoxAdditionalProperty1.Text);
+                    Limit.End = System.Convert.ToDouble(textBoxAdditionalProperty2.Text);
                 }
             }
             return Limit;

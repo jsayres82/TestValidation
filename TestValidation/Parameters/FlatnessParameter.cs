@@ -32,20 +32,22 @@ namespace Nuvo.TestValidation.Parameters
                     kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
             }
         }
-        private List<string> variableNames = new List<string>() { "S-Param" };
-        public override List<string> VariableNames { get { return variableNames; } }
-        public override List<string> MeasurementVariables { get; set; } = new List<string>();
+
+        //public override List<string> VariableNames { get { return variableNames; } }
+        //public override List<string> MeasurementVariables { get; set; } = new List<string>();
 
         public override double ValueAtMinMargin { get; set; }
 
         public FlatnessParameter(IParameterValueCalculator calculator)
             : base(calculator)
         {
+            VariableNames = new List<string>();
         }
 
         public FlatnessParameter()
             : base()
         {
+            VariableNames = new List<string>();
         }
 
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement)
