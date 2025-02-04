@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -46,6 +47,59 @@ namespace Nuvo.TestValidation.Limits
         public virtual bool ValidateMeasurement(double measurement)
         {
             return Validator.Validate(measurement);
+        }
+
+
+        public void SetValidator(object validator)
+        {
+            if (validator is GreaterThanOrEqualValidator<double>)
+            {
+                Validator = (GreaterThanOrEqualValidator<double>)validator;
+            }
+            else if (validator is GreaterThanValidator<double>)
+            {
+                Validator = (GreaterThanValidator<double>)validator;
+            }
+            else if (validator is LessThanOrEqualValidator<double>)
+            {
+                Validator = (LessThanOrEqualValidator<double>)validator;
+            }
+            else if (validator is LessThanValidator<double>)
+            {
+                Validator = (LessThanValidator<double>)validator;
+            }
+            else if (validator is NotEqualValidator<double>)
+            {
+                Validator = (NotEqualValidator<double>)validator;
+            }
+            else if (validator is EqualValidator<double>)
+            {
+                Validator = (EqualValidator<double>)validator;
+            }
+            else if (validator is ToleranceValidator<double>)
+            {
+                Validator = (ToleranceValidator<double>)validator;
+            }
+            else if (validator is PercentageValidator<double>)
+            {
+                Validator = (PercentageValidator<double>)validator;
+            }
+            else if (validator is RampValidator<double>)
+            {
+                Validator = (RampValidator<double>)validator;
+            }
+            else if (validator is BoundedValidator<double>)
+            {
+                Validator = (BoundedValidator<double>)validator;
+            }
+        }
+
+        public static Dictionary<string, Type> GetLimitTypes()
+        {
+            return Assembly.GetExecutingAssembly()
+                        .GetTypes()
+                        .Where(t => t.IsClass && !t.IsAbstract && typeof(GenericLimit).IsAssignableFrom(t)) // concrete class, inheriting from GenericLimit
+                        .ToDictionary(t => t.Name, t => t);
         }
     }
 

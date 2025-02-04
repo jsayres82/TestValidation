@@ -12,8 +12,8 @@ using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Calculators;
 using Nuvo.TestValidation.Utilities;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
-using Nuvo.TestValidation.Parameters.Nuvo.TestValidation.Parameters;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace Nuvo.TestValidation.Parameters
 {
@@ -97,6 +97,14 @@ namespace Nuvo.TestValidation.Parameters
         public virtual Dictionary<string, List<object[]>> ParseFile(string fileName)
         {
             return new Dictionary<string, List<object[]>>();
+        }
+
+        public static Dictionary<string, Type> GetGenericParameterTypes()
+        {
+            return Assembly.GetExecutingAssembly()
+                        .GetTypes()
+                        .Where(t => t.IsClass && !t.IsAbstract && typeof(GenericParameter).IsAssignableFrom(t)) // concrete class, inheriting from GenericLimit
+                        .ToDictionary(t => t.Name, t => t);
         }
     }
 }
