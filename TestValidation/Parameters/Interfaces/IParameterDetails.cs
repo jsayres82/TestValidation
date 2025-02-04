@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using System.Text.Json.Serialization;
 
 namespace Nuvo.TestValidation.Parameters.Interfaces
 {
@@ -24,7 +25,9 @@ namespace Nuvo.TestValidation.Parameters.Interfaces
         List<string> ValidValidatorUnits { get; }
         Dictionary<string, List<object[]>> ParameterValues { get; }
         List<MeasFileTypes> FileTypesHandlers { get; }
+        [JsonIgnore]
         double MinMargin { get; set; }
+        [JsonIgnore]
         double ValueAtMinMargin { get; set; }
         Dictionary<string, List<object[]>> ParseFile(string fileName);
         bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement);

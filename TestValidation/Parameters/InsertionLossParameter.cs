@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation.Parameters
 {

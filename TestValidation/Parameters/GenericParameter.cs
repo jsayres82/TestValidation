@@ -13,6 +13,7 @@ using Nuvo.TestValidation.Calculators;
 using Nuvo.TestValidation.Utilities;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 using Nuvo.TestValidation.Parameters.Nuvo.TestValidation.Parameters;
+using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation.Parameters
 {
@@ -38,7 +39,7 @@ namespace Nuvo.TestValidation.Parameters
         public virtual int ParameterVariableCount { get; set; } = 1;
         public List<string> VariableNames { get; set; }
         public List<string> MeasurementVariables { get; set; }
-
+        //[JsonIgnore]
         [XmlIgnore]
         public abstract Dictionary<string, List<object[]>> ParameterValues { get; }
 

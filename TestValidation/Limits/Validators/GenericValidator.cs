@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 
 namespace Nuvo.TestValidation.Limits.Validators
@@ -7,12 +11,15 @@ namespace Nuvo.TestValidation.Limits.Validators
     [Serializable]
     public abstract class GenericValidator<T>
     {
+        //[JsonProperty("Value")]
         [XmlElement("Value")]
         public T Value { get; set; }
 
+        //[JsonProperty("Unit")]
         [XmlElement("Unit")]
         public UnitEnum Unit { get; set; }
 
+        //[JsonProperty("Prefix")]
         [XmlElement("Prefix")]
         public PrefixEnum Prefix { get; set; }
 
@@ -188,9 +195,11 @@ namespace Nuvo.TestValidation.Limits.Validators
             UpperBound = upperBound;
         }
 
+        //[JsonProperty("LowerBound")]
         [XmlElement("LowerBound")]
         public T LowerBound { get; set; }
 
+        //[JsonProperty("UpperBound")]
         [XmlElement("UpperBound")]
         public T UpperBound { get; set; }
 
@@ -233,6 +242,7 @@ namespace Nuvo.TestValidation.Limits.Validators
             Tolerance = tolerance;
         }
 
+        //[JsonProperty("Tolerance")]
         [XmlElement("Tolerance")]
         public T Tolerance { get; set; }
 
@@ -280,6 +290,7 @@ namespace Nuvo.TestValidation.Limits.Validators
             Percentage = percentage;
         }
 
+        //[JsonProperty("Percentage")]
         [XmlElement("Percentage")]
         public double Percentage { get; set; }
 
@@ -308,6 +319,7 @@ namespace Nuvo.TestValidation.Limits.Validators
     [Serializable]
     public class RampValidator<T> : GenericValidator<T> where T : IComparable<T>
     {
+        //[JsonProperty("RampRate")]
         [XmlElement("RampRate")]
         public T RampRate { get; set; }
 
@@ -347,6 +359,19 @@ namespace Nuvo.TestValidation.Limits.Validators
             dynamic da = a;
             dynamic db = b;
             return da - db;
+        }
+    }
+
+    public static class ValidatorHelper
+    {
+        public static Dictionary<string, Type> GetValidatorTypes()
+        {
+            return Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(t => t.IsClass && !t.IsAbstract && t.BaseType != null &&
+                            t.BaseType.IsGenericType &&
+                            t.BaseType.GetGenericTypeDefinition() == typeof(GenericValidator<>))
+                .ToDictionary(t => t.Name.Split("`")[0], t => t);
         }
     }
     //public class DomainValidator<T, U> : GenericValidator<T> where T : IComparable<T>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation
 {
@@ -21,6 +22,7 @@ namespace Nuvo.TestValidation
         public string PartNum { get; set; }
         public string MeasFileType { get; set; }
         public int ParamCount { get; set; } = 0;
+        [JsonIgnore]
         [XmlIgnore]
         public TestArticle TestArticles { get; set; }
     }

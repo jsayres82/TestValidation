@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using System.Xml.Serialization;
 
 namespace Nuvo.TestValidation.TestResults
@@ -13,10 +14,12 @@ namespace Nuvo.TestValidation.TestResults
         public string RequirementName { get; set; }
         public string ParameterName { get; set; }
         public bool Passed { get; set; }
+        //[JsonIgnore]
         [XmlIgnore]
         public T ParameterValue { get; set; }
         public double MinimumMargin { get; set; }
         public double ValueAtMinimumMargin { get; set; }
+        //[JsonIgnore]
         [XmlIgnore]
         public double[] ParameterValues { get; set; }
         [XmlElement("LogSlopedDomainLimit", typeof(LogSlopedDomainLimit))]

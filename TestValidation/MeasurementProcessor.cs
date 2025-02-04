@@ -16,6 +16,7 @@ using MicrowaveNetworks.Touchstone;
 using System.Data;
 using Org.BouncyCastle.Tls;
 using Nuvo.TestValidation.Utilities;
+using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation
 {
@@ -25,6 +26,7 @@ namespace Nuvo.TestValidation
     [Serializable]
     public class MeasurementProcessor
     {
+        //[JsonProperty]
         [XmlElement]
         public TestInfo TestInfo;
         public string UnitSerialNumber { get; set; }
@@ -35,6 +37,7 @@ namespace Nuvo.TestValidation
         private Dictionary<string, double> characteristicParameters;
         private string serialNumber; // New field for serial number
         private string file;
+        //[JsonProperty]
         [XmlElement]
         public TestRequirements TestRequirements;
 
@@ -81,6 +84,23 @@ namespace Nuvo.TestValidation
         public void SetBaseDataSet(Dictionary<string, double> dataSet)
         {
             baseDataSet = dataSet;
+        }
+
+        public TestRequirements ParseTestRequirementsFromJson(string jsonFilePath)
+        {
+            var requirements = JsonHelper.LoadFromJson<TestRequirements>(jsonFilePath);
+            TestRequirements = requirements;
+
+            return TestRequirements;
+        }
+
+        public TestRequirements ParseTestSpecsFromJson(string jsonFilePath)
+        {
+            var proc = JsonHelper.LoadFromJson<MeasurementProcessor>(jsonFilePath);
+            TestRequirements = proc.TestRequirements;
+            TestInfo = proc.TestInfo;
+
+            return TestRequirements;
         }
 
         public TestRequirements ParseTestRequirementsFromXml(string xmlFilePath)
@@ -194,10 +214,12 @@ namespace Nuvo.TestValidation
 
             }
             testReport.TestFile = file;
+            //testReport.WriteToJson(new FileInfo(file).DirectoryName);
             testReport.WriteToXml(new FileInfo(file).DirectoryName);
-            
+
             // if(fileCheck.TryToAccessFile($"{file}\\SN{UnitSerialNumber}_Result.xml"))
-                testReport.CreatePdfFromXml(new FileInfo(file).DirectoryName);
+            //testReport.CreatePdfFromJson(new FileInfo(file).DirectoryName);
+            testReport.CreatePdfFromXml(new FileInfo(file).DirectoryName);
 
             return testReport;// testReport;
         }

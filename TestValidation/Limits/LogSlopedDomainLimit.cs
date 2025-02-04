@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Nuvo.TestValidation.Limits.Validators;
 
 namespace Nuvo.TestValidation.Limits
 {
     public class LogSlopedDomainLimit : GenericLimit
     {
+        //[JsonProperty("StartFrequency")]
         [XmlElement("StartFrequency")]
         public override double Start { get; set; }
 
+        //[JsonProperty("StartFrequency")]
         [XmlElement("EndFrequency")]
         public override double End { get; set; }
         public double StartValue { get; set; }

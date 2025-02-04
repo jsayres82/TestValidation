@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using System.Xml.Serialization;
 
 namespace Nuvo.TestValidation.Parameters.Antenna
@@ -12,7 +13,8 @@ namespace Nuvo.TestValidation.Parameters.Antenna
     public class AxialRatioParameter : GenericParameter
     {
         private Dictionary<string, List<double[]>> axialRatioParameterValues = new Dictionary<string, List<double[]>>();
-
+        
+        //[JsonIgnore]
         [XmlIgnore]
         public override Dictionary<string, List<object[]>> ParameterValues
         {

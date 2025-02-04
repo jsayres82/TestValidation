@@ -9,6 +9,7 @@ using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Limits;
 using Nuvo.TestValidation.Utilities;
 using Nuvo.TestValidation.Utilities.Math;
+using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation.Parameters
 {
@@ -21,6 +22,7 @@ namespace Nuvo.TestValidation.Parameters
         private List<string> parameterDomain = new List<string>();
         private int portCount = 0;
 
+        //[JsonIgnore]
         [XmlIgnore]
         public override Dictionary<string, List<object[]>> ParameterValues
         {

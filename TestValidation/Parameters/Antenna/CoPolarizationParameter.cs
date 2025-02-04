@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation.Parameters.Antenna
 {
@@ -13,6 +14,7 @@ namespace Nuvo.TestValidation.Parameters.Antenna
     {
         private Dictionary<string, List<double[]>> coPolarizationParameterValues = new Dictionary<string, List<double[]>>();
 
+        //[JsonIgnore]
         [XmlIgnore]
         public override Dictionary<string, List<object[]>> ParameterValues
         {

@@ -11,6 +11,8 @@ using System.Linq;
 using iText.IO.Image;
 using Nuvo.TestValidation.TestOutputs;
 using ScottPlot;
+using Newtonsoft.Json;
+using Nuvo.TestValidation.Utilities;
 
 namespace Nuvo.TestValidation.TestResults
 {
@@ -302,6 +304,216 @@ namespace Nuvo.TestValidation.TestResults
             }
         }
 
+
+        public void CreatePdfFromJson()
+        {
+            Document pdfDoc = null;
+            PdfWriter writer2 = null;
+            System.IO.FileStream fs = null; // <- create the FileStream
+            try
+            {
+                // Load the JSON document
+                var resultData = JsonHelper.LoadFromJson<List<dynamic>>($"SN{SerialNumber}_Result.json");
+
+                // Create a new PDF document
+                pdfDoc = new Document();
+                fs = new FileStream($"SN{SerialNumber}_Result.pdf", FileMode.Create);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
+
+                // Open the PDF document
+                pdfDoc.Open();
+
+                // Create a table
+                PdfPTable tableHeader1 = new PdfPTable(1); // Number of columns
+                tableHeader1.WidthPercentage = 100;
+                tableHeader1.SpacingBefore = 10f;
+                tableHeader1.SpacingAfter = 10f;
+                // Add image to the document
+                var image = iTextSharp.text.Image.GetInstance(Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Nuvotronic_Logo.jpg"));
+                image.ScaleAbsolute(100, 150);
+                PdfPCell imageCell = new PdfPCell();
+                imageCell.HorizontalAlignment = Element.ALIGN_TOP;
+                imageCell.AddElement(image);
+                imageCell.Border = PdfPCell.NO_BORDER; // Remove cell borders
+                tableHeader1.AddCell(imageCell);
+
+                pdfDoc.Add(tableHeader1);
+
+                // Create a table
+                PdfPTable tableHeader = new PdfPTable(1); // Number of columns
+                tableHeader.WidthPercentage = 100;
+                tableHeader.SpacingBefore = 10f;
+                tableHeader.SpacingAfter = 10f;
+
+                // Create and format the header cells
+                PdfPCell headerCell1 = new PdfPCell();
+                headerCell1.BorderWidth = 2f;
+                Paragraph headerParagraph = new Paragraph();
+                Paragraph headerParagraph2 = new Paragraph();
+
+                headerParagraph.Add(new Phrase($"Program:", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+                headerCell1.AddElement(headerParagraph);
+                headerParagraph2.Add(new Phrase($"{ProgramName}   ", new Font(Font.TIMES_ROMAN, 14)));
+                headerParagraph2.Alignment = Element.ALIGN_RIGHT;
+                headerParagraph2.SpacingAfter = 10f;
+                headerCell1.AddElement(headerParagraph2);
+                tableHeader.AddCell(headerCell1);
+
+                headerCell1 = new PdfPCell();
+                headerCell1.BorderWidth = 2f;
+                headerParagraph = new Paragraph();
+                headerParagraph2 = new Paragraph();
+
+                headerParagraph.Add(new Phrase($"Unit Serial Number:", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+                headerCell1.AddElement(headerParagraph);
+                headerParagraph2.Add(new Phrase($"{SerialNumber}   ", new Font(Font.TIMES_ROMAN, 14)));
+                headerParagraph2.Alignment = Element.ALIGN_RIGHT;
+                headerParagraph2.SpacingAfter = 10f;
+                headerCell1.AddElement(headerParagraph2);
+                tableHeader.AddCell(headerCell1);
+
+                headerCell1 = new PdfPCell();
+                headerCell1.BorderWidth = 2f;
+                headerParagraph = new Paragraph();
+                headerParagraph2 = new Paragraph();
+
+                headerParagraph.Add(new Phrase($"Description:", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+                headerCell1.AddElement(headerParagraph);
+                headerParagraph2.Add(new Phrase($"{TestName}   ", new Font(Font.TIMES_ROMAN, 14)));
+                headerParagraph2.Alignment = Element.ALIGN_RIGHT;
+                headerParagraph2.SpacingAfter = 10f;
+                headerCell1.AddElement(headerParagraph2);
+                tableHeader.AddCell(headerCell1);
+
+                headerCell1 = new PdfPCell();
+                headerCell1.BorderWidth = 2f;
+                headerParagraph = new Paragraph();
+                headerParagraph2 = new Paragraph();
+
+                headerParagraph.Add(new Phrase($"Test Date:", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+                headerCell1.AddElement(headerParagraph);
+                headerParagraph2.Add(new Phrase($"{File.GetCreationTime(TestFile)}   ", new Font(Font.TIMES_ROMAN, 14)));
+                headerParagraph2.Alignment = Element.ALIGN_RIGHT;
+                headerParagraph2.SpacingAfter = 10f;
+                headerCell1.AddElement(headerParagraph2); ;
+                tableHeader.AddCell(headerCell1);
+
+                // Add the table to the document
+                tableHeader.HorizontalAlignment = Element.ALIGN_LEFT;
+                pdfDoc.Add(tableHeader);
+
+                // Create a table
+                PdfPTable table = new PdfPTable(5); // Number of columns
+                table.WidthPercentage = 100;
+                table.SpacingBefore = 10f;
+                table.SpacingAfter = 10f;
+                // Add table headers
+                PdfPCell cell = new PdfPCell(new Phrase("#", new Font(Font.NORMAL, 14, Font.BOLD)));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase("Requirement", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase("Value", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase("Limit", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase("Fail", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                table.AddCell(cell);
+
+                // Add data to table from JSON object
+                int rowNum = 1;
+                foreach (var result in resultData)
+                {
+                    string requirementName = result.RequirementName;
+                    bool passed = result.Passed;
+                    double minimumMargin = result.MinimumMargin;
+                    double valueAtMinimumMargin = result.ValueAtMinimumMargin;
+                    string limitType = result.LimitType;
+                    string limitValue = result.LimitValue;
+                    string units = result.Units;
+                    string symbol = LimitToSymbol(limitType, limitValue);
+                    string failed = (!passed) ? "X" : "";
+                    Font f = new Font(Font.TIMES_ROMAN, 10, Font.NORMAL);
+                    if (!passed)
+                        f = new Font(Font.TIMES_ROMAN, 10, Font.NORMAL, BaseColor.Red);
+                    cell = new PdfPCell(new Phrase((rowNum * 10).ToString(), f));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table.AddCell(cell);
+                    cell = new PdfPCell(new Phrase(requirementName, f));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table.AddCell(cell);
+                    string value = valueAtMinimumMargin.ToString("0.####");
+                    cell = new PdfPCell(new Phrase(value, f));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table.AddCell(cell);
+                    cell = new PdfPCell(new Phrase(symbol));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table.AddCell(cell);
+                    cell = new PdfPCell(new Phrase(failed, f));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table.AddCell(cell);
+
+                    rowNum++;
+                }
+                table.SetWidths(new float[] { 1, 4, 2, 2, 2 });
+                // Add the table to the document
+                pdfDoc.Add(table);
+
+                var generator = new PdfGraphGenerator();
+                var fInfo = new FileInfo(TestFile);
+
+                try
+                {
+                    var csvFiles = Directory.EnumerateFiles(Directory.GetCurrentDirectory(), "*.csv")
+                        .Where(file => Path.GetFileName(file).Contains(SerialNumber, StringComparison.OrdinalIgnoreCase));
+
+                    foreach (var file in csvFiles)
+                    {
+                        var graphTableHeader = new PdfPTable(1);
+                        graphTableHeader.WidthPercentage = 100;
+                        graphTableHeader.SpacingBefore = 10f;
+                        graphTableHeader.SpacingAfter = 10f;
+                        var name = file.Split("\\").Last();
+                        var reqName = name.Split("_").Last();
+                        reqName = reqName.Split(".").First();
+                        // Create and format the header cells
+                        PdfPCell headerCell = new PdfPCell();
+                        headerCell.BorderWidth = 0;
+                        Paragraph paragraph = new Paragraph(new Phrase($"{reqName}", new Font(Font.TIMES_ROMAN, 14, Font.BOLD)));
+
+                        paragraph.SpacingAfter = 0;
+                        paragraph.Alignment = Element.ALIGN_CENTER;
+                        headerCell.AddElement(paragraph);
+                        var pltImgBytes = generator.CreateGraphPdf(file);
+                        var pltImg = iTextSharp.text.Image.GetInstance(pltImgBytes);
+                        PdfPCell imageCell2 = new PdfPCell();
+                        imageCell2.HorizontalAlignment = Element.ALIGN_CENTER;
+                        headerCell.AddElement(pltImg);
+                        imageCell2.Border = PdfPCell.NO_BORDER; // Remove cell borders
+                        graphTableHeader.AddCell(headerCell);
+                        pdfDoc.Add(graphTableHeader);
+                    }
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    Console.WriteLine($"Access to the path '{fInfo.Directory.Name}' is denied. Error: {e.Message}");
+                }
+                catch (DirectoryNotFoundException e)
+                {
+                    Console.WriteLine($"The directory '{fInfo.Directory.Name}' was not found. Error: {e.Message}");
+                }
+            }
+            finally
+            {
+                pdfDoc.Close();
+                pdfDoc = null;
+                fs.Close();
+            }
+        }
 
         public void CreatePdfFromXml()
         {

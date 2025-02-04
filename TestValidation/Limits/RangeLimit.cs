@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Nuvo.TestValidation.Limits.Validators;
 
 namespace Nuvo.TestValidation.Limits
 {
     public class RangeLimit : GenericLimit
     {
+        //[JsonProperty("MinValue")]
         [XmlAttribute("MinValue")]
         public double MinValue { get; set; }
 
+        //[JsonProperty("MaxValue")]
         [XmlAttribute("MaxValue")]
         public double MaxValue { get; set; }
 

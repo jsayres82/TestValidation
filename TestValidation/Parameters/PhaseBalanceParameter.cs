@@ -18,6 +18,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using MicrowaveNetworks;
 
 namespace Nuvo.TestValidation.Parameters
@@ -31,6 +32,7 @@ namespace Nuvo.TestValidation.Parameters
         private List<string> parameterDomain = new List<string>();
         private int portCount = 0;
 
+        //[JsonIgnore]
         [XmlIgnore]
         public override Dictionary<string, List<object[]>> ParameterValues
         {

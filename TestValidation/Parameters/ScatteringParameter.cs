@@ -19,6 +19,7 @@ using Nuvo.TestValidation.Utilities;
 using Nuvo.TestValidation.Utilities.Math;
 using Org.BouncyCastle.Ocsp;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
+using Newtonsoft.Json;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 
 namespace Nuvo.TestValidation.Parameters
@@ -32,6 +33,7 @@ namespace Nuvo.TestValidation.Parameters
         private List<string> parameterDomain = new List<string>();
         private int portCount = 0;
 
+        //[JsonIgnore]
         [XmlIgnore]
         public override Dictionary<string, List<object[]>> ParameterValues
         {

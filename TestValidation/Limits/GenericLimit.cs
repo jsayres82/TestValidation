@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Nuvo.TestValidation.Limits.Validators;
 using Nuvo.TestValidation.Parameters;
 
@@ -27,8 +28,11 @@ namespace Nuvo.TestValidation.Limits
         public abstract GenericValidator<double> Validator { get; set; }
         [XmlIgnore]
         public bool IsSLopedLimit = false;
+        //[JsonProperty("StartFrequency")]
         [XmlElement("StartFrequency")]
         public virtual double Start { get; set; }
+
+        //[JsonProperty("StartFrequency")]
         [XmlElement("EndFrequency")]
         public virtual double End { get; set; }
 

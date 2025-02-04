@@ -5,14 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Nuvo.TestValidation.Limits.Validators;
+using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation.Limits
 {
     public class DomainLimit : GenericLimit
     {
+        //[JsonProperty("StartFrequency")]
         [XmlElement("StartFrequency")]
         public override double Start { get; set; }
 
+        //[JsonProperty("StartFrequency")]
         [XmlElement("EndFrequency")]
         public override double End { get; set; }
         public double StartValue { get; set; }

@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using System.IO;
 using Nuvo.TestValidation.Limits.Validators;
 using Nuvo.TestValidation.Parameters;
+using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation.Limits
 {
@@ -19,6 +20,7 @@ namespace Nuvo.TestValidation.Limits
     /// </summary>
     public class TestRequirement
     {
+        //[JsonProperty("Name")]
         [XmlElement("Name")]
         public string Name { get; set; }
 

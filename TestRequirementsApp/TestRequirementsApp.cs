@@ -12,11 +12,14 @@ using Nuvo.TestValidation.Limits;
 using static Nuvo.TestValidation.Limits.Units.UnitConverter;
 using Nuvo.TestValidation.Limits.Validators;
 using Nuvo.TestValidation.TestResults;
+using Nuvo.TestValidation.Utilities;
+using Newtonsoft.Json;
 
 namespace Nuvo.Requirements_Builder
 {
     public partial class TestRequirementsApp : Form
     {
+        //string specFile = ".\\TestData\\test_spec_file.json";
         string specFile = ".\\TestData\\test_spec_file.xml";
         public MeasurementProcessor measurementProcessor = new MeasurementProcessor();
         public DataGridView dgv;
@@ -79,6 +82,7 @@ namespace Nuvo.Requirements_Builder
             flp2.Controls.Clear();
             if (measurementProcessor.TestRequirements != null)
                 measurementProcessor.TestRequirements.Requirements.Clear();
+            //requirements = measurementProcessor.ParseTestSpecsFromJson(specFile);
             requirements = measurementProcessor.ParseTestSpecsFromXml(specFile);
             testInfoCtrl1.UpdateTestInfo(measurementProcessor.TestInfo, specFile);
             testInfoCtrl1.TestInfoUpdated += TestInfoCtrl1_TestInfoUpdated;
@@ -277,6 +281,7 @@ namespace Nuvo.Requirements_Builder
             {
                 serializer.Serialize(writer, measurementProcessor);
             }
+            //measurementProcessor.WriteObjectToJsonFile($"{testInfoCtrl1.folderName}\\{testInfoCtrl1.fileName}.json");
         }
 
         private void buttonOpenSpecFile_Click(object sender, EventArgs e)
