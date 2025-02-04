@@ -1,0 +1,61 @@
+{
+  "$type": "Nuvo.TestValidation.MeasurementProcessor, Nuvo.TestValidation",
+  "TestInfo": {
+    "$type": "Nuvo.TestValidation.TestInfo, Nuvo.TestValidation",
+    "TestName": "Module RF",
+    "Program": "MUX",
+    "WaferName": "W1324",
+    "PartNum": null,
+    "MeasFileType": null,
+    "ParamCount": 0
+  },
+  "TestRequirements": {
+    "$type": "Nuvo.TestValidation.Limits.TestRequirements, Nuvo.TestValidation",
+    "TestRequirement": [
+      {
+        "Name": "PhaseBalance",
+        "DomainLimit": {
+          "LessThanValidator": {
+            "$type": "Nuvo.TestValidation.Limits.Validators.LessThanValidator`1[[System.Double, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], Nuvo.TestValidation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+            "Value": -5.0,
+            "Unit": 22,
+            "Prefix": 10
+          },
+          "Start": 1500000000.0,
+          "End": 15000000000.0,
+          "StartValue": 0.0,
+          "EndValue": 0.0,
+          "StartValue2": 0.0,
+          "EndValue2": 0.0
+        },
+        "PhaseBalanceParameter": {
+          "$type": "Nuvo.TestValidation.Parameters.PhaseBalanceParameter, Nuvo.TestValidation",
+          "MeasurementVariables": [
+            "S21",
+            "S21,S31"
+          ],
+          "ValueAtMinMargin": -1.7976931348623157E+308,
+          "VariableNames": [
+            "S-Param",
+            "All S-Params",
+            "S-Param",
+            "All S-Params"
+          ],
+          "SerialNumber": null,
+          "Name": null,
+          "Description": "Compares the unwrapped phase of specified \"S-Param\" to the mean of those in \"All S-Params\" list(comma separated)",
+          "ParameterVariableCount": 2,
+          "FileTypesHandlers": [
+            0
+          ],
+          "ValidLimits": [],
+          "ValidValidators": [],
+          "ValidLimitUnits": [],
+          "ValidValidatorUnits": []
+        }
+      }
+    ]
+  },
+  "UnitSerialNumber": null,
+  "PartNumber": null
+}
