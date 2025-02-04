@@ -10,7 +10,7 @@
   </TestInfo>
   <TestRequirements>
     <TestRequirement>
-      <Name>PhaseBalance</Name>
+      <Name>Phase Balance</Name>
       <PhaseBalanceParameter>
         <MinMargin>-2083.650412500001</MinMargin>
         <SerialNumber>010</SerialNumber>
@@ -34,60 +34,96 @@
       <DomainLimit>
         <LessThanValidator>
           <Value>5</Value>
-          <Unit>dBmW</Unit>
+          <Unit>Degree</Unit>
           <Prefix>None</Prefix>
         </LessThanValidator>
-        <StartFrequency>1500000000</StartFrequency>
-        <EndFrequency>35000000000</EndFrequency>
+        <StartFrequency>13000000000</StartFrequency>
+        <EndFrequency>21000000000</EndFrequency>
         <StartValue>5</StartValue>
         <EndValue>5</EndValue>
         <StartValue2>5</StartValue2>
         <EndValue2>5</EndValue2>
       </DomainLimit>
     </TestRequirement>
-	  <TestRequirement>
-		  <Name>Band 1 Insertion Loss</Name>
-		  <ScatteringParameter xsi:type="InsertionLossParameter">
-			  <MinMargin>-8.159616</MinMargin>
-			  <SerialNumber>010</SerialNumber>
-			  <Description>Compares the value of the specified "S-Param" to the limit specified.</Description>
-			  <ParameterVariableCount>1</ParameterVariableCount>
-			  <VariableNames>
-				  <string>S-Param</string>
-			  </VariableNames>
-			  <MeasurementVariables>
-				  <string>S21</string>
-			  </MeasurementVariables>
-			  <FileTypesHandlers>
-				  <MeasFileTypes>None</MeasFileTypes>
-				  <MeasFileTypes>None</MeasFileTypes>
-				  <MeasFileTypes>None</MeasFileTypes>
-			  </FileTypesHandlers>
-			  <ValueAtMinMargin>-23.159616</ValueAtMinMargin>
-			  <ValueAtMinMargin>-23.159616</ValueAtMinMargin>
-		  </ScatteringParameter>
-		  <DomainLimit>
-			  <GreaterThanOrEqualValidator>
-				  <Value>-5</Value>
-				  <Unit>dBmW</Unit>
-				  <Prefix>None</Prefix>
-			  </GreaterThanOrEqualValidator>
-			  <StartFrequency>1100000000</StartFrequency>
-			  <EndFrequency>1800000000</EndFrequency>
-			  <StartValue>-5</StartValue>
-			  <EndValue>-5</EndValue>
-			  <StartValue2>-5</StartValue2>
-			  <EndValue2>-5</EndValue2>
-		  </DomainLimit>
-	  </TestRequirement>
     <TestRequirement>
-      <Name>Port 1 Return Loss</Name>
-      <ScatteringParameter xsi:type="ReturnLossParameter">
-        <MinMargin>-8.159616</MinMargin>
+      <Name>Amplitude Balance</Name>
+      <AttenuationParameter>
+        <MinMargin>-40.635727955</MinMargin>
+        <SerialNumber>010</SerialNumber>
+        <Description>Compares the magnitude of specified "S-Param" to the mean of those in "All S-Params" list(comma seperated)</Description>
+        <ParameterVariableCount>2</ParameterVariableCount>
+        <VariableNames>
+          <string>S-Param</string>
+          <string>All S-Params</string>
+        </VariableNames>
+        <MeasurementVariables>
+          <string>S21</string>
+          <string>S21,S31</string>
+        </MeasurementVariables>
+        <FileTypesHandlers>
+          <MeasFileTypes>None</MeasFileTypes>
+        </FileTypesHandlers>
+        <ValueAtMinMargin>45.635727955</ValueAtMinMargin>
+      </AttenuationParameter>
+      <DomainLimit>
+        <LessThanValidator>
+          <Value>5</Value>
+          <Unit>dBmW</Unit>
+          <Prefix>None</Prefix>
+        </LessThanValidator>
+        <StartFrequency>13000000000</StartFrequency>
+        <EndFrequency>21000000000</EndFrequency>
+        <StartValue>5</StartValue>
+        <EndValue>5</EndValue>
+        <StartValue2>5</StartValue2>
+        <EndValue2>5</EndValue2>
+      </DomainLimit>
+    </TestRequirement>
+    <TestRequirement>
+      <Name>Band 1 Insertion Loss</Name>
+      <InsertionLossParameter>
+        <MinMargin>3.927724200000002</MinMargin>
         <SerialNumber>010</SerialNumber>
         <Description>Compares the value of the specified "S-Param" to the limit specified.</Description>
         <ParameterVariableCount>1</ParameterVariableCount>
         <VariableNames>
+          <string>S-Param</string>
+          <string>S-Param</string>
+        </VariableNames>
+        <MeasurementVariables>
+          <string>S21</string>
+        </MeasurementVariables>
+        <FileTypesHandlers>
+          <MeasFileTypes>None</MeasFileTypes>
+          <MeasFileTypes>None</MeasFileTypes>
+          <MeasFileTypes>None</MeasFileTypes>
+          <MeasFileTypes>None</MeasFileTypes>
+        </FileTypesHandlers>
+        <ValueAtMinMargin>-1.0722757999999981</ValueAtMinMargin>
+      </InsertionLossParameter>
+      <DomainLimit>
+        <GreaterThanOrEqualValidator>
+          <Value>-5</Value>
+          <Unit>dBmW</Unit>
+          <Prefix>None</Prefix>
+        </GreaterThanOrEqualValidator>
+        <StartFrequency>1100000000</StartFrequency>
+        <EndFrequency>1800000000</EndFrequency>
+        <StartValue>-5</StartValue>
+        <EndValue>-5</EndValue>
+        <StartValue2>-5</StartValue2>
+        <EndValue2>-5</EndValue2>
+      </DomainLimit>
+    </TestRequirement>
+    <TestRequirement>
+      <Name>Port 1 Return Loss</Name>
+      <ScatteringParameter xsi:type="ReturnLossParameter">
+        <MinMargin>0.20241500000000023</MinMargin>
+        <SerialNumber>010</SerialNumber>
+        <Description>Compares the value of the specified "S-Param" to the limit specified.</Description>
+        <ParameterVariableCount>1</ParameterVariableCount>
+        <VariableNames>
+          <string>S-Param</string>
           <string>S-Param</string>
         </VariableNames>
         <MeasurementVariables>
@@ -97,9 +133,9 @@
           <MeasFileTypes>None</MeasFileTypes>
           <MeasFileTypes>None</MeasFileTypes>
           <MeasFileTypes>None</MeasFileTypes>
+          <MeasFileTypes>None</MeasFileTypes>
         </FileTypesHandlers>
-        <ValueAtMinMargin>-23.159616</ValueAtMinMargin>
-        <ValueAtMinMargin>-23.159616</ValueAtMinMargin>
+        <ValueAtMinMargin>-15.202415</ValueAtMinMargin>
       </ScatteringParameter>
       <DomainLimit>
         <LessThanOrEqualValidator>
@@ -116,4 +152,6 @@
       </DomainLimit>
     </TestRequirement>
   </TestRequirements>
+  <UnitSerialNumber>010</UnitSerialNumber>
+  <PartNumber>1025668</PartNumber>
 </MeasurementProcessor>
