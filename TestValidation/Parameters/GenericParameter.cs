@@ -21,7 +21,7 @@ namespace Nuvo.TestValidation.Parameters
     [XmlInclude(typeof(PhaseBalanceParameter))]
     [XmlInclude(typeof(GroupDelayParameter))]
     [XmlInclude(typeof(AmplitudeBalanceParameter))]
-    [XmlInclude( typeof(ScatteringParameter))]
+    [XmlInclude(typeof(ScatteringParameter))]
     [XmlInclude(typeof(ReturnLossParameter))]
     [XmlInclude(typeof(FlatnessParameter))]
     [Serializable]
