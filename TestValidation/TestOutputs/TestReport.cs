@@ -4,15 +4,11 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using iTextSharp.text.xml;
-using Nuvo.TestValidation.Limits.Validators;
 using System;
 using System.Linq;
-using iText.IO.Image;
 using Nuvo.TestValidation.TestOutputs;
-using ScottPlot;
-using Newtonsoft.Json;
 using Nuvo.TestValidation.Utilities;
+using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation.TestResults
 {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using iText.Barcodes.Dmcode;
 using MicrowaveNetworks;
 using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Limits;

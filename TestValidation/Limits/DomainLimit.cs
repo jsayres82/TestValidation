@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Nuvo.TestValidation.Limits.Validators;
 using System.Xml.Serialization;
-using Nuvo.TestValidation.Limits.Validators;
 using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation.Limits

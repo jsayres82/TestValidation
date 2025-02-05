@@ -1,21 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using CsvHelper;
-using CsvHelper.Configuration;
 using ScottPlot;
-using ScottPlot.Collections;//.Plottables;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
-using System.Globalization;
 using iText.IO;
-using System.Reflection.Emit;
 using ScottPlot.DataSources;
-using MicrowaveNetworks.Matrices;
-using ScottPlot.Statistics;
-using iText.IO.Image;
 using System.Collections.Generic;
 
 namespace Nuvo.TestValidation.TestOutputs

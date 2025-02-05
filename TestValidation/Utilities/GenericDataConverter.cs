@@ -1,5 +1,4 @@
-﻿using iText.Barcodes.Dmcode;
-using MicrowaveNetworks;
+﻿using MicrowaveNetworks;
 using MicrowaveNetworks.Matrices;
 using MicrowaveNetworks.Touchstone;
 using Newtonsoft.Json.Linq;
@@ -7,14 +6,9 @@ using Newtonsoft.Json;
 using Nuvo.TestValidation.Limits;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Nuvo.TestValidation.Parameters;
 using Nuvo.TestValidation.Limits.Validators;
-using ScottPlot.TickGenerators.TimeUnits;
 using System.Reflection;
 
 namespace Nuvo.TestValidation.Utilities
