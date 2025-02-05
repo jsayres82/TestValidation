@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation.Parameters
 {
+    
+    [XmlInclude(typeof(PhaseDelayParameter))]
     [XmlInclude(typeof(InsertionLossParameter))]
     [XmlInclude(typeof(PhaseBalanceParameter))]
     [XmlInclude(typeof(GroupDelayParameter))]

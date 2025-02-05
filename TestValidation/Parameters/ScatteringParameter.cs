@@ -173,7 +173,7 @@ namespace Nuvo.TestValidation.Parameters
                         }
                         var valArray = new double[1];
                         valArray[0] = valF;
-                        scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valArray });       
+                        scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valArray });
                     }
                     index++;
                 }

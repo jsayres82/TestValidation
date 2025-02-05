@@ -15,9 +15,9 @@ using MathNet.Numerics.Random;
 
 namespace Nuvo.TestValidation.Parameters
 {
-    public class GroupDelayParameter : ScatteringParameter
+    public class PhaseDelayParameter : ScatteringParameter
     {
-        private Dictionary<string, List<double[]>> groupDelayParameterValues = new Dictionary<string, List<double[]>>();
+        private Dictionary<string, List<double[]>> phaseDelayParameterValues = new Dictionary<string, List<double[]>>();
         List<string> sParams = new List<string>();
         private List<(double, double, double, double, string)> csvData = new List<(double, double, double, double, string)>();
         // All points from start to stop that we need to evaluate.
@@ -50,13 +50,13 @@ namespace Nuvo.TestValidation.Parameters
         private Dictionary<string, List<Complex>> complexParameterValue = new Dictionary<string, List<Complex>>();
 
 
-        public GroupDelayParameter(IParameterValueCalculator calculator)
+        public PhaseDelayParameter(IParameterValueCalculator calculator)
             : base(calculator)
         {
             Description = "Evaluates a scattering parameter for S-Parameter Matrix";
         }
 
-        public GroupDelayParameter()
+        public PhaseDelayParameter()
             : base()
         {
             Description = "Evaluates a scattering parameter for S-Parameter Matrix";
@@ -73,7 +73,7 @@ namespace Nuvo.TestValidation.Parameters
 
             foreach (var sParam in MeasurementVariables)
             {
-                foreach (var val in groupDelayParameterValues)
+                foreach (var val in phaseDelayParameterValues)
                 {
                     // First Value in first array at frequency point "val"
                     double testValue = (double)val.Value[0].First();
@@ -125,16 +125,16 @@ namespace Nuvo.TestValidation.Parameters
                 // Convert to radians
                 phaseList.Add(System.Convert.ToDouble(val.Value[0].First()) * System.Math.PI/180);
             }
-            var gdRadians = MathClass.GroupDelay(freqList.ToArray(), phaseList.ToArray(), true);
-            groupDelayParameterValues.Clear();
+            var gdRadians = MathClass.PhaseDelay(freqList.ToArray(), phaseList.ToArray(), true);
+            phaseDelayParameterValues.Clear();
             for (int i = 0; i < gdRadians.Length; i++)
             {
                 var valArray = new double[1];
                 valArray[0] = gdRadians[i];
-                groupDelayParameterValues.Add(freqList.ElementAt(i).ToString(), new List<double[]>() { valArray });
+                phaseDelayParameterValues.Add(freqList.ElementAt(i).ToString(), new List<double[]>() { valArray });
             }
 
-            return groupDelayParameterValues.ToDictionary(
+            return phaseDelayParameterValues.ToDictionary(
                 kvp => kvp.Key,
                 kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
         }
