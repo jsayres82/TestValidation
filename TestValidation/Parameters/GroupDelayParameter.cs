@@ -2,53 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Numerics;
-using System.Xml.Serialization;
-using MicrowaveNetworks;
-using MicrowaveNetworks.Touchstone;
 using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Limits;
-using Nuvo.TestValidation.Utilities;
 using Nuvo.TestValidation.Utilities.Math;
 using Newtonsoft.Json;
-using MathNet.Numerics.Random;
 
 namespace Nuvo.TestValidation.Parameters
 {
     public class GroupDelayParameter : ScatteringParameter
     {
         private Dictionary<string, List<double[]>> groupDelayParameterValues = new Dictionary<string, List<double[]>>();
-        List<string> sParams = new List<string>();
         private List<(double, double, double, double, string)> csvData = new List<(double, double, double, double, string)>();
-        // All points from start to stop that we need to evaluate.
-        private List<string> parameterDomain = new List<string>();
-        private int portCount = 0;
 
-        //[JsonIgnore]
-        //[XmlIgnore]
-        //public override Dictionary<string, List<object[]>> ParameterValues
-        //{
-        //    get
-        //    {
-        //        return groupDelayParameterValues.ToDictionary(
-        //            kvp => kvp.Key,
-        //            kvp => kvp.Value.Select(innerList => innerList.Cast<object>().ToArray()).ToList());
-        //    }
-        //}
-
-        private List<string> variableNames = new List<string>() { "S-Param" };
-        //public override List<string> VariableNames { get { return variableNames; } }
-        //public override List<string> MeasurementVariables { get; set; }
         public override double ValueAtMinMargin
         {
             get => MinMargin;
             set => MinMargin = value;
         }
-        private double[] reqLimit;
-        private Dictionary<string, List<double[]>> parameterValues = new Dictionary<string, List<double[]>>();
-        public static StreamWriter sw;
-        private Dictionary<string, List<Complex>> complexParameterValue = new Dictionary<string, List<Complex>>();
 
+        public static StreamWriter sw;
 
         public GroupDelayParameter(IParameterValueCalculator calculator)
             : base(calculator)

@@ -63,7 +63,7 @@ namespace Nuvo.TestValidation.Parameters
             : base(calculator)
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
-            base.VariableNames = new List<string>() { "S-Param" };
+            VariableNames = new List<string>() { "S-Param" };
         }
         /// <summary>
         /// Constructor - Needed for serialization.
@@ -72,7 +72,7 @@ namespace Nuvo.TestValidation.Parameters
             : base()
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
-            base.VariableNames = new List<string>() { "S-Param" };
+            VariableNames = new List<string>() { "S-Param" };
         }
 
         /// <summary>
@@ -152,30 +152,26 @@ namespace Nuvo.TestValidation.Parameters
                 index = 0;
                 foreach (var val in d.Value)
                 {
-                    //if (index == idx)
+                    NetworkParameter[] val2 = (NetworkParameter[])val[0];
+                    double valF = 0;
+                    switch (req.Limit.Validator.Unit)
                     {
-                        NetworkParameter[] val2 = (NetworkParameter[])val[0];
-                        double valF = 0;
-                        switch (req.Limit.Validator.Unit)
-                        {
-                            case UnitEnum.dBmW:
-                                valF = System.Convert.ToDouble(val2[idx].Magnitude_dB);
-                                break;
-                            case UnitEnum.MilliWatt:
-                                valF = System.Convert.ToDouble(val2[idx].Magnitude);
-                                break;
-                            case UnitEnum.Degree:
-                                valF = System.Convert.ToDouble(val2[idx].Phase_deg);
-                                break;
-                            default:
-                                valF = System.Convert.ToDouble(val2[idx].Magnitude_dB);
-                                break;
-                        }
-                        var valArray = new double[1];
-                        valArray[0] = valF;
-                        scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valArray });
+                        case UnitEnum.dBmW:
+                            valF = System.Convert.ToDouble(val2[idx].Magnitude_dB);
+                            break;
+                        case UnitEnum.MilliWatt:
+                            valF = System.Convert.ToDouble(val2[idx].Magnitude);
+                            break;
+                        case UnitEnum.Degree:
+                            valF = System.Convert.ToDouble(val2[idx].Phase_deg);
+                            break;
+                        default:
+                            valF = System.Convert.ToDouble(val2[idx].Magnitude_dB);
+                            break;
                     }
-                    index++;
+                    var valArray = new double[1];
+                    valArray[0] = valF;
+                    scatteringParameterValues.Add(d.Key.ToString(), new List<double[]>() { valArray });
                 }
             }
             return ParameterValues;

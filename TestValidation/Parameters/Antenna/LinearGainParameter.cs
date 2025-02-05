@@ -33,7 +33,13 @@ namespace Nuvo.TestValidation.Parameters.Antenna
         public LinearGainParameter(IParameterValueCalculator calculator)
             : base(calculator)
         {
-            VariableNames = new List<string>();
+            VariableNames = new List<string>() { "S-Param" };
+        }
+
+        public LinearGainParameter()
+            : base()
+        {
+            VariableNames = new List<string>() { "S-Param" };
         }
 
         public override bool ValidateMeasurement(TestRequirement req, Dictionary<string, List<object[]>> measurement)

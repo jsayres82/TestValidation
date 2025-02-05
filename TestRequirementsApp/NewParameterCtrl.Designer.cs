@@ -1,7 +1,7 @@
 ﻿
 namespace Nuvo.Requirements_Builder
 {
-    partial class ParameterCtrl
+    partial class NewParameterCtrl
     {
         /// <summary> 
         /// Required designer variable.
@@ -97,12 +97,10 @@ namespace Nuvo.Requirements_Builder
             // 
             // comboBoxSpecTypes
             // 
-            comboBoxSpecTypes.DropDownHeight = 90;
             comboBoxSpecTypes.EmptyForeColor = System.Drawing.SystemColors.GrayText;
             comboBoxSpecTypes.EmptyText = null;
             comboBoxSpecTypes.ForeColor = System.Drawing.SystemColors.WindowText;
             comboBoxSpecTypes.FormattingEnabled = true;
-            comboBoxSpecTypes.IntegralHeight = false;
             comboBoxSpecTypes.Location = new System.Drawing.Point(3, 38);
             comboBoxSpecTypes.Name = "comboBoxSpecTypes";
             comboBoxSpecTypes.NonEmptyForeColor = System.Drawing.SystemColors.WindowText;
