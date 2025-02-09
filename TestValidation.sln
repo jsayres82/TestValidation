@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuvo.TestMetrics", "TestMet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuvo.TestServer", "TestServer\Nuvo.TestServer.csproj", "{8FAA6508-2C5A-4259-98A5-64D589F9179E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicrowaveNetworks", "MicrowaveNetworks\MicrowaveNetworks.csproj", "{41A216D8-CBE6-4FAC-A4BA-2F02F76A3797}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicrowaveNetworks", "MicrowaveNetworks\MicrowaveNetworks.csproj", "{8807889E-3406-4D85-89F9-DB67D9D3F12B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,10 @@ Global
 		{8FAA6508-2C5A-4259-98A5-64D589F9179E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FAA6508-2C5A-4259-98A5-64D589F9179E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FAA6508-2C5A-4259-98A5-64D589F9179E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{41A216D8-CBE6-4FAC-A4BA-2F02F76A3797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41A216D8-CBE6-4FAC-A4BA-2F02F76A3797}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41A216D8-CBE6-4FAC-A4BA-2F02F76A3797}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41A216D8-CBE6-4FAC-A4BA-2F02F76A3797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8807889E-3406-4D85-89F9-DB67D9D3F12B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8807889E-3406-4D85-89F9-DB67D9D3F12B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8807889E-3406-4D85-89F9-DB67D9D3F12B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8807889E-3406-4D85-89F9-DB67D9D3F12B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -70,12 +70,14 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
                         var prop = Params.GetType().GetProperty((panel.Tag as PropertyInfo).Name);
                         if (prop.PropertyType == typeof(double))
                             prop.SetValue(Params, System.Convert.ToDouble((panel.Controls[1] as TextBox).Text));
-                        else if(prop.PropertyType == typeof(List<string>))
+                        else if (prop.PropertyType == typeof(string))
+                            prop.SetValue(Params, (panel.Controls[1] as TextBox).Text);
+                        else if (prop.PropertyType == typeof(List<string>))
                         {
                             prop.SetValue(Params, (panel.Controls[1] as ComboBox).SelectedText);
                         }
-                        else
-                            prop.SetValue(Params, (panel.Controls[1] as TextBox).Text);
+                        else if (prop.PropertyType == typeof(GenericUnits))
+                            prop.SetValue(Params, ((panel.Controls[1] as ComboBox).SelectedItem as GenericUnits));// unitDic[((panel.Controls[1] as ComboBox).SelectedItem as string)]);
                     }
                 }
                 else if(ctrl is RangeCtrl)

@@ -44,18 +44,24 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
                 else
                     tbMax.Text = range.Maximum.ToString();
             }
-            
+
+            unitDic.Clear();
             foreach (var unit in range.Units.ValidUnitTypes)
             {
+                var r = new SpecRange<double>();
                 var tempUnit = Activator.CreateInstance(range.Units.GetType()) as GenericUnits;
                 tempUnit.Unit = unit;
+                r.Units = range.Units;
+                r.Units.Unit = unit;
                 foreach (var prefix in range.Units.ValidPrefixTypes)
                 {
                     tempUnit.Prefix = prefix;
-                    cbUnits.Items.Add(tempUnit.ToString());
-                    unitDic.Add(tempUnit.ToString(), tempUnit);
+                    r.Units.Prefix = prefix;
+                    unitDic.Add(tempUnit.ToString(),r.Units);
+                    cbUnits.Items.Add(tempUnit);
                 }
-                cbUnits.Tag = tempUnit;
+            }
+            cbUnits.Tag = range.Units;
                 if(cbUnits.Items.Count > 0)
                 {
                     cbUnits.SelectedIndex = 0;
@@ -70,7 +76,6 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
                     }
                 }
             }
-        }
         
         public SpecRange<double> GetSpecRange()
         {
@@ -82,7 +87,7 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
             Range.IsSingleEnded = lblMin.Visible;
             Range.Minimum = Convert.ToDouble(tbMin.Text);
             Range.Maximum = Convert.ToDouble(tbMax.Text);
-            Range.Units = unitDic[cbUnits.SelectedText];
+            Range.Units = cbUnits.SelectedItem as GenericUnits; // unitDic[cbUnits.SelectedItem];
             return Range;
         }
     }

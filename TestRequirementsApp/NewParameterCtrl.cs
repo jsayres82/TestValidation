@@ -290,6 +290,8 @@ namespace Nuvo.Requirements_Builder
 
         public GenericParameter GetParameter()
         {
+            //Parameter.Calculator = cbCalculator.SelectedItem as GenericCalculator;
+            //Parameter = cbSpecTypes.SelectedItem as GenericParameter;
             foreach (var ctrl in flpCalcParams.Controls)
             {
                 if(ctrl is CalcParamCtrl)
@@ -297,8 +299,6 @@ namespace Nuvo.Requirements_Builder
                     Parameter.Calculator.Params = (ctrl as CalcParamCtrl).GetCalculatorParameter();
                 }
             }
-            Parameter.Calculator = cbCalculator.SelectedItem as GenericCalculator;
-            Parameter = cbSpecTypes.SelectedItem as GenericParameter;
             return Parameter;
         }
 
@@ -342,6 +342,7 @@ namespace Nuvo.Requirements_Builder
                     cbCalculator.Items.AddRange(calcTypes);
                     cbCalculator.SelectedItem = Calculator.GetType();
 
+                    flpCalcParams.Controls.Clear();
                     flpCalcParams.Controls.Add(new CalcParamCtrl(Calculator.Params));
                     //// Load the assembly containing the CharacteristicParameter classes
                     //// Get all the CharacteristicParameter classes
@@ -408,6 +409,7 @@ namespace Nuvo.Requirements_Builder
                 //Console.WriteLine($"- Property: {pInfo.Name}");
             }
 
+            flpCalcParams.Controls.Clear();
             flpCalcParams.Controls.Add(new CalcParamCtrl(Calculator.Params));
             //foreach (PropertyInfo pInfo in CalcParamType.GetProperties())
             //{
@@ -496,6 +498,7 @@ namespace Nuvo.Requirements_Builder
                 //Console.WriteLine($"- Property: {pInfo.Name}");
             }
 
+            flpCalcParams.Controls.Clear();
 
             flpCalcParams.Controls.Add(new CalcParamCtrl(Calculator.Params));
             //foreach (PropertyInfo pInfo in CalcParamType.GetProperties())
