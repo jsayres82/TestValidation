@@ -37,7 +37,7 @@ namespace Nuvo.Requirements_Builder
 
         public void UpdateInfo(TestRequirement testRequirement, int num)
         {
-            richTextBoxReqNum.Text = num.ToString();
+            lblReqID.Text = num.ToString();
             richTextBoxReqName.Text = testRequirement.Name;
         }
 

@@ -9,7 +9,12 @@ namespace Nuvo.TestValidation.Calculators.SParam
 {
     public class dBcSParamCalculator : GenericSParamCalculator, ISParamCalculator
     {
-        public dBcSParamCalculator(GenericScatterParams parameters)
+        public dBcSParamCalculator()
+        {
+            Params = new DbcParameters();
+        }
+
+        public dBcSParamCalculator(GenericCalcParams parameters)
         {
             Params = parameters as DbcParameters;
         }

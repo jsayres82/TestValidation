@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Nuvo.TestValidation;
 using Nuvo.TestValidation.Utilities;
-using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using static Nuvo.TestValidation.Limits.Units.GenericUnits;
 
 namespace Nuvo.Requirements_Builder
 {

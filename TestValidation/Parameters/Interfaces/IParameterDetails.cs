@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using static Nuvo.TestValidation.Limits.Units.GenericUnits;
 using System.Text.Json.Serialization;
 
 namespace Nuvo.TestValidation.Parameters.Interfaces

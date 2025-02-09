@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 using Nuvo.TestValidation;
 using Nuvo.TestValidation.Parameters;
 using Nuvo.TestValidation.Limits;
-using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using Nuvo.TestValidation.Limits.Units;
 using Nuvo.TestValidation.Limits.Validators;
 using Nuvo.TestValidation.TestResults;
 using Nuvo.TestValidation.Utilities;

@@ -19,6 +19,7 @@ namespace Nuvo.TestValidation.Limits
         //[JsonProperty("StartFrequency")]
         [XmlElement("EndFrequency")]
         public override double End { get; set; }
+        public SpecRange<double> SecondaryRange { get; set; }
         public double StartValue { get; set; }
         public double EndValue { get; set; }
         public double StartValue2 { get; set; }
@@ -42,14 +43,24 @@ namespace Nuvo.TestValidation.Limits
         {
 
         }
-        public override double CalculateMargin(double domainValue, double rangeValue)
+
+        public override double CalculateMargin(double domainValue, double secondaryDomainValue, double rangeValue)
         {
+            if (LimitRange.ContainsValue(domainValue) && SecondaryRange.ContainsValue(secondaryDomainValue))
                 return Validator.CalculateMargin(rangeValue);
+            return double.NaN; // Skip validation if outside the specified frequency domain
         }
 
-        public override bool ValidateMeasurement(double measurement)
+        public override bool ValidateMeasurement(double domainValue, double secondaryDomainValue, double rangeValue)
         {
-            return Validator.Validate(measurement);
+            if (LimitRange.ContainsValue(domainValue) && SecondaryRange.ContainsValue(secondaryDomainValue))
+                return Validator.Validate(rangeValue);
+            return true; // Skip validation if outside the specified frequency domain
+        }
+
+        public override double CalculateMargin(double domainValue, double rangeValue)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

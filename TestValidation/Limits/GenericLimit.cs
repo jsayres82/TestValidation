@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Xml.Serialization;
 using Nuvo.TestValidation.Limits.Validators;
 using Newtonsoft.Json;
+using Nuvo.TestValidation.Limits.Units;
 
 namespace Nuvo.TestValidation.Limits
 {
@@ -24,8 +25,14 @@ namespace Nuvo.TestValidation.Limits
         [XmlElement("RampValidator", typeof(RampValidator<double>))]
         [XmlElement("BoundedValidator", typeof(BoundedValidator<double>))]
         public abstract GenericValidator<double> Validator { get; set; }
+
+        // TODO - Add IsSlopedRange to SpecRange
         [XmlIgnore]
         public bool IsSLopedLimit = false;
+
+        // TODO - Get rid of all the Start and Stops and implement List<SpecRange<double>> LimitRange { get; set; } 
+        public SpecRange<double> LimitRange { get; set; }
+
         //[JsonProperty("StartFrequency")]
         [XmlElement("StartFrequency")]
         public virtual double Start { get; set; }
@@ -34,18 +41,38 @@ namespace Nuvo.TestValidation.Limits
         [XmlElement("EndFrequency")]
         public virtual double End { get; set; }
 
+        public GenericLimit()
+        {
+        }
+
+        public GenericLimit(GenericUnits units) 
+        {
+            this.LimitRange = new SpecRange<double>();
+            this.LimitRange.Units = units;
+        }
+
         public abstract double CalculateMargin(double domainValue, double rangeValue);
+        public abstract double CalculateMargin(double domainValue, double SecondaryDomainValue, double rangeValue);
 
         public virtual bool ValidateMeasurement(double freq, double measurement)
         {
             return Validator.Validate(measurement);  
         }
 
-        public virtual bool ValidateMeasurement(double measurement)
+        public virtual bool ValidateMeasurement(List<double> domainValue, double measurement)
         {
             return Validator.Validate(measurement);
         }
 
+        public virtual bool ValidateMeasurement(double domainValue, double SecondaryDomainValue, double measurement)
+        {
+            return Validator.Validate(measurement);
+        }
+
+        public virtual bool ValidateMeasurement(double measurement)
+        {
+            return Validator.Validate(measurement);
+        }
 
         public void SetValidator(object validator)
         {

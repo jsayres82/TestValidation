@@ -13,7 +13,7 @@ using Nuvo.TestValidation.Limits;
 using Nuvo.TestValidation.Limits.Units;
 using Nuvo.TestValidation.Limits.Validators;
 using Nuvo.TestValidation.Parameters;
-using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using Nuvo.TestValidation.Limits.Units;
 
 namespace Nuvo.Requirements_Builder
 {

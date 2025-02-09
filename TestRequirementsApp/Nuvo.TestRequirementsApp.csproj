@@ -25,6 +25,8 @@
     <Compile Remove="ObjectMethodTester.Designer.cs" />
     <Compile Remove="ObjectTester.cs" />
     <Compile Remove="ObjectTester.Designer.cs" />
+    <Compile Remove="ParameterCtrl.cs" />
+    <Compile Remove="ParameterCtrl.Designer.cs" />
     <Compile Remove="QuickReflectForm.cs" />
     <Compile Remove="QuickReflectForm.Designer.cs" />
     <Compile Remove="ReflectionTreeBuilder.cs" />
@@ -37,6 +39,7 @@
     <EmbeddedResource Remove="MethodTester.resx" />
     <EmbeddedResource Remove="ObjectMethodTester.resx" />
     <EmbeddedResource Remove="ObjectTester.resx" />
+    <EmbeddedResource Remove="ParameterCtrl.resx" />
     <EmbeddedResource Remove="QuickReflectForm.resx" />
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 ﻿using Nuvo.TestValidation.Limits.Validators;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Nuvo.TestValidation.Limits.Units;
 
 namespace Nuvo.TestValidation.Limits
 {
@@ -35,6 +36,13 @@ namespace Nuvo.TestValidation.Limits
 
         }
 
+        public DomainLimit(GenericUnits units)
+            : base(units)
+        {
+            LimitRange = new SpecRange<double>();
+            LimitRange.Units = units;
+        }
+
         public override double CalculateMargin(double domainValue, double rangeValue)
         {
             if (Start <= domainValue && domainValue <= End)
@@ -47,6 +55,11 @@ namespace Nuvo.TestValidation.Limits
             if ( Start <= domainValue && domainValue <= End)
                 return Validator.Validate(rangeValue);
             return true; // Skip validation if outside the specified frequency domain
+        }
+
+        public override double CalculateMargin(double domainValue, double SecondaryDomainValue, double rangeValue)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

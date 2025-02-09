@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using Nuvo.TestValidation.Limits.Units;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using Nuvo.TestValidation.Limits.Units;
 
 namespace Nuvo.TestValidation.Limits.Validators
 {

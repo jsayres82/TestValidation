@@ -54,5 +54,10 @@ namespace Nuvo.TestValidation.Limits
         {
             return Validator.Validate(domainValue);// measurement["Amplitude"] >= MinValue && measurement["Amplitude"] <= MaxValue;
         }
+
+        public override double CalculateMargin(double domainValue, double SecondaryDomainValue, double rangeValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -95,5 +95,10 @@ namespace Nuvo.TestValidation.Limits
             double m = (Math.Log(domainValue) - Math.Log(Start)) / (Math.Log(End) - Math.Log(Start));
             return StartValue * (1 - m) + EndValue * (m);
         }
+
+        public override double CalculateMargin(double domainValue, double SecondaryDomainValue, double rangeValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

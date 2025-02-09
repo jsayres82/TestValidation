@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 
 namespace Nuvo.TestValidation.Calculators.SParam
 {
-    internal class MixedSParamCalculator : GenericSParamCalculator, ISParamCalculator
+    public class MixedSParamCalculator : GenericSParamCalculator, ISParamCalculator
     {
-        public MixedSParamCalculator(GenericScatterParams parameters)
+        public MixedSParamCalculator()
+        {
+            Params = new MixedScatterParameters();
+        }
+
+        public MixedSParamCalculator(GenericCalcParams parameters)
         {
             Params = parameters as MixedScatterParameters;
         }

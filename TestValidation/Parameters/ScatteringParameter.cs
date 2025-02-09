@@ -9,8 +9,12 @@ using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Limits;
 using Nuvo.TestValidation.Limits.Validators;
 using Nuvo.TestValidation.Utilities;
-using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using static Nuvo.TestValidation.Limits.Units.GenericUnits;
 using Newtonsoft.Json;
+using Nuvo.TestValidation.Calculators;
+using iText.Barcodes.Dmcode;
+using Nuvo.TestValidation.Calculators.SParam;
+using Nuvo.TestValidation.Limits.Units;
 
 namespace Nuvo.TestValidation.Parameters
 {
@@ -64,7 +68,20 @@ namespace Nuvo.TestValidation.Parameters
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
             VariableNames = new List<string>() { "S-Param" };
+            Calculator = new GenericSParamCalculator();
         }
+        /// <summary>
+        /// Constructor - Each calculator would have it's own description of what it is doing
+        /// </summary>
+        /// <param name="calculator"></param>
+        public ScatteringParameter(GenericCalculator calculator)
+            : base()
+        {
+            Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
+            VariableNames = new List<string>() { "S-Param" };
+            Calculator = calculator;
+        }
+
         /// <summary>
         /// Constructor - Needed for serialization.
         /// </summary>
@@ -73,6 +90,7 @@ namespace Nuvo.TestValidation.Parameters
         {
             Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
             VariableNames = new List<string>() { "S-Param" };
+            Calculator = new GenericSParamCalculator();
         }
 
         /// <summary>
@@ -159,7 +177,7 @@ namespace Nuvo.TestValidation.Parameters
                         case UnitEnum.dBmW:
                             valF = System.Convert.ToDouble(val2[idx].Magnitude_dB);
                             break;
-                        case UnitEnum.MilliWatt:
+                        case UnitEnum.LinearMag:
                             valF = System.Convert.ToDouble(val2[idx].Magnitude);
                             break;
                         case UnitEnum.Degree:

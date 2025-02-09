@@ -85,5 +85,10 @@ namespace Nuvo.TestValidation.Limits
             // Linear interpolation formula
             return StartValue + ((EndValue - StartValue) / (End - Start)) * (domainValue - Start);
         }
+
+        public override double CalculateMargin(double domainValue, double SecondaryDomainValue, double rangeValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

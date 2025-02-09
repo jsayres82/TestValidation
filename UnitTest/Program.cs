@@ -6,7 +6,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Nuvo.TestValidation.Limits;
 using Nuvo.TestValidation.Limits.Validators;
-using static Nuvo.TestValidation.Limits.Units.UnitConverter;
+using static Nuvo.TestValidation.Limits.Units.GenericUnits;
 using Nuvo.TestValidation.Limits.Units;
 using Nuvo.TestValidation.Parameters;
 using Nuvo.TestValidation;

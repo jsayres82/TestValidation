@@ -7,6 +7,7 @@ using Nuvo.TestValidation.Calculators.Interfaces;
 using Nuvo.TestValidation.Calculators;
 using Nuvo.TestValidation.Utilities;
 using System.Reflection;
+using Nuvo.TestValidation.Calculators;
 using Newtonsoft.Json;
 
 namespace Nuvo.TestValidation.Parameters
@@ -26,7 +27,7 @@ namespace Nuvo.TestValidation.Parameters
         protected static string LimitStr = "Limit";
         protected static string ValidatorStr = "Validator";
         public virtual double MinMargin { get; set; } = double.MaxValue;
-
+        public virtual GenericCalculator Calculator { get; set; }
         [XmlIgnore]
         public string FilePath { get; set; }
         public string SerialNumber { get; set; }
@@ -57,6 +58,18 @@ namespace Nuvo.TestValidation.Parameters
             _parameterValueCalculator = new DoubleParameterValueCalculator();
             VariableNames = new List<string>();
         }
+
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="calculator"></param>
+        public GenericParameter(GenericCalculator calculator)
+        {
+            _parameterValueCalculator = new DoubleParameterValueCalculator();
+            VariableNames = new List<string>();
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>

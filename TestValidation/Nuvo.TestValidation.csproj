@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Calculators\Generic\**" />
+    <EmbeddedResource Remove="Calculators\Generic\**" />
+    <None Remove="Calculators\Generic\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Convert.cs" />
     <Compile Remove="Limits\Units\Units.cs" />
     <Compile Remove="Parameters\BlackmanHarrisWindow.cs" />
@@ -65,10 +71,6 @@
     <Compile Update="Program.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Calculators\Generic\" />
   </ItemGroup>
 
   <ItemGroup>
