@@ -70,6 +70,7 @@ namespace Nuvo.TestValidation.Limits.Units
     
     [XmlInclude(typeof(FrequencyUnits))]
     [XmlInclude(typeof(TimeSparamUnits))]
+    [XmlInclude(typeof(MagSparamUnits))]
     [XmlInclude(typeof(SParamUnits))]
     public abstract class GenericUnits
     {
@@ -77,7 +78,10 @@ namespace Nuvo.TestValidation.Limits.Units
 
         public UnitEnum Unit { get; set; }
         public PrefixEnum Prefix { get; set; }
+        [XmlIgnore]
         public virtual List<UnitEnum> ValidUnitTypes { get; set; } = Enum.GetValues(typeof(UnitEnum)).Cast<UnitEnum>().ToList();
+
+        [XmlIgnore]
         public virtual List<PrefixEnum> ValidPrefixTypes { get; set; } = Enum.GetValues(typeof(PrefixEnum)).Cast<PrefixEnum>().ToList();
 
         public static readonly Dictionary<PrefixEnum, double> PrefixFactors = new Dictionary<PrefixEnum, double>
@@ -92,7 +96,7 @@ namespace Nuvo.TestValidation.Limits.Units
             { PrefixEnum.Kilo, 1e3 },
             { PrefixEnum.Hecto, 1e2 },
             { PrefixEnum.Deca, 1e1 },
-            {PrefixEnum.None, 1e0 },
+            { PrefixEnum.None, 1e0 },
             { PrefixEnum.Deci, 1e-1 },
             { PrefixEnum.Centi, 1e-2 },
             { PrefixEnum.Milli, 1e-3 },
@@ -197,6 +201,7 @@ namespace Nuvo.TestValidation.Limits.Units
             { UnitEnum.gram , "g"},
             { UnitEnum.Degree, "Deg"},
             { UnitEnum.Watt, "W"},
+            { UnitEnum.Phase, "Phase"},
         };
 
         /// <summary>Presents the Range in readable format.</summary>

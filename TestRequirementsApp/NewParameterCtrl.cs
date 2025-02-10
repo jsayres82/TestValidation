@@ -443,40 +443,10 @@ namespace Nuvo.Requirements_Builder
         {
             Parameter = Activator.CreateInstance(parameterTypes[cbSpecTypes.SelectedIndex]) as GenericParameter;
             Calculator = Parameter.Calculator;
+            if (Calculator == null)
+                return;
             CalcType = Calculator.GetType();
             updateCalculatorComboBox();
-            //// Load the assembly containing the CharacteristicParameter classes
-            //Assembly assembly = Assembly.LoadFrom("Nuvo.TestValidation.dll");
-
-            //// Get all the CharacteristicParameter classes
-            //calcTypes = assembly.GetTypes()
-            //    .Where(t => t.IsSubclassOf(calc.GetType()))
-            //    .ToArray();
-
-            //// Loop through the CharacteristicParameter classes
-            //foreach (Type type in calcTypes)
-            //{
-            //    Console.WriteLine($"Parameter Calculator: {type.Name}");
-            //    cbCalculator.Items.Add(type.Name);
-            //    // Get all the methods of the CharacteristicParameter class
-            //    PropertyInfo[] calcParams = type.GetProperties();
-
-            //    // Loop through the methods
-            //    foreach (PropertyInfo prop in calcParams)
-            //    {
-            //        Console.WriteLine($"- Property: {prop.Name}");
-            //    }
-
-            //    Console.WriteLine();
-            //}
-            //cbCalculator.SelectedIndex = 0;
-            //PropertyInfo[] properties = calc.GetType().GetProperties();
-            //var calcProp = calc.GetType().GetProperties();
-            //var count = calcProp.Length;
-            //for (int i = 0; i < count; i++)
-            //{
-            //}
-            //var selCalc = Activator.CreateInstance(calcTypes[cbCalculator.SelectedIndex]);
             ParameterUpdated.Invoke(this, null);
         }
 

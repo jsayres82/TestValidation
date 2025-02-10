@@ -7,10 +7,13 @@ using System.Xml.Serialization;
 
 namespace Nuvo.TestValidation.Limits.Units
 {
-    public class MagSparamUnits : SParamUnits
+    public class MagSparamUnits : GenericUnits
     {
-        public override List<UnitEnum> ValidUnitTypes { get; set; } = new List<UnitEnum>() { UnitEnum.dB, UnitEnum.LinearMag };
-        public override List<PrefixEnum> ValidPrefixTypes { get; set; } = new List<PrefixEnum>() { PrefixEnum.None };
-        public MagSparamUnits() { }
+        public MagSparamUnits() 
+        {
+            Unit = UnitEnum.dB;
+            ValidUnitTypes = new List<UnitEnum>() { UnitEnum.dB, UnitEnum.LinearMag };
+            ValidPrefixTypes = new List<PrefixEnum>() { PrefixEnum.None };
+        }
     }
 }

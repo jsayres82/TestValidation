@@ -1,4 +1,5 @@
-﻿using Nuvo.TestValidation.Calculators;
+﻿using iText.Barcodes.Dmcode;
+using Nuvo.TestValidation.Calculators;
 using Nuvo.TestValidation.Limits;
 using Nuvo.TestValidation.Limits.Units;
 using System;
@@ -17,7 +18,8 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
     public partial class CalcParamCtrl : UserControl
     {
         public GenericCalcParams Params { get; set; }
-        private Dictionary<string, GenericUnits> unitDic = new Dictionary<string, GenericUnits>();
+        private Dictionary<string, PrefixEnum> prefixDic = new Dictionary<string, PrefixEnum>();
+        private Dictionary<string, UnitEnum> unitDic = new Dictionary<string, UnitEnum>();
         public CalcParamCtrl()
         {
             InitializeComponent();
@@ -36,6 +38,7 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
                 }
                 else if (pInfo.Name.Equals("Units"))
                 {
+                    prefixDic.Clear();
                     unitDic.Clear();
                     foreach (var unit in param.Units.ValidUnitTypes)
                     {
@@ -44,10 +47,19 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
                         foreach (var prefix in param.Units.ValidPrefixTypes)
                         {
                             tempUnit.Prefix = prefix;
-                            unitDic.Add(tempUnit.ToString(), tempUnit);
+                            unitDic.Add(tempUnit.ToString(), unit);
+                            prefixDic.Add(tempUnit.ToString(), prefix);
                         }
                     }
                     flowLayoutPanel1.Controls.Add(updateCalculatorParametersComboBox(pInfo, unitDic));
+                }
+                else if (pInfo.PropertyType == typeof(List<string>))
+                {
+                    flowLayoutPanel1.Controls.Add(updateCalculatorParameters(pInfo, pInfo.GetValue(Params) as List<string>));
+                }
+                else if (pInfo.PropertyType == typeof(bool))
+                {
+                    flowLayoutPanel1.Controls.Add(updateCalculatorParameters(pInfo, (bool)pInfo.GetValue(Params)));
                 }
                 else
                 {
@@ -72,12 +84,20 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
                             prop.SetValue(Params, System.Convert.ToDouble((panel.Controls[1] as TextBox).Text));
                         else if (prop.PropertyType == typeof(string))
                             prop.SetValue(Params, (panel.Controls[1] as TextBox).Text);
+                        else if (prop.PropertyType == typeof(bool))
+                        {
+                            prop.SetValue(Params, (panel.Controls[1] as CheckBox).Checked);
+                        }
                         else if (prop.PropertyType == typeof(List<string>))
                         {
-                            prop.SetValue(Params, (panel.Controls[1] as ComboBox).SelectedText);
+                            var str = (panel.Controls[1].Text).Split("\n").ToList<string>();
+                            prop.SetValue(Params, str);
                         }
                         else if (prop.PropertyType == typeof(GenericUnits))
-                            prop.SetValue(Params, ((panel.Controls[1] as ComboBox).SelectedItem as GenericUnits));// unitDic[((panel.Controls[1] as ComboBox).SelectedItem as string)]);
+                        {
+                            Params.Units.Prefix = prefixDic[(panel.Controls[1] as ComboBox).SelectedItem.ToString()];
+                            Params.Units.Unit = unitDic[(panel.Controls[1] as ComboBox).SelectedItem.ToString()];
+                        }
                     }
                 }
                 else if(ctrl is RangeCtrl)
@@ -110,7 +130,53 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
             return flp;
         }
 
-        private FlowLayoutPanel updateCalculatorParametersComboBox(PropertyInfo propInfo, Dictionary<string, GenericUnits> items)
+        private FlowLayoutPanel updateCalculatorParameters(PropertyInfo propInfo, List<string> list)
+        {
+            Label l = new Label();
+            l.Margin = new Padding(3, 0, 3, 0);
+            RichTextBox rtb = new RichTextBox();
+            rtb.Size = new Size(45, 100);
+            FlowLayoutPanel flp = new FlowLayoutPanel();
+            flp.FlowDirection = FlowDirection.TopDown;
+            flp.AutoSize = true;
+            flp.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            l.Text = propInfo.Name;
+            l.TextAlign = ContentAlignment.MiddleLeft;
+            string ls = new string("");
+            foreach(var str in list)
+            {
+                ls += str + "\n";
+            }
+            rtb.Text = ls;
+            rtb.Tag = propInfo.GetValue(Params);
+            flp.Controls.Add(l);
+            flp.Controls.Add(rtb);
+            flp.Tag = propInfo;
+            flp.Name = "CalculatorParam_" + propInfo.Name;
+            return flp;
+        }
+        private FlowLayoutPanel updateCalculatorParameters(PropertyInfo propInfo, bool value)
+        {
+            Label l = new Label();
+            l.Margin = new Padding(3, 0, 3, 0);
+            CheckBox cb = new CheckBox();
+            cb.Size = new Size(120, 23);
+            FlowLayoutPanel flp = new FlowLayoutPanel();
+            flp.FlowDirection = FlowDirection.TopDown;
+            flp.AutoSize = true;
+            flp.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            l.Text = propInfo.Name;
+            l.TextAlign = ContentAlignment.MiddleLeft;
+            cb.Checked = value;
+            cb.Tag = propInfo.GetValue(Params);
+            flp.Controls.Add(l);
+            flp.Controls.Add(cb);
+            flp.Tag = propInfo;
+            flp.Name = "CalculatorParam_" + propInfo.Name;
+            return flp;
+        }
+
+        private FlowLayoutPanel updateCalculatorParametersComboBox(PropertyInfo propInfo, Dictionary<string, UnitEnum> items)
         {
             Label l = new Label();
             l.Margin = new Padding(3, 0, 3, 0);
@@ -127,10 +193,8 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
                 cb.Items.Add(item);
             }
 
-            if (items.Count > 0)
-            {
-                cb.SelectedIndex = 0;
-            }
+            var str = propInfo.GetValue(Params).ToString();
+            cb.SelectedItem = str;
             flp.Controls.Add(l);
             flp.Controls.Add(cb);
             flp.Tag = propInfo;

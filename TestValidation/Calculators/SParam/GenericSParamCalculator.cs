@@ -11,7 +11,6 @@ namespace Nuvo.TestValidation.Calculators.SParam
     [XmlInclude(typeof(MixedSParamCalculator))]
     public class GenericSParamCalculator : GenericCalculator
     {
-        public override GenericCalcParams Params { get; set; } = new GenericSParamCalcParams();
 
         public GenericSParamCalculator()
             :base() 

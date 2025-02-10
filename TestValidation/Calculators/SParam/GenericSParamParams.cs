@@ -26,15 +26,15 @@ namespace Nuvo.TestValidation.Calculators.SParam
 
     public class DbcParameters : GenericSParamCalcParams
     {
+        public bool IsReciprocal { get; set; }
         public double CarrierFrequency { get; set; }
         public List<string> NormalizedTo { get; set; } = new List<string>();
-        public string Test { get; set; } = "Test";
-        public string Test2 { get; set; } = "Test2";
-        public string Test3 { get; set; } = "Test3";
         public DbcParameters()
+            : base() 
         {
             Limit = new DomainLimit(new FrequencyUnits());
-            Units = new MagSparamUnits();
+            Units = new MagSparamUnits() { Unit = UnitEnum.dB, ValidUnitTypes = new List<UnitEnum>() { UnitEnum.dB } };
+            IsReciprocal = false;
             ParameterIndex = "";
             CarrierFrequency = 0;
         }
@@ -43,7 +43,10 @@ namespace Nuvo.TestValidation.Calculators.SParam
     public class MixedScatterParameters : GenericSParamCalcParams
     {
         public double MeasuredValue { get; set; }
+        //public override GenericUnits Units { get; set; } = new MagSparamUnits();
+        //public string ParameterIndex = "";
         public MixedScatterParameters()
+            : base()
         {
             Limit = new DomainLimit(new FrequencyUnits());
             Units = new MagSparamUnits();

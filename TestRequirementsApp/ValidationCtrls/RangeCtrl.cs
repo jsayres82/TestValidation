@@ -16,7 +16,8 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
     public partial class RangeCtrl : UserControl
     {
         SpecRange<double> Range = new SpecRange<double>();
-        private Dictionary<string, GenericUnits> unitDic = new Dictionary<string, GenericUnits>();
+        private Dictionary<string, PrefixEnum> prefixDic = new Dictionary<string, PrefixEnum>();
+        private Dictionary<string, UnitEnum> unitDic = new Dictionary<string, UnitEnum>();
         public RangeCtrl()
         {
             InitializeComponent();
@@ -25,11 +26,17 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
         public RangeCtrl(SpecRange<double> range)
         {
             InitializeComponent();
+
+            Range = new SpecRange<double>();
+            prefixDic = new Dictionary<string, PrefixEnum>();
+            unitDic = new Dictionary<string, UnitEnum>();
+            Range = range;
             if (range.IsSingleEnded)
             {
                 lblMin.Visible = false;
                 lblMax.Visible = false;
                 tbMax.Visible = false;
+                lblValue.Enabled = true;
                 lblValue.Visible = true;
             }
             else
@@ -44,50 +51,55 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
                 else
                     tbMax.Text = range.Maximum.ToString();
             }
-
+            prefixDic.Clear();
             unitDic.Clear();
             foreach (var unit in range.Units.ValidUnitTypes)
             {
                 var r = new SpecRange<double>();
                 var tempUnit = Activator.CreateInstance(range.Units.GetType()) as GenericUnits;
                 tempUnit.Unit = unit;
-                r.Units = range.Units;
-                r.Units.Unit = unit;
                 foreach (var prefix in range.Units.ValidPrefixTypes)
                 {
+                    var str = new string("");
                     tempUnit.Prefix = prefix;
-                    r.Units.Prefix = prefix;
-                    unitDic.Add(tempUnit.ToString(),r.Units);
-                    cbUnits.Items.Add(tempUnit);
+                    prefixDic.Add(tempUnit.ToString(), prefix);
+                    unitDic.Add(tempUnit.ToString(), unit);
+                    str = tempUnit.ToString();
+                    cbUnits.Items.Add(str);
                 }
             }
-            cbUnits.Tag = range.Units;
-                if(cbUnits.Items.Count > 0)
+
+            cbUnits.Tag = Range.Units;
+
+            if (Range.Units == null)
+            {
+                if (cbUnits.Items.Count > 0)
                 {
                     cbUnits.SelectedIndex = 0;
-                    if (range.Units.Unit == null)
-                    {
-                        range.Units = unitDic[cbUnits.SelectedText];
-                    }
-                    else
-                    {
-                        if(cbUnits.Items.Contains(range.Units.Unit.ToString()))
-                            cbUnits.SelectedText = range.Units.Unit.ToString();
-                    }
+                    if (cbUnits.Items.Contains(range.Units.ToString()))
+                        cbUnits.SelectedItem = Range.Units.ToString();
                 }
             }
-        
+            else
+            {
+                cbUnits.SelectedItem = Range.Units.ToString();
+            }
+        }
+
+
         public SpecRange<double> GetSpecRange()
         {
-            if(lblValue.Visible)
+
+            if (lblValue.Visible)
             {
                 Range.Minimum = Convert.ToDouble(tbMin.Text);
                 Range.Maximum = Convert.ToDouble(tbMin.Text);
             }
-            Range.IsSingleEnded = lblMin.Visible;
+            Range.IsSingleEnded = lblValue.Visible;
             Range.Minimum = Convert.ToDouble(tbMin.Text);
             Range.Maximum = Convert.ToDouble(tbMax.Text);
-            Range.Units = cbUnits.SelectedItem as GenericUnits; // unitDic[cbUnits.SelectedItem];
+            Range.Units.Prefix = prefixDic[cbUnits.SelectedItem.ToString()];
+            Range.Units.Unit = unitDic[cbUnits.SelectedItem.ToString()];
             return Range;
         }
     }

@@ -17,6 +17,7 @@ namespace Nuvo.TestValidation.Calculators
     {
 
         public virtual GenericLimit Limit { get; set; }
+        [XmlElement]
         public virtual GenericUnits Units { get; set; }
         public GenericCalcParams() { }
     }
