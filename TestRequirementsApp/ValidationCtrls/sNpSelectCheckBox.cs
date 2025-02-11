@@ -18,13 +18,37 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
         public int NumPorts = 1;
         public List<string> PortList = new List<string>();
         private Dictionary<string, int> sParameterStrDic = new Dictionary<string, int>();
-
+        private Size expandedSize = new Size();
         public List<string> SelectedSParameterList = new List<string>();
 
         private Dictionary<string, CheckBox> CheckBoxDic = new Dictionary<string, CheckBox>();
         public sNpSelectCheckBox()
         {
             InitializeComponent();
+            expandedSize = this.MinimumSize;
+            initialize_sparameter_checkboxes();
+        }
+
+        public sNpSelectCheckBox(int numPorts, List<string> selectedPorts)
+        {
+            InitializeComponent();
+            expandedSize = this.MinimumSize;
+            NumPorts = numPorts;
+            initialize_sparameter_checkboxes();
+            foreach (string port in selectedPorts)
+            {
+                CheckBoxDic[port].CheckState = CheckState.Checked;
+            }
+        }
+
+        public List<string> GetSParameterList()
+        {
+            return SelectedSParameterList;
+        }
+
+        public int GetNumPorts()
+        {
+            return NumPorts;
         }
 
 
@@ -91,10 +115,12 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
             if (splitContainer1.Panel2Collapsed)
             {
                 btnEditSelection.Text = "Collapse";
+                this.Size = expandedSize;
             }
             else
             {
                 btnEditSelection.Text = "Edit";
+                this.Size = this.MinimumSize;
             }
             splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
         }
@@ -103,9 +129,13 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
         {
             lbSParameters.Text = string.Empty;
             NumPorts = Convert.ToInt32(nudNumPorts.Value);
-            var newSize = new Size(Math.Max(lbSParameters.MinimumSize.Width, NumPorts * 20),
-                Math.Max(lbSParameters.MinimumSize.Height, NumPorts * 10) + 58);
-            this.Size = newSize;
+            var newSize = new Size(Math.Max(flowLayoutPanel1.MinimumSize.Width, NumPorts * 50),
+                Math.Max(flowLayoutPanel1.MinimumSize.Height, NumPorts * 25));
+            var deltaWidth = NumPorts * 50 - flowLayoutPanel1.MinimumSize.Width;
+            var deltaHeight = NumPorts * 25 - flowLayoutPanel1.MinimumSize.Height;
+            this.expandedSize = new Size(this.MinimumSize.Width + deltaWidth, this.MinimumSize.Height + deltaHeight);
+            if (btnEditSelection.Text.Equals("Collapse"))
+                this.Size = expandedSize;
             foreach (var sparam in sParameterStrDic.Keys)
             {
                 CheckBoxDic[sparam].CheckStateChanged -= CbSxP_CheckStateChanged;
@@ -117,5 +147,6 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
             }
             initialize_sparameter_checkboxes();
         }
+
     }
 }

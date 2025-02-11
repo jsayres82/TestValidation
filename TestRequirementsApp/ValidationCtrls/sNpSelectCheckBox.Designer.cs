@@ -57,6 +57,7 @@
             // 
             splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            splitContainer1.IsSplitterFixed = true;
             splitContainer1.Location = new System.Drawing.Point(3, 19);
             splitContainer1.Name = "splitContainer1";
             splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -70,9 +71,10 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(flowLayoutPanel1);
+            splitContainer1.Panel2Collapsed = true;
             splitContainer1.Panel2MinSize = 0;
-            splitContainer1.Size = new System.Drawing.Size(124, 118);
-            splitContainer1.SplitterDistance = 58;
+            splitContainer1.Size = new System.Drawing.Size(104, 108);
+            splitContainer1.SplitterDistance = 59;
             splitContainer1.TabIndex = 4;
             // 
             // panel1
@@ -108,7 +110,7 @@
             panel4.Dock = System.Windows.Forms.DockStyle.Top;
             panel4.Location = new System.Drawing.Point(0, 0);
             panel4.Name = "panel4";
-            panel4.Size = new System.Drawing.Size(124, 58);
+            panel4.Size = new System.Drawing.Size(104, 58);
             panel4.TabIndex = 3;
             // 
             // panel3
@@ -117,7 +119,7 @@
             panel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             panel3.Controls.Add(nudNumPorts);
             panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            panel3.Location = new System.Drawing.Point(83, 0);
+            panel3.Location = new System.Drawing.Point(63, 0);
             panel3.MinimumSize = new System.Drawing.Size(40, 0);
             panel3.Name = "panel3";
             panel3.Size = new System.Drawing.Size(41, 33);
@@ -144,7 +146,7 @@
             panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             panel2.Location = new System.Drawing.Point(0, 33);
             panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(124, 25);
+            panel2.Size = new System.Drawing.Size(104, 25);
             panel2.TabIndex = 8;
             // 
             // btnEditSelection
@@ -154,7 +156,7 @@
             btnEditSelection.Dock = System.Windows.Forms.DockStyle.Bottom;
             btnEditSelection.Location = new System.Drawing.Point(0, 0);
             btnEditSelection.Name = "btnEditSelection";
-            btnEditSelection.Size = new System.Drawing.Size(124, 25);
+            btnEditSelection.Size = new System.Drawing.Size(104, 25);
             btnEditSelection.TabIndex = 7;
             btnEditSelection.Text = "Edit";
             btnEditSelection.UseVisualStyleBackColor = true;
@@ -168,7 +170,7 @@
             panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             panel5.Location = new System.Drawing.Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new System.Drawing.Size(124, 58);
+            panel5.Size = new System.Drawing.Size(104, 58);
             panel5.TabIndex = 7;
             // 
             // label1
@@ -177,9 +179,9 @@
             label1.Dock = System.Windows.Forms.DockStyle.Fill;
             label1.Location = new System.Drawing.Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(64, 15);
+            label1.Size = new System.Drawing.Size(37, 15);
             label1.TabIndex = 6;
-            label1.Text = "NumPorts:";
+            label1.Text = "Ports:";
             // 
             // flowLayoutPanel1
             // 
@@ -187,8 +189,9 @@
             flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            flowLayoutPanel1.MinimumSize = new System.Drawing.Size(104, 50);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new System.Drawing.Size(124, 56);
+            flowLayoutPanel1.Size = new System.Drawing.Size(150, 50);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // gbSnP
@@ -199,7 +202,7 @@
             gbSnP.Dock = System.Windows.Forms.DockStyle.Fill;
             gbSnP.Location = new System.Drawing.Point(0, 0);
             gbSnP.Name = "gbSnP";
-            gbSnP.Size = new System.Drawing.Size(130, 140);
+            gbSnP.Size = new System.Drawing.Size(110, 130);
             gbSnP.TabIndex = 5;
             gbSnP.TabStop = false;
             gbSnP.Text = "S-Parameter Selection";
@@ -209,9 +212,9 @@
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(gbSnP);
-            MinimumSize = new System.Drawing.Size(130, 80);
+            MinimumSize = new System.Drawing.Size(110, 130);
             Name = "sNpSelectCheckBox";
-            Size = new System.Drawing.Size(130, 140);
+            Size = new System.Drawing.Size(110, 130);
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);

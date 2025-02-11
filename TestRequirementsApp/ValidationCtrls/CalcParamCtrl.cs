@@ -90,8 +90,9 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
                         }
                         else if (prop.PropertyType == typeof(List<string>))
                         {
-                            var str = (panel.Controls[1].Text).Split("\n").ToList<string>();
+                            var str = (panel.Controls[1] as sNpSelectCheckBox).GetSParameterList();
                             prop.SetValue(Params, str);
+                            //prop.SetValue(Params, (panel.Controls[1] as sNpSelectCheckBox).GetNumPorts());
                         }
                         else if (prop.PropertyType == typeof(GenericUnits))
                         {
@@ -134,8 +135,9 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
         {
             Label l = new Label();
             l.Margin = new Padding(3, 0, 3, 0);
-            RichTextBox rtb = new RichTextBox();
-            rtb.Size = new Size(45, 100);
+            sNpSelectCheckBox sParameters = new sNpSelectCheckBox();
+            //RichTextBox rtb = new RichTextBox();
+            //rtb.Size = new Size(45, 100);
             FlowLayoutPanel flp = new FlowLayoutPanel();
             flp.FlowDirection = FlowDirection.TopDown;
             flp.AutoSize = true;
@@ -147,13 +149,12 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
             {
                 ls += str + "\n";
             }
-            rtb.Text = ls;
-            rtb.Tag = propInfo.GetValue(Params);
+            //rtb.Text = ls;
+            //rtb.Tag = propInfo.GetValue(Params);
             flp.Controls.Add(l);
-            flp.Controls.Add(rtb);
+            //flp.Controls.Add(rtb);
             flp.Tag = propInfo;
             flp.Name = "CalculatorParam_" + propInfo.Name;
-            sNpSelectCheckBox sParameters = new sNpSelectCheckBox();
             flp.Controls.Add(sParameters);
             return flp;
         }
