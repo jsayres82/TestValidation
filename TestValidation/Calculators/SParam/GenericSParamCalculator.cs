@@ -11,9 +11,15 @@ namespace Nuvo.TestValidation.Calculators.SParam
     [XmlInclude(typeof(MixedSParamCalculator))]
     public class GenericSParamCalculator : GenericCalculator
     {
-
+        
         public GenericSParamCalculator()
             :base() 
+        {
+            Params = new GenericSParamCalcParams();
+        }
+
+        public GenericSParamCalculator(int numPorts)
+            : base()
         {
             Params = new GenericSParamCalcParams();
         }

@@ -100,7 +100,7 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
                         }
                     }
                 }
-                else if(ctrl is RangeCtrl)
+                else if (ctrl is RangeCtrl)
                 {
                     Params.Limit.LimitRange = (ctrl as RangeCtrl).GetSpecRange();
                 }
@@ -143,7 +143,7 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
             l.Text = propInfo.Name;
             l.TextAlign = ContentAlignment.MiddleLeft;
             string ls = new string("");
-            foreach(var str in list)
+            foreach (var str in list)
             {
                 ls += str + "\n";
             }
@@ -153,6 +153,8 @@ namespace Nuvo.Requirements_Builder.ValidationCtrls
             flp.Controls.Add(rtb);
             flp.Tag = propInfo;
             flp.Name = "CalculatorParam_" + propInfo.Name;
+            sNpSelectCheckBox sParameters = new sNpSelectCheckBox();
+            flp.Controls.Add(sParameters);
             return flp;
         }
         private FlowLayoutPanel updateCalculatorParameters(PropertyInfo propInfo, bool value)

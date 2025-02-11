@@ -15,12 +15,19 @@ namespace Nuvo.TestValidation.Calculators.SParam
     [Serializable]
     public class GenericSParamCalcParams : GenericCalcParams
     {
+        private int NumPorts { get; set; }
         public string ParameterIndex { get; set; } = "";
         //public List<string> ParameterIndeces { get; set; }
         public GenericSParamCalcParams()
         {
             Limit = new DomainLimit(new FrequencyUnits());
             Units = new SParamUnits();
+        }
+        public GenericSParamCalcParams(int numPorts)
+        {
+            Limit = new DomainLimit(new FrequencyUnits());
+            Units = new SParamUnits();
+            NumPorts = numPorts;
         }
     }
 

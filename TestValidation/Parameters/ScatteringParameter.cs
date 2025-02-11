@@ -63,6 +63,18 @@ namespace Nuvo.TestValidation.Parameters
         /// Constructor - Each calculator would have it's own description of what it is doing
         /// </summary>
         /// <param name="calculator"></param>
+        public ScatteringParameter(IParameterValueCalculator calculator, int NumPorts)
+            : base(calculator)
+        {
+            Description = "Compares the value of the specified \"S-Param\" to the limit specified.";
+            VariableNames = new List<string>() { "S-Param" };
+            Calculator = new GenericSParamCalculator();
+        }
+
+        /// <summary>
+        /// Constructor - Each calculator would have it's own description of what it is doing
+        /// </summary>
+        /// <param name="calculator"></param>
         public ScatteringParameter(IParameterValueCalculator calculator)
             : base(calculator)
         {
